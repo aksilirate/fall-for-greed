@@ -1,0 +1,773 @@
+[gd_scene load_steps=44 format=2]
+
+[ext_resource path="res://Theme.tres" type="Theme" id=1]
+[ext_resource path="res://Textures/Interface/Profile Border.png" type="Texture" id=2]
+[ext_resource path="res://Textures/Interface/Story Button.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/GameScreen/ActionStoryButton.gd" type="Script" id=4]
+[ext_resource path="res://Scenes/GameScreen/GameScreen.gd" type="Script" id=5]
+[ext_resource path="res://Textures/Interface/Inventory Frame.png" type="Texture" id=6]
+[ext_resource path="res://Textures/Interface/Selected Slot.png" type="Texture" id=7]
+[ext_resource path="res://Scenes/GameScreen/Area.gd" type="Script" id=8]
+[ext_resource path="res://Scenes/GameScreen/Characters.gd" type="Script" id=9]
+[ext_resource path="res://Scenes/GameScreen/Story.gd" type="Script" id=10]
+[ext_resource path="res://Scenes/GameScreen/EastSlot.gd" type="Script" id=11]
+[ext_resource path="res://Scenes/GameScreen/NorthEastSlot.gd" type="Script" id=12]
+[ext_resource path="res://Scenes/GameScreen/SelectedSlot.gd" type="Script" id=13]
+[ext_resource path="res://Scenes/GameScreen/NorthWestSlot.gd" type="Script" id=14]
+[ext_resource path="res://Scenes/GameScreen/WestSlot.gd" type="Script" id=15]
+[ext_resource path="res://Scenes/GameScreen/CenterSlot.gd" type="Script" id=16]
+[ext_resource path="res://Scenes/GameScreen/NorthSlot.gd" type="Script" id=17]
+[ext_resource path="res://Scenes/GameScreen/SouthEastSlot.gd" type="Script" id=18]
+[ext_resource path="res://Scenes/GameScreen/SouthSlot.gd" type="Script" id=19]
+[ext_resource path="res://Scenes/GameScreen/ThreatContainer.gd" type="Script" id=20]
+[ext_resource path="res://Textures/Interface/Story Frame.png" type="Texture" id=23]
+[ext_resource path="res://Scenes/GameScreen/PlayerLabel.gd" type="Script" id=24]
+[ext_resource path="res://Scenes/GameScreen/SecondMemberLabel.gd" type="Script" id=25]
+[ext_resource path="res://Scenes/GameScreen/FirstMemberLabel.gd" type="Script" id=26]
+[ext_resource path="res://Scenes/GameScreen/ThirdMemberLabel.gd" type="Script" id=27]
+[ext_resource path="res://Textures/Character Profiles/Pyry Wright.png" type="Texture" id=28]
+[ext_resource path="res://Textures/Areas/Abandoned Forest/Abandoned Forest 0.png" type="Texture" id=30]
+[ext_resource path="res://Textures/Interface/Action Frame.png" type="Texture" id=31]
+[ext_resource path="res://Scenes/GameScreen/StoryFrame.gd" type="Script" id=32]
+[ext_resource path="res://Scenes/GameScreen/TimeLabel.gd" type="Script" id=34]
+[ext_resource path="res://Textures/Action Icons/Sleep.png" type="Texture" id=35]
+[ext_resource path="res://Textures/Action Icons/Wait.png" type="Texture" id=36]
+[ext_resource path="res://Textures/Action Icons/Search.png" type="Texture" id=37]
+[ext_resource path="res://Textures/Action Icons/Walk.png" type="Texture" id=38]
+[ext_resource path="res://Scenes/GameScreen/RightAction.gd" type="Script" id=39]
+[ext_resource path="res://Scenes/GameScreen/EastAction.gd" type="Script" id=40]
+[ext_resource path="res://Scenes/GameScreen/LeftAction.gd" type="Script" id=41]
+[ext_resource path="res://Scenes/GameScreen/WestAction.gd" type="Script" id=42]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Hide Information"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("ProfileTexture:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( -3, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ProfileBorder:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( -3, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ThreatContainer:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( -3, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Inventory:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( -3, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "Hide Screen"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("BlackScreen:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5, 2 ),
+"transitions": PoolRealArray( 0.5, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 5.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("StoryFrame:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 6, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.482353 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ActionStoryButton:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 6, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ProfileBorder:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("ProfileTexture:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("HistoryLabel:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.7, 2.3 ),
+"transitions": PoolRealArray( 6, 6, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("TimeLabel:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.9, 2.5 ),
+"transitions": PoolRealArray( 6, 6, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("CharacterLabels:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 1.1, 2.7 ),
+"transitions": PoolRealArray( 6, 6, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("ThreatContainer:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("StoryTexture:modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 6, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("BlackScreen:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0.4 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("HoldSlot:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 1.8, 3.5 ),
+"transitions": PoolRealArray( 6, 6, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("ProfileTexture:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( -3, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ProfileBorder:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( -3, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ThreatContainer:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( -3, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Inventory:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( -3, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "Show Screen"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("BlackScreen:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 2 ),
+"transitions": PoolRealArray( 1.5, 1.5, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[node name="GameScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+theme = ExtResource( 1 )
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+threat_container = NodePath("ThreatContainer")
+hold_slot = NodePath("HoldSlot")
+area = NodePath("Logic/Area")
+
+[node name="Logic" type="Node" parent="."]
+
+[node name="Characters" type="Node" parent="Logic"]
+script = ExtResource( 9 )
+
+[node name="Area" type="Node" parent="Logic"]
+script = ExtResource( 8 )
+
+[node name="Story" type="Node" parent="Logic"]
+script = ExtResource( 10 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+"anims/Hide Information" = SubResource( 1 )
+"anims/Hide Screen" = SubResource( 2 )
+anims/Load = SubResource( 3 )
+"anims/Show Information" = SubResource( 4 )
+"anims/Show Screen" = SubResource( 5 )
+
+[node name="ProfileTexture" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 289.877
+margin_top = 17.901
+margin_right = 351.877
+margin_bottom = 79.901
+texture = ExtResource( 28 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ProfileBorder" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 288.407
+margin_top = 16.8038
+margin_right = 352.407
+margin_bottom = 80.8037
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HistoryLabel" type="Label" parent="."]
+margin_left = 120.0
+margin_top = 151.149
+margin_right = 249.0
+margin_bottom = 197.149
+text = "A cursed man that has lost his home, wife and son."
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ThreatContainer" type="VBoxContainer" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 295.0
+margin_top = 86.0
+margin_right = 347.0
+margin_bottom = 126.0
+script = ExtResource( 20 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TimeLabel" type="Label" parent="."]
+margin_left = 119.0
+margin_top = 2.0
+margin_right = 249.0
+margin_bottom = 15.0
+text = "day 1 | 00:00 am"
+align = 1
+autowrap = true
+script = ExtResource( 34 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StoryFrame" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0.482353 )
+margin_left = 119.0
+margin_top = 16.743
+margin_right = 249.001
+margin_bottom = 146.743
+texture = ExtResource( 23 )
+script = ExtResource( 32 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StoryTexture" type="TextureRect" parent="."]
+margin_left = 120.0
+margin_top = 17.743
+margin_right = 248.001
+margin_bottom = 145.743
+texture = ExtResource( 30 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ActionStoryButton" type="TextureRect" parent="."]
+margin_left = 179.0
+margin_top = 138.297
+margin_right = 189.0
+margin_bottom = 149.297
+mouse_filter = 0
+texture = ExtResource( 3 )
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Actions" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="WestAction" type="TextureRect" parent="Actions"]
+margin_left = 119.0
+margin_top = 166.0
+margin_right = 136.0
+margin_bottom = 183.0
+texture = ExtResource( 31 )
+script = ExtResource( 42 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ActionTexture" type="TextureRect" parent="Actions/WestAction"]
+margin_left = 0.520279
+margin_top = 1.41219
+margin_right = 15.5203
+margin_bottom = 16.4122
+mouse_filter = 2
+texture = ExtResource( 36 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LeftAction" type="TextureRect" parent="Actions"]
+margin_left = 162.444
+margin_top = 165.642
+margin_right = 179.444
+margin_bottom = 182.642
+texture = ExtResource( 31 )
+script = ExtResource( 41 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ActionTexture" type="TextureRect" parent="Actions/LeftAction"]
+margin_left = 0.567459
+margin_top = 1.26353
+margin_right = 15.5675
+margin_bottom = 16.2635
+mouse_filter = 2
+texture = ExtResource( 38 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RightAction" type="TextureRect" parent="Actions"]
+margin_left = 189.444
+margin_top = 165.642
+margin_right = 206.444
+margin_bottom = 182.642
+texture = ExtResource( 31 )
+script = ExtResource( 39 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ActionTexture" type="TextureRect" parent="Actions/RightAction"]
+margin_left = 0.628494
+margin_top = 1.37489
+margin_right = 15.6285
+margin_bottom = 16.3749
+mouse_filter = 2
+texture = ExtResource( 35 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EastAction" type="TextureRect" parent="Actions"]
+margin_left = 232.444
+margin_top = 165.642
+margin_right = 249.444
+margin_bottom = 182.642
+texture = ExtResource( 31 )
+script = ExtResource( 40 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ActionTexture" type="TextureRect" parent="Actions/EastAction"]
+margin_left = 0.614365
+margin_top = 1.26352
+margin_right = 15.6144
+margin_bottom = 16.2635
+mouse_filter = 2
+texture = ExtResource( 37 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CharacterLabels" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="FirstMemberLabel" type="Label" parent="CharacterLabels"]
+visible = false
+margin_left = 9.0
+margin_top = 17.0
+margin_right = 68.0
+margin_bottom = 30.0
+mouse_filter = 0
+text = "Pyry Wright"
+autowrap = true
+script = ExtResource( 24 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SecondMemberLabel" type="Label" parent="CharacterLabels"]
+visible = false
+margin_left = 8.94485
+margin_top = 31.744
+margin_right = 138.945
+margin_bottom = 44.744
+mouse_filter = 0
+text = "blank"
+autowrap = true
+script = ExtResource( 26 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ThirdMemberLabel" type="Label" parent="CharacterLabels"]
+visible = false
+margin_left = 9.0
+margin_top = 48.0
+margin_right = 97.0
+margin_bottom = 61.0
+mouse_filter = 0
+text = "blank"
+autowrap = true
+script = ExtResource( 25 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FourthMemberLabel" type="Label" parent="CharacterLabels"]
+visible = false
+margin_left = 9.0
+margin_top = 65.0
+margin_right = 36.0
+margin_bottom = 78.0
+mouse_filter = 0
+text = "blank"
+autowrap = true
+script = ExtResource( 27 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inventory" type="Control" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="NorthWestSlot" type="TextureRect" parent="Inventory"]
+margin_left = 11.1108
+margin_top = 146.147
+margin_right = 27.1108
+margin_bottom = 162.147
+mouse_filter = 0
+texture = ExtResource( 6 )
+script = ExtResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NorthSlot" type="TextureRect" parent="Inventory"]
+margin_left = 28.292
+margin_top = 145.778
+margin_right = 44.292
+margin_bottom = 161.778
+mouse_filter = 0
+texture = ExtResource( 6 )
+script = ExtResource( 17 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NorthEastSlot" type="TextureRect" parent="Inventory"]
+margin_left = 45.4241
+margin_top = 145.909
+margin_right = 61.4241
+margin_bottom = 161.909
+mouse_filter = 0
+texture = ExtResource( 6 )
+script = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WestSlot" type="TextureRect" parent="Inventory"]
+margin_left = 11.2271
+margin_top = 162.753
+margin_right = 27.2271
+margin_bottom = 178.753
+mouse_filter = 0
+texture = ExtResource( 6 )
+script = ExtResource( 15 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterSlot" type="TextureRect" parent="Inventory"]
+margin_left = 28.4972
+margin_top = 163.023
+margin_right = 44.4972
+margin_bottom = 179.023
+mouse_filter = 0
+texture = ExtResource( 6 )
+script = ExtResource( 16 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EastSlot" type="TextureRect" parent="Inventory"]
+margin_left = 45.3471
+margin_top = 162.964
+margin_right = 61.3471
+margin_bottom = 178.964
+mouse_filter = 0
+texture = ExtResource( 6 )
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SouthSlot" type="TextureRect" parent="Inventory"]
+margin_left = 28.0196
+margin_top = 179.592
+margin_right = 44.0196
+margin_bottom = 195.592
+mouse_filter = 0
+texture = ExtResource( 6 )
+script = ExtResource( 19 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SouthEastSlot" type="TextureRect" parent="Inventory"]
+margin_left = 44.9899
+margin_top = 180.018
+margin_right = 60.9899
+margin_bottom = 196.018
+mouse_filter = 0
+texture = ExtResource( 6 )
+script = ExtResource( 18 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HoldSlot" type="TextureRect" parent="."]
+margin_left = 9.0
+margin_top = 180.0
+margin_right = -67.576
+margin_bottom = 198.0
+rect_pivot_offset = Vector2( 6, 6 )
+mouse_filter = 0
+texture = ExtResource( 7 )
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BlackScreen" type="ColorRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+[connection signal="story_selected" from="." to="Logic/Area" method="_on_story_selected"]
+[connection signal="time_updated" from="Logic/Story" to="TimeLabel" method="_on_Story_time_updated"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="gui_input" from="StoryFrame" to="StoryFrame" method="_on_StoryFrame_gui_input"]
+[connection signal="mouse_entered" from="StoryFrame" to="StoryFrame" method="_on_StoryFrame_mouse_entered"]
+[connection signal="story_selected" from="StoryFrame" to="Logic/Area" method="_on_story_selected"]
+[connection signal="texture_rect_clicked" from="StoryFrame" to="StoryFrame" method="_on_StoryFrame_texture_rect_clicked"]
+[connection signal="gui_input" from="StoryTexture" to="StoryFrame" method="_on_StoryTexture_gui_input"]
+[connection signal="mouse_entered" from="StoryTexture" to="StoryFrame" method="_on_StoryTexture_mouse_entered"]
+[connection signal="mouse_exited" from="StoryTexture" to="StoryFrame" method="_on_StoryTexture_mouse_exited"]
+[connection signal="gui_input" from="ActionStoryButton" to="ActionStoryButton" method="_on_ActionStoryButton_gui_input"]
+[connection signal="mouse_entered" from="ActionStoryButton" to="ActionStoryButton" method="_on_ActionStoryButton_mouse_entered"]
+[connection signal="mouse_exited" from="ActionStoryButton" to="ActionStoryButton" method="_on_ActionStoryButton_mouse_exited"]
+[connection signal="gui_input" from="Actions/WestAction" to="Actions/WestAction" method="_on_WestAction_gui_input"]
+[connection signal="mouse_entered" from="Actions/WestAction" to="Actions/WestAction" method="_on_WestAction_mouse_entered"]
+[connection signal="mouse_exited" from="Actions/WestAction" to="Actions/WestAction" method="_on_WestAction_mouse_exited"]
+[connection signal="gui_input" from="Actions/LeftAction" to="Actions/LeftAction" method="_on_LeftAction_gui_input"]
+[connection signal="mouse_entered" from="Actions/LeftAction" to="Actions/LeftAction" method="_on_LeftAction_mouse_entered"]
+[connection signal="mouse_exited" from="Actions/LeftAction" to="Actions/LeftAction" method="_on_LeftAction_mouse_exited"]
+[connection signal="gui_input" from="Actions/RightAction" to="Actions/RightAction" method="_on_RightAction_gui_input"]
+[connection signal="mouse_entered" from="Actions/RightAction" to="Actions/RightAction" method="_on_RightAction_mouse_entered"]
+[connection signal="mouse_exited" from="Actions/RightAction" to="Actions/RightAction" method="_on_RightAction_mouse_exited"]
+[connection signal="gui_input" from="Actions/EastAction" to="Actions/EastAction" method="_on_EastAction_gui_input"]
+[connection signal="mouse_entered" from="Actions/EastAction" to="Actions/EastAction" method="_on_EastAction_mouse_entered"]
+[connection signal="mouse_exited" from="Actions/EastAction" to="Actions/EastAction" method="_on_EastAction_mouse_exited"]
+[connection signal="character_selected" from="CharacterLabels/FirstMemberLabel" to="ThreatContainer" method="_on_character_selected"]
+[connection signal="gui_input" from="CharacterLabels/FirstMemberLabel" to="CharacterLabels/FirstMemberLabel" method="_on_FirstMemberLabel_gui_input"]
+[connection signal="label_clicked" from="CharacterLabels/FirstMemberLabel" to="CharacterLabels/FirstMemberLabel" method="_on_FirstMemberLabel_label_clicked"]
+[connection signal="mouse_entered" from="CharacterLabels/FirstMemberLabel" to="CharacterLabels/FirstMemberLabel" method="_on_FirstMemberLabel_mouse_entered"]
+[connection signal="mouse_exited" from="CharacterLabels/FirstMemberLabel" to="CharacterLabels/FirstMemberLabel" method="_on_FirstMemberLabel_mouse_exited"]
+[connection signal="character_selected" from="CharacterLabels/SecondMemberLabel" to="ThreatContainer" method="_on_character_selected"]
+[connection signal="gui_input" from="CharacterLabels/SecondMemberLabel" to="CharacterLabels/SecondMemberLabel" method="_on_SecondMemberLabel_gui_input"]
+[connection signal="label_clicked" from="CharacterLabels/SecondMemberLabel" to="CharacterLabels/SecondMemberLabel" method="_on_SecondMemberLabel_label_clicked"]
+[connection signal="mouse_entered" from="CharacterLabels/SecondMemberLabel" to="CharacterLabels/SecondMemberLabel" method="_on_SecondMemberLabel_mouse_entered"]
+[connection signal="mouse_exited" from="CharacterLabels/SecondMemberLabel" to="CharacterLabels/SecondMemberLabel" method="_on_SecondMemberLabel_mouse_exited"]
+[connection signal="mouse_entered" from="CharacterLabels/ThirdMemberLabel" to="CharacterLabels/ThirdMemberLabel" method="_on_SecondMemberLabel_mouse_entered"]
+[connection signal="mouse_exited" from="CharacterLabels/ThirdMemberLabel" to="CharacterLabels/ThirdMemberLabel" method="_on_SecondMemberLabel_mouse_exited"]
+[connection signal="mouse_entered" from="CharacterLabels/FourthMemberLabel" to="CharacterLabels/FourthMemberLabel" method="_on_ThirdMemberLabel_mouse_entered"]
+[connection signal="mouse_exited" from="CharacterLabels/FourthMemberLabel" to="CharacterLabels/FourthMemberLabel" method="_on_ThirdMemberLabel_mouse_exited"]
+[connection signal="gui_input" from="Inventory/NorthWestSlot" to="Inventory/NorthWestSlot" method="_on_NorthWestSlot_gui_input"]
+[connection signal="item_selected" from="Inventory/NorthWestSlot" to="HoldSlot" method="_on_item_selected"]
+[connection signal="mouse_entered" from="Inventory/NorthWestSlot" to="Inventory/NorthWestSlot" method="_on_NorthWestSlot_mouse_entered"]
+[connection signal="mouse_exited" from="Inventory/NorthWestSlot" to="Inventory/NorthWestSlot" method="_on_NorthWestSlot_mouse_exited"]

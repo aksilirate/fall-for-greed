@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Button.wav-1029b26b1726f06351f14d424ab4bfed.sample"
+
+[deps]
+
+source_file="res://Sounds/Interface/Button.wav"
+dest_files=[ "res://.import/Button.wav-1029b26b1726f06351f14d424ab4bfed.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

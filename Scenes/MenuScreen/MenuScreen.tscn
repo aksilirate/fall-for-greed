@@ -1,0 +1,78 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Theme.tres" type="Theme" id=1]
+[ext_resource path="res://Scenes/MenuScreen/QuitLabel.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/MenuScreen/OptionsLabel.gd" type="Script" id=3]
+
+[node name="MenuScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="NewGameLabel" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -18.0
+margin_top = -22.5
+margin_right = 18.0
+margin_bottom = -9.5
+mouse_filter = 0
+text = "New game"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OptionsLabel" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -18.0
+margin_top = -6.5
+margin_right = 18.0
+margin_bottom = 6.5
+mouse_filter = 0
+text = "Options"
+align = 1
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="QuitLabel" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -18.0
+margin_top = 9.76486
+margin_right = 18.0
+margin_bottom = 22.7649
+mouse_filter = 0
+text = "Quit"
+align = 1
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="gui_input" from="OptionsLabel" to="OptionsLabel" method="_on_OptionsLabel_gui_input"]
+[connection signal="mouse_entered" from="OptionsLabel" to="OptionsLabel" method="_on_OptionsLabel_mouse_entered"]
+[connection signal="mouse_exited" from="OptionsLabel" to="OptionsLabel" method="_on_OptionsLabel_mouse_exited"]
+[connection signal="gui_input" from="QuitLabel" to="QuitLabel" method="_on_QuitLabel_gui_input"]
+[connection signal="mouse_entered" from="QuitLabel" to="QuitLabel" method="_on_QuitLabel_mouse_entered"]
+[connection signal="mouse_exited" from="QuitLabel" to="QuitLabel" method="_on_QuitLabel_mouse_exited"]

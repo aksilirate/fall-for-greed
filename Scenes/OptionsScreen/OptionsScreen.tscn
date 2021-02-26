@@ -1,0 +1,104 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Theme.tres" type="Theme" id=1]
+[ext_resource path="res://Scenes/OptionsScreen/ConfirmLabel.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/OptionsScreen/FullscreenCheckBox.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/OptionsScreen/PrologueCheckBox.gd" type="Script" id=4]
+
+[node name="OptionsScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ConfirmLabel" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -13.0
+margin_top = -21.0
+margin_right = 13.0
+margin_bottom = -8.0
+mouse_filter = 0
+text = "confirm"
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FullscreenLabel" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -61.0
+margin_top = -54.5
+margin_right = -25.0
+margin_bottom = -41.5
+mouse_filter = 0
+text = "Fullscreen"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FullscreenCheckBox" type="CheckBox" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 40.0
+margin_top = -58.5
+margin_right = 56.0
+margin_bottom = -37.5
+theme = ExtResource( 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PrologueLabel" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -61.0
+margin_top = -30.5
+margin_right = -31.0
+margin_bottom = -17.5
+mouse_filter = 0
+text = "Prologue"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PrologueCheckBox" type="CheckBox" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 40.0
+margin_top = -34.5
+margin_right = 48.0
+margin_bottom = -13.5
+theme = ExtResource( 1 )
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="gui_input" from="ConfirmLabel" to="ConfirmLabel" method="_on_ConfirmLabel_gui_input"]
+[connection signal="mouse_entered" from="ConfirmLabel" to="ConfirmLabel" method="_on_ConfirmLabel_mouse_entered"]
+[connection signal="mouse_exited" from="ConfirmLabel" to="ConfirmLabel" method="_on_ConfirmLabel_mouse_exited"]
+[connection signal="toggled" from="FullscreenCheckBox" to="FullscreenCheckBox" method="_on_FullscreenCheckBox_toggled"]
+[connection signal="toggled" from="PrologueCheckBox" to="PrologueCheckBox" method="_on_PrologueCheckBox_toggled"]
