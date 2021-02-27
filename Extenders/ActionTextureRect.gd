@@ -30,6 +30,10 @@ func _ready():
 	
 	
 func update_action(_texture, _action, _executer):
+	if _action == null:
+		visible = false
+	else:
+		visible == true
 	get_child(0).texture = _texture
 	action = _action
 	executer = _executer

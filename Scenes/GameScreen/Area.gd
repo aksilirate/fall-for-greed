@@ -6,6 +6,8 @@ onready var history_label = owner.get_node("HistoryLabel")
 onready var story_texture = owner.get_node("StoryTexture")
 onready var story_frame = owner.get_node("StoryFrame")
 
+var upcoming_locations: Array
+var locations_passed: int
 var current_area: Object
 var current_event: Object
 
@@ -14,22 +16,44 @@ signal update_left_action(_texture, _action, _executer)
 signal update_right_action(_texture, _action, _executer)
 signal update_east_action(_texture, _action, _executer)
 
+# total_locations are generated inside the current_location
+
+func generate_locations():
+	# Generates NPCs and enemies
+	var rand = RandomNumberGenerator.new()
+	rand.randomize()
+	var enemy_cache = [] + current_event.ENEMIES
+	var npc_cache = [] + current_event.NPCS
+	for _index in current_area.total_locations:
+		if _index < 6:
+			upcoming_locations.insert(_index, current_area)
+		else:
+			if rand.randi_range(0,10) == 3:
+				var _enemy_index = rand.randi_range(0, enemy_cache.size() - 1)
+				upcoming_locations.insert(_index,enemy_cache[_enemy_index].new())
+			elif rand.randi_range(0,10) == 3 and npc_cache.size() > 0:
+				upcoming_locations.insert(_index,npc_cache.pop_front().new())
+			else:
+				upcoming_locations.insert(_index, current_area)
+
 func _ready():
 	current_area = AbandonedForest.new()
 	current_event = current_area
-
-
+	generate_locations()
+	print(upcoming_locations)
+	
 func _on_location_reseted():
 	current_event = current_area
 	update_story_texture()
 	update_actions()
 	
-#need to save locations_before_new_area
+#need to save locations_passed
 func _on_location_advanced():
-	current_event.locations_before_new_area -= 1
-	if current_event.locations_before_new_area <= 0:
+	locations_passed += 1
+	if locations_passed == current_event.total_locations:
 		current_event = current_event.next_area
-		
+		locations_passed = 0
+	current_event = upcoming_locations[locations_passed]
 	update_story_texture()
 	
 func update_story_texture():
@@ -41,9 +65,9 @@ func update_story_texture():
 
 
 func filtered_textures():
-	var textures_cache = [] + current_event.TEXTURES
-	textures_cache.erase(story_texture.texture.resource_path)
-	return textures_cache
+	var texture_cache = [] + current_event.TEXTURES
+	texture_cache.erase(story_texture.texture.resource_path)
+	return texture_cache
 	
 	
 func _on_search_for_item(_action_texture_rect: ActionTextureRect) -> void:

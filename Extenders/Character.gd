@@ -60,9 +60,9 @@ func update_actions(_owner: Node) -> void:
 	else:
 		west_action = PrayAction.new()
 	
-	left_action = PrayAction.new()
-	right_action = PrayAction.new()
-	east_action = PrayAction.new()
+	left_action = RemoveToothAction.new()
+	right_action = BiteTongueAction.new()
+	east_action = TakeEyeAction.new()
 		
 	
 	emit_signal("update_west_action",load(west_action.TEXTURE), west_action, self)
