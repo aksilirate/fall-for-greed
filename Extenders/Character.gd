@@ -15,10 +15,13 @@ signal update_east_slot(_item)
 signal update_south_slot(_item)
 signal update_south_east_slot(_item)
 
+
 var west_action: Object
 var left_action: Object
 var right_action: Object
 var east_action : Object
+
+var character_name = "unnamed"
 
 var game_logic = GameLogic.new()
 var inventory: Array
@@ -30,26 +33,33 @@ var stats = {
 }
 
 
+
+func save_stats():
+	var save_file = SaveFile.new()
+	for _stat in stats:
+		save_file.save_value(character_name, _stat, stats[_stat])
+
+
 #	gets connected by Character: Node 
 func _on_character_selected(_owner: Node) -> void:
 	update_actions(_owner)
 	update_inventory()
 	
 	
-func init_character_data(NAME) -> void:
+func init_character_data(_character_name) -> void:
 	var save_file = SaveFile.new()
 	
 	for _stat in stats:
-		if not save_file.get_saved_value(NAME, _stat):
+		if not save_file.get_saved_value(_character_name, _stat):
 			stats[_stat] = rand_range(0.5,1)
-			save_file.save_value(NAME, _stat, stats[_stat])
+			save_file.save_value(_character_name, _stat, stats[_stat])
 		else:
-			stats[_stat] = save_file.get_saved_value(NAME, _stat)
+			stats[_stat] = save_file.get_saved_value(_character_name, _stat)
 
-	if not save_file.get_saved_value(NAME, "inventory"):
-		save_file.save_value(NAME, "inventory", [])
+	if not save_file.get_saved_value(_character_name, "inventory"):
+		save_file.save_value(_character_name, "inventory", [])
 	else:
-		inventory = save_file.get_saved_value(NAME, "inventory")
+		inventory = save_file.get_saved_value(_character_name, "inventory")
 	
 	
 	

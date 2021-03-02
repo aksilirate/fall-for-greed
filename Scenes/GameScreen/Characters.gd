@@ -19,7 +19,7 @@ func add_character_to_party(character):
 	for _character_label in character_labels.get_children():
 		if not _character_label.visible:
 			connect_character_signals(character)
-			_character_label.text = character.NAME
+			_character_label.text = character.character_name
 			_character_label.connect("character_selected", character, "_on_character_selected")
 			_character_label.self_profile_texture = character.SELF_PROFILE_PICTURE
 			_character_label.story = character.STORY
@@ -27,7 +27,6 @@ func add_character_to_party(character):
 			_character_label.visible = true
 			break
 	add_child(character)
-
 
 
 

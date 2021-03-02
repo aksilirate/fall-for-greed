@@ -34,6 +34,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Extenders/Character.gd"
 }, {
+"base": "Reference",
+"class": "FightAction",
+"language": "GDScript",
+"path": "res://Clusters/Actions/FightAction.gd"
+}, {
 "base": "Label",
 "class": "ForgedLabel",
 "language": "GDScript",
@@ -47,7 +52,7 @@ _global_script_classes=[ {
 "base": "ForgedLabel",
 "class": "GameLabel",
 "language": "GDScript",
-"path": "res://Extenders/GaneLabel.gd"
+"path": "res://Extenders/GameLabel.gd"
 }, {
 "base": "Reference",
 "class": "GameLogic",
@@ -104,6 +109,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Areas/AbandonedForest/NPCs/RowanSmithNPC.gd"
 }, {
+"base": "Reference",
+"class": "RunAction",
+"language": "GDScript",
+"path": "res://Clusters/Actions/RunAction.gd"
+}, {
 "base": "Node",
 "class": "SaveFile",
 "language": "GDScript",
@@ -150,6 +160,7 @@ _global_script_class_icons={
 "AngelorisItem": "",
 "BiteTongueAction": "",
 "Character": "",
+"FightAction": "",
 "ForgedLabel": "",
 "ForgedTextureRect": "",
 "GameLabel": "",
@@ -164,6 +175,7 @@ _global_script_class_icons={
 "RemoveToothAction": "",
 "RowanSmith": "",
 "RowanSmithNPC": "",
+"RunAction": "",
 "SaveFile": "",
 "SearchAction": "",
 "SleepAction": "",

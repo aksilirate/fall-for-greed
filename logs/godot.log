@@ -1,0 +1,5 @@
+Godot Engine v3.2.3.stable.official - https://godotengine.org
+OpenGL ES 3.0 Renderer: AMD Radeon HD 7800 Series
+ 
+**ERROR**: Error calling method from signal 'battle_finished': 'Viewport::_on_battle_finished': Method not found..
+   At: core/object.cpp:1260:emit_signal() - Error calling method from signal 'battle_finished': 'Viewport::_on_battle_finished': Method not found..

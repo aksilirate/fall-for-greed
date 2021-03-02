@@ -1,0 +1,5 @@
+Godot Engine v3.2.3.stable.official - https://godotengine.org
+OpenGL ES 3.0 Renderer: AMD Radeon HD 7800 Series
+ 
+**ERROR**: Parameter "p_to_object" is null.
+   At: core/object.cpp:1482:connect() - Parameter "p_to_object" is null.

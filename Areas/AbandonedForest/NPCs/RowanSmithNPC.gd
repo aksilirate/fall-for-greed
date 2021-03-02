@@ -1,5 +1,6 @@
 class_name RowanSmithNPC
 
+const NAME = "Rowan Smith"
 
 const TEXTURES = [
 	"res://Textures/Areas/Abandoned Forest/NPCs/Rowan Smith NPC 0.png"

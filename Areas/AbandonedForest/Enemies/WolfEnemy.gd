@@ -1,13 +1,25 @@
 class_name WolfEnemy
 
+
+const HISTORY = "A hostile lone wolf."
+
+const UNIT_TEXTURE := "res://Textures/Battle/Enemies/Wolf Unit.png"
+
 const TEXTURES = [
 	"res://Textures/Areas/Abandoned Forest/Enemies/Wolf Enemy 0.png"
 ]
 
 
+var health := 3
+const DAMAGE := 0.5
+const SPEED := 2
+const POWER := 7
 
 
-const WEST_ACTION = WaitAction # To change all of it
-const LEFT_ACTION = WalkAction
-const RIGHT_ACTION = SleepAction
-const EAST_ACTION = SearchAction
+const WEST_ACTION = null
+const LEFT_ACTION = FightAction
+const RIGHT_ACTION = RunAction
+const EAST_ACTION = null
+
+
+

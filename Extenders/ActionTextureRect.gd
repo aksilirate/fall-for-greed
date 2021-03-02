@@ -33,6 +33,7 @@ func update_action(_texture, _action, _executer):
 	if _action == null:
 		visible = false
 	else:
+# warning-ignore:standalone_expression
 		visible == true
 	get_child(0).texture = _texture
 	action = _action
@@ -42,7 +43,7 @@ func update_action(_texture, _action, _executer):
 
 func emit_action_pressed(event):
 	if event is InputEventMouseButton:
-		if not event.pressed and not animation_player.is_playing():
+		if not event.pressed:
 			action.init_action(self)
 
 
@@ -89,12 +90,12 @@ func calculate_turn(_energy_cost, _minutes_passed):
 	if executer is Object:
 		executer.stats["hunger"] -= _energy_cost
 		executer.stats["energy"] -= _energy_cost
-		save_stats(executer)
+		executer.save_stats()
 	else:
 		for _character in executer:
 			_character.stats["hunger"] -= _energy_cost
 			_character.stats["energy"] -= _energy_cost
-			save_stats(_character)
+			_character.save_stats()
 
 
 
@@ -149,10 +150,6 @@ func emit_take_item():
 	
 	
 	
-func save_stats(_character):
-	var save_file = SaveFile.new()
-	for _stat in _character.stats:
-		save_file.save_value(_character.NAME, _stat, _character.stats[_stat])
 		
 func save_inventory(_character):
 	var save_file = SaveFile.new()

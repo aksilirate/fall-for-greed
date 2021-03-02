@@ -2,7 +2,7 @@ extends GameLabel
 
 var character: Object
 
-signal character_selected(_area)
+signal character_selected(_owner)
 
 
 

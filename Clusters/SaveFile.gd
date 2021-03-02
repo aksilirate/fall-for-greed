@@ -22,3 +22,12 @@ func get_saved_value(_section: String, _key):
 	else:
 		return false
 
+func has_section(_section):
+	var error = save.load(PathDictionary.SAVE_PATH)
+	if error != OK:
+		print(error)
+		
+	if save.has_section(_section):
+		return true
+	else:
+		return false
