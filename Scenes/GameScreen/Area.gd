@@ -58,12 +58,12 @@ func _ready():
 		current_event = save_file.get_saved_value("Game", "current_event")
 		
 	generate_locations()
-	update_story_texture()
+	update_story_info()
 	
 func _on_location_reseted():
 	current_event = current_area
 	save_file.save_value("Game", "current_event",current_event)
-	update_story_texture()
+	update_story_info()
 	update_actions()
 	
 #need to save locations_passed
@@ -76,15 +76,16 @@ func _on_location_advanced():
 		locations_passed = 0
 	current_event = upcoming_locations[locations_passed]
 	save_file.save_value("Game", "current_event",current_event)
-	update_story_texture()
+	update_story_info()
 	update_actions()
 	
-func update_story_texture():
+func update_story_info():
 	var rand = RandomNumberGenerator.new()
 	rand.randomize()
 	var textures = filtered_textures()
 	var texture_index = rand.randi_range(0,textures.size() - 1)
 	story_texture.texture = load(textures[texture_index])
+	history_label.text = current_event.HISTORY
 
 
 func filtered_textures():
@@ -98,7 +99,7 @@ func _on_search_for_item(_action_texture_rect: ActionTextureRect) -> void:
 	var index = round(rand_range(0,current_area.FINDINGS.size()-1))
 	current_event = load(current_area.FINDINGS[index]).new()
 	yield(_action_texture_rect,"story_telling_started")
-	update_story_texture()
+	update_story_info()
 	update_actions()
 	
 	

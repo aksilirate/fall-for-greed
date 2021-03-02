@@ -14,6 +14,11 @@ var menu_open = false
 signal story_selected
 
 func _ready():
+	
+	if OS.is_debug_build():
+		var _debug = Debug.new()
+		add_child(_debug)
+	
 	animation_player.play("Load")
 	history_label.text = selected.story
 	emit_signal("story_selected")

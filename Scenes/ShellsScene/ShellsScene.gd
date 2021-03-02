@@ -1,7 +1,8 @@
 extends Control
 
 
-
+func _init():
+	visible = false
 
 func _ready():
 	$InputBlocker.visible = true

@@ -6,7 +6,7 @@ const SELF_PROFILE_PICTURE := preload("res://Textures/Character Profiles/Pyry Wr
 const UNIT_TEXTURE := "res://Textures/Battle/Characters/Pyry Wright Unit.png"
 var active_threats: Array
 
-
+const DAMAGE = 0.9
 
 func _init():
 	character_name =  "Pyry Wright"

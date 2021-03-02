@@ -20,5 +20,6 @@ func _on_SecondMemberLabel_gui_input(event):
 
 
 func _on_SecondMemberLabel_label_clicked():
-	emit_signal("character_selected", owner)
 	owner.last_selected_character = character
+	emit_signal("character_selected", owner)
+

@@ -9,7 +9,7 @@ extends HBoxContainer
 
 
 func _ready():
-	var _characters = owner.get_node_or_null("Logic/Characters")
+	var _characters = get_tree().get_root().get_node_or_null("GameScreen/Logic/Characters")
 	if _characters == null:
 		var _character_texture_rect = preload("res://Scenes/CharacterTextureRect/CharacterTextureRect.tscn").instance()
 		var _character = PyryWright.new()

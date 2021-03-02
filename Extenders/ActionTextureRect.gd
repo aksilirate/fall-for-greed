@@ -34,7 +34,7 @@ func update_action(_texture, _action, _executer):
 		visible = false
 	else:
 # warning-ignore:standalone_expression
-		visible == true
+		visible = true
 	get_child(0).texture = _texture
 	action = _action
 	executer = _executer
@@ -102,7 +102,6 @@ func calculate_turn(_energy_cost, _minutes_passed):
 func hold_selected_item():
 	# Removes item from an inventory, method found inside a child under the Inventory node (...Slot)
 	owner.selected.remove_item_from_inventory()
-	pass
 
 
 func reset_location():
@@ -149,7 +148,11 @@ func emit_take_item():
 	save_inventory(executer)
 	
 	
-	
+func start_battle():
+	animation_player.play("Hide Screen")
+	yield(animation_player,"animation_finished")
+	var shell_scene = load("res://Scenes/ShellsScene/ShellsScene.tscn").instance()
+	owner.add_child(shell_scene)
 		
 func save_inventory(_character):
 	var save_file = SaveFile.new()

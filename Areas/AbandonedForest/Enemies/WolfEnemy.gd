@@ -1,7 +1,9 @@
 class_name WolfEnemy
 
+# Used for "you have killed the wolf"
+const NAME = "the wolf"
 
-const HISTORY = "A hostile lone wolf."
+const HISTORY = "A lone hostile wolf."
 
 const UNIT_TEXTURE := "res://Textures/Battle/Enemies/Wolf Unit.png"
 
@@ -10,7 +12,7 @@ const TEXTURES = [
 ]
 
 
-var health := 3
+var health := 3.0
 const DAMAGE := 0.5
 const SPEED := 2
 const POWER := 7

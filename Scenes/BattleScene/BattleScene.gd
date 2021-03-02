@@ -39,9 +39,21 @@ func character_attack():
 		tween.start()
 		yield(get_tree().create_timer(0.19), "timeout")
 		hit($Enemy)
+		enemy.health -= _character.character_reference.DAMAGE
 		yield(tween,"tween_completed")
 		tween.interpolate_property(_character, "rect_position", _character.rect_position, _character_origin, 0.3, Tween.TRANS_EXPO)
 		yield(tween,"tween_completed")
+		
+		if enemy.health <= 0:
+			animation_player.play("Unload")
+			yield(animation_player,"animation_finished")
+			play_death_message("you have killed " + enemy.NAME)
+			yield(self, "death_message_finished")
+			var game_screen = get_tree().get_root().get_node("GameScreen")
+			game_screen.animation_player.play("Show Screen")
+			game_screen.area._on_location_reseted()
+			get_parent().queue_free()
+			
 	complete_battle()
 	
 func enemy_attack():
@@ -64,23 +76,23 @@ func enemy_attack():
 		var _character_name = _character.character_reference.character_name
 		_character.character_reference.queue_free()
 		_character.queue_free()
-		play_death_message(_character_name)
-
+		play_death_message(_character_name + " have died")
 		yield(self, "death_message_finished")
-		
+		if $CharactersContainer.get_child_count() > 0:
+			animation_player.play("Load")
+			yield(animation_player,"animation_finished")
+			
 	complete_battle()
 	
 
-func play_death_message(_name):
+func play_death_message(_death_message):
 	var story_label = preload("res://Scenes/StoryLabel/StoryLabel.tscn").instance()
 	var story_animation_player = story_label.get_node("AnimationPlayer")
-	story_label.text =  _name + " have died."
+	story_label.text =  _death_message
 	add_child(story_label)
 	yield(story_animation_player,"animation_finished")
 	story_label.queue_free()
-	if $CharactersContainer.get_child_count() > 0:
-		animation_player.play("Load")
-		yield(animation_player,"animation_finished")
+	
 	emit_signal("death_message_finished")
 
 func pick_random_character():

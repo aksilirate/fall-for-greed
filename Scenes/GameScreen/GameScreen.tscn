@@ -403,7 +403,6 @@ __meta__ = {
 }
 
 [node name="HistoryLabel" type="Label" parent="."]
-modulate = Color( 1, 1, 1, 0 )
 margin_left = 120.0
 margin_top = 151.149
 margin_right = 249.0
@@ -427,7 +426,6 @@ __meta__ = {
 }
 
 [node name="TimeLabel" type="Label" parent="."]
-modulate = Color( 1, 1, 1, 0 )
 margin_left = 119.0
 margin_top = 2.0
 margin_right = 249.0
@@ -441,7 +439,7 @@ __meta__ = {
 }
 
 [node name="StoryFrame" type="TextureRect" parent="."]
-modulate = Color( 1, 1, 1, 0 )
+modulate = Color( 1, 1, 1, 0.482353 )
 margin_left = 119.0
 margin_top = 16.743
 margin_right = 249.001
@@ -453,7 +451,6 @@ __meta__ = {
 }
 
 [node name="StoryTexture" type="TextureRect" parent="."]
-modulate = Color( 1, 1, 1, 0 )
 margin_left = 120.0
 margin_top = 17.743
 margin_right = 248.001
@@ -464,7 +461,6 @@ __meta__ = {
 }
 
 [node name="ActionStoryButton" type="TextureRect" parent="."]
-modulate = Color( 1, 1, 1, 0 )
 margin_left = 179.0
 margin_top = 138.297
 margin_right = 189.0
@@ -575,7 +571,7 @@ __meta__ = {
 }
 
 [node name="CharacterLabels" type="Control" parent="."]
-modulate = Color( 1, 1, 1, 0 )
+modulate = Color( 1, 1, 1, 0.448795 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -747,7 +743,7 @@ __meta__ = {
 }
 
 [node name="HoldSlot" type="TextureRect" parent="."]
-modulate = Color( 1, 1, 1, 0 )
+modulate = Color( 1, 1, 1, 0.0048741 )
 margin_left = 9.0
 margin_top = 180.0
 margin_right = -67.576
@@ -761,7 +757,6 @@ __meta__ = {
 }
 
 [node name="BlackScreen" type="ColorRect" parent="."]
-modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
