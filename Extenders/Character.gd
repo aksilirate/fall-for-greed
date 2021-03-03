@@ -39,7 +39,11 @@ func save_stats():
 	for _stat in stats:
 		save_file.save_value(character_name, _stat, stats[_stat])
 
-
+func save_inventory():
+	var save_file = SaveFile.new()
+	save_file.save_value(character_name, "inventory", inventory)
+	
+	
 #	gets connected by Character: Node 
 func _on_character_selected(_owner: Node) -> void:
 	update_actions(_owner)

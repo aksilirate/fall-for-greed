@@ -33,6 +33,7 @@ func generate_locations():
 			if rand.randi_range(0,10) == 3 and upcoming_locations[_penultimate] == current_area:
 				var _enemy_index = rand.randi_range(0, enemy_cache.size() - 1)
 				upcoming_locations.insert(_index,enemy_cache[_enemy_index].new())
+				enemy_cache.remove(_enemy_index)
 			elif rand.randi_range(0,10) == 3 and npc_cache.size() > 0 and upcoming_locations[_penultimate] == current_area:
 				var _save_file = SaveFile.new()
 				if not _save_file.has_section(npc_cache.front().new().NAME):

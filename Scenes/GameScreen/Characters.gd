@@ -5,6 +5,11 @@ onready var character_labels = owner.get_node("CharacterLabels")
 var threats = ["Bleeding", "Starving", "Hungry", "Tired", "Wounded"]
 
 
+func character_object_from_name(_name):
+	var path_dictionary = PathDictionary.new()
+	_name = _name.replace(" ", "")
+	return load(path_dictionary.CHARACTERS_PATH + _name +".gd").new()
+
 
 func _ready():
 	add_character_to_party(PyryWright.new())
@@ -12,6 +17,19 @@ func _ready():
 	
 func threat_level_of(_threat):
 	return threats.find(_threat)
+
+func update_characters():
+	var save_file = SaveFile.new()
+	
+	for old_character in get_children():
+		old_character.queue_free()
+	
+	for _character_label in character_labels.get_children():
+		_character_label.visible = false
+		
+	for _character_name in save_file.get_saved_characters():
+		var _character = character_object_from_name(_character_name)
+		add_character_to_party(_character)
 
 
 
@@ -26,8 +44,11 @@ func add_character_to_party(character):
 			_character_label.character = character
 			_character_label.visible = true
 			break
+	character.name = character.character_name
 	add_child(character)
+	
 
+	
 
 
 func connect_character_signals(character):

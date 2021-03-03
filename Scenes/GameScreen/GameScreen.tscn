@@ -356,7 +356,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 threat_container = NodePath("ThreatContainer")
+animation_player = NodePath("AnimationPlayer")
 hold_slot = NodePath("HoldSlot")
+characters = NodePath("Logic/Characters")
 area = NodePath("Logic/Area")
 
 [node name="Logic" type="Node" parent="."]
@@ -394,9 +396,9 @@ __meta__ = {
 [node name="ProfileBorder" type="TextureRect" parent="."]
 modulate = Color( 1, 1, 1, 0 )
 margin_left = 288.407
-margin_top = 16.8038
+margin_top = 17.3335
 margin_right = 352.407
-margin_bottom = 80.8037
+margin_bottom = 81.3335
 texture = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -757,6 +759,7 @@ __meta__ = {
 }
 
 [node name="BlackScreen" type="ColorRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2

@@ -145,7 +145,7 @@ func emit_take_item():
 			executer.inventory.append(item)
 			owner.last_selected_character.update_inventory()
 		
-	save_inventory(executer)
+	executer.save_inventory()
 	
 	
 func start_battle():
@@ -153,7 +153,3 @@ func start_battle():
 	yield(animation_player,"animation_finished")
 	var shell_scene = load("res://Scenes/ShellsScene/ShellsScene.tscn").instance()
 	owner.add_child(shell_scene)
-		
-func save_inventory(_character):
-	var save_file = SaveFile.new()
-	save_file.save_value(_character.NAME, "inventory", _character.inventory)

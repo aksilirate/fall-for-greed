@@ -12,6 +12,7 @@ var story: String
 
 
 
+
 func emit_Mouse_Entered_Effect():
 	if owner.selected != self and not animation_player.is_playing():
 		emit_Sound_Effect("res://Sounds/Interface/Hover.wav")
@@ -31,3 +32,4 @@ func emit_Pressed_Effect(event):
 			owner.selected = self
 			modulate.a = 0.3
 			emit_signal("label_clicked")
+	

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Hover Ambient Loop.wav-2d44ac833914628d48e5f0a3caf4ff6f.sample"
+
+[deps]
+
+source_file="res://Sounds/Game/Hover Ambient Loop.wav"
+dest_files=[ "res://.import/Hover Ambient Loop.wav-2d44ac833914628d48e5f0a3caf4ff6f.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=true
+compress/mode=0
