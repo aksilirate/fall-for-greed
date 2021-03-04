@@ -2,7 +2,7 @@ extends TextureRect
 
 var selected_item: Object
 
-func _on_item_selected(_item):
+func _on_item_hold(_item):
 	selected_item = _item
 	
 	for _child in get_children():

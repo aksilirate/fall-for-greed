@@ -8,14 +8,18 @@ const ENEMY_ORIGIN = Vector2(168,56)
 var enemy: Object 
 var heart_found: bool
 
+signal kill_character(_character)
 signal death_message_finished
 signal battle_finished
 
 
 
 func _ready():
+	var game_screen = get_tree().get_root().get_node("GameScreen")
 # warning-ignore:return_value_discarded
 	connect("battle_finished", get_parent(), "_on_battle_finished")
+# warning-ignore:return_value_discarded
+	connect("kill_character", game_screen, "_on_character_death")
 	
 	if enemy == null:
 		enemy = WolfEnemy.new()
@@ -76,6 +80,7 @@ func enemy_attack():
 		var _character_name = _character.character_reference.character_name
 		_character.character_reference.queue_free()
 		_character.queue_free()
+		emit_signal("kill_character", _character.character_reference)
 		play_death_message(_character_name + " have died")
 		yield(self, "death_message_finished")
 		if $CharactersContainer.get_child_count() > 0:

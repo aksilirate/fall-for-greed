@@ -13,19 +13,17 @@ enum {LEFT, CENTER, RIGHT}
 var heart_location = [false,true,false]
 var rand = RandomNumberGenerator.new()
 
-var enemy:Object
-
 var speed = 5
 var power := 30
 
 	
 func _ready():
 	
-	if enemy == null:
-		enemy = WolfEnemy.new()
+	if owner.enemy == null:
+		owner.enemy = WolfEnemy.new()
 		
-	speed = enemy.SPEED
-	power = enemy.POWER
+	speed = owner.enemy.SPEED
+	power = owner.enemy.POWER
 	
 	animation_player.play("Load")
 	yield(animation_player,"animation_finished")
@@ -120,7 +118,7 @@ func load_battle_scene():
 	animation_player.play("Unload")
 	yield(animation_player,"animation_finished")
 	var battle_scene = preload("res://Scenes/BattleScene/BattleScene.tscn").instance()
-	battle_scene.enemy = enemy
+	battle_scene.enemy = owner.enemy
 	if heart_found:
 		battle_scene.heart_found = true
 	else:

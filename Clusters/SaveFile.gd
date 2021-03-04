@@ -22,13 +22,22 @@ func get_saved_value(_section: String, _key):
 	else:
 		return false
 		
+func save_section(_section: String):
+	var error = save.load(PathDictionary.SAVE_PATH)
+	if error != OK:
+		print(error)
+		
+	save.set_value(_section)
+	save.save(PathDictionary.SAVE_PATH)
+		
+		
 func erase_section(_section: String):
 	var error = save.load(PathDictionary.SAVE_PATH)
 	if error != OK:
 		print(error)
 	
 	save.erase_section(_section)
-	save.save(PathDictionary.SAVE_PATH)
+	return save.save(PathDictionary.SAVE_PATH)
 	
 func has_section(_section):
 	var error = save.load(PathDictionary.SAVE_PATH)
@@ -45,6 +54,7 @@ func get_saved_characters():
 	var error = save.load(PathDictionary.SAVE_PATH)
 	if error != OK:
 		print(error)
+		
 	var _section_cache = Array(save.get_sections())
 	_section_cache.erase("Game")
 	

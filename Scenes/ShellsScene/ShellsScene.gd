@@ -1,5 +1,8 @@
 extends Control
 
+export(NodePath) onready var shell_game = get_node(shell_game) as Node
+
+var enemy: Object
 
 func _init():
 	visible = false

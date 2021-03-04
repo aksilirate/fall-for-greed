@@ -1,25 +1,37 @@
 extends LineEdit
 
 onready var game_screen = get_tree().get_root().get_node("GameScreen")
+onready var characters = get_tree().get_root().get_node("GameScreen/Logic/Characters")
 
 var path_dictionary = PathDictionary.new()
 
 signal kill_character(_character)
-
+signal summon_character(_character)
 
 func _ready():
 # warning-ignore:return_value_discarded
 	connect("kill_character", game_screen, "_on_character_death")
+# warning-ignore:return_value_discarded
+	connect("summon_character", characters, "summon_character")
 
 func _on_ConsoleInput_text_changed(new_text):
 	
-	
 	if new_text.left(4) == "kill":
 		var _character_name: String = new_text.lstrip("kill ")
+		_character_name = _character_name.capitalize()
 		var _character = game_screen.get_node_or_null("Logic/Characters/" + _character_name)
 		if _character != game_screen.get_node_or_null("Logic/Characters") and _character != null:
 			emit_signal("kill_character", _character)
 			text = ""
+			
+	elif new_text.left(6) == "summon":
+		var _character_name: String = new_text.lstrip("summon ")
+		_character_name = _character_name.capitalize()
+		var _character = characters.character_object_from_name(_character_name)
+		if _character:
+			emit_signal("summon_character", _character)
+			text = ""
+			
 			
 	elif new_text.left(15) == "change event to":
 		var _event_name: String = new_text.lstrip("change event to ")

@@ -381,6 +381,7 @@ __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
 }
+shell_game = NodePath("ShellGame")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/CenterLeft = SubResource( 1 )

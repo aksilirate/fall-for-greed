@@ -1,4 +1,5 @@
 
+const NAME = "an angeloris"
 
 const ITEM = AngelorisItem 
 

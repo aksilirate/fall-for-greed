@@ -1,3 +1,3 @@
 class_name TakeEyeAction
 
-const TEXTURE = "res://Textures/Action Icons/Take Eye.png"
+const TEXTURE = "res://Textures/Actions/Take Eye.png"

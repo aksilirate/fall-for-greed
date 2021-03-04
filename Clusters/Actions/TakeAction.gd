@@ -1,6 +1,6 @@
 class_name TakeAction
 
-const TEXTURE = "res://Textures/Action Icons/Take.png"
+const TEXTURE = "res://Textures/Actions/Take.png"
 
 
 func init_action(action_methods: ActionTextureRect) -> void:

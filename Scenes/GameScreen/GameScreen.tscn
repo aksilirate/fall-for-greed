@@ -30,10 +30,10 @@
 [ext_resource path="res://Textures/Interface/Action Frame.png" type="Texture" id=31]
 [ext_resource path="res://Scenes/GameScreen/StoryFrame.gd" type="Script" id=32]
 [ext_resource path="res://Scenes/GameScreen/TimeLabel.gd" type="Script" id=34]
-[ext_resource path="res://Textures/Action Icons/Sleep.png" type="Texture" id=35]
-[ext_resource path="res://Textures/Action Icons/Wait.png" type="Texture" id=36]
-[ext_resource path="res://Textures/Action Icons/Search.png" type="Texture" id=37]
-[ext_resource path="res://Textures/Action Icons/Walk.png" type="Texture" id=38]
+[ext_resource path="res://Textures/Actions/Sleep.png" type="Texture" id=35]
+[ext_resource path="res://Textures/Actions/Wait.png" type="Texture" id=36]
+[ext_resource path="res://Textures/Actions/Search.png" type="Texture" id=37]
+[ext_resource path="res://Textures/Actions/Walk.png" type="Texture" id=38]
 [ext_resource path="res://Scenes/GameScreen/RightAction.gd" type="Script" id=39]
 [ext_resource path="res://Scenes/GameScreen/EastAction.gd" type="Script" id=40]
 [ext_resource path="res://Scenes/GameScreen/LeftAction.gd" type="Script" id=41]
@@ -89,6 +89,18 @@ tracks/3/keys = {
 "transitions": PoolRealArray( -3, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Inventory:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -315,6 +327,18 @@ tracks/3/keys = {
 "transitions": PoolRealArray( -3, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Inventory:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -573,7 +597,6 @@ __meta__ = {
 }
 
 [node name="CharacterLabels" type="Control" parent="."]
-modulate = Color( 1, 1, 1, 0.448795 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -639,6 +662,7 @@ __meta__ = {
 }
 
 [node name="Inventory" type="Control" parent="."]
+visible = false
 modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -745,7 +769,6 @@ __meta__ = {
 }
 
 [node name="HoldSlot" type="TextureRect" parent="."]
-modulate = Color( 1, 1, 1, 0.0048741 )
 margin_left = 9.0
 margin_top = 180.0
 margin_right = -67.576
@@ -797,21 +820,3 @@ __meta__ = {
 [connection signal="gui_input" from="Actions/EastAction" to="Actions/EastAction" method="_on_EastAction_gui_input"]
 [connection signal="mouse_entered" from="Actions/EastAction" to="Actions/EastAction" method="_on_EastAction_mouse_entered"]
 [connection signal="mouse_exited" from="Actions/EastAction" to="Actions/EastAction" method="_on_EastAction_mouse_exited"]
-[connection signal="character_selected" from="CharacterLabels/FirstMemberLabel" to="ThreatContainer" method="_on_character_selected"]
-[connection signal="gui_input" from="CharacterLabels/FirstMemberLabel" to="CharacterLabels/FirstMemberLabel" method="_on_FirstMemberLabel_gui_input"]
-[connection signal="label_clicked" from="CharacterLabels/FirstMemberLabel" to="CharacterLabels/FirstMemberLabel" method="_on_FirstMemberLabel_label_clicked"]
-[connection signal="mouse_entered" from="CharacterLabels/FirstMemberLabel" to="CharacterLabels/FirstMemberLabel" method="_on_FirstMemberLabel_mouse_entered"]
-[connection signal="mouse_exited" from="CharacterLabels/FirstMemberLabel" to="CharacterLabels/FirstMemberLabel" method="_on_FirstMemberLabel_mouse_exited"]
-[connection signal="character_selected" from="CharacterLabels/SecondMemberLabel" to="ThreatContainer" method="_on_character_selected"]
-[connection signal="gui_input" from="CharacterLabels/SecondMemberLabel" to="CharacterLabels/SecondMemberLabel" method="_on_SecondMemberLabel_gui_input"]
-[connection signal="label_clicked" from="CharacterLabels/SecondMemberLabel" to="CharacterLabels/SecondMemberLabel" method="_on_SecondMemberLabel_label_clicked"]
-[connection signal="mouse_entered" from="CharacterLabels/SecondMemberLabel" to="CharacterLabels/SecondMemberLabel" method="_on_SecondMemberLabel_mouse_entered"]
-[connection signal="mouse_exited" from="CharacterLabels/SecondMemberLabel" to="CharacterLabels/SecondMemberLabel" method="_on_SecondMemberLabel_mouse_exited"]
-[connection signal="mouse_entered" from="CharacterLabels/ThirdMemberLabel" to="CharacterLabels/ThirdMemberLabel" method="_on_SecondMemberLabel_mouse_entered"]
-[connection signal="mouse_exited" from="CharacterLabels/ThirdMemberLabel" to="CharacterLabels/ThirdMemberLabel" method="_on_SecondMemberLabel_mouse_exited"]
-[connection signal="mouse_entered" from="CharacterLabels/FourthMemberLabel" to="CharacterLabels/FourthMemberLabel" method="_on_ThirdMemberLabel_mouse_entered"]
-[connection signal="mouse_exited" from="CharacterLabels/FourthMemberLabel" to="CharacterLabels/FourthMemberLabel" method="_on_ThirdMemberLabel_mouse_exited"]
-[connection signal="gui_input" from="Inventory/NorthWestSlot" to="Inventory/NorthWestSlot" method="_on_NorthWestSlot_gui_input"]
-[connection signal="item_selected" from="Inventory/NorthWestSlot" to="HoldSlot" method="_on_item_selected"]
-[connection signal="mouse_entered" from="Inventory/NorthWestSlot" to="Inventory/NorthWestSlot" method="_on_NorthWestSlot_mouse_entered"]
-[connection signal="mouse_exited" from="Inventory/NorthWestSlot" to="Inventory/NorthWestSlot" method="_on_NorthWestSlot_mouse_exited"]

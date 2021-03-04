@@ -1,6 +1,6 @@
 class_name WaitAction
 
-const TEXTURE = "res://Textures/Action Icons/Wait.png"
+const TEXTURE = "res://Textures/Actions/Wait.png"
 
 
 

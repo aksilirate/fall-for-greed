@@ -9,6 +9,7 @@ export(NodePath) onready var area = get_node(area) as Node
 onready var history_label = get_node("HistoryLabel")
 onready var selected = get_node("StoryFrame")
 
+var save_file = SaveFile.new()
 var last_selected_character: Object
 var menu_open = false
 
@@ -25,10 +26,9 @@ func _ready():
 	
 func _on_character_death(_character):
 	if _character:
-		var save_file = SaveFile.new()
-		save_file.erase_section(_character.character_name)
-		characters.update_characters()
-		emit_signal("story_selected")
+		if save_file.erase_section(_character.character_name) == OK:
+			characters.update_characters()
+			emit_signal("story_selected")
 
 	
 # warning-ignore:unused_argument

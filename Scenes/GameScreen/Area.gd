@@ -6,8 +6,11 @@ onready var history_label = owner.get_node("HistoryLabel")
 onready var story_texture = owner.get_node("StoryTexture")
 onready var story_frame = owner.get_node("StoryFrame")
 
+var rand = RandomNumberGenerator.new()
+
 var save_file = SaveFile.new()
 var upcoming_locations: Array
+var findings_left: int
 var locations_passed: int
 var current_area: Object
 var current_event: Object
@@ -21,7 +24,6 @@ signal update_east_action(_texture, _action, _executer)
 
 func generate_locations():
 	# Generates NPCs and enemies
-	var rand = RandomNumberGenerator.new()
 	rand.randomize()
 	var enemy_cache = [] + current_area.ENEMIES
 	var npc_cache = [] + current_area.NPCS
@@ -30,22 +32,31 @@ func generate_locations():
 			upcoming_locations.insert(_index, current_area)
 		else:
 			var _penultimate = upcoming_locations.size() - 1
-			if rand.randi_range(0,10) == 3 and upcoming_locations[_penultimate] == current_area:
+			if rand.randi_range(0,10) == 3 and upcoming_locations[_penultimate] == current_area and enemy_cache.size() > 0:
 				var _enemy_index = rand.randi_range(0, enemy_cache.size() - 1)
 				upcoming_locations.insert(_index,enemy_cache[_enemy_index].new())
 				enemy_cache.remove(_enemy_index)
 			elif rand.randi_range(0,10) == 3 and npc_cache.size() > 0 and upcoming_locations[_penultimate] == current_area:
 				var _save_file = SaveFile.new()
-				if not _save_file.has_section(npc_cache.front().new().NAME):
-					upcoming_locations.insert(_index,npc_cache.pop_front().new())
-				else:
-					npc_cache.pop_front()
-					upcoming_locations.insert(_index, current_area)
+				upcoming_locations.insert(_index,npc_cache.pop_front().new())
 			else:
 				upcoming_locations.insert(_index, current_area)
+				
+	save_file.save_value("Game", "upcoming_locations",upcoming_locations)
 
 
 func _ready():
+	load_game()
+	update_story_info()
+	
+	
+func reset_findings_left():
+	rand.randomize()
+	findings_left = rand.randi_range(3,9)
+	save_file.save_value("Game", "findings_left",findings_left)
+	
+	
+func load_game():
 	if not save_file.get_saved_value("Game", "current_area"):
 		current_area = AbandonedForest.new()
 		save_file.save_value("Game", "current_area",current_area)
@@ -53,19 +64,50 @@ func _ready():
 	else:
 		current_area = save_file.get_saved_value("Game", "current_area")
 		
+
 	if not save_file.get_saved_value("Game", "current_event"):
 		current_event = current_area
 	else:
 		current_event = save_file.get_saved_value("Game", "current_event")
+	
+	if not save_file.get_saved_value("Game", "locations_passed"):
+		locations_passed = 0
+	else:
+		locations_passed = save_file.get_saved_value("Game", "locations_passed")
 		
-	generate_locations()
+		
+	if not save_file.get_saved_value("Game", "upcoming_locations"):
+		generate_locations()
+	else:
+		upcoming_locations = save_file.get_saved_value("Game", "upcoming_locations")
+	
+	
+	if not save_file.get_saved_value("Game", "findings_left"):
+		reset_findings_left()
+	else:
+		findings_left = save_file.get_saved_value("Game", "findings_left")
+		
+	
+	
+func save_game():
+	save_file.save_value("Game", "current_area",current_area)
+	save_file.save_value("Game", "current_event",current_event)
+	save_file.save_value("Game", "locations_passed",locations_passed)
+	save_file.save_value("Game", "upcoming_locations",upcoming_locations)
+	save_file.save_value("Game", "findings_left",findings_left)
+	
+func change_event_to(_event: Object):
+	current_event = _event
 	update_story_info()
+	update_actions()
+	save_game()
 	
 func _on_location_reseted():
 	current_event = current_area
-	save_file.save_value("Game", "current_event",current_event)
 	update_story_info()
 	update_actions()
+	save_game()
+	
 	
 #need to save locations_passed
 func _on_location_advanced():
@@ -77,17 +119,19 @@ func _on_location_advanced():
 		locations_passed = 0
 	current_event = upcoming_locations[locations_passed]
 	save_file.save_value("Game", "current_event",current_event)
+	reset_findings_left()
 	update_story_info()
 	update_actions()
+	save_game()
+	
 	
 func update_story_info():
-	var rand = RandomNumberGenerator.new()
 	rand.randomize()
 	var textures = filtered_textures()
 	var texture_index = rand.randi_range(0,textures.size() - 1)
 	story_texture.texture = load(textures[texture_index])
 	history_label.text = current_event.HISTORY
-
+	
 
 func filtered_textures():
 	var texture_cache = [] + current_event.TEXTURES
@@ -102,7 +146,7 @@ func _on_search_for_item(_action_texture_rect: ActionTextureRect) -> void:
 	yield(_action_texture_rect,"story_telling_started")
 	update_story_info()
 	update_actions()
-	
+	save_game()
 	
 func _on_story_selected():
 	owner.selected.deselect()

@@ -1,6 +1,6 @@
 class_name WalkAction
 
-const TEXTURE = "res://Textures/Action Icons/Walk.png"
+const TEXTURE = "res://Textures/Actions/Walk.png"
 
 
 

@@ -1,6 +1,6 @@
 class_name HoldAction
 
-const TEXTURE = "res://Textures/Action Icons/Hold.png"
+const TEXTURE = "res://Textures/Actions/Hold.png"
 
 
 

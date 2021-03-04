@@ -1,3 +1,3 @@
 class_name SleepAction
 
-const TEXTURE = "res://Textures/Action Icons/Sleep.png"
+const TEXTURE = "res://Textures/Actions/Sleep.png"

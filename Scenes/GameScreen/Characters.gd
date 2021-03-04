@@ -2,38 +2,41 @@ extends Node
 
 onready var character_labels = owner.get_node("CharacterLabels")
 
-var threats = ["Bleeding", "Starving", "Hungry", "Tired", "Wounded"]
+var path_dictionary = PathDictionary.new()
+var directory = Directory.new()
 
 
 func character_object_from_name(_name):
-	var path_dictionary = PathDictionary.new()
 	_name = _name.replace(" ", "")
-	return load(path_dictionary.CHARACTERS_PATH + _name +".gd").new()
+	var path = path_dictionary.CHARACTERS_PATH + _name +".gd"
+	if directory.file_exists(path):
+		return load(path).new()
+	else:
+		return null
 
 
 func _ready():
-	add_character_to_party(PyryWright.new())
-	add_character_to_party(RowanSmith.new())
+	if not directory.file_exists(PathDictionary.SAVE_PATH):
+		summon_character(PyryWright.new())
+	update_characters()
 	
-func threat_level_of(_threat):
-	return threats.find(_threat)
+	
+
 
 func update_characters():
-	var save_file = SaveFile.new()
-	
 	for old_character in get_children():
-		old_character.queue_free()
+		old_character.free()
 	
 	for _character_label in character_labels.get_children():
 		_character_label.visible = false
 		
-	for _character_name in save_file.get_saved_characters():
+	for _character_name in owner.save_file.get_saved_characters():
 		var _character = character_object_from_name(_character_name)
-		add_character_to_party(_character)
+		summon_character(_character)
 
 
 
-func add_character_to_party(character):
+func summon_character(character: Object):
 	for _character_label in character_labels.get_children():
 		if not _character_label.visible:
 			connect_character_signals(character)
@@ -46,7 +49,8 @@ func add_character_to_party(character):
 			break
 	character.name = character.character_name
 	add_child(character)
-	
+	if not owner.save_file.has_section(character.name):
+		owner.save_file.save_section(character.name)
 
 	
 

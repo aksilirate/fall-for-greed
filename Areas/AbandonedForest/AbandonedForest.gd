@@ -12,7 +12,8 @@ const TEXTURES = [
 ]
 
 const FINDINGS = [
-	"res://Areas/AbandonedForest/Findings/AngelorisFinding.gd"
+	"res://Areas/AbandonedForest/Findings/AngelorisFinding.gd",
+	"res://Areas/AbandonedForest/Findings/FallenBranchFinding.gd"
 ]
 
 const ENEMIES = [

@@ -1,6 +1,6 @@
 class_name PrayAction
 
-const TEXTURE = "res://Textures/Action Icons/Pray.png"
+const TEXTURE = "res://Textures/Actions/Pray.png"
 
 
 func init_action(action_methods: ActionTextureRect) -> void:

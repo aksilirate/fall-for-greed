@@ -1,6 +1,6 @@
 class_name AngelorisItem
 
-const NAME := "Angeloris"
+const NAME := "angeloris"
 const HISTORY := "A white mushroom."
 const TEXTURE := "res://Textures/Items/Angeloris Item.png"
 

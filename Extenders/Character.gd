@@ -27,6 +27,7 @@ var game_logic = GameLogic.new()
 var inventory: Array
 
 var stats = {
+	"mood" : 1,
 	"health": 1,
 	"hunger": 1,
 	"energy": 1
