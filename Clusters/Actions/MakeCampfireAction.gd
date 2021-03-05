@@ -1,3 +1,4 @@
+extends ActionLibrary
 class_name MakeCampfireAction
 
 
@@ -6,13 +7,16 @@ const TEXTURE = "res://Textures/Actions/Make Campfire.png"
 
 
 
-func init_action(action_methods: ActionTextureRect) -> void:
-	action_methods.destroy_item_after_story()
+func _ready():
+	destroy_item_after_story()
 	
+	var emit_story_telling
 	
-	if action_methods.area.current_event.get_class() != "CampfireEvent":
-		action_methods.emit_story_telling("you have started a campfire")
-		action_methods.change_event_to(CampfireEvent)
+	if area.current_event.get_class() != "CampfireEvent":
+		emit_story_telling = emit_story_telling("you have started a campfire")
+		change_event_to(CampfireEvent)
 	else:
-		action_methods.emit_story_telling("you threw your sticks into the campfire")
+		emit_story_telling = emit_story_telling("you threw your sticks into the campfire")
 	
+	yield(emit_story_telling, "completed")
+	queue_free()

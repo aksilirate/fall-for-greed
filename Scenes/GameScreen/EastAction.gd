@@ -3,7 +3,7 @@ extends ActionTextureRect
 
 
 func _on_EastAction_mouse_entered():
-	if not animation_player.is_playing():
+	if not owner.animation_player.is_playing():
 		emit_Mouse_Entered_Effect()
 
 func _on_EastAction_mouse_exited():

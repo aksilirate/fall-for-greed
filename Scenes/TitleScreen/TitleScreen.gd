@@ -4,7 +4,8 @@ var OptionsConfigFile = preload("res://Clusters/OptionsFile.gd").new()
 
 onready var animation_player = get_node("AnimationPlayer")
 
-
+func _init():
+	visible = false
 
 func _ready():
 	OptionsConfigFile.assign_Default_Options()
