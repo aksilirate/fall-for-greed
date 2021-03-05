@@ -15,6 +15,9 @@ var menu_open = false
 
 signal story_selected
 
+func _init():
+	visible = false
+
 func _ready():
 	if OS.is_debug_build():
 		var _debug = Debug.new()
@@ -29,7 +32,10 @@ func _on_character_death(_character):
 		if save_file.erase_section(_character.character_name) == OK:
 			characters.update_characters()
 			emit_signal("story_selected")
-
+			
+	if characters.get_child_count() == 0:
+		save_file.delete()
+		get_tree().change_scene("res://Scenes/DeathScreen/DeathScreen.tscn")
 	
 # warning-ignore:unused_argument
 func _input(event):

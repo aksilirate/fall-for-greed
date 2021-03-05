@@ -132,7 +132,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id=3]
-length = 5.0
+length = 3.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("StoryFrame:modulate")
 tracks/0/interp = 1
@@ -276,6 +276,18 @@ tracks/11/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 2 ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath(".:visible")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -662,7 +674,6 @@ __meta__ = {
 }
 
 [node name="Inventory" type="Control" parent="."]
-visible = false
 modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0

@@ -3,7 +3,7 @@ class_name ActionTextureRect
 
 onready var animation_player: AnimationPlayer = owner.get_node("AnimationPlayer")
 onready var characters: Node = owner.get_node("Logic/Characters")
-onready var area: Node = owner.get_node("Logic/Area")
+onready var area: Node = owner.get_node(owner.area)
 onready var story: Node = owner.get_node("Logic/Story")
 
 signal search_for_item(_action_texture_rect)
@@ -46,7 +46,7 @@ func update_action(_texture, _action, _executer):
 
 func change_event_to(_event: Object):
 	yield(self,"story_telling_started")
-	area.change_event_to(_event)
+	area.change_event_to(_event.new())
 
 
 
@@ -107,8 +107,14 @@ func calculate_character_turn(_character, _energy_cost):
 	_character.stats["hunger"] -= _energy_cost
 	_character.stats["energy"] -= _energy_cost
 	_character.save_stats()
-	if _character.stats["health"] <= 0:
+	
+	if _character.stats["health"] <= 0 or _character.stats["hunger"] <= 0:
 		upcoming_stories.push_back(_character.character_name + " have died")
+		yield(self,"story_telling_finished")
+		emit_signal("kill_character", _character)
+	elif _character.stats["mood"] <= 0:
+		upcoming_stories.push_back(_character.character_name + " have killed himself")
+		yield(self,"story_telling_finished")
 		emit_signal("kill_character", _character)
 
 
@@ -139,8 +145,66 @@ func emit_location_advanced():
 	yield(self,"story_telling_started")
 	emit_signal("location_advanced")
 	
+
+
+
+
+
+#-----------------------[ SLEEP ]----------------------------
+
+func sleep():
+	if executer is Object:
+		execute_sleep(executer)
+	else:
+		for _character in executer:
+			execute_sleep(_character)
+
+
+func execute_sleep(_character):
+	if _character.stats["energy"] < 0.5:
+		emit_story_telling("you have slept for " + str(round(calculate_sleep_time())) + " hours")
+		yield(self,"story_telling_started")
+		if area.current_event.get_class() == "CampfireEvent":
+			_character.stats["energy"] = 1.0
+			_character.save_stats()
+		else:
+			_character.stats["energy"] = 1.0
+			_character.save_stats()
+		add_to_minutes_passed(round(calculate_sleep_time() * 60))
+	else:
+		emit_story_telling("you don't want to sleep yet")
 	
 	
+	
+	
+func calculate_sleep_time():
+	var _character_with_lowest_energy
+	
+	if executer is Object:
+		_character_with_lowest_energy = executer
+	else:
+		for _character in executer:
+			if not _character_with_lowest_energy:
+				 _character_with_lowest_energy = _character
+			elif _character.stats["energy"] < _character_with_lowest_energy.stats["energy"]:
+				_character_with_lowest_energy = _character
+				
+				
+	randomize()
+	var _hours_passed = (1.0 - _character_with_lowest_energy.stats["energy"]) / rand_range(0.1,0.125)
+	
+	return _hours_passed
+	
+	
+	
+#----------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
 func search_for_item(_minutes_passed):
 	emit_signal("search_for_item", self)
 	var finding_name = area.current_event.NAME

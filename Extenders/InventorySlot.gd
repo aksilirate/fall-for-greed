@@ -10,7 +10,7 @@ signal update_left_action(_texture, _action, _executer)
 signal update_right_action(_texture, _action, _executer)
 signal update_east_action(_texture, _action, _executer)
 
-signal item_selected(_item)
+signal item_hold(_item)
 
 func _ready():
 # warning-ignore:return_value_discarded
@@ -49,6 +49,7 @@ func _ready():
 func destroy_item():
 	owner.get_node("StoryFrame")._on_StoryFrame_texture_rect_clicked()
 	owner.last_selected_character.inventory.remove(get_index())
+	owner.last_selected_character.save_inventory()
 	for _child in get_children():
 		_child.queue_free()
 

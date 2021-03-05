@@ -35,6 +35,7 @@ var stats = {
 
 
 
+
 func save_stats():
 	var save_file = SaveFile.new()
 	for _stat in stats:

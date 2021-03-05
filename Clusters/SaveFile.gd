@@ -59,3 +59,7 @@ func get_saved_characters():
 	_section_cache.erase("Game")
 	
 	return _section_cache
+
+func delete():
+	var dir = Directory.new()
+	dir.remove(PathDictionary.SAVE_PATH)
