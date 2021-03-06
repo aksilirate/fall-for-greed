@@ -1,4 +1,5 @@
 extends Node
+class_name OptionsFile
 
 var path = "user://Options.cfg"
 var config = ConfigFile.new()

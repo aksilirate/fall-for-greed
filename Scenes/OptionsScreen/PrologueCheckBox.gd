@@ -1,6 +1,6 @@
 extends CheckBox
 
-var OptionsConfigFile = preload("res://Clusters/OptionsFile.gd").new()
+var OptionsConfigFile = OptionsFile.new()
 
 
 

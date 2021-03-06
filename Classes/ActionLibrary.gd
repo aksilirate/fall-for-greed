@@ -5,7 +5,7 @@ class_name ActionLibrary
 onready var game_screen: GameScreen = get_tree().get_root().get_node("GameScreen") as GameScreen
 
 onready var animation_player: AnimationPlayer = game_screen.animation_player
-onready var characters: Node = game_screen.get_node("Logic/Characters")
+onready var characters: Node = game_screen.characters
 onready var area: Node = game_screen.area
 onready var story: Node = game_screen.get_node("Logic/Story")
 

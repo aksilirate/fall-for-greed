@@ -1,8 +1,8 @@
 extends ForgedLabel
 
-var OptionsFile = preload("res://Clusters/OptionsFile.gd").new()
 
 onready var animation_player = get_node("../AnimationPlayer")
+var options_file = OptionsFile.new()
 
 
 func _ready():
@@ -32,7 +32,7 @@ func _on_PlayLabel_gui_input(event):
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "Fade Out":
-		if OptionsFile.get_Option("prologue") == true:
+		if options_file.get_Option("prologue") == true:
 # warning-ignore:return_value_discarded
 			get_tree().change_scene("res://Scenes/PrologueScreen/PrologueScreen.tscn")
 		else:
