@@ -225,24 +225,34 @@ func search_for_item(_minutes_passed):
 	
 	
 func emit_take_item():
+	var emit_story_telling
 	var _main_story: String
 	var item: Object
 	
 	if area.current_event != null and area.current_event.get("ITEM"):
 		item = area.current_event.ITEM.new()
 		_main_story = "you have acquired " + str(item.NAME)
-		emit_story_telling(_main_story)
+		emit_story_telling = emit_story_telling(_main_story)
 		executer.inventory.append(item)
+		
 	else:
 		item = game_screen.hold_slot.selected_item
 		game_screen.hold_slot.selected_item = null
-		game_screen.hold_slot._on_item_selected(null)
+		game_screen.hold_slot._on_item_hold(null)
 		game_screen.last_selected_character.update_actions(game_screen)
 		if item != null:
 			executer.inventory.append(item)
 			game_screen.last_selected_character.update_inventory()
-		
+			
 	executer.save_inventory()
+	
+	if emit_story_telling:
+		yield(emit_story_telling, "completed")
+		queue_free()
+	else:
+		queue_free()
+	
+	
 	
 	
 func start_battle():

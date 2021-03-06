@@ -9,6 +9,5 @@ func _ready():
 	var _energy_cost = 0.000001
 	
 	reset_location()
-	emit_take_item()
+	emit_take_item() # <----- has queue_free() method inside it.
 	
-	queue_free()
