@@ -46,6 +46,16 @@ func save_inventory():
 	save_file.save_value(character_name, "inventory", inventory)
 	
 	
+	
+func get_hunger_status():
+	if stats["hunger"] < 0.2:
+		return "starving"
+	elif stats["hunger"] < 0.4:
+		return "famished"
+	elif stats["hunger"] < 0.6:
+		return "hungry"
+	
+	
 #	gets connected by Character: Node 
 func _on_character_selected(_owner: Node) -> void:
 	update_actions(_owner)

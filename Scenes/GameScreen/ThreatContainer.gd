@@ -17,6 +17,13 @@ func add_threat(_name):
 
 func display_threats():
 	
+	
+	var hunger_status = owner.last_selected_character.get_hunger_status()
+	if hunger_status:
+		add_threat(hunger_status)
+	
+	
+	
 	if owner.last_selected_character.stats["mood"] < 0.1:
 		add_threat("depressed")
 	elif owner.last_selected_character.stats["mood"] < 0.4:
@@ -30,14 +37,6 @@ func display_threats():
 		add_threat("injured")
 	elif owner.last_selected_character.stats["health"] < 0.8:
 		add_threat("wounded")
-
-
-	if owner.last_selected_character.stats["hunger"] < 0.2:
-		add_threat("starving")
-	elif owner.last_selected_character.stats["hunger"] < 0.4:
-		add_threat("famished")
-	elif owner.last_selected_character.stats["hunger"] < 0.6:
-		add_threat("hungry")
 	
 	
 	if owner.last_selected_character.stats["energy"] < 0.3:

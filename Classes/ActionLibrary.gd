@@ -80,7 +80,7 @@ func run_through_upcoming_stories():
 
 
 
-#-------------------------- [ v CALCULATIONS v ] ----------------------------
+#------------------------------- [ v CALCULATIONS v ] ----------------------------------
 
 func calculate_turn(_energy_cost, _minutes_passed):
 	yield(self,"story_telling_started")
@@ -95,9 +95,20 @@ func calculate_turn(_energy_cost, _minutes_passed):
 
 
 func calculate_character_turn(_character, _energy_cost):
+	
+	var _hunger_check = _character.get_hunger_status()
+
+
 	_character.stats["hunger"] -= _energy_cost / 3
 	_character.stats["energy"] -= _energy_cost
 	_character.save_stats()
+	
+	
+	if _hunger_check != _character.get_hunger_status():
+		var _updated_hunger_check = _character.get_hunger_status()
+		upcoming_stories.push_back(_character.character_name + " is " + _updated_hunger_check + " now")
+	
+	
 	
 	if _character.stats["health"] <= 0 or _character.stats["hunger"] <= 0:
 		upcoming_stories.push_back(_character.character_name + " have died")
@@ -108,7 +119,7 @@ func calculate_character_turn(_character, _energy_cost):
 		yield(self,"story_telling_finished")
 		emit_signal("kill_character", _character)
 		
-#-------------------------- [ ^ CALCULATIONS ^ ] ----------------------------
+#------------------------------ [ ^ CALCULATIONS ^ ] ---------------------------------
 
 
 
