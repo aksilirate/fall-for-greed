@@ -139,7 +139,7 @@ func filtered_textures():
 	return texture_cache
 	
 	
-func _on_search_for_item(_action_texture_rect: ActionTextureRect) -> void:
+func _on_search_for_item(_action_texture_rect: ActionLibrary) -> void:
 	randomize()
 	var index = round(rand_range(0,current_area.FINDINGS.size()-1))
 	current_event = load(current_area.FINDINGS[index]).new()

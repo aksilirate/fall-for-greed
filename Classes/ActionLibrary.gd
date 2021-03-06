@@ -150,16 +150,18 @@ func emit_location_advanced():
 #--------------------------------------- [ v SLEEP v ] ----------------------------------------
 
 func sleep():
+	var execute_sleep
 	if executer is Object:
-		execute_sleep(executer)
+		execute_sleep = execute_sleep(executer)
 	else:
 		for _character in executer:
-			execute_sleep(_character)
-
+			execute_sleep = execute_sleep(_character)
+	yield(execute_sleep, "completed")
 
 func execute_sleep(_character):
+	var emit_story_telling
 	if _character.stats["energy"] < 0.5:
-		emit_story_telling("you have slept for " + str(round(calculate_sleep_time())) + " hours")
+		emit_story_telling = emit_story_telling("you have slept for " + str(round(calculate_sleep_time())) + " hours")
 		yield(self,"story_telling_started")
 		if area.current_event.get_class() == "CampfireEvent":
 			_character.stats["energy"] = 1.0
@@ -169,8 +171,9 @@ func execute_sleep(_character):
 			_character.save_stats()
 		add_to_minutes_passed(round(calculate_sleep_time() * 60))
 	else:
-		emit_story_telling("you don't want to sleep yet")
-	
+		emit_story_telling = emit_story_telling("you don't want to sleep yet")
+		
+	yield(emit_story_telling, "completed")
 	
 	
 	
@@ -202,21 +205,23 @@ func calculate_sleep_time():
 
 func search_for_item(_minutes_passed):
 	emit_signal("search_for_item", self)
+	var emit_story_telling
 	var finding_name = area.current_event.NAME
 	randomize()
 	if area.findings_left > 0 and round(rand_range(0,1)) == OK:
 		var _main_story = "you have searched for " + str(_minutes_passed) + " minutes"
 		upcoming_stories.push_back("you have found " + str(finding_name))
-		emit_story_telling(_main_story)
+		emit_story_telling = emit_story_telling(_main_story)
 	else:
 		var _main_story = "you have searched for " + str(_minutes_passed) + " minutes"
 		upcoming_stories.push_back("you have not found anything")
 		reset_location()
-		emit_story_telling(_main_story)
+		emit_story_telling = emit_story_telling(_main_story)
 		
 	if area.findings_left > 0:
 		area.findings_left -= 1
 	
+	yield(emit_story_telling, "completed")
 	
 	
 func emit_take_item():

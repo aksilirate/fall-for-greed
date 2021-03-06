@@ -27,6 +27,8 @@ func _ready():
 	history_label.text = selected.story
 	emit_signal("story_selected")
 
+
+
 	
 func _on_character_death(_character):
 	if _character:

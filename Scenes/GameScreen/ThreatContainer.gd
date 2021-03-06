@@ -23,10 +23,6 @@ func display_threats():
 		add_threat("angry")
 	elif owner.last_selected_character.stats["mood"] < 0.6:
 		add_threat("irritated")
-	elif owner.last_selected_character.stats["mood"] < 0.8:
-		add_threat("indifferent")
-	elif owner.last_selected_character.stats["mood"] < 1.0:
-		add_threat("calm")
 
 	if owner.last_selected_character.stats["health"] < 0.1:
 		add_threat("dying")
