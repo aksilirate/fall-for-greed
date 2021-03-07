@@ -23,8 +23,12 @@ var east_action : Object
 
 var character_name = "unnamed"
 
+
+var save_file = SaveFile.new()
 var game_logic = GameLogic.new()
 var inventory: Array
+
+
 
 var stats = {
 	"mood" : 1,
@@ -36,15 +40,45 @@ var stats = {
 
 
 
+
+func _ready():
+	load_character(character_name)
+
+
+
+#----------------------------------------------- [ v Effects v ] ------------------------------------------------
+
+func add_effect(_effect_type: Object):
+	var _effect = Effect.new()
+	_effect.active_effect = _effect_type
+	add_child(_effect)
+	save_effects()
+	
+	
+func save_effects():
+	var _effects = []
+	for _child in get_children():
+		if _child.is_in_group("Effect"):
+			_effects.push_front(inst2dict(_child))
+			
+	save_file.save_value(character_name, "effects", _effects)
+	
+	
+func load_effects():
+	var _effects = save_file.get_saved_value(character_name, "effects")
+	if _effects:
+		for _effect in _effects:
+			add_child(dict2inst(_effect))
+
+#----------------------------------------------- [ ^ Effects ^ ] ------------------------------------------------
+
+
 func save_stats():
-	var save_file = SaveFile.new()
 	for _stat in stats:
 		save_file.save_value(character_name, _stat, stats[_stat])
 
 func save_inventory():
-	var save_file = SaveFile.new()
 	save_file.save_value(character_name, "inventory", inventory)
-	
 	
 	
 func get_hunger_status():
@@ -62,9 +96,10 @@ func _on_character_selected(_owner: Node) -> void:
 	update_inventory()
 	
 	
-func init_character_data(_character_name) -> void:
-	var save_file = SaveFile.new()
 	
+	
+	
+func load_character(_character_name) -> void:
 	for _stat in stats:
 		if not save_file.get_saved_value(_character_name, _stat):
 			stats[_stat] = rand_range(0.5,1)
@@ -76,6 +111,9 @@ func init_character_data(_character_name) -> void:
 		save_file.save_value(_character_name, "inventory", [])
 	else:
 		inventory = save_file.get_saved_value(_character_name, "inventory")
+	
+	load_effects()
+	
 	
 	
 	

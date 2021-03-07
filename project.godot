@@ -65,6 +65,16 @@ _global_script_classes=[ {
 "path": "res://Classes/Debug.gd"
 }, {
 "base": "ActionLibrary",
+"class": "EatAction",
+"language": "GDScript",
+"path": "res://Classes/Actions/EatAction.gd"
+}, {
+"base": "Node",
+"class": "Effect",
+"language": "GDScript",
+"path": "res://Classes/Effect.gd"
+}, {
+"base": "ActionLibrary",
 "class": "FightAction",
 "language": "GDScript",
 "path": "res://Classes/Actions/FightAction.gd"
@@ -118,6 +128,11 @@ _global_script_classes=[ {
 "class": "MakeCampfireAction",
 "language": "GDScript",
 "path": "res://Classes/Actions/MakeCampfireAction.gd"
+}, {
+"base": "Reference",
+"class": "Nausea",
+"language": "GDScript",
+"path": "res://Classes/Effects/Nausea.gd"
 }, {
 "base": "Node",
 "class": "OptionsFile",
@@ -216,6 +231,8 @@ _global_script_class_icons={
 "CommunicateAction": "",
 "CupTextureRect": "",
 "Debug": "",
+"EatAction": "",
+"Effect": "",
 "FightAction": "",
 "ForgedLabel": "",
 "ForgedTextureRect": "",
@@ -227,6 +244,7 @@ _global_script_class_icons={
 "HoldAction": "",
 "InventorySlot": "",
 "MakeCampfireAction": "",
+"Nausea": "",
 "OptionsFile": "",
 "PathDictionary": "",
 "PrayAction": "",

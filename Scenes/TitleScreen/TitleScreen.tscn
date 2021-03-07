@@ -128,8 +128,7 @@ anchor_bottom = 1.0
 script = ExtResource( 6 )
 __meta__ = {
 "_edit_lock_": true,
-"_edit_use_anchors_": false,
-"_edit_vertical_guides_": [ 184.33 ]
+"_edit_use_anchors_": false
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

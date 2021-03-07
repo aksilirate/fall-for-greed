@@ -88,10 +88,24 @@ func calculate_turn(_energy_cost, _minutes_passed):
 	add_to_minutes_passed(_minutes_passed)
 	
 	if executer is Object:
+		calculate_character_effects(executer, _minutes_passed)
 		calculate_character_turn(executer, _energy_cost)
 	else:
 		for _character in executer:
+			calculate_character_effects(_character, _minutes_passed)
 			calculate_character_turn(_character, _energy_cost)
+
+
+
+func calculate_character_effects(_character, _minutes_passed):
+	for _child in _character.get_children():
+		if _child.is_in_group("Effect"):
+			var _effect: Effect = _child
+			_effect.active_minutes += _minutes_passed
+			var _result = _effect.apply_effect(_minutes_passed)
+			if _result:
+				upcoming_stories.push_back(_character.character_name + _result)
+	_character.save_effects()
 
 
 func calculate_character_turn(_character, _energy_cost):
@@ -106,7 +120,7 @@ func calculate_character_turn(_character, _energy_cost):
 	
 	if _hunger_check != _character.get_hunger_status():
 		var _updated_hunger_check = _character.get_hunger_status()
-		upcoming_stories.push_back(_character.character_name + " is " + _updated_hunger_check + " now")
+		upcoming_stories.push_back(_character.character_name + " is " + _updated_hunger_check)
 	
 	
 	
@@ -118,7 +132,7 @@ func calculate_character_turn(_character, _energy_cost):
 		upcoming_stories.push_back(_character.character_name + " have killed himself")
 		yield(self,"story_telling_finished")
 		emit_signal("kill_character", _character)
-		
+	
 #------------------------------ [ ^ CALCULATIONS ^ ] ---------------------------------
 
 
@@ -272,3 +286,27 @@ func start_battle():
 	var shell_scene = load("res://Scenes/ShellsScene/ShellsScene.tscn").instance()
 	shell_scene.enemy = area.current_event
 	game_screen.add_child(shell_scene)
+
+
+
+
+
+
+func eat():
+	var _character = game_screen.last_selected_character
+	var _selected_item = game_screen.selected.item
+	_character.stats["hunger"] += _selected_item.CALORIES
+	_character.save_stats()
+	
+	if _selected_item.effect:
+		_character.add_effect(_selected_item.effect)
+
+
+
+
+
+
+
+
+
+

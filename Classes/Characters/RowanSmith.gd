@@ -14,6 +14,4 @@ func _init():
 	character_name = "Rowan Smith"
 
 
-func _ready():
-	init_character_data(character_name)
 

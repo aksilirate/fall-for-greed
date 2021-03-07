@@ -16,7 +16,20 @@ func _ready():
 
 func _on_ConsoleInput_text_changed(new_text):
 	
-	if new_text.left(4) == "kill":
+	
+	if game_screen.last_selected_character:
+		if new_text.left(10) == "add effect":
+			var _effect_name: String = new_text.lstrip("add effect ")
+			_effect_name = _effect_name.capitalize()
+			var _character = game_screen.last_selected_character
+			match _effect_name:
+				"Nausea":
+					_character.add_effect(Nausea.new())
+					text = ""
+	
+	
+	
+	elif new_text.left(4) == "kill":
 		var _character_name: String = new_text.lstrip("kill ")
 		_character_name = _character_name.capitalize()
 		var _character = game_screen.get_node_or_null("Logic/Characters/" + _character_name)
