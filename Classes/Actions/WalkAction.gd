@@ -2,7 +2,7 @@ extends ActionLibrary
 class_name WalkAction
 
 const TEXTURE = "res://Textures/Actions/Walk.png"
-
+const TOOLTIP := "walk"
 
 
 func _ready():

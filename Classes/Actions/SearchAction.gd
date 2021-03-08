@@ -2,7 +2,7 @@ extends ActionLibrary
 class_name SearchAction
 
 const TEXTURE = "res://Textures/Actions/Search.png"
-
+const TOOLTIP := "search"
 
 
 func _ready():

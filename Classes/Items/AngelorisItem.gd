@@ -1,8 +1,11 @@
 class_name AngelorisItem
 
+
+
 const NAME := "angeloris"
 const HISTORY := "A white mushroom."
 const TEXTURE := "res://Textures/Items/Angeloris Item.png"
+const TOOLTIP := "angeloris"
 
 const CALORIES = 0.1
 var effect = Nausea.new()

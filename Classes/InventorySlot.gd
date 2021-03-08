@@ -69,8 +69,13 @@ func _on_slot_update(_item: Object):
 		var _item_rect = TextureRect.new()
 		_item_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		_item_rect.texture = load(_item.TEXTURE)
+		if _item.get("TOOLTIP"):
+			hint_tooltip = _item.TOOLTIP
+		else:
+			hint_tooltip = ""
 		add_child(_item_rect)
-
+	else:
+		hint_tooltip = ""
 
 func _on_gui_input(event):
 	if get_parent().visible:

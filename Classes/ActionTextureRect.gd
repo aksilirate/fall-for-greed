@@ -15,10 +15,9 @@ func emit_action_pressed(event):
 					add_child(action)
 			else:
 				print("No action or executer found.")
-			
-			
-			
-			
+
+
+
 
 func update_action(_texture, _action, _executer):
 	if _action == null:
@@ -26,6 +25,10 @@ func update_action(_texture, _action, _executer):
 	else:
 # warning-ignore:standalone_expression
 		visible = true
+		if _action.get("TOOLTIP"):
+			hint_tooltip = _action.TOOLTIP
+		else:
+			hint_tooltip = ""
 	get_child(0).texture = _texture
 	
 	executer = _executer

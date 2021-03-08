@@ -2,7 +2,7 @@ extends ActionLibrary
 class_name TakeAction
 
 const TEXTURE = "res://Textures/Actions/Take.png"
-
+const TOOLTIP := "take"
 
 func _ready():
 	var _minutes_passed = 0

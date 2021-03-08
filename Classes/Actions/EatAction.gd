@@ -2,7 +2,7 @@ extends ActionLibrary
 class_name EatAction
 
 const TEXTURE = "res://Textures/Actions/Eat.png"
-
+const TOOLTIP := "eat"
 
 
 func _ready():

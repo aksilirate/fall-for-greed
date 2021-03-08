@@ -2,7 +2,7 @@ extends ActionLibrary
 class_name WaitAction
 
 const TEXTURE = "res://Textures/Actions/Wait.png"
-
+const TOOLTIP := "wait"
 
 
 func _ready():
