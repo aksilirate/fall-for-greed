@@ -62,6 +62,7 @@ func _on_AnimationPlayer_animation_finished(_anim_name):
 
 func save_characters():
 	for _character in characters.get_children():
+		_character.saved_effects = _character.get_children()
 		save_file.save_value("characters", _character.character_name, inst2dict(_character))
 	
 func save():

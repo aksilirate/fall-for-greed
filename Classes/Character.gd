@@ -36,7 +36,7 @@ var game_logic = GameLogic.new()
 var inventory: Array
 
 
-
+var saved_effects = []
 var stats = {
 	"mood" : 1,
 	"health": 1,
@@ -57,7 +57,9 @@ func _ready():
 	
 	name = character_name
 	
-
+	for _effect in saved_effects:
+		add_child(_effect)
+	saved_effects = []
 
 	
 func add_effect(_effect_type: Object):

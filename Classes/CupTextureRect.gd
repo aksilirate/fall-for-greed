@@ -9,7 +9,9 @@ export(NodePath) onready var tween = get_node(tween) as Tween
 
 
 func _ready():
+# warning-ignore:return_value_discarded
 	connect("mouse_entered", self, "_on_mouse_entered")
+# warning-ignore:return_value_discarded
 	connect("mouse_exited", self, "_on_mouse_exited")
 
 
