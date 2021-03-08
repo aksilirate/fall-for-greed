@@ -16,6 +16,8 @@ signal story_telling_finished
 signal location_advanced
 signal location_reseted
 
+
+var character_passed_out = false
 var upcoming_stories = []
 var action: Object
 var executer
@@ -68,7 +70,7 @@ func run_through_upcoming_stories():
 	for _story in upcoming_stories:
 		var story_label = preload("res://Scenes/StoryLabel/StoryLabel.tscn").instance()
 		var story_animation_player = story_label.get_node("AnimationPlayer")
-		story_label.text = _story
+		story_label.text = _story.to_lower()
 		game_screen.add_child(story_label)
 		yield(story_animation_player,"animation_finished")
 		story_label.queue_free()
@@ -86,6 +88,7 @@ func calculate_turn(_energy_cost, _minutes_passed):
 
 	add_to_minutes_passed(_minutes_passed)
 	
+	
 	if executer is Object:
 		calculate_character_effects(executer, _minutes_passed)
 		calculate_character_turn(executer, _energy_cost)
@@ -93,7 +96,8 @@ func calculate_turn(_energy_cost, _minutes_passed):
 		for _character in executer:
 			calculate_character_effects(_character, _minutes_passed)
 			calculate_character_turn(_character, _energy_cost)
-	
+			
+
 
 
 func calculate_character_effects(_character, _minutes_passed):
@@ -120,7 +124,11 @@ func calculate_character_turn(_character, _energy_cost):
 		upcoming_stories.push_back(_character.character_name + " is " + _updated_hunger_check)
 	
 	
-	
+	if _character.stats["energy"] <= 0:
+		upcoming_stories.push_back(_character.character_name + " has fallen asleep")
+		pass_out()
+		_character.stats["energy"] = 1.0
+		
 	if _character.stats["health"] <= 0 or _character.stats["hunger"] <= 0:
 		upcoming_stories.push_back(_character.character_name + " have died")
 		yield(self,"story_telling_finished")
@@ -182,6 +190,7 @@ func execute_sleep(_character):
 	var emit_story_telling
 	if _character.stats["energy"] < 0.5:
 		emit_story_telling = emit_story_telling("you have slept for " + str(round(calculate_sleep_time())) + " hours")
+			
 		yield(self,"story_telling_started")
 		if area.current_event.get_class() == "CampfireEvent":
 			_character.stats["energy"] = 1.0
@@ -209,10 +218,24 @@ func calculate_sleep_time():
 				
 				
 	randomize()
-	var _hours_passed = (1.0 - _character_with_lowest_energy.stats["energy"]) / rand_range(0.1,0.125)
+	
+	var energy_regain: float
+	if _character_with_lowest_energy.stats["energy"] < 0.1:
+		energy_regain = rand_range(0.09,0.1)
+	else:
+		energy_regain = rand_range(0.1,0.125)
+		
+	var _hours_passed = (1.0 - _character_with_lowest_energy.stats["energy"]) / energy_regain
 	
 	return _hours_passed
 	
+
+func pass_out():
+	if not character_passed_out:
+		character_passed_out = true
+		upcoming_stories.push_back(str(round(calculate_sleep_time())) + " hours have passed")
+		add_to_minutes_passed(round(calculate_sleep_time() * 60))
+
 #----------------------------------------- [ ^ SLEEP ^ ] -----------------------------------------
 
 

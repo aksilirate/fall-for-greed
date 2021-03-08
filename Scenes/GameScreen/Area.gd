@@ -1,7 +1,6 @@
 extends Node
 
 onready var animation_player: AnimationPlayer = owner.get_node("AnimationPlayer")
-onready var executer = owner.get_node("Logic/Characters").get_children()
 onready var history_label = owner.get_node("HistoryLabel")
 onready var story_texture = owner.get_node("StoryTexture")
 onready var story_frame = owner.get_node("StoryFrame")
@@ -163,6 +162,8 @@ func _on_story_selected():
 	
 	
 func update_actions():
+	var executer = owner.get_node("Logic/Characters").get_children()
+	
 	var left_action = current_event.LEFT_ACTION.new()
 	var right_action = current_event.RIGHT_ACTION.new()
 	
