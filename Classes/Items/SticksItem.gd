@@ -11,5 +11,5 @@ const TEXTURE := "res://Textures/Items/Sticks Item.png"
 
 const WEST_ACTION = HoldAction
 const LEFT_ACTION = MakeCampfireAction
-const RIGHT_ACTION = WaitAction
-const EAST_ACTION = WaitAction
+const RIGHT_ACTION = null
+const EAST_ACTION = null

@@ -101,14 +101,17 @@ func change_event_to(_event: Object):
 	update_story_info()
 	update_actions()
 	save_game()
-	
+
+
+
 func _on_location_reseted():
 	current_event = current_area
 	update_story_info()
 	update_actions()
 	save_game()
-	
-	
+
+
+
 #need to save locations_passed
 func _on_location_advanced():
 	locations_passed += 1

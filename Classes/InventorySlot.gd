@@ -49,17 +49,19 @@ func _ready():
 func destroy_item():
 	owner.get_node("StoryFrame")._on_StoryFrame_texture_rect_clicked()
 	owner.last_selected_character.inventory.remove(get_index())
-	owner.last_selected_character.save_inventory()
+	owner.save()
 	for _child in get_children():
 		_child.queue_free()
-
+	item = null
+	
+	
 func hold_item():
-	destroy_item()
 	emit_signal("item_hold", item)
+	destroy_item()
+	
 		
 func _on_slot_update(_item: Object):
 	item = _item
-	
 	for _child in get_children():
 		_child.queue_free()
 		
@@ -68,6 +70,7 @@ func _on_slot_update(_item: Object):
 		_item_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		_item_rect.texture = load(_item.TEXTURE)
 		add_child(_item_rect)
+
 
 func _on_gui_input(event):
 	if get_parent().visible:
@@ -98,11 +101,32 @@ func update_actions():
 		emit_signal("update_right_action", null, null, owner.last_selected_character)
 		emit_signal("update_east_action", null, null, owner.last_selected_character)
 	else:
-		var west_action = item.WEST_ACTION.new()
-		var left_action = item.LEFT_ACTION.new()
-		var right_action = item.RIGHT_ACTION.new()
-		var east_action = item.EAST_ACTION.new()
-		emit_signal("update_west_action",load(west_action.TEXTURE), west_action, owner.last_selected_character)
-		emit_signal("update_left_action", load(left_action.TEXTURE), left_action, owner.last_selected_character)
-		emit_signal("update_right_action", load(right_action.TEXTURE), right_action, owner.last_selected_character)
-		emit_signal("update_east_action", load(east_action.TEXTURE), east_action, owner.last_selected_character)
+		if item.WEST_ACTION:
+			var west_action = item.WEST_ACTION.new()
+			emit_signal("update_west_action",load(west_action.TEXTURE), west_action, owner.last_selected_character)
+		else:
+			emit_signal("update_west_action",null, null, owner.last_selected_character)
+			
+			
+		if item.LEFT_ACTION:
+			var left_action = item.LEFT_ACTION.new()
+			emit_signal("update_left_action", load(left_action.TEXTURE), left_action, owner.last_selected_character)
+		else:
+			emit_signal("update_left_action", null, null, owner.last_selected_character)
+			
+			
+		if item.RIGHT_ACTION:
+			var right_action = item.RIGHT_ACTION.new()
+			emit_signal("update_right_action", load(right_action.TEXTURE), right_action, owner.last_selected_character)
+		else:
+			emit_signal("update_right_action", null, null, owner.last_selected_character)
+			
+			
+		if item.EAST_ACTION:
+			var east_action = item.EAST_ACTION.new()
+			emit_signal("update_east_action", load(east_action.TEXTURE), east_action, owner.last_selected_character)
+		else:
+			emit_signal("update_east_action", null, null, owner.last_selected_character)
+
+
+

@@ -35,6 +35,8 @@ func _ready():
 		enemy_attack()
 	
 
+
+
 func character_attack():
 	for _character in $CharactersContainer.get_children():
 		var _character_origin = _character.rect_position
@@ -43,7 +45,7 @@ func character_attack():
 		tween.start()
 		yield(get_tree().create_timer(0.19), "timeout")
 		hit($Enemy)
-		enemy.health -= _character.character_reference.DAMAGE
+		enemy.health -= _character.character_reference.damage
 		yield(tween,"tween_completed")
 		tween.interpolate_property(_character, "rect_position", _character.rect_position, _character_origin, 0.3, Tween.TRANS_EXPO)
 		yield(tween,"tween_completed")
@@ -69,7 +71,6 @@ func enemy_attack():
 	yield(get_tree().create_timer(0.19), "timeout")
 	hit(_character)
 	_character.character_reference.stats["health"] -= enemy.DAMAGE * 3
-	_character.character_reference.save_stats()
 	yield(tween,"tween_completed")
 	tween.interpolate_property($Enemy, "rect_position", $Enemy.rect_position, ENEMY_ORIGIN, 0.3, Tween.TRANS_EXPO)
 	yield(tween,"tween_completed")

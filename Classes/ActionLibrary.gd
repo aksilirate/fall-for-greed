@@ -16,7 +16,6 @@ signal story_telling_finished
 signal location_advanced
 signal location_reseted
 
-
 var upcoming_stories = []
 var action: Object
 var executer
@@ -33,6 +32,7 @@ func _ready():
 	connect("search_for_item", area, "_on_search_for_item")
 # warning-ignore:return_value_discarded
 	connect("story_telling_started", area, "_on_story_selected")
+# warning-ignore:return_value_discarded
 	
 	
 	
@@ -52,7 +52,6 @@ func emit_story_telling(_main_story):
 	emit_signal("story_telling_started")
 	run_through_upcoming_stories()
 	yield(self,"story_telling_finished")
-	
 	animation_player.play("Show Screen")
 	upcoming_stories.clear()
 
@@ -94,7 +93,7 @@ func calculate_turn(_energy_cost, _minutes_passed):
 		for _character in executer:
 			calculate_character_effects(_character, _minutes_passed)
 			calculate_character_turn(_character, _energy_cost)
-
+	
 
 
 func calculate_character_effects(_character, _minutes_passed):
@@ -105,7 +104,6 @@ func calculate_character_effects(_character, _minutes_passed):
 			var _result = _effect.apply_effect(_minutes_passed)
 			if _result:
 				upcoming_stories.push_back(_character.character_name + _result)
-	_character.save_effects()
 
 
 func calculate_character_turn(_character, _energy_cost):
@@ -115,7 +113,6 @@ func calculate_character_turn(_character, _energy_cost):
 
 	_character.stats["hunger"] -= _energy_cost / 3
 	_character.stats["energy"] -= _energy_cost
-	_character.save_stats()
 	
 	
 	if _hunger_check != _character.get_hunger_status():
@@ -166,8 +163,6 @@ func reset_location():
 func emit_location_advanced():
 	yield(self,"story_telling_started")
 	emit_signal("location_advanced")
-	
-
 
 
 
@@ -190,10 +185,8 @@ func execute_sleep(_character):
 		yield(self,"story_telling_started")
 		if area.current_event.get_class() == "CampfireEvent":
 			_character.stats["energy"] = 1.0
-			_character.save_stats()
 		else:
 			_character.stats["energy"] = 1.0
-			_character.save_stats()
 		add_to_minutes_passed(round(calculate_sleep_time() * 60))
 	else:
 		emit_story_telling = emit_story_telling("you don't want to sleep yet")
@@ -259,17 +252,18 @@ func emit_take_item():
 		_main_story = "you have acquired " + str(item.NAME)
 		emit_story_telling = emit_story_telling(_main_story)
 		executer.inventory.append(item)
-		
-	else:
+	else: # <------- if holding an Item
 		item = game_screen.hold_slot.selected_item
 		game_screen.hold_slot.selected_item = null
 		game_screen.hold_slot._on_item_hold(null)
 		game_screen.last_selected_character.update_actions(game_screen)
+		
 		if item != null:
 			executer.inventory.append(item)
-			game_screen.last_selected_character.update_inventory()
 			
-	executer.save_inventory()
+		game_screen.last_selected_character.update_inventory()
+
+
 	
 	if emit_story_telling:
 		yield(emit_story_telling, "completed")
@@ -296,17 +290,14 @@ func eat():
 	var _character = game_screen.last_selected_character
 	var _selected_item = game_screen.selected.item
 	_character.stats["hunger"] += _selected_item.CALORIES
-	_character.save_stats()
 	
 	if _selected_item.effect:
 		_character.add_effect(_selected_item.effect)
 
 
 
-
-
-
-
+func _exit_tree():
+	game_screen.save()
 
 
 

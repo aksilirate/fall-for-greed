@@ -137,7 +137,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "OptionsFile",
 "language": "GDScript",
-"path": "res://Classes/OptionsFile.gd"
+"path": "res://Classes/Files/OptionsFile.gd"
 }, {
 "base": "Reference",
 "class": "PathDictionary",
@@ -149,7 +149,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Classes/Actions/PrayAction.gd"
 }, {
-"base": "Character",
+"base": "Reference",
 "class": "PyryWright",
 "language": "GDScript",
 "path": "res://Classes/Characters/PyryWright.gd"
@@ -159,7 +159,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Classes/Actions/RemoveToothAction.gd"
 }, {
-"base": "Character",
+"base": "Reference",
 "class": "RowanSmith",
 "language": "GDScript",
 "path": "res://Classes/Characters/RowanSmith.gd"
@@ -177,7 +177,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "SaveFile",
 "language": "GDScript",
-"path": "res://Classes/SaveFile.gd"
+"path": "res://Classes/Files/SaveFile.gd"
 }, {
 "base": "ActionLibrary",
 "class": "SearchAction",

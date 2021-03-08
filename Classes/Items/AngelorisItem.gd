@@ -9,8 +9,8 @@ var effect = Nausea.new()
 
 const WEST_ACTION = HoldAction
 const LEFT_ACTION = EatAction
-const RIGHT_ACTION = WaitAction
-const EAST_ACTION = WaitAction
+const RIGHT_ACTION = null
+const EAST_ACTION = null
 
 func _init():
 	effect.activation_minute = round(rand_range(60,90))

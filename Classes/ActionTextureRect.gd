@@ -2,7 +2,6 @@ extends ForgedTextureRect
 class_name ActionTextureRect
 
 
-
 var action
 var executer
 
@@ -12,7 +11,8 @@ func emit_action_pressed(event):
 		if not event.pressed:
 			if action and executer:
 				action.executer = executer
-				add_child(action)
+				if get_child_count() < 2:
+					add_child(action)
 			else:
 				print("No action or executer found.")
 			

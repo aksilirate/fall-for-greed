@@ -29,18 +29,21 @@ func _ready():
 
 
 
-	
+
+
 func _on_character_death(_character):
 	if _character:
-		if save_file.erase_section(_character.character_name) == OK:
-			characters.update_characters()
-			emit_signal("story_selected")
+		save_file.erase_value("Characters", _character.character_name)
+		characters.update_characters()
+		emit_signal("story_selected")
 			
 	if characters.get_child_count() == 0:
 		save_file.delete()
 # warning-ignore:return_value_discarded
 		get_tree().change_scene("res://Scenes/DeathScreen/DeathScreen.tscn")
-	
+
+
+
 # warning-ignore:unused_argument
 func _input(event):
 	if Input.is_action_just_pressed("ui_esc"):
@@ -55,3 +58,15 @@ func _input(event):
 func _on_AnimationPlayer_animation_finished(_anim_name):
 	if _anim_name == "load":
 		selected.modulate.a = 0.3
+
+
+func save_characters():
+	for _character in characters.get_children():
+		save_file.save_value("characters", _character.character_name, inst2dict(_character))
+	
+func save():
+	call_deferred("save_characters")
+	
+	
+	
+	

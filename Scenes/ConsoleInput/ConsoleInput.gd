@@ -15,10 +15,10 @@ func _ready():
 	connect("summon_character", characters, "summon_character")
 
 func _on_ConsoleInput_text_changed(new_text):
-	
-	
-	if game_screen.last_selected_character:
-		if new_text.left(10) == "add effect":
+
+
+	if new_text.left(10) == "add effect":
+		if game_screen.last_selected_character:
 			var _effect_name: String = new_text.lstrip("add effect ")
 			_effect_name = _effect_name.capitalize()
 			var _character = game_screen.last_selected_character
@@ -26,9 +26,9 @@ func _on_ConsoleInput_text_changed(new_text):
 				"Nausea":
 					_character.add_effect(Nausea.new())
 					text = ""
-	
-	
-	
+
+
+
 	elif new_text.left(4) == "kill":
 		var _character_name: String = new_text.lstrip("kill ")
 		_character_name = _character_name.capitalize()
@@ -36,7 +36,9 @@ func _on_ConsoleInput_text_changed(new_text):
 		if _character != game_screen.get_node_or_null("Logic/Characters") and _character != null:
 			emit_signal("kill_character", _character)
 			text = ""
-			
+
+
+
 	elif new_text.left(6) == "summon":
 		var _character_name: String = new_text.lstrip("summon ")
 		_character_name = _character_name.capitalize()
@@ -44,8 +46,9 @@ func _on_ConsoleInput_text_changed(new_text):
 		if _character:
 			emit_signal("summon_character", _character)
 			text = ""
-			
-			
+
+
+
 	elif new_text.left(15) == "change event to":
 		var _event_name: String = new_text.lstrip("change event to ")
 		_event_name = _event_name.to_upper()

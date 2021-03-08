@@ -16,15 +16,22 @@ signal update_south_slot(_item)
 signal update_south_east_slot(_item)
 
 
+var self_profile_picture: Resource
+var unit_texture: Resource
+
+
+var character_name: String
+var story: String
+
+var damage: float
+
+
 var west_action: Object
 var left_action: Object
 var right_action: Object
 var east_action : Object
 
-var character_name = "unnamed"
 
-
-var save_file = SaveFile.new()
 var game_logic = GameLogic.new()
 var inventory: Array
 
@@ -39,47 +46,26 @@ var stats = {
 
 
 
-
+var current_character
 
 func _ready():
-	load_character(character_name)
+	self_profile_picture = current_character.SELF_PROFILE_PICTURE
+	unit_texture = current_character.UNIT_TEXTURE
+	character_name = current_character.NAME
+	story = current_character.STORY
+	damage = current_character.DAMAGE
+	
+	name = character_name
+	
 
 
-
-#----------------------------------------------- [ v Effects v ] ------------------------------------------------
-
+	
 func add_effect(_effect_type: Object):
 	var _effect = Effect.new()
 	_effect.active_effect = _effect_type
 	add_child(_effect)
-	save_effects()
 	
-	
-func save_effects():
-	var _effects = []
-	for _child in get_children():
-		if _child.is_in_group("Effect"):
-			_effects.push_front(inst2dict(_child))
-			
-	save_file.save_value(character_name, "effects", _effects)
-	
-	
-func load_effects():
-	var _effects = save_file.get_saved_value(character_name, "effects")
-	if _effects:
-		for _effect in _effects:
-			add_child(dict2inst(_effect))
 
-#----------------------------------------------- [ ^ Effects ^ ] ------------------------------------------------
-
-
-func save_stats():
-	for _stat in stats:
-		save_file.save_value(character_name, _stat, stats[_stat])
-
-func save_inventory():
-	save_file.save_value(character_name, "inventory", inventory)
-	
 	
 func get_hunger_status():
 	if stats["hunger"] < 0.2:
@@ -90,29 +76,11 @@ func get_hunger_status():
 		return "hungry"
 	
 	
+	
 #	gets connected by Character: Node 
 func _on_character_selected(_owner: Node) -> void:
 	update_actions(_owner)
 	update_inventory()
-	
-	
-	
-	
-	
-func load_character(_character_name) -> void:
-	for _stat in stats:
-		if not save_file.get_saved_value(_character_name, _stat):
-			stats[_stat] = rand_range(0.5,1)
-			save_file.save_value(_character_name, _stat, stats[_stat])
-		else:
-			stats[_stat] = save_file.get_saved_value(_character_name, _stat)
-
-	if not save_file.get_saved_value(_character_name, "inventory"):
-		save_file.save_value(_character_name, "inventory", [])
-	else:
-		inventory = save_file.get_saved_value(_character_name, "inventory")
-	
-	load_effects()
 	
 	
 	
@@ -124,15 +92,31 @@ func update_actions(_owner: Node) -> void:
 	else:
 		west_action = PrayAction.new()
 	
-	left_action = RemoveToothAction.new()
-	right_action = BiteTongueAction.new()
-	east_action = TakeEyeAction.new()
+	left_action = null
+	right_action = null
+	east_action = null
 		
-	
-	emit_signal("update_west_action",load(west_action.TEXTURE), west_action, self)
-	emit_signal("update_left_action",load(left_action.TEXTURE), left_action, self)
-	emit_signal("update_right_action",load(right_action.TEXTURE), right_action, self)
-	emit_signal("update_east_action",load(east_action.TEXTURE), east_action, self)
+	if west_action:
+		emit_signal("update_west_action",load(west_action.TEXTURE), west_action, self)
+	else:
+		emit_signal("update_west_action", null, null, null)
+		
+		
+	if left_action:
+		emit_signal("update_left_action",load(left_action.TEXTURE), left_action, self)
+	else:
+		emit_signal("update_left_action",null, null, null)
+
+
+	if right_action:
+		emit_signal("update_right_action",load(right_action.TEXTURE), right_action, self)
+	else:
+		emit_signal("update_right_action", null, null, null)
+
+	if east_action:
+		emit_signal("update_east_action",load(east_action.TEXTURE), east_action, self)
+	else:
+		emit_signal("update_east_action", null, null, null)
 
 func update_inventory():
 	if inventory.size() - 1 >= 0:

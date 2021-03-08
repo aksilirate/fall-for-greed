@@ -2,15 +2,14 @@ extends Node
 class_name Effect
 
 
-var active_effect
 
 var active_minutes: int = 0
-
 # Will apply effect after "active_minutes" reach the "activation_minute"
 var activation_minute: int = 0
 
 
 
+var active_effect # The effect type being passed
 
 func _ready():
 	activation_minute = active_effect.activation_minute
