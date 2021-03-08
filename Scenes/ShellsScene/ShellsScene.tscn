@@ -396,6 +396,7 @@ anims/ShowRight = SubResource( 8 )
 anims/Unload = SubResource( 10 )
 
 [node name="ShellGame" type="Control" parent="."]
+modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 4 )
@@ -414,6 +415,7 @@ volume_db = -80.0
 autoplay = true
 
 [node name="Heart" type="TextureRect" parent="ShellGame"]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

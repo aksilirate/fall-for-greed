@@ -16,18 +16,22 @@ var rand = RandomNumberGenerator.new()
 var speed = 5
 var power := 30
 
-	
 func _ready():
+	
+		
 	
 	if owner.enemy == null:
 		owner.enemy = WolfEnemy.new()
 		
 	speed = owner.enemy.SPEED
 	power = owner.enemy.POWER
-	
-	animation_player.play("Load")
-	yield(animation_player,"animation_finished")
-	start_cup_game()
+	if get_parent().auto_lose:
+		heart_found = false
+		load_battle_scene()
+	else:
+		animation_player.play("Load")
+		yield(animation_player,"animation_finished")
+		start_cup_game()
 	
 func start_cup_game():
 	heart_location = [false,true,false]
@@ -114,13 +118,20 @@ func _on_cup_selected(_cup):
 	load_battle_scene()
 
 func load_battle_scene():
-	yield(animation_player,"animation_finished")
-	animation_player.play("Unload")
-	yield(animation_player,"animation_finished")
+	
+	if not get_parent().auto_lose:
+		yield(animation_player,"animation_finished")
+		animation_player.play("Unload")
+		yield(animation_player,"animation_finished")
+	else:
+		owner.show()
+		modulate.a = 0
+		$Heart.hide()
+		
 	var battle_scene = preload("res://Scenes/BattleScene/BattleScene.tscn").instance()
 	battle_scene.enemy = owner.enemy
 	if heart_found:
 		battle_scene.heart_found = true
 	else:
 		battle_scene.heart_found = false
-	owner.add_child(battle_scene)
+	owner.call_deferred("add_child", battle_scene)

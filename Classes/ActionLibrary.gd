@@ -44,7 +44,7 @@ func change_event_to(_event: Object):
 	area.change_event_to(_event.new())
 
 
-
+var show_screen_disabled := false
 func emit_story_telling(_main_story):
 	upcoming_stories.push_front(_main_story)
 	
@@ -54,7 +54,8 @@ func emit_story_telling(_main_story):
 	emit_signal("story_telling_started")
 	run_through_upcoming_stories()
 	yield(self,"story_telling_finished")
-	animation_player.play("Show Screen")
+	if not show_screen_disabled:
+		animation_player.play("Show Screen")
 	upcoming_stories.clear()
 
 
@@ -313,6 +314,25 @@ func start_battle():
 
 
 
+func run():
+	var _run_chance = clamp(4 - area.current_event.SPEED,0,4)
+	var emit_story_telling
+	
+	randomize()
+	if rand_range(0,10) < _run_chance:
+		emit_story_telling = emit_story_telling("you have ran away")
+		emit_location_advanced()
+		yield(emit_story_telling,"completed")
+		queue_free()
+	else:
+		emit_story_telling("you could not run away")
+		show_screen_disabled = true
+		yield(self,"story_telling_finished")
+		var shell_scene = load("res://Scenes/ShellsScene/ShellsScene.tscn").instance()
+		shell_scene.enemy = area.current_event
+		shell_scene.auto_lose = true
+		game_screen.add_child(shell_scene)
+		queue_free()
 
 
 

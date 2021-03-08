@@ -8,7 +8,7 @@ const HISTORY = "A lone hostile wolf."
 const UNIT_TEXTURE := "res://Textures/Battle/Enemies/Wolf Unit.png"
 
 const TEXTURES = [
-	"res://Textures/Areas/Abandoned Forest/Enemies/Wolf Enemy 0.png"
+	"res://Textures/Areas/Abandoned Forest/Enemies/Wolf Enemy.png"
 ]
 
 

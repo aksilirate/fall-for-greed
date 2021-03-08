@@ -110,6 +110,11 @@ _global_script_classes=[ {
 "path": "res://Classes/GameTextureRect.gd"
 }, {
 "base": "Reference",
+"class": "GnomeEnemy",
+"language": "GDScript",
+"path": "res://Areas/AbandonedForest/Enemies/GnomeEnemy.gd"
+}, {
+"base": "Reference",
 "class": "Hills",
 "language": "GDScript",
 "path": "res://Areas/Hills/Hills.gd"
@@ -240,6 +245,7 @@ _global_script_class_icons={
 "GameLogic": "",
 "GameScreen": "",
 "GameTextureRect": "",
+"GnomeEnemy": "",
 "Hills": "",
 "HoldAction": "",
 "InventorySlot": "",

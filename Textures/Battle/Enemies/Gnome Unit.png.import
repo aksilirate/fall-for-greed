@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Wolf.png-a89707076a02023a4abeaa427cfa336c.stex"
+path="res://.import/Gnome Unit.png-08a5c1c901c24fe4bfe74025ca211102.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Battle/Enemies/Wolf.png"
-dest_files=[ "res://.import/Wolf.png-a89707076a02023a4abeaa427cfa336c.stex" ]
+source_file="res://Textures/Battle/Enemies/Gnome Unit.png"
+dest_files=[ "res://.import/Gnome Unit.png-08a5c1c901c24fe4bfe74025ca211102.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Pyry Wright Unit - Copy.png-c547b2fe4002568344f4bd887523c506.stex"
+path="res://.import/Gnome Enemy.png-7454289c4e49e8c09be017070d4ca1e0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Battle/Characters/Pyry Wright Unit - Copy.png"
-dest_files=[ "res://.import/Pyry Wright Unit - Copy.png-c547b2fe4002568344f4bd887523c506.stex" ]
+source_file="res://Textures/Areas/Abandoned Forest/Enemies/Gnome Enemy.png"
+dest_files=[ "res://.import/Gnome Enemy.png-7454289c4e49e8c09be017070d4ca1e0.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
@@ -30,5 +30,5 @@ process/HDR_as_SRGB=false
 process/invert_color=false
 stream=false
 size_limit=0
-detect_3d=true
+detect_3d=false
 svg/scale=1.0

@@ -17,7 +17,8 @@ const FINDINGS = [
 ]
 
 const ENEMIES = [
-	WolfEnemy
+	WolfEnemy,
+	GnomeEnemy
 ]
 
 const NPCS = [

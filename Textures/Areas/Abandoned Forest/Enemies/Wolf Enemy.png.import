@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Wolf Enemy 0.png-81a7384802ad2b3a7df71500f6aa77c1.stex"
+path="res://.import/Wolf Enemy.png-a80b9977849add21c1ec28058a971a5a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Areas/Abandoned Forest/Enemies/Wolf Enemy 0.png"
-dest_files=[ "res://.import/Wolf Enemy 0.png-81a7384802ad2b3a7df71500f6aa77c1.stex" ]
+source_file="res://Textures/Areas/Abandoned Forest/Enemies/Wolf Enemy.png"
+dest_files=[ "res://.import/Wolf Enemy.png-a80b9977849add21c1ec28058a971a5a.stex" ]
 
 [params]
 
