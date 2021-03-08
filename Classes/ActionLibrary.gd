@@ -90,12 +90,10 @@ func calculate_turn(_energy_cost, _minutes_passed):
 	
 	
 	if executer is Object:
-		calculate_character_effects(executer, _minutes_passed)
-		calculate_character_turn(executer, _energy_cost)
+		calculate_character_turn(executer, _energy_cost, _minutes_passed)
 	else:
 		for _character in executer:
-			calculate_character_effects(_character, _minutes_passed)
-			calculate_character_turn(_character, _energy_cost)
+			calculate_character_turn(_character, _energy_cost, _minutes_passed)
 			
 
 
@@ -110,11 +108,12 @@ func calculate_character_effects(_character, _minutes_passed):
 				upcoming_stories.push_back(_character.character_name + _result)
 
 
-func calculate_character_turn(_character, _energy_cost):
-	
+func calculate_character_turn(_character, _energy_cost, _minutes_passed):
+	calculate_character_effects(_character, _minutes_passed)
+	calculate_mood(_character, _minutes_passed)
 	var _hunger_check = _character.get_hunger_status()
-
-
+	
+	
 	_character.stats["hunger"] -= _energy_cost / 3
 	_character.stats["energy"] -= _energy_cost
 	
@@ -133,10 +132,18 @@ func calculate_character_turn(_character, _energy_cost):
 		upcoming_stories.push_back(_character.character_name + " have died")
 		yield(self,"story_telling_finished")
 		emit_signal("kill_character", _character)
+		
 	elif _character.stats["mood"] <= 0:
 		upcoming_stories.push_back(_character.character_name + " have killed himself")
 		yield(self,"story_telling_finished")
 		emit_signal("kill_character", _character)
+	
+	
+func calculate_mood(_character, _minutes_passed):
+	if _character.stats["health"] <= 0.5:
+		_character.stats["mood"] -= ((1 - _character.stats["health"]) / 300) * _minutes_passed
+	if _character.stats["hunger"] <= 0.5:
+		_character.stats["mood"] -= ((1 - _character.stats["health"]) / 430) * _minutes_passed
 	
 #------------------------------ [ ^ CALCULATIONS ^ ] ---------------------------------
 

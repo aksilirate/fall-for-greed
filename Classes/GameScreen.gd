@@ -64,10 +64,13 @@ func save_characters():
 	for _character in characters.get_children():
 		_character.saved_effects = _character.get_children()
 		save_file.save_value("characters", _character.character_name, inst2dict(_character))
+		
+func save_game():
+	save_file.save_value("game", "selected_item", hold_slot.selected_item)
 	
 func save():
 	call_deferred("save_characters")
-	
+	call_deferred("save_game")
 	
 	
 	

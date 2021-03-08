@@ -8,7 +8,7 @@ const TOOLTIP := "search"
 func _ready():
 	randomize()
 	var _minutes_passed = floor(rand_range(9,21))
-	var _energy_cost = 0.01 * _minutes_passed
+	var _energy_cost = 0.008 * _minutes_passed
 	
 	var search_for_item = search_for_item(_minutes_passed)
 	

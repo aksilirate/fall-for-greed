@@ -2,7 +2,7 @@ extends ActionLibrary
 class_name FightAction
 
 const TEXTURE = "res://Textures/Actions/Fight.png"
-
+const TOOLTIP := "fight"
 
 
 func _ready():

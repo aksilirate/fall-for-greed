@@ -4,7 +4,7 @@ class_name MakeCampfireAction
 
 
 const TEXTURE = "res://Textures/Actions/Make Campfire.png"
-
+const TOOLTIP := "make a campfire"
 
 
 func _ready():
