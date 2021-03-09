@@ -2,6 +2,7 @@ extends Control
 
 export(NodePath) onready var animation_player = get_node(animation_player) as AnimationPlayer
 export(NodePath) onready var tween = get_node(tween) as Tween
+onready var game_screen = get_tree().get_root().get_node("GameScreen")
 
 const ENEMY_ORIGIN = Vector2(168,56)
 
@@ -15,7 +16,7 @@ signal battle_finished
 
 
 func _ready():
-	var game_screen = get_tree().get_root().get_node("GameScreen")
+	
 # warning-ignore:return_value_discarded
 	connect("battle_finished", get_parent(), "_on_battle_finished")
 # warning-ignore:return_value_discarded
@@ -58,6 +59,8 @@ func character_attack():
 			var game_screen = get_tree().get_root().get_node("GameScreen")
 			game_screen.animation_player.play("Show Screen")
 			game_screen.area._on_location_reseted()
+			if enemy.has_method("death_curse"):
+				enemy.death_curse(game_screen)
 			get_parent().queue_free()
 			
 	complete_battle()

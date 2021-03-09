@@ -1,7 +1,8 @@
 extends Control
 
 export(NodePath) onready var animation_player = get_node(animation_player) as AnimationPlayer
-export(NodePath) onready var InputBlocker = get_node(InputBlocker) as ColorRect
+export(NodePath) onready var pick_countdown_label = get_node(pick_countdown_label) as Label
+export(NodePath) onready var input_blocker = get_node(input_blocker) as ColorRect
 
 const left_position := Vector2(93,76)
 const center_position := Vector2(157,76)
@@ -16,9 +17,10 @@ var rand = RandomNumberGenerator.new()
 var speed = 5
 var power := 30
 
+signal pick_phase_started
+signal shell_picked
+
 func _ready():
-	
-		
 	
 	if owner.enemy == null:
 		owner.enemy = WolfEnemy.new()
@@ -88,7 +90,9 @@ func start_cup_game():
 	$CupRight.rect_position = Vector2(221,76)
 	
 
-	InputBlocker.visible = false
+	input_blocker.visible = false
+	emit_signal("pick_phase_started")
+	
 	
 var heart_found:bool
 func _on_cup_selected(_cup):
@@ -114,13 +118,14 @@ func _on_cup_selected(_cup):
 				heart_found = true
 			animation_player.play("ShowRight")
 			
-	InputBlocker.visible = true
+	emit_signal("shell_picked")
+	input_blocker.visible = true
 	load_battle_scene()
 
 func load_battle_scene():
-	
 	if not get_parent().auto_lose:
-		yield(animation_player,"animation_finished")
+		if pick_countdown_label.time_left > 1:
+			yield(animation_player,"animation_finished")
 		animation_player.play("Unload")
 		yield(animation_player,"animation_finished")
 	else:

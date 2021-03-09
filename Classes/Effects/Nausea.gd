@@ -2,7 +2,7 @@ class_name Nausea
 
 
 var activation_minute: int = 0
-
+var deactivation_minute: int = 0
 
 
 func effect(_effect: Effect, _minutes_passed):
@@ -12,3 +12,14 @@ func effect(_effect: Effect, _minutes_passed):
 			_effect.get_parent().stats["hunger"] -= 0.3
 			return " have vomited"
 	return null
+
+
+
+
+
+
+func activation_effect():
+	pass
+	
+func deactivation_effect():
+	pass

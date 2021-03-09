@@ -17,3 +17,4 @@ const EAST_ACTION = null
 
 func _init():
 	effect.activation_minute = round(rand_range(60,90))
+	effect.deactivation_minute = round(rand_range(2880,4320))

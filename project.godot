@@ -42,7 +42,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "Character",
 "language": "GDScript",
-"path": "res://Classes/Character.gd"
+"path": "res://Classes/Entities/Character.gd"
 }, {
 "base": "ForgedLabel",
 "class": "CharacterLabel",
@@ -72,7 +72,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "Effect",
 "language": "GDScript",
-"path": "res://Classes/Effect.gd"
+"path": "res://Classes/Entities/Effect.gd"
 }, {
 "base": "ActionLibrary",
 "class": "FightAction",
@@ -102,7 +102,7 @@ _global_script_classes=[ {
 "base": "Control",
 "class": "GameScreen",
 "language": "GDScript",
-"path": "res://Classes/GameScreen.gd"
+"path": "res://Scenes/GameScreen/GameScreen.gd"
 }, {
 "base": "ForgedTextureRect",
 "class": "GameTextureRect",
@@ -133,6 +133,11 @@ _global_script_classes=[ {
 "class": "MakeCampfireAction",
 "language": "GDScript",
 "path": "res://Classes/Actions/MakeCampfireAction.gd"
+}, {
+"base": "Reference",
+"class": "Misfortune",
+"language": "GDScript",
+"path": "res://Classes/Effects/Misfortune.gd"
 }, {
 "base": "Reference",
 "class": "Nausea",
@@ -250,6 +255,7 @@ _global_script_class_icons={
 "HoldAction": "",
 "InventorySlot": "",
 "MakeCampfireAction": "",
+"Misfortune": "",
 "Nausea": "",
 "OptionsFile": "",
 "PathDictionary": "",
@@ -279,6 +285,10 @@ boot_splash/image="res://Textures/Interface/blank.png"
 boot_splash/use_filter=false
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://Icon.png"
+
+[autoload]
+
+ModLoader="*res://Mod Support/ModLoader.gd"
 
 [display]
 

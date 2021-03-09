@@ -41,7 +41,8 @@ var stats = {
 	"mood" : 1,
 	"health": 1,
 	"hunger": 1,
-	"energy": 1
+	"energy": 1,
+	"misfortune" : 0
 }
 
 

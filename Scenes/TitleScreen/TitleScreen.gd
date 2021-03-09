@@ -1,13 +1,14 @@
 extends Control
 
-var options_file = OptionsFile.new()
+export(NodePath) onready var animation_player = get_node(animation_player) as AnimationPlayer
 
-onready var animation_player = get_node("AnimationPlayer")
+
 
 func _init():
 	visible = false
 
 func _ready():
+	var options_file = OptionsFile.new()
 	options_file.assign_Default_Options()
 	options_file.apply_Options()
 	animation_player.play("Load")
