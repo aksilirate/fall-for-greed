@@ -16,10 +16,10 @@ func effect(_effect: Effect, _minutes_passed):
 
 
 
-
-
-func activation_effect():
-	pass
+func activation_effect(_effect: Effect):
+	var _character = _effect.get_parent()
+	_character.upcoming_stories.append(_character.character_name + " is feeling nauseus")
+	_character.active_effects.append("nauseus")
 	
-func deactivation_effect():
-	pass
+func deactivation_effect(_effect: Effect):
+	_effect.get_parent().active_effects.erase("nauseus")

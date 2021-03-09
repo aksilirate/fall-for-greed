@@ -8,5 +8,8 @@ const TOOLTIP := "sleep"
 func _ready():
 	
 	var sleep = sleep()
-	yield(sleep, "completed")
-	queue_free()
+	if sleep is Object:
+		yield(sleep, "completed")
+		queue_free()
+	else:
+		queue_free()

@@ -43,3 +43,7 @@ func display_threats():
 		add_threat("sleepy")
 	elif owner.last_selected_character.stats["energy"] < 0.5:
 		add_threat("tired")
+
+
+	for _active_effect in owner.last_selected_character.active_effects:
+		add_threat(_active_effect)

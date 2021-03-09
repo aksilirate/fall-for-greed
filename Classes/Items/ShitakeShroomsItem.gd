@@ -3,7 +3,7 @@ class_name ShitakeShroomsItem
 
 
 
-const NAME := "shitake mushrooms"
+const NAME := "shiitake mushrooms"
 const HISTORY := "A small amount of shitake mushrooms."
 const TEXTURE := "res://Textures/Items/Shiitake Shrooms Item.png"
 const TOOLTIP := "shitake mushrooms"

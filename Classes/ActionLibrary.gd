@@ -44,6 +44,13 @@ func change_event_to(_event: Object):
 	area.change_event_to(_event.new())
 
 
+
+func add_to_minutes_passed(amount):
+	story.minutes_passed += amount
+	story.update_time()
+	
+#----------------------------------- [ v STORY v ] ---------------------------------
+	
 var show_screen_disabled := false
 func emit_story_telling(_main_story):
 	upcoming_stories.push_front(_main_story)
@@ -59,24 +66,30 @@ func emit_story_telling(_main_story):
 	upcoming_stories.clear()
 
 
-
-func add_to_minutes_passed(amount):
-	story.minutes_passed += amount
-	story.update_time()
-	
-	
 func run_through_upcoming_stories():
 	for _story in upcoming_stories:
-		var story_label = preload("res://Scenes/StoryLabel/StoryLabel.tscn").instance()
-		var story_animation_player = story_label.get_node("AnimationPlayer")
-		story_label.text = _story.to_lower()
-		game_screen.add_child(story_label)
-		yield(story_animation_player,"animation_finished")
-		story_label.queue_free()
+		var show_story_label = show_story_label(_story)
+		yield(show_story_label, "completed")
+		
+	for _character in characters.get_children():
+		if _character.upcoming_stories.size() > 0:
+			for _story in _character.upcoming_stories:
+				var show_story_label = show_story_label(_story)
+				yield(show_story_label, "completed")
+				_character.upcoming_stories.erase(_story)
+				
 	emit_signal("story_telling_finished")
 
 
-
+func show_story_label(_story):
+	var story_label = preload("res://Scenes/StoryLabel/StoryLabel.tscn").instance()
+	var story_animation_player = story_label.get_node("AnimationPlayer")
+	story_label.text = _story.to_lower()
+	game_screen.add_child(story_label)
+	yield(story_animation_player,"animation_finished")
+	story_label.queue_free()
+	
+#----------------------------------- [ ^ STORY ^ ] ---------------------------------
 
 
 
@@ -112,8 +125,11 @@ func calculate_character_turn(_character, _energy_cost, _minutes_passed):
 	calculate_mood(_character, _minutes_passed)
 	var _hunger_check = _character.get_hunger_status()
 	
-	
-	_character.stats["hunger"] -= _energy_cost / 3
+	var _health_gained = _minutes_passed * 0.00006
+	_character.stats["health"] += _health_gained
+	if _character.stats["health"] > 1.0:
+		_character.stats["health"] = 1.0
+	_character.stats["hunger"] -= (_energy_cost / 3) + _health_gained
 	_character.stats["energy"] -= _energy_cost
 	
 	
@@ -187,28 +203,36 @@ func sleep():
 	var execute_sleep
 	if executer is Object:
 		execute_sleep = execute_sleep(executer)
+		yield(execute_sleep, "completed")
 	else:
 		for _character in executer:
 			execute_sleep = execute_sleep(_character)
-	yield(execute_sleep, "completed")
+			if execute_sleep is Object:
+				yield(execute_sleep, "completed")
+	
 
+var sleep_story_shown = false
 func execute_sleep(_character):
 	var emit_story_telling
 	if _character.stats["energy"] < 0.5:
-		emit_story_telling = emit_story_telling("you have slept for " + str(round(calculate_sleep_time())) + " hours")
+		if not sleep_story_shown:
+			emit_story_telling = emit_story_telling("you have slept for " + str(round(calculate_sleep_time())) + " hours")
+			yield(self,"story_telling_started")
 			
-		yield(self,"story_telling_started")
 		if area.current_event.get_class() == "CampfireEvent":
 			_character.stats["energy"] = 1.0
 		else:
 			_character.stats["energy"] = 1.0
-		add_to_minutes_passed(round(calculate_sleep_time() * 60))
+			
+		if not sleep_story_shown:
+			add_to_minutes_passed(round(calculate_sleep_time() * 60))
 	else:
-		emit_story_telling = emit_story_telling("you don't want to sleep yet")
-		
-	yield(emit_story_telling, "completed")
-	
-	
+		if not sleep_story_shown:
+			emit_story_telling = emit_story_telling("you don't want to sleep yet")
+			
+	if not sleep_story_shown:
+		yield(emit_story_telling, "completed")
+		sleep_story_shown = true
 	
 func calculate_sleep_time():
 	var _character_with_lowest_energy

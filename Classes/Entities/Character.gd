@@ -35,6 +35,8 @@ var east_action : Object
 var game_logic = GameLogic.new()
 var inventory: Array
 
+var active_effects = []
+var upcoming_stories = []
 
 var saved_effects = []
 var stats = {
