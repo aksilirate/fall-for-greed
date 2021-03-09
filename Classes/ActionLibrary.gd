@@ -61,10 +61,8 @@ func emit_story_telling(_main_story):
 
 
 func add_to_minutes_passed(amount):
-	yield(self,"story_telling_started")
 	story.minutes_passed += amount
 	story.update_time()
-	
 	
 	
 func run_through_upcoming_stories():
@@ -269,7 +267,9 @@ func search_for_item(_minutes_passed):
 		
 	if area.findings_left > 0:
 		area.findings_left -= 1
-	
+		
+	yield(self,"story_telling_started")
+	add_to_minutes_passed(_minutes_passed)
 	yield(emit_story_telling, "completed")
 	
 	

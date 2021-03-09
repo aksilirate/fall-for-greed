@@ -1,5 +1,7 @@
 extends Node
 
+
+
 var save_file = SaveFile.new()
 var minutes_passed = 0
 
@@ -13,6 +15,7 @@ func _ready():
 func update_time():
 	save_file.save_value("Game", "minutes_passed",minutes_passed)
 	emit_signal("time_updated", minutes_passed)
+
 	
 	
 func prepare_story_variants():

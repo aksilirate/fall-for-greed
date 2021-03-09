@@ -1,7 +1,7 @@
 
 const NAME = "an angeloris"
 
-const ITEM = AngelorisItem 
+const ITEM = AngelorisItem
 
 # Minimum of 2 textures needed
 const TEXTURES = [

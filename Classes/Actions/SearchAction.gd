@@ -11,6 +11,5 @@ func _ready():
 	var _energy_cost = 0.008 * _minutes_passed
 	
 	var search_for_item = search_for_item(_minutes_passed)
-	
 	yield(search_for_item, "completed")
 	queue_free()

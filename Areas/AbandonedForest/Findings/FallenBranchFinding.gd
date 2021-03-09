@@ -1,7 +1,7 @@
 
 const NAME = "a fallen branch"
 
-const ITEM = SticksItem 
+const ITEM = SticksItem
 
 # Minimum of 2 textures needed
 const TEXTURES = [

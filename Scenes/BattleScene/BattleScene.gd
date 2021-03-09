@@ -56,7 +56,6 @@ func character_attack():
 			yield(animation_player,"animation_finished")
 			play_death_message("you have killed " + enemy.NAME)
 			yield(self, "death_message_finished")
-			var game_screen = get_tree().get_root().get_node("GameScreen")
 			game_screen.animation_player.play("Show Screen")
 			game_screen.area._on_location_reseted()
 			if enemy.has_method("death_curse"):
