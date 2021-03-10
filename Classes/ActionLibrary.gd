@@ -5,11 +5,11 @@ class_name ActionLibrary
 onready var game_screen: GameScreen = get_tree().get_root().get_node("GameScreen") as GameScreen
 
 onready var animation_player: AnimationPlayer = game_screen.animation_player
-onready var characters: Node = game_screen.characters
-onready var area: Node = game_screen.area
 onready var story: Node = game_screen.get_node("Logic/Story")
+onready var area: Node = game_screen.area
 
 signal search_for_item(_action_texture_rect)
+signal summon_character(_character)
 signal kill_character(_character)
 signal story_telling_started
 signal story_telling_finished
@@ -26,6 +26,8 @@ var executer
 func _ready():
 # warning-ignore:return_value_discarded
 	connect("kill_character", game_screen, "_on_character_death")
+# warning-ignore:return_value_discarded
+	connect("summon_character", game_screen, "_on_summon_character")
 # warning-ignore:return_value_discarded
 	connect("location_advanced", area, "_on_location_advanced")
 # warning-ignore:return_value_discarded
@@ -71,7 +73,8 @@ func run_through_upcoming_stories():
 		var show_story_label = show_story_label(_story)
 		yield(show_story_label, "completed")
 		
-	for _character in characters.get_children():
+	for _character in get_tree().get_nodes_in_group("Character"):
+#		var _character: Character = _node
 		if _character.upcoming_stories.size() > 0:
 			for _story in _character.upcoming_stories:
 				var show_story_label = show_story_label(_story)
@@ -193,9 +196,8 @@ func hold_selected_item():
 
 func summon_character(_character):
 	yield(self,"story_telling_started")
-	characters.summon_character(_character.new())
-	
-	
+	emit_signal("summon_character", _character.new())
+
 	
 func reset_location():
 	yield(self,"story_telling_started")
@@ -206,8 +208,8 @@ func reset_location():
 func emit_location_advanced():
 	yield(self,"story_telling_started")
 	emit_signal("location_advanced")
-
-
+	var next_location = area.upcoming_locations[area.locations_passed + 1]
+	# COME BACK AFTER ENEMY REWORK
 
 
 #--------------------------------------- [ v SLEEP v ] ----------------------------------------
@@ -352,7 +354,7 @@ func start_battle():
 
 
 func run():
-	var _run_chance = clamp(4 - area.current_event.SPEED,0,4)
+	var _run_chance = clamp(4 - area.current_event.SPEED, 0, 4)
 	var emit_story_telling
 	
 	randomize()

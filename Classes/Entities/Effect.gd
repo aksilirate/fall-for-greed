@@ -8,13 +8,13 @@ var active_minutes: int = 0
 var activation_minute: int = 0
 var deactivation_minute: int = 0
 
-var active_effect # The effect type being passed
-
 
 var activation_effect_activated = false
 
 
 
+
+var active_effect # The effect type being passed
 func _ready():
 	activation_minute = active_effect.activation_minute
 	deactivation_minute = active_effect.deactivation_minute

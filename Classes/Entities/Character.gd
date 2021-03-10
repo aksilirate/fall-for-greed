@@ -54,6 +54,7 @@ var stats = {
 var current_character
 
 func _ready():
+
 	self.stats.health =3
 	self_profile_picture = current_character.SELF_PROFILE_PICTURE
 	unit_texture = current_character.UNIT_TEXTURE
@@ -67,6 +68,7 @@ func _ready():
 		add_child(_effect)
 	saved_effects = []
 	
+	add_to_group("Character")
 	call_deferred("save_character")
 	
 	

@@ -40,7 +40,9 @@ func _on_character_death(_character):
 		save_file.delete()
 # warning-ignore:return_value_discarded
 		get_tree().change_scene("res://Scenes/DeathScreen/DeathScreen.tscn")
-
+		
+func _on_summon_character(_character):
+	characters.summon_character(_character)
 
 
 # warning-ignore:unused_argument
