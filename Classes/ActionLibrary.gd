@@ -209,7 +209,12 @@ func emit_location_advanced():
 	yield(self,"story_telling_started")
 	emit_signal("location_advanced")
 	var next_location = area.upcoming_locations[area.locations_passed + 1]
-	# COME BACK AFTER ENEMY REWORK
+	if next_location is Enemy:
+		if rand_range(0,1) > 0.37:
+			upcoming_stories.push_back("you think you saw something")
+	else:
+		if rand_range(0,1) > 0.01:
+			upcoming_stories.push_back("you think you saw something")
 
 
 #--------------------------------------- [ v SLEEP v ] ----------------------------------------

@@ -23,7 +23,7 @@ func _ready():
 	connect("kill_character", game_screen, "_on_character_death")
 	
 	if enemy == null:
-		enemy = WolfEnemy.new()
+		enemy = Wolf.new()
 		
 	$Enemy.texture = load(enemy.UNIT_TEXTURE)
 	

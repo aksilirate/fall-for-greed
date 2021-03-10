@@ -23,7 +23,7 @@ signal shell_picked
 func _ready():
 	
 	if owner.enemy == null:
-		owner.enemy = WolfEnemy.new()
+		owner.enemy = Wolf.new()
 		
 	speed = owner.enemy.SPEED
 	power = owner.enemy.POWER

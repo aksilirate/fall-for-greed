@@ -1,4 +1,5 @@
-class_name GnomeEnemy
+extends Enemy
+class_name Gnome
 
 # Used for "you have killed the ---"
 const NAME = "the gnome"

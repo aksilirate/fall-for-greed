@@ -1,4 +1,5 @@
-class_name WolfEnemy
+extends Enemy
+class_name Wolf
 
 # Used for "you have killed the wolf"
 const NAME = "the wolf"
