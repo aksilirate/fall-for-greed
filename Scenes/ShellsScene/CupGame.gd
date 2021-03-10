@@ -23,7 +23,7 @@ signal shell_picked
 func _ready():
 	
 	if owner.enemy == null:
-		owner.enemy = Wolf.new()
+		owner.enemy = Gnome.new()
 		
 	speed = owner.enemy.SPEED
 	power = owner.enemy.POWER
@@ -84,16 +84,19 @@ func start_cup_game():
 				heart_location[RIGHT] = _left
 				
 				yield(animation_player,"animation_finished")
-
-	$CupLeft.rect_position = Vector2(93,76)
-	$CupCenter.rect_position = Vector2(157,76)
-	$CupRight.rect_position = Vector2(221,76)
+				
+						
+	reset_cup_locations()
 	
-
+	if rand_range(0,speed) < owner.enemy.DAMAGE:
+		fool = true
+		
 	input_blocker.visible = false
 	emit_signal("pick_phase_started")
-	
-	
+
+
+
+var fool = false
 var heart_found:bool
 func _on_cup_selected(_cup):
 	$Heart.visible = false
@@ -102,20 +105,56 @@ func _on_cup_selected(_cup):
 		"Left":
 			if heart_location[LEFT] == true:
 				$Heart.rect_position = Vector2(110,109.5)
-				$Heart.visible = true
-				heart_found = true
+				if not fool:
+					$Heart.visible = true
+					heart_found = true
+				else:
+					$Heart.visible = false
+					heart_found = false
+					if rand.randi_range(0,1) == OK:
+						animation_player.play("LeftRight")
+					else:
+						animation_player.play_backwards("LeftRight")
+					yield(animation_player,"animation_finished")
+					reset_cup_locations()
 			animation_player.play("ShowLeft")
 		"Center":
 			if heart_location[CENTER] == true:
 				$Heart.rect_position = Vector2(174,109.5)
-				$Heart.visible = true
-				heart_found = true
+				if not fool:
+					$Heart.visible = true
+					heart_found = true
+				else:
+					$Heart.visible = false
+					heart_found = false
+					if rand.randi_range(0,1) == OK:
+						if rand.randi_range(0,1) == OK:
+							animation_player.play("CenterLeft")
+						else:
+							animation_player.play_backwards("CenterLeft")
+					else:
+						if rand.randi_range(0,1) == OK:
+							animation_player.play("CenterRight")
+						else:
+							animation_player.play_backwards("CenterRight")
+					yield(animation_player,"animation_finished")
+					reset_cup_locations()
 			animation_player.play("ShowCenter")
 		"Right":
 			if heart_location[RIGHT] == true:
 				$Heart.rect_position = Vector2(238,109.5)
-				$Heart.visible = true
-				heart_found = true
+				if not fool:
+					$Heart.visible = true
+					heart_found = true
+				else:
+					$Heart.visible = false
+					heart_found = false
+					if rand.randi_range(0,1) == OK:
+						animation_player.play("LeftRight")
+					else:
+						animation_player.play_backwards("LeftRight")
+					yield(animation_player,"animation_finished")
+					reset_cup_locations()
 			animation_player.play("ShowRight")
 			
 	emit_signal("shell_picked")
@@ -140,3 +179,9 @@ func load_battle_scene():
 	else:
 		battle_scene.heart_found = false
 	owner.call_deferred("add_child", battle_scene)
+
+func reset_cup_locations():
+	$CupLeft.rect_position = Vector2(93,76)
+	$CupCenter.rect_position = Vector2(157,76)
+	$CupRight.rect_position = Vector2(221,76)
+	
