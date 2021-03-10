@@ -370,8 +370,3 @@ func eat():
 
 
 
-func _exit_tree():
-	game_screen.save()
-
-
-

@@ -39,19 +39,22 @@ var active_effects = []
 var upcoming_stories = []
 
 var saved_effects = []
+
 var stats = {
 	"mood" : 1,
 	"health": 1,
 	"hunger": 1,
 	"energy": 1,
 	"misfortune" : 0
-}
+} setget set_stats
 
 
 
+	
 var current_character
 
 func _ready():
+	self.stats.health =3
 	self_profile_picture = current_character.SELF_PROFILE_PICTURE
 	unit_texture = current_character.UNIT_TEXTURE
 	character_name = current_character.NAME
@@ -59,11 +62,13 @@ func _ready():
 	damage = current_character.DAMAGE
 	
 	name = character_name
-	
+
 	for _effect in saved_effects:
 		add_child(_effect)
 	saved_effects = []
-
+	
+	call_deferred("save_character")
+	
 	
 func add_effect(_effect_type: Object):
 	var _effect = Effect.new()
@@ -73,12 +78,24 @@ func add_effect(_effect_type: Object):
 
 	
 func get_hunger_status():
-	if stats["hunger"] < 0.2:
+	if stats.hunger < 0.2:
 		return "starving"
-	elif stats["hunger"] < 0.4:
+	elif stats.hunger < 0.4:
 		return "famished"
-	elif stats["hunger"] < 0.6:
+	elif stats.hunger < 0.6:
 		return "hungry"
+	
+	
+	
+	
+func set_stats(_value):
+	stats = _value
+	call_deferred("save_character")
+	
+func save_character():
+	var save_file = SaveFile.new()
+	save_file.save_value("characters", character_name, inst2dict(self))
+	
 	
 	
 	

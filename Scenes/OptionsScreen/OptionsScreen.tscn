@@ -97,8 +97,6 @@ script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="gui_input" from="ConfirmLabel" to="ConfirmLabel" method="_on_ConfirmLabel_gui_input"]
-[connection signal="mouse_entered" from="ConfirmLabel" to="ConfirmLabel" method="_on_ConfirmLabel_mouse_entered"]
-[connection signal="mouse_exited" from="ConfirmLabel" to="ConfirmLabel" method="_on_ConfirmLabel_mouse_exited"]
+[connection signal="pressed" from="ConfirmLabel" to="ConfirmLabel" method="_on_ConfirmLabel_pressed"]
 [connection signal="toggled" from="FullscreenCheckBox" to="FullscreenCheckBox" method="_on_FullscreenCheckBox_toggled"]
 [connection signal="toggled" from="PrologueCheckBox" to="PrologueCheckBox" method="_on_PrologueCheckBox_toggled"]

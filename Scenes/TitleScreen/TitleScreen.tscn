@@ -58,6 +58,18 @@ tracks/3/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath("InputBlocker:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=2]
 length = 4.5
@@ -121,6 +133,18 @@ tracks/4/keys = {
 "update": 1,
 "values": [ true ]
 }
+tracks/5/type = "value"
+tracks/5/path = NodePath("InputBlocker:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 4.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
 
 [node name="TitleScreen" type="Control"]
 anchor_right = 1.0
@@ -137,7 +161,6 @@ animation_player = NodePath("AnimationPlayer")
 anims/Load = SubResource( 2 )
 
 [node name="TitleTexture" type="TextureRect" parent="."]
-modulate = Color( 1, 1, 1, 0 )
 margin_left = 87.7399
 margin_top = 38.7296
 margin_right = 288.74
@@ -148,7 +171,6 @@ __meta__ = {
 }
 
 [node name="PlayLabel" type="Label" parent="."]
-modulate = Color( 1, 1, 1, 0 )
 margin_left = 167.0
 margin_top = 123.0
 margin_right = 203.0
@@ -163,7 +185,6 @@ __meta__ = {
 }
 
 [node name="OptionsLabel" type="Label" parent="."]
-modulate = Color( 1, 1, 1, 0 )
 margin_left = 171.555
 margin_top = 138.0
 margin_right = 196.555
@@ -177,7 +198,6 @@ __meta__ = {
 }
 
 [node name="QuitLabel" type="Label" parent="."]
-modulate = Color( 1, 1, 1, 0 )
 margin_left = 176.0
 margin_top = 153.0
 margin_right = 191.0
@@ -189,13 +209,15 @@ script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="InputBlocker" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 1, 1, 1, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
 [connection signal="animation_finished" from="AnimationPlayer" to="PlayLabel" method="_on_AnimationPlayer_animation_finished"]
-[connection signal="gui_input" from="PlayLabel" to="PlayLabel" method="_on_PlayLabel_gui_input"]
-[connection signal="mouse_entered" from="PlayLabel" to="PlayLabel" method="_on_PlayLabel_mouse_entered"]
-[connection signal="mouse_exited" from="PlayLabel" to="PlayLabel" method="_on_PlayLabel_mouse_exited"]
-[connection signal="gui_input" from="OptionsLabel" to="OptionsLabel" method="_on_OptionsLabel_gui_input"]
-[connection signal="mouse_entered" from="OptionsLabel" to="OptionsLabel" method="_on_OptionsLabel_mouse_entered"]
-[connection signal="mouse_exited" from="OptionsLabel" to="OptionsLabel" method="_on_OptionsLabel_mouse_exited"]
-[connection signal="gui_input" from="QuitLabel" to="QuitLabel" method="_on_QuitLabel_gui_input"]
-[connection signal="mouse_entered" from="QuitLabel" to="QuitLabel" method="_on_QuitLabel_mouse_entered"]
-[connection signal="mouse_exited" from="QuitLabel" to="QuitLabel" method="_on_QuitLabel_mouse_exited"]
+[connection signal="pressed" from="PlayLabel" to="PlayLabel" method="_on_PlayLabel_pressed"]
+[connection signal="pressed" from="OptionsLabel" to="OptionsLabel" method="_on_OptionsLabel_pressed"]
+[connection signal="pressed" from="QuitLabel" to="QuitLabel" method="_on_QuitLabel_pressed"]

@@ -55,7 +55,6 @@ func summon_character(_character_type: Object):
 	connect_character_signals(_character)
 	update_character_label(_character)
 	
-	game_screen.save()
 
 
 func update_character_label(_character: Character):
