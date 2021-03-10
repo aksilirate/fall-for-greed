@@ -70,9 +70,5 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="gui_input" from="OptionsLabel" to="OptionsLabel" method="_on_OptionsLabel_gui_input"]
-[connection signal="mouse_entered" from="OptionsLabel" to="OptionsLabel" method="_on_OptionsLabel_mouse_entered"]
-[connection signal="mouse_exited" from="OptionsLabel" to="OptionsLabel" method="_on_OptionsLabel_mouse_exited"]
-[connection signal="gui_input" from="QuitLabel" to="QuitLabel" method="_on_QuitLabel_gui_input"]
-[connection signal="mouse_entered" from="QuitLabel" to="QuitLabel" method="_on_QuitLabel_mouse_entered"]
-[connection signal="mouse_exited" from="QuitLabel" to="QuitLabel" method="_on_QuitLabel_mouse_exited"]
+[connection signal="pressed" from="OptionsLabel" to="OptionsLabel" method="_on_OptionsLabel_pressed"]
+[connection signal="pressed" from="QuitLabel" to="QuitLabel" method="_on_QuitLabel_pressed"]

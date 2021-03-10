@@ -1,7 +1,7 @@
 extends GameTextureRect
 class_name InventorySlot
 
-
+onready var game_screen: GameScreen = owner
 
 var item: Object
 
@@ -118,9 +118,14 @@ func update_actions():
 			emit_signal("update_left_action", load(left_action.TEXTURE), left_action, owner.last_selected_character)
 		else:
 			emit_signal("update_left_action", null, null, owner.last_selected_character)
+
 			
-			
-		if item.RIGHT_ACTION:
+
+		# COOK CHECK
+		if item.get("COOKS_INTO") and game_screen.area.current_event is CampfireEvent and item.COOKS_INTO != null:
+			var right_action = CookAction.new()
+			emit_signal("update_right_action", load(right_action.TEXTURE), right_action, owner.last_selected_character)
+		elif item.RIGHT_ACTION:
 			var right_action = item.RIGHT_ACTION.new()
 			emit_signal("update_right_action", load(right_action.TEXTURE), right_action, owner.last_selected_character)
 		else:

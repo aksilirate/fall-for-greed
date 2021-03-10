@@ -123,6 +123,7 @@ func calculate_character_effects(_character, _minutes_passed):
 func calculate_character_turn(_character, _energy_cost, _minutes_passed):
 	calculate_character_effects(_character, _minutes_passed)
 	calculate_mood(_character, _minutes_passed)
+	calculate_misfortune(_character)
 	var _hunger_check = _character.get_hunger_status()
 	
 	var _health_gained = _minutes_passed * 0.00006
@@ -159,7 +160,19 @@ func calculate_mood(_character, _minutes_passed):
 		_character.stats["mood"] -= ((1 - _character.stats["health"]) / 300) * _minutes_passed
 	if _character.stats["hunger"] <= 0.5:
 		_character.stats["mood"] -= ((1 - _character.stats["health"]) / 430) * _minutes_passed
-	
+
+
+func calculate_misfortune(_character):
+	if area.current_event is load("res://Areas/AbandonedForest/AbandonedForest.gd") as Script:
+		if _character.stats.misfortune > rand_range(0,1):
+			upcoming_stories.push_back(_character.character_name + " has stepped on a thorn by accident")
+			var _effect = Effect.new()
+			var _bleed = Bleed.new()
+			randomize()
+			_bleed.deactivation_minute = round(rand_range(3,6))
+			_effect.active_effect = _bleed
+			_character.add_child(_effect)
+
 #------------------------------ [ ^ CALCULATIONS ^ ] ---------------------------------
 
 
@@ -365,8 +378,22 @@ func eat():
 	var _selected_item = game_screen.selected.item
 	_character.stats["hunger"] += _selected_item.CALORIES
 	
-	if _selected_item.effect:
+	if _selected_item.get("effect") and _selected_item.effect:
 		_character.add_effect(_selected_item.effect)
+
+func cook():
+	var rand = RandomNumberGenerator.new()
+	rand.randomize()
+	var _character = game_screen.last_selected_character
+	var _selected_item = game_screen.selected.item
+	randomize()
+	var cook_time = rand.randi_range(_selected_item.MIN_COOK_TIME, _selected_item.MAX_COOK_TIME)
+	add_to_minutes_passed(cook_time)
+	emit_story_telling("you have cooked " + _selected_item.NAME + " for " + str(cook_time) + " minutes")
+	yield(self,"story_telling_finished")
+	var _inventory_item_index = _character.inventory.find(_selected_item)
+	if _inventory_item_index != -1:
+		_character.inventory[_inventory_item_index] = _selected_item.COOKS_INTO
 
 
 

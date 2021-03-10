@@ -35,6 +35,11 @@ _global_script_classes=[ {
 "path": "res://Classes/Actions/BiteTongueAction.gd"
 }, {
 "base": "Reference",
+"class": "Bleed",
+"language": "GDScript",
+"path": "res://Classes/Effects/Bleed.gd"
+}, {
+"base": "Reference",
 "class": "CampfireEvent",
 "language": "GDScript",
 "path": "res://Areas/Global Events/CampfireEvent.gd"
@@ -53,6 +58,16 @@ _global_script_classes=[ {
 "class": "CommunicateAction",
 "language": "GDScript",
 "path": "res://Classes/Actions/CommunicateAction.gd"
+}, {
+"base": "ActionLibrary",
+"class": "CookAction",
+"language": "GDScript",
+"path": "res://Classes/Actions/CookAction.gd"
+}, {
+"base": "Reference",
+"class": "CookedAngelorisItem",
+"language": "GDScript",
+"path": "res://Classes/Items/CookedAngelorisItem.gd"
 }, {
 "base": "TextureRect",
 "class": "CupTextureRect",
@@ -245,10 +260,13 @@ _global_script_class_icons={
 "ActionTextureRect": "",
 "AngelorisItem": "",
 "BiteTongueAction": "",
+"Bleed": "",
 "CampfireEvent": "",
 "Character": "",
 "CharacterLabel": "",
 "CommunicateAction": "",
+"CookAction": "",
+"CookedAngelorisItem": "",
 "CupTextureRect": "",
 "Debug": "",
 "EatAction": "",
@@ -311,9 +329,13 @@ window/size/test_height=513
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
+[editor]
+
+script_templates_search_path="res://Templates"
+
 [editor_plugins]
 
-enabled=PoolStringArray( "LabelButton" )
+enabled=PoolStringArray(  )
 
 [filesystem]
 

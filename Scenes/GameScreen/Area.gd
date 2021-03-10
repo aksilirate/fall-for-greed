@@ -160,10 +160,8 @@ func _on_story_selected():
 	update_actions()
 	
 	
-	
 func update_actions():
 	var executer = owner.get_node("Logic/Characters").get_children()
-	
 	var left_action = current_event.LEFT_ACTION.new()
 	var right_action = current_event.RIGHT_ACTION.new()
 	
