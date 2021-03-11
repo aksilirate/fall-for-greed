@@ -300,8 +300,12 @@ func search_for_item(_minutes_passed):
 	var finding_name = area.current_event.NAME
 	randomize()
 
-	if area.findings_left > 0 and rand_range(0,1) > _minutes_passed*0.0166:
-		var _main_story = "you have searched for " + str(_minutes_passed) + " minutes"
+	if area.findings_left > 0 and rand_range(0,1) < _minutes_passed*0.0166:
+		var _main_story
+		if _minutes_passed == 1:
+			_main_story = "you have searched for 1 minute"
+		else:
+			_main_story = "you have searched for " + str(_minutes_passed) + " minutes"
 		upcoming_stories.push_back("you have found " + str(finding_name))
 		emit_story_telling = emit_story_telling(_main_story)
 	else:

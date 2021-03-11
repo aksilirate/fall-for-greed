@@ -113,6 +113,8 @@ func update_actions(_owner: Node) -> void:
 	if _owner.area.current_event.get("ITEM") or _owner.hold_slot.selected_item != null:
 		if inventory.size() < 8:
 			west_action = TakeAction
+		else:
+			west_action = PrayAction
 	else:
 		west_action = PrayAction
 	
