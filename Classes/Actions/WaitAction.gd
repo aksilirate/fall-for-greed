@@ -28,7 +28,7 @@ func _ready():
 			calculate_turn(_energy_cost, _minutes_passed)
 
 			yield(emit_story_telling, "completed")
-			time_choice_scroll.active = true
+			time_choice_scroll.active = false
 			time_choice_scroll.hide()
 			queue_free()
 	

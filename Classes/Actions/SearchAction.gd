@@ -27,4 +27,5 @@ func _ready():
 
 			var search_for_item = search_for_item(_minutes_passed)
 			yield(search_for_item, "completed")
+			time_choice_scroll.active = false
 			queue_free()
