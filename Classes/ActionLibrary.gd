@@ -73,7 +73,7 @@ func run_through_upcoming_stories():
 		var show_story_label = show_story_label(_story)
 		yield(show_story_label, "completed")
 		
-	for _character in get_tree().get_nodes_in_group("Character"):
+	for _character in get_tree().get_nodes_in_group("characters"):
 #		var _character: Character = _node
 		if _character.upcoming_stories.size() > 0:
 			for _story in _character.upcoming_stories:
@@ -210,10 +210,10 @@ func emit_location_advanced():
 	emit_signal("location_advanced")
 	var next_location = area.upcoming_locations[area.locations_passed + 1]
 	if next_location is Enemy:
-		if rand_range(0,1) > 0.37:
+		if rand_range(0,1) < 0.37:
 			upcoming_stories.push_back("you think you saw something")
 	else:
-		if rand_range(0,1) > 0.01:
+		if rand_range(0,1) < 0.01:
 			upcoming_stories.push_back("you think you saw something")
 
 
@@ -299,7 +299,8 @@ func search_for_item(_minutes_passed):
 	var emit_story_telling
 	var finding_name = area.current_event.NAME
 	randomize()
-	if area.findings_left > 0 and round(rand_range(0,1)) == OK:
+
+	if area.findings_left > 0 and rand_range(0,1) > _minutes_passed*0.0166:
 		var _main_story = "you have searched for " + str(_minutes_passed) + " minutes"
 		upcoming_stories.push_back("you have found " + str(finding_name))
 		emit_story_telling = emit_story_telling(_main_story)

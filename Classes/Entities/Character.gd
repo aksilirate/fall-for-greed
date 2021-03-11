@@ -68,7 +68,7 @@ func _ready():
 		add_child(_effect)
 	saved_effects = []
 	
-	add_to_group("Character")
+	add_to_group("characters")
 	call_deferred("save_character")
 	
 	
@@ -112,9 +112,9 @@ func _on_character_selected(_owner: Node) -> void:
 func update_actions(_owner: Node) -> void:
 	if _owner.area.current_event.get("ITEM") or _owner.hold_slot.selected_item != null:
 		if inventory.size() < 8:
-			west_action = TakeAction.new()
+			west_action = TakeAction
 	else:
-		west_action = PrayAction.new()
+		west_action = PrayAction
 	
 	left_action = null
 	right_action = null

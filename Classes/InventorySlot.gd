@@ -107,14 +107,14 @@ func update_actions():
 		emit_signal("update_east_action", null, null, owner.last_selected_character)
 	else:
 		if item.WEST_ACTION:
-			var west_action = item.WEST_ACTION.new()
+			var west_action = item.WEST_ACTION
 			emit_signal("update_west_action",load(west_action.TEXTURE), west_action, owner.last_selected_character)
 		else:
 			emit_signal("update_west_action",null, null, owner.last_selected_character)
 			
 			
 		if item.LEFT_ACTION:
-			var left_action = item.LEFT_ACTION.new()
+			var left_action = item.LEFT_ACTION
 			emit_signal("update_left_action", load(left_action.TEXTURE), left_action, owner.last_selected_character)
 		else:
 			emit_signal("update_left_action", null, null, owner.last_selected_character)
@@ -123,17 +123,17 @@ func update_actions():
 
 		# COOK CHECK
 		if item.get("COOKS_INTO") and game_screen.area.current_event is CampfireEvent and item.COOKS_INTO != null:
-			var right_action = CookAction.new()
+			var right_action = CookAction
 			emit_signal("update_right_action", load(right_action.TEXTURE), right_action, owner.last_selected_character)
 		elif item.RIGHT_ACTION:
-			var right_action = item.RIGHT_ACTION.new()
+			var right_action = item.RIGHT_ACTION
 			emit_signal("update_right_action", load(right_action.TEXTURE), right_action, owner.last_selected_character)
 		else:
 			emit_signal("update_right_action", null, null, owner.last_selected_character)
 			
 			
 		if item.EAST_ACTION:
-			var east_action = item.EAST_ACTION.new()
+			var east_action = item.EAST_ACTION
 			emit_signal("update_east_action", load(east_action.TEXTURE), east_action, owner.last_selected_character)
 		else:
 			emit_signal("update_east_action", null, null, owner.last_selected_character)

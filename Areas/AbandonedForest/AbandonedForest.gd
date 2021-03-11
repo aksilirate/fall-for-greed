@@ -8,7 +8,8 @@ const HISTORY = "An abandoned forest filled with dangers."
 
 const TEXTURES = [
 	"res://Textures/Areas/Abandoned Forest/Abandoned Forest 0.png",
-	"res://Textures/Areas/Abandoned Forest/Abandoned Forest 1.png"
+	"res://Textures/Areas/Abandoned Forest/Abandoned Forest 1.png",
+	"res://Textures/Areas/Abandoned Forest/Abandoned Forest 2.png"
 ]
 
 const FINDINGS = [
@@ -19,7 +20,8 @@ const FINDINGS = [
 
 const ENEMIES = [
 	Wolf,
-	Gnome
+	Gnome,
+	Bear
 ]
 
 const NPCS = [

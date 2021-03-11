@@ -52,10 +52,9 @@ func start_cup_game():
 				else:
 					animation_player.play_backwards("CenterLeft")
 					
-				var _center = heart_location[CENTER]
-				var _left = heart_location[LEFT]
-				heart_location[CENTER] = _left
-				heart_location[LEFT] = _center
+					
+				switch_cups(CENTER, LEFT)
+				
 				
 				yield(animation_player,"animation_finished")
 				
@@ -65,11 +64,8 @@ func start_cup_game():
 				else:
 					animation_player.play_backwards("CenterRight")
 					
-				var _center = heart_location[CENTER]
-				var _right = heart_location[RIGHT]
-				heart_location[CENTER] = _right
-				heart_location[RIGHT] = _center
-				
+				switch_cups(CENTER, RIGHT)
+
 				yield(animation_player,"animation_finished")
 				
 			LEFT_RIGHT:
@@ -78,83 +74,102 @@ func start_cup_game():
 				else:
 					animation_player.play_backwards("LeftRight")
 					
-				var _left = heart_location[LEFT]
-				var _right = heart_location[RIGHT]
-				heart_location[LEFT] = _right
-				heart_location[RIGHT] = _left
+				switch_cups(LEFT, RIGHT)
 				
 				yield(animation_player,"animation_finished")
 				
-						
 	reset_cup_locations()
 	
-	if rand_range(0,speed) < owner.enemy.DAMAGE:
-		fool = true
 		
 	input_blocker.visible = false
 	emit_signal("pick_phase_started")
 
 
+func switch_cups(_first_cup , _second_cup):
+	var _first_cup_cache = heart_location[_first_cup]
 
-var fool = false
+	heart_location[_first_cup] = heart_location[_second_cup]
+	heart_location[_second_cup] = _first_cup_cache
+
+
+
 var heart_found:bool
 func _on_cup_selected(_cup):
+	var fool = false
 	$Heart.visible = false
 	heart_found = false
+	if rand_range(0,speed) < owner.enemy.DAMAGE:
+		fool = true
 	match _cup:
 		"Left":
-			if heart_location[LEFT] == true:
-				$Heart.rect_position = Vector2(110,109.5)
-				if not fool:
-					$Heart.visible = true
+			if not fool:
+				if heart_location[LEFT] == true:
+					$Heart.rect_position = Vector2(110,109.5)
+					heart_found = true
+			else:
+				
+				if rand.randi_range(0,1) == OK:
+					animation_player.play("CenterLeft")
+				else:
+					animation_player.play_backwards("CenterLeft")
+					
+				switch_cups(CENTER, LEFT)
+				if heart_location[LEFT] == true:
+					$Heart.rect_position = Vector2(110,109.5)
 					heart_found = true
 				else:
-					$Heart.visible = false
 					heart_found = false
-					if rand.randi_range(0,1) == OK:
-						animation_player.play("LeftRight")
-					else:
-						animation_player.play_backwards("LeftRight")
-					yield(animation_player,"animation_finished")
-					reset_cup_locations()
+					
+				yield(animation_player,"animation_finished")
+				reset_cup_locations()
+				
+			$Heart.visible = heart_found
 			animation_player.play("ShowLeft")
 		"Center":
-			if heart_location[CENTER] == true:
-				$Heart.rect_position = Vector2(174,109.5)
-				if not fool:
-					$Heart.visible = true
+			if not fool:
+				if heart_location[CENTER] == true:
+					$Heart.rect_position = Vector2(174,109.5)
+					heart_found = true
+			else:
+				if rand.randi_range(0,1) == OK:
+					animation_player.play("CenterRight")
+				else:
+					animation_player.play_backwards("CenterRight")
+					
+				switch_cups(CENTER, RIGHT)
+				if heart_location[CENTER] == true:
+					$Heart.rect_position = Vector2(174,109.5)
 					heart_found = true
 				else:
-					$Heart.visible = false
 					heart_found = false
-					if rand.randi_range(0,1) == OK:
-						if rand.randi_range(0,1) == OK:
-							animation_player.play("CenterLeft")
-						else:
-							animation_player.play_backwards("CenterLeft")
-					else:
-						if rand.randi_range(0,1) == OK:
-							animation_player.play("CenterRight")
-						else:
-							animation_player.play_backwards("CenterRight")
-					yield(animation_player,"animation_finished")
-					reset_cup_locations()
+					
+				yield(animation_player,"animation_finished")
+				reset_cup_locations()
+				
+			$Heart.visible = heart_found
 			animation_player.play("ShowCenter")
 		"Right":
-			if heart_location[RIGHT] == true:
-				$Heart.rect_position = Vector2(238,109.5)
-				if not fool:
-					$Heart.visible = true
+			if not fool:
+				if heart_location[RIGHT] == true:
+					$Heart.rect_position = Vector2(238,109.5)
+					heart_found = true
+			else:
+				if rand.randi_range(0,1) == OK:
+					animation_player.play("LeftRight")
+				else:
+					animation_player.play_backwards("LeftRight")
+					
+				switch_cups(LEFT, RIGHT)
+				if heart_location[RIGHT] == true:
+					$Heart.rect_position = Vector2(238,109.5)
 					heart_found = true
 				else:
-					$Heart.visible = false
 					heart_found = false
-					if rand.randi_range(0,1) == OK:
-						animation_player.play("LeftRight")
-					else:
-						animation_player.play_backwards("LeftRight")
-					yield(animation_player,"animation_finished")
-					reset_cup_locations()
+					
+				yield(animation_player,"animation_finished")
+				reset_cup_locations()
+			
+			$Heart.visible = heart_found
 			animation_player.play("ShowRight")
 			
 	emit_signal("shell_picked")

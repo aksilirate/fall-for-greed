@@ -162,11 +162,11 @@ func _on_story_selected():
 	
 func update_actions():
 	var executer = owner.get_node("Logic/Characters").get_children()
-	var left_action = current_event.LEFT_ACTION.new()
-	var right_action = current_event.RIGHT_ACTION.new()
+	var left_action = current_event.LEFT_ACTION
+	var right_action = current_event.RIGHT_ACTION
 	
 	if current_event.WEST_ACTION != null:
-		var west_action = current_event.WEST_ACTION.new()
+		var west_action = current_event.WEST_ACTION
 		emit_signal("update_west_action",load(west_action.TEXTURE), west_action, executer)
 	else:
 		emit_signal("update_west_action",null, null, null)
@@ -176,7 +176,7 @@ func update_actions():
 	emit_signal("update_right_action", load(right_action.TEXTURE), right_action, executer)
 	
 	if current_event.EAST_ACTION != null:
-		var east_action = current_event.EAST_ACTION.new()
+		var east_action = current_event.EAST_ACTION
 		emit_signal("update_east_action", load(east_action.TEXTURE), east_action, executer)
 	else:
 		emit_signal("update_east_action", null, null, null)
