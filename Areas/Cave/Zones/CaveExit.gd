@@ -3,6 +3,7 @@ class_name CaveExit
 
 const NEXT_AREA = Hills
 
+const NAME = "the cave"
 const HISTORY = "An exit from this cave."
 
 

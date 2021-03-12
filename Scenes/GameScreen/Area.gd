@@ -26,7 +26,6 @@ func generate_locations():
 	upcoming_locations.clear()
 	locations_passed = 0
 	
-	upcoming_locations.resize(current_area.total_locations)
 	rand.randomize()
 	
 	var enemy_cache = [] + current_area.ENEMIES
@@ -34,29 +33,30 @@ func generate_locations():
 	var zone_cache = [] + current_area.ZONES
 	
 	for _index in current_area.total_locations:
-		if _index == current_area.total_locations - 1 and current_area.get("LAST_EVENT"):
-			upcoming_locations[_index] = current_area.LAST_EVENT
+		if _index < 6:
+			upcoming_locations.insert(_index, current_area)
 		else:
-			if _index < 6:
-				upcoming_locations.insert(_index, current_area)
-			else:
-				var _penultimate = upcoming_locations.size() - 1
+			var _penultimate = upcoming_locations.size() - 1
+			
+			if rand.randi_range(0,10) == 3 and enemy_cache.size() > 0 and upcoming_locations[_penultimate] == current_area:
+				var _enemy_index = rand.randi_range(0, enemy_cache.size() - 1)
+				upcoming_locations.insert(_index,enemy_cache[_enemy_index].new())
+				enemy_cache.remove(_enemy_index)
 				
-				if rand.randi_range(0,10) == 3 and enemy_cache.size() > 0 and upcoming_locations[_penultimate] == current_area:
-					var _enemy_index = rand.randi_range(0, enemy_cache.size() - 1)
-					upcoming_locations.insert(_index,enemy_cache[_enemy_index].new())
-					enemy_cache.remove(_enemy_index)
-					
-				elif rand.randi_range(0,10) == 3 and npc_cache.size() > 0 and upcoming_locations[_penultimate] == current_area:
-					var _save_file = SaveFile.new()
-					upcoming_locations.insert(_index,npc_cache.pop_front().new())
-					
-				elif rand.randi_range(0,10) == 3 and zone_cache.size() > 0 and upcoming_locations[_penultimate] == current_area:
-					var _save_file = SaveFile.new()
-					upcoming_locations.insert(_index,zone_cache.pop_front().new())
-					
-				else:
-					upcoming_locations.insert(_index, current_area)
+			elif rand.randi_range(0,10) == 3 and npc_cache.size() > 0 and upcoming_locations[_penultimate] == current_area:
+				var _save_file = SaveFile.new()
+				upcoming_locations.insert(_index,npc_cache.pop_front().new())
+				
+			elif rand.randi_range(0,10) == 3 and zone_cache.size() > 0 and upcoming_locations[_penultimate] == current_area:
+				var _save_file = SaveFile.new()
+				upcoming_locations.insert(_index,zone_cache.pop_front().new())
+				
+			else:
+				upcoming_locations.insert(_index, current_area)
+				
+				
+	if current_area.get("LAST_EVENT"):
+		upcoming_locations[upcoming_locations.size() - 1] = current_area.LAST_EVENT
 				
 				
 				

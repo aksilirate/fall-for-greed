@@ -208,7 +208,7 @@ func reset_location():
 func emit_location_advanced():
 	yield(self,"story_telling_started")
 	emit_signal("location_advanced")
-	var next_location = area.upcoming_locations[area.locations_passed + 1]
+	var next_location = area.upcoming_locations[area.locations_passed - 1]
 	if next_location is Enemy:
 		if rand_range(0,1) < 0.37:
 			upcoming_stories.push_back("you think you saw something")
@@ -414,7 +414,12 @@ func cook():
 
 
 func change_area():
-	var _main_story = "you have entered " + area.current_event.NEXT_AREA.NAME
+	var _main_story
+	if area.current_event.NEXT_AREA.get("NAME"):
+		_main_story = "you have entered " + area.current_event.NEXT_AREA.NAME
+	else:
+		_main_story = "you have exited " + area.current_event.NAME
+		
 	emit_story_telling(_main_story)
 	yield(self,"story_telling_started")
 	area.current_area = area.current_event.NEXT_AREA.new()

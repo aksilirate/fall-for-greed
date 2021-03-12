@@ -2,7 +2,7 @@ class_name Cave
 
 
 const NEXT_AREA = null
-var total_locations = randomize_total_locations()
+var total_locations: int
 
 
 const NAME = "the cave"
@@ -31,7 +31,9 @@ const LEFT_ACTION = WalkAction
 const RIGHT_ACTION = SleepAction
 const EAST_ACTION = SearchAction
 
-
+func _init():
+	total_locations = randomize_total_locations()
+	
 func randomize_total_locations():
 	randomize()
 	return round(rand_range(30,60))
