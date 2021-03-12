@@ -13,8 +13,11 @@ func emit_action_pressed(event):
 			var story = get_tree().get_nodes_in_group("story").front()
 			var area = get_tree().get_nodes_in_group("area").front()
 			
-			if story.minutes_passed >= 144000 and area.current_event.get("NAME"):
-				if area.current_event.NAME != "the witch":
+			if story.minutes_passed >= 144000:
+				if area.current_event.get("NAME"):
+					if  area.current_event.NAME != "the witch":
+						action = SummonTheWitchAction
+				else:
 					action = SummonTheWitchAction
 
 
