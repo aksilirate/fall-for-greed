@@ -1,8 +1,8 @@
 class_name AbandonedForest
 
 
+const NEXT_AREA = Hills
 var total_locations = randomize_total_locations()
-var next_area = Hills.new()
 
 const HISTORY = "An abandoned forest filled with dangers."
 
@@ -18,6 +18,10 @@ const FINDINGS = [
 	"res://Areas/AbandonedForest/Findings/ShiitakeShroomsFinding.gd"
 ]
 
+const ZONES = [
+	CaveEntrance
+]
+
 const ENEMIES = [
 	Wolf,
 	Gnome,
@@ -27,6 +31,7 @@ const ENEMIES = [
 const NPCS = [
 	RowanSmithNPC
 ]
+
 
 const WEST_ACTION = WaitAction
 const LEFT_ACTION = WalkAction

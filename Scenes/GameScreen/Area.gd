@@ -22,24 +22,43 @@ signal update_east_action(_texture, _action, _executer)
 # total_locations are generated inside the current_location
 
 func generate_locations():
-	# Generates NPCs and enemies
+	# Generates NPCs, enemies and zones
+	upcoming_locations.clear()
+	locations_passed = 0
+	
+	upcoming_locations.resize(current_area.total_locations)
 	rand.randomize()
+	
 	var enemy_cache = [] + current_area.ENEMIES
 	var npc_cache = [] + current_area.NPCS
+	var zone_cache = [] + current_area.ZONES
+	
 	for _index in current_area.total_locations:
-		if _index < 6:
-			upcoming_locations.insert(_index, current_area)
+		if _index == current_area.total_locations - 1 and current_area.get("LAST_EVENT"):
+			upcoming_locations[_index] = current_area.LAST_EVENT
 		else:
-			var _penultimate = upcoming_locations.size() - 1
-			if rand.randi_range(0,10) == 3 and upcoming_locations[_penultimate] == current_area and enemy_cache.size() > 0:
-				var _enemy_index = rand.randi_range(0, enemy_cache.size() - 1)
-				upcoming_locations.insert(_index,enemy_cache[_enemy_index].new())
-				enemy_cache.remove(_enemy_index)
-			elif rand.randi_range(0,10) == 3 and npc_cache.size() > 0 and upcoming_locations[_penultimate] == current_area:
-				var _save_file = SaveFile.new()
-				upcoming_locations.insert(_index,npc_cache.pop_front().new())
-			else:
+			if _index < 6:
 				upcoming_locations.insert(_index, current_area)
+			else:
+				var _penultimate = upcoming_locations.size() - 1
+				
+				if rand.randi_range(0,10) == 3 and enemy_cache.size() > 0 and upcoming_locations[_penultimate] == current_area:
+					var _enemy_index = rand.randi_range(0, enemy_cache.size() - 1)
+					upcoming_locations.insert(_index,enemy_cache[_enemy_index].new())
+					enemy_cache.remove(_enemy_index)
+					
+				elif rand.randi_range(0,10) == 3 and npc_cache.size() > 0 and upcoming_locations[_penultimate] == current_area:
+					var _save_file = SaveFile.new()
+					upcoming_locations.insert(_index,npc_cache.pop_front().new())
+					
+				elif rand.randi_range(0,10) == 3 and zone_cache.size() > 0 and upcoming_locations[_penultimate] == current_area:
+					var _save_file = SaveFile.new()
+					upcoming_locations.insert(_index,zone_cache.pop_front().new())
+					
+				else:
+					upcoming_locations.insert(_index, current_area)
+				
+				
 				
 	save_file.save_value("Game", "upcoming_locations",upcoming_locations)
 
@@ -115,7 +134,7 @@ func _on_location_reseted():
 func _on_location_advanced():
 	locations_passed += 1
 	if locations_passed == current_area.total_locations:
-		current_area = current_area.next_area
+		current_area = current_area.NEXT_AREA.new()
 		current_event = current_area
 		
 		locations_passed = 0
@@ -131,7 +150,10 @@ func update_story_info():
 	rand.randomize()
 	var textures = filtered_textures()
 	var texture_index = rand.randi_range(0,textures.size() - 1)
-	story_texture.texture = load(textures[texture_index])
+	if textures.size() > 0:
+		story_texture.texture = load(textures[texture_index])
+	else:
+		print("Error: texture.size() < 0")
 	history_label.text = current_event.HISTORY
 	
 
@@ -162,8 +184,6 @@ func _on_story_selected():
 	
 func update_actions():
 	var executer = owner.get_node("Logic/Characters").get_children()
-	var left_action = current_event.LEFT_ACTION
-	var right_action = current_event.RIGHT_ACTION
 	
 	if current_event.WEST_ACTION != null:
 		var west_action = current_event.WEST_ACTION
@@ -171,10 +191,22 @@ func update_actions():
 	else:
 		emit_signal("update_west_action",null, null, null)
 		
-	emit_signal("update_left_action", load(left_action.TEXTURE), left_action, executer)
+		
+	if current_event.LEFT_ACTION != null:
+		var left_action = current_event.LEFT_ACTION
+		emit_signal("update_left_action", load(left_action.TEXTURE), left_action, executer)
+	else:
+		emit_signal("update_left_action",null, null, null)
 	
-	emit_signal("update_right_action", load(right_action.TEXTURE), right_action, executer)
 	
+	if current_event.RIGHT_ACTION != null:
+		var right_action = current_event.RIGHT_ACTION
+		emit_signal("update_right_action", load(right_action.TEXTURE), right_action, executer)
+	else:
+		emit_signal("update_right_action",null, null, null)
+	
+
+
 	if current_event.EAST_ACTION != null:
 		var east_action = current_event.EAST_ACTION
 		emit_signal("update_east_action", load(east_action.TEXTURE), east_action, executer)

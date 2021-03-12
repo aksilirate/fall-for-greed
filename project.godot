@@ -49,6 +49,21 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Areas/Global Events/CampfireEvent.gd"
 }, {
+"base": "Reference",
+"class": "Cave",
+"language": "GDScript",
+"path": "res://Areas/Cave/Cave.gd"
+}, {
+"base": "Zone",
+"class": "CaveEntrance",
+"language": "GDScript",
+"path": "res://Areas/AbandonedForest/Zones/CaveEntrance.gd"
+}, {
+"base": "Zone",
+"class": "CaveExit",
+"language": "GDScript",
+"path": "res://Areas/Cave/Zones/CaveExit.gd"
+}, {
 "base": "Node",
 "class": "Character",
 "language": "GDScript",
@@ -98,6 +113,11 @@ _global_script_classes=[ {
 "class": "Enemy",
 "language": "GDScript",
 "path": "res://Classes/Entities/Enemy.gd"
+}, {
+"base": "ActionLibrary",
+"class": "EnterAction",
+"language": "GDScript",
+"path": "res://Classes/Actions/EnterAction.gd"
 }, {
 "base": "ActionLibrary",
 "class": "FightAction",
@@ -240,6 +260,11 @@ _global_script_classes=[ {
 "path": "res://Classes/Items/SticksItem.gd"
 }, {
 "base": "ActionLibrary",
+"class": "SummonTheWitchAction",
+"language": "GDScript",
+"path": "res://Classes/Actions/SummonTheWitchAction.gd"
+}, {
+"base": "ActionLibrary",
 "class": "TakeAction",
 "language": "GDScript",
 "path": "res://Classes/Actions/TakeAction.gd"
@@ -260,9 +285,19 @@ _global_script_classes=[ {
 "path": "res://Classes/Actions/WalkAction.gd"
 }, {
 "base": "Enemy",
+"class": "Witch",
+"language": "GDScript",
+"path": "res://Areas/Global Events/WitchEnemy.gd"
+}, {
+"base": "Enemy",
 "class": "Wolf",
 "language": "GDScript",
 "path": "res://Areas/AbandonedForest/Enemies/Wolf.gd"
+}, {
+"base": "Reference",
+"class": "Zone",
+"language": "GDScript",
+"path": "res://Classes/Entities/Zone.gd"
 } ]
 _global_script_class_icons={
 "AbandonedForest": "",
@@ -273,6 +308,9 @@ _global_script_class_icons={
 "BiteTongueAction": "",
 "Bleed": "",
 "CampfireEvent": "",
+"Cave": "",
+"CaveEntrance": "",
+"CaveExit": "",
 "Character": "",
 "CharacterLabel": "",
 "CommunicateAction": "",
@@ -283,6 +321,7 @@ _global_script_class_icons={
 "EatAction": "",
 "Effect": "",
 "Enemy": "",
+"EnterAction": "",
 "FightAction": "",
 "ForgedLabel": "",
 "ForgedTextureRect": "",
@@ -311,11 +350,14 @@ _global_script_class_icons={
 "ShitakeShroomsItem": "",
 "SleepAction": "",
 "SticksItem": "",
+"SummonTheWitchAction": "",
 "TakeAction": "",
 "TakeEyeAction": "",
 "WaitAction": "",
 "WalkAction": "",
-"Wolf": ""
+"Witch": "",
+"Wolf": "",
+"Zone": ""
 }
 
 [application]

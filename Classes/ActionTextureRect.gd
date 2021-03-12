@@ -9,6 +9,15 @@ var executer
 func emit_action_pressed(event):
 	if event is InputEventMouseButton:
 		if not event.pressed:
+			
+			var story = get_tree().get_nodes_in_group("story").front()
+			var area = get_tree().get_nodes_in_group("area").front()
+			
+			if story.minutes_passed >= 144000 and area.current_event.get("NAME"):
+				if area.current_event.NAME != "the witch":
+					action = SummonTheWitchAction
+
+
 			if action and executer:
 				var action_object = action.new()
 				action_object.executer = executer

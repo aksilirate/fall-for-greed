@@ -295,21 +295,26 @@ func pass_out():
 
 
 func search_for_item(_minutes_passed):
-	emit_signal("search_for_item", self)
 	var emit_story_telling
-	var finding_name = area.current_event.NAME
+	var finding_name
+	if area.current_area.FINDINGS.size() != 0:
+		emit_signal("search_for_item", self)
+		finding_name = area.current_event.NAME
+	else:
+		finding_name = null
+		
 	randomize()
-
-	if area.findings_left > 0 and rand_range(0,1) < _minutes_passed*0.0166:
-		var _main_story
-		if _minutes_passed == 1:
-			_main_story = "you have searched for 1 minute"
-		else:
-			_main_story = "you have searched for " + str(_minutes_passed) + " minutes"
+	
+	var _main_story
+	if _minutes_passed == 1:
+		_main_story = "you have searched for 1 minute"
+	else:
+		_main_story = "you have searched for " + str(_minutes_passed) + " minutes"
+		
+	if area.findings_left > 0 and rand_range(0,1) < _minutes_passed*0.0166 and finding_name:
 		upcoming_stories.push_back("you have found " + str(finding_name))
 		emit_story_telling = emit_story_telling(_main_story)
 	else:
-		var _main_story = "you have searched for " + str(_minutes_passed) + " minutes"
 		upcoming_stories.push_back("you have not found anything")
 		reset_location()
 		emit_story_telling = emit_story_telling(_main_story)
@@ -408,4 +413,13 @@ func cook():
 		_character.inventory[_inventory_item_index] = _selected_item.COOKS_INTO
 
 
-
+func change_area():
+	var _main_story = "you have entered " + area.current_event.NEXT_AREA.NAME
+	emit_story_telling(_main_story)
+	yield(self,"story_telling_started")
+	area.current_area = area.current_event.NEXT_AREA.new()
+	area.current_event = area.current_area
+	area.generate_locations()
+	area.update_story_info()
+	area.update_actions()
+	yield(self,"story_telling_finished")

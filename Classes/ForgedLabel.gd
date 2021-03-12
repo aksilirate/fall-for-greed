@@ -5,8 +5,7 @@ class_name ForgedLabel
 
 func emit_Sound_Effect(path: String):
 	var _sound_effect = preload("res://Scenes/SoundEffect/SoundEffect.tscn").instance()
-	var _sound = load(path)
-	_sound_effect.stream = _sound
+	_sound_effect.stream = load(path)
 	get_node("/root").add_child(_sound_effect)
 
 func emit_Mouse_Entered_Effect():

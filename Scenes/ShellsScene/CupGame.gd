@@ -35,6 +35,14 @@ func _ready():
 		yield(animation_player,"animation_finished")
 		start_cup_game()
 	
+func play_shuffle_sound():
+	var _sound_effect = preload("res://Scenes/SoundEffect/SoundEffect.tscn").instance()
+	_sound_effect.stream = load("res://Sounds/Game/Cup Shuffle.wav")
+	randomize()
+	_sound_effect.pitch_scale = rand_range( (animation_player.playback_speed/3) + 0.3, (animation_player.playback_speed/3) + 0.9)
+	get_node("/root").add_child(_sound_effect)
+	
+	
 func start_cup_game():
 	heart_location = [false,true,false]
 	rand.randomize()
@@ -45,6 +53,7 @@ func start_cup_game():
 	$Heart.visible = false
 	for _index in power:
 		var shuffle_type = rand.randi_range(0,2)
+		play_shuffle_sound()
 		match shuffle_type:
 			CENTER_LEFT:
 				if rand.randi_range(0,1) == 0:
@@ -107,7 +116,7 @@ func _on_cup_selected(_cup):
 					$Heart.rect_position = Vector2(110,109.5)
 					heart_found = true
 			else:
-				
+				play_shuffle_sound()
 				if rand.randi_range(0,1) == OK:
 					animation_player.play("CenterLeft")
 				else:
@@ -131,6 +140,7 @@ func _on_cup_selected(_cup):
 					$Heart.rect_position = Vector2(174,109.5)
 					heart_found = true
 			else:
+				play_shuffle_sound()
 				if rand.randi_range(0,1) == OK:
 					animation_player.play("CenterRight")
 				else:
@@ -154,6 +164,7 @@ func _on_cup_selected(_cup):
 					$Heart.rect_position = Vector2(238,109.5)
 					heart_found = true
 			else:
+				play_shuffle_sound()
 				if rand.randi_range(0,1) == OK:
 					animation_player.play("LeftRight")
 				else:
