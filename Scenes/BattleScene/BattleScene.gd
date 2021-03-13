@@ -74,24 +74,34 @@ func enemy_attack():
 	var _edited_character_position = Vector2(_character_position.x, _character_position.y - 36)
 	tween.interpolate_property($Enemy, "rect_position", $Enemy.rect_position, _edited_character_position, 0.3, Tween.TRANS_EXPO)
 	tween.start()
-	yield(get_tree().create_timer(0.19), "timeout")
+
 	
 	
-	hit(_character)
-	_character.character_reference.stats["health"] -= enemy.DAMAGE
+	if dodged(_character.character_reference):
+		var _character_origin = _character.rect_position
+
+		tween.interpolate_property(_character, "rect_position", _character.rect_position, _character.rect_position + Vector2(0,23), 0.4, Tween.TRANS_EXPO)
+		yield(tween,"tween_all_completed")
+		tween.interpolate_property(_character, "rect_position", _character.rect_position, _character_origin, 0.4, Tween.TRANS_EXPO)
+		tween.interpolate_property($Enemy, "rect_position", $Enemy.rect_position, ENEMY_ORIGIN, 0.3, Tween.TRANS_EXPO)
+		tween.start()
+		yield(tween,"tween_completed")
+		
+	else:
+		yield(get_tree().create_timer(0.19), "timeout")
+		hit(_character)
+		_character.character_reference.stats["health"] -= enemy.DAMAGE
+		tween.interpolate_property($Enemy, "rect_position", $Enemy.rect_position, ENEMY_ORIGIN, 0.3, Tween.TRANS_EXPO)
+		tween.start()
 	
-	
-	
-	yield(tween,"tween_completed")
-	tween.interpolate_property($Enemy, "rect_position", $Enemy.rect_position, ENEMY_ORIGIN, 0.3, Tween.TRANS_EXPO)
-	yield(tween,"tween_completed")
+
 	
 	if _character.character_reference.stats["health"] <= 0:
 		animation_player.play("Unload")
 		yield(animation_player,"animation_finished")
 		var _character_name = _character.character_reference.character_name
-		_character.free()
 		emit_signal("kill_character", _character.character_reference)
+		_character.free()
 		play_death_message(_character_name + " have died")
 		yield(self, "death_message_finished")
 		if $CharactersContainer.get_child_count() > 0:
@@ -121,6 +131,12 @@ func hit(_target):
 	_target.get_material().set_shader_param("enabled", true)
 	yield(get_tree().create_timer(0.19), "timeout")
 	_target.get_material().set_shader_param("enabled", false)
+
+func dodged(_character: Character):
+	if rand_range(0,1) < _character.stats["energy"] / 2:
+		return true
+	else:
+		return false
 	
 		
 func complete_battle():

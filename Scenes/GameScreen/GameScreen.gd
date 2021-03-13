@@ -63,9 +63,10 @@ func _input(event):
 		
 	elif event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.pressed:
-			animation_player.playback_speed = 3
-			yield(animation_player, "animation_finished")
-			animation_player.playback_speed = 1
+			if animation_player.is_playing():
+				animation_player.playback_speed = 3
+				yield(animation_player, "animation_finished")
+				animation_player.playback_speed = 1
 			
 			
 

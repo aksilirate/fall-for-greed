@@ -55,7 +55,6 @@ var current_character
 
 func _ready():
 
-	self.stats.health =3
 	self_profile_picture = current_character.SELF_PROFILE_PICTURE
 	unit_texture = current_character.UNIT_TEXTURE
 	character_name = current_character.NAME

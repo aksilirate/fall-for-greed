@@ -145,7 +145,7 @@ func calculate_character_turn(_character, _energy_cost, _minutes_passed):
 	if _character.stats["energy"] <= 0:
 		upcoming_stories.push_back(_character.character_name + " has fallen asleep")
 		pass_out()
-		_character.stats["energy"] = 1.0
+		_character.stats["energy"] = 0.5
 		
 	if _character.stats["health"] <= 0 or _character.stats["hunger"] <= 0:
 		upcoming_stories.push_back(_character.character_name + " have died")
@@ -242,7 +242,7 @@ func execute_sleep(_character):
 		if area.current_event.get_class() == "CampfireEvent":
 			_character.stats["energy"] = 1.0
 		else:
-			_character.stats["energy"] = 1.0
+			_character.stats["energy"] = 0.8
 			
 		if not sleep_story_shown:
 			add_to_minutes_passed(round(calculate_sleep_time() * 60))
