@@ -33,13 +33,18 @@ func _ready():
 func _on_character_death(_character):
 	if _character:
 		save_file.erase_value("Characters", _character.character_name)
-		characters.update_characters()
 		emit_signal("story_selected")
-			
+		_character.free()
+		
 	if characters.get_child_count() == 0:
 		save_file.delete()
 # warning-ignore:return_value_discarded
 		get_tree().change_scene("res://Scenes/DeathScreen/DeathScreen.tscn")
+		
+	for _character in characters.get_children():
+		characters.update_character_label(_character)
+		
+		
 		
 func _on_summon_character(_character):
 	characters.summon_character(_character)
@@ -55,6 +60,14 @@ func _input(event):
 		else:
 			get_node("MenuScreen").queue_free()
 			menu_open = false
+		
+	elif event is InputEventMouseButton:
+		if event.button_index == BUTTON_LEFT and event.pressed:
+			animation_player.playback_speed = 3
+			yield(animation_player, "animation_finished")
+			animation_player.playback_speed = 1
+			
+			
 
 func _on_AnimationPlayer_animation_finished(_anim_name):
 	if _anim_name == "load":
@@ -68,6 +81,5 @@ func save_game():
 	
 func save():
 	call_deferred("save_game")
-	
 	
 	

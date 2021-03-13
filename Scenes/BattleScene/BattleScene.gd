@@ -45,8 +45,12 @@ func character_attack():
 		tween.interpolate_property(_character, "rect_position", _character.rect_position, _enemy_position, 0.3, Tween.TRANS_EXPO)
 		tween.start()
 		yield(get_tree().create_timer(0.19), "timeout")
+		
+		
 		hit($Enemy)
 		enemy.health -= _character.character_reference.damage
+		
+		
 		yield(tween,"tween_completed")
 		tween.interpolate_property(_character, "rect_position", _character.rect_position, _character_origin, 0.3, Tween.TRANS_EXPO)
 		yield(tween,"tween_completed")
@@ -71,8 +75,13 @@ func enemy_attack():
 	tween.interpolate_property($Enemy, "rect_position", $Enemy.rect_position, _edited_character_position, 0.3, Tween.TRANS_EXPO)
 	tween.start()
 	yield(get_tree().create_timer(0.19), "timeout")
+	
+	
 	hit(_character)
-	_character.character_reference.stats["health"] -= enemy.DAMAGE * 3
+	_character.character_reference.stats["health"] -= enemy.DAMAGE
+	
+	
+	
 	yield(tween,"tween_completed")
 	tween.interpolate_property($Enemy, "rect_position", $Enemy.rect_position, ENEMY_ORIGIN, 0.3, Tween.TRANS_EXPO)
 	yield(tween,"tween_completed")
@@ -81,8 +90,7 @@ func enemy_attack():
 		animation_player.play("Unload")
 		yield(animation_player,"animation_finished")
 		var _character_name = _character.character_reference.character_name
-		_character.character_reference.queue_free()
-		_character.queue_free()
+		_character.free()
 		emit_signal("kill_character", _character.character_reference)
 		play_death_message(_character_name + " have died")
 		yield(self, "death_message_finished")
