@@ -1,7 +1,7 @@
 class_name Hills
 
 
-const NEXT_AREA = null
+const NEXT_AREA = Mountains
 var total_locations = randomize_total_locations()
 
 const HISTORY = "A land once filled with life, is covered with hills."

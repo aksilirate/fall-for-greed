@@ -136,8 +136,8 @@ func _on_location_advanced():
 	if locations_passed == current_area.total_locations:
 		current_area = current_area.NEXT_AREA.new()
 		current_event = current_area
-		
-		locations_passed = 0
+		generate_locations()
+	
 	current_event = upcoming_locations[locations_passed]
 	save_file.save_value("Game", "current_event",current_event)
 	reset_findings_left()

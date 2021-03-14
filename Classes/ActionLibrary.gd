@@ -145,7 +145,7 @@ func calculate_character_turn(_character, _energy_cost, _minutes_passed):
 	if _character.stats["energy"] <= 0:
 		upcoming_stories.push_back(_character.character_name + " has fallen asleep")
 		pass_out()
-		_character.stats["energy"] = 0.5
+		_character.stats["energy"] = 0.67
 		
 	if _character.stats["health"] <= 0 or _character.stats["hunger"] <= 0:
 		upcoming_stories.push_back(_character.character_name + " have died")

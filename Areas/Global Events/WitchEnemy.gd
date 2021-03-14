@@ -4,7 +4,7 @@ class_name Witch
 # Used for "you have killed the wolf"
 const NAME = "the witch"
 
-const HISTORY = "She is the cause of suffering to many, including you..."
+const HISTORY = "The witch, is the casuse of darkness in the lives of many."
 
 const UNIT_TEXTURE := "res://Textures/Battle/Enemies/Witch Unit.png"
 

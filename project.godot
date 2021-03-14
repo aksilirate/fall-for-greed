@@ -94,6 +94,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Classes/CupTextureRect.gd"
 }, {
+"base": "Reference",
+"class": "DeadForest",
+"language": "GDScript",
+"path": "res://Areas/DeadForest/DeadForest.gd"
+}, {
 "base": "Node",
 "class": "Debug",
 "language": "GDScript",
@@ -190,6 +195,16 @@ _global_script_classes=[ {
 "path": "res://Classes/Effects/Misfortune.gd"
 }, {
 "base": "Reference",
+"class": "Mist",
+"language": "GDScript",
+"path": "res://Areas/Mist/Mist.gd"
+}, {
+"base": "Reference",
+"class": "Mountains",
+"language": "GDScript",
+"path": "res://Areas/Mountains/Mountains.gd"
+}, {
+"base": "Reference",
 "class": "Nausea",
 "language": "GDScript",
 "path": "res://Classes/Effects/Nausea.gd"
@@ -264,6 +279,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Classes/Actions/SummonTheWitchAction.gd"
 }, {
+"base": "Reference",
+"class": "Swamp",
+"language": "GDScript",
+"path": "res://Areas/Swamp/Swamp.gd"
+}, {
 "base": "ActionLibrary",
 "class": "TakeAction",
 "language": "GDScript",
@@ -317,6 +337,7 @@ _global_script_class_icons={
 "CookAction": "",
 "CookedAngelorisItem": "",
 "CupTextureRect": "",
+"DeadForest": "",
 "Debug": "",
 "EatAction": "",
 "Effect": "",
@@ -336,6 +357,8 @@ _global_script_class_icons={
 "LabelButton": "",
 "MakeCampfireAction": "",
 "Misfortune": "",
+"Mist": "",
+"Mountains": "",
 "Nausea": "",
 "OptionsFile": "",
 "PathDictionary": "",
@@ -351,6 +374,7 @@ _global_script_class_icons={
 "SleepAction": "",
 "SticksItem": "",
 "SummonTheWitchAction": "",
+"Swamp": "",
 "TakeAction": "",
 "TakeEyeAction": "",
 "WaitAction": "",
