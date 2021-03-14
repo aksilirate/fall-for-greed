@@ -160,7 +160,7 @@ func calculate_character_turn(_character, _energy_cost, _minutes_passed):
 	
 func calculate_mood(_character, _minutes_passed):
 	if _character.stats["health"] <= 0.5:
-		_character.stats["mood"] -= ((1 - _character.stats["health"]) / 300) * _minutes_passed
+		_character.stats["mood"] -= ((1 - _character.stats["health"]) / 360) * _minutes_passed
 	if _character.stats["hunger"] <= 0.5:
 		_character.stats["mood"] -= ((1 - _character.stats["health"]) / 430) * _minutes_passed
 
@@ -222,10 +222,12 @@ func emit_location_advanced():
 func sleep():
 	var execute_sleep
 	if executer is Object:
+		had_nightmare(executer)
 		execute_sleep = execute_sleep(executer)
 		yield(execute_sleep, "completed")
 	else:
 		for _character in executer:
+			had_nightmare(_character)
 			execute_sleep = execute_sleep(_character)
 			if execute_sleep is Object:
 				yield(execute_sleep, "completed")
@@ -286,6 +288,12 @@ func pass_out():
 		upcoming_stories.push_back(str(round(calculate_sleep_time())) + " hours have passed")
 		add_to_minutes_passed(round(calculate_sleep_time() * 60))
 
+func had_nightmare(_character):
+	if _character.stats["energy"] < 0.5:
+		if rand_range(0,1) < 0.09:
+			_character.stats["mood"] -= 0.05
+			upcoming_stories.push_back(_character.character_name + "had a nightmare")
+
 #----------------------------------------- [ ^ SLEEP ^ ] -----------------------------------------
 
 
@@ -318,12 +326,17 @@ func search_for_item(_minutes_passed):
 		upcoming_stories.push_back("you have not found anything")
 		reset_location()
 		emit_story_telling = emit_story_telling(_main_story)
-		
+		if rand_range(0,1) < 0.3:
+			emit_location_advanced()
 	if area.findings_left > 0:
 		area.findings_left -= 1
-		
+	
+	
 	yield(self,"story_telling_started")
 	add_to_minutes_passed(_minutes_passed)
+	
+	
+	
 	yield(emit_story_telling, "completed")
 	
 	
