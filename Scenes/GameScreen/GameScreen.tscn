@@ -382,7 +382,9 @@ tracks/1/keys = {
 "values": [ 2 ]
 }
 
-[node name="GameScreen" type="Control"]
+[node name="GameScreen" type="Control" groups=[
+"game_screen",
+]]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 1

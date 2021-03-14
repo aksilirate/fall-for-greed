@@ -160,9 +160,9 @@ func calculate_character_turn(_character, _energy_cost, _minutes_passed):
 	
 func calculate_mood(_character, _minutes_passed):
 	if _character.stats["health"] <= 0.5:
-		_character.stats["mood"] -= ((1 - _character.stats["health"]) / 360) * _minutes_passed
-	if _character.stats["hunger"] <= 0.5:
 		_character.stats["mood"] -= ((1 - _character.stats["health"]) / 430) * _minutes_passed
+	if _character.stats["hunger"] <= 0.5:
+		_character.stats["mood"] -= ((1 - _character.stats["health"]) / 500) * _minutes_passed
 
 
 func calculate_misfortune(_character):
@@ -326,7 +326,7 @@ func search_for_item(_minutes_passed):
 		upcoming_stories.push_back("you have not found anything")
 		reset_location()
 		emit_story_telling = emit_story_telling(_main_story)
-		if rand_range(0,1) < 0.3:
+		if rand_range(0,1) < 0.1:
 			emit_location_advanced()
 	if area.findings_left > 0:
 		area.findings_left -= 1
@@ -354,7 +354,7 @@ func emit_take_item():
 		item = game_screen.hold_slot.selected_item
 		game_screen.hold_slot.selected_item = null
 		game_screen.hold_slot._on_item_hold(null)
-		game_screen.last_selected_character.update_actions(game_screen)
+		game_screen.last_selected_character.update_actions()
 		
 		if item != null:
 			executer.inventory.append(item)
@@ -441,3 +441,14 @@ func change_area():
 	area.update_story_info()
 	area.update_actions()
 	yield(self,"story_telling_finished")
+
+
+
+func drop_selected_item():
+	var _character = game_screen.last_selected_character
+	var _selected_item = game_screen.selected.item
+	var _item_index = _character.inventory.find(_selected_item)
+	_character.inventory.remove(_item_index)
+	_character.update_inventory()
+	_character.update_actions()
+

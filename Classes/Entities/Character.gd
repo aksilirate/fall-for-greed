@@ -33,7 +33,7 @@ var east_action : Object
 
 
 var game_logic = GameLogic.new()
-var inventory: Array
+var inventory: Array setget set_inventory
 
 var mistakes = []
 var active_effects = []
@@ -94,6 +94,10 @@ func set_stats(_value):
 	stats = _value
 	call_deferred("save_character")
 	
+func set_inventory(_value):
+	inventory = _value
+	call_deferred("save_character")
+	
 func save_character():
 	var save_file = SaveFile.new()
 	save_file.save_value("characters", character_name, inst2dict(self))
@@ -102,15 +106,16 @@ func save_character():
 	
 	
 #	gets connected by Character: Node 
-func _on_character_selected(_owner: Node) -> void:
-	update_actions(_owner)
+func _on_character_selected() -> void:
+	update_actions()
 	update_inventory()
 	
 	
 	
 	
-func update_actions(_owner: Node) -> void:
-	if _owner.area.current_event.get("ITEM") or _owner.hold_slot.selected_item != null:
+func update_actions() -> void:
+	var game_screen = get_tree().get_nodes_in_group("game_screen").front()
+	if game_screen.area.current_event.get("ITEM") or game_screen.hold_slot.selected_item != null:
 		if inventory.size() < 8:
 			west_action = TakeAction
 		else:

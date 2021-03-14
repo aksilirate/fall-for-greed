@@ -13,5 +13,5 @@ const CALORIES = 0.26
 const WEST_ACTION = HoldAction
 const LEFT_ACTION = EatAction
 const RIGHT_ACTION = null
-const EAST_ACTION = null
+const EAST_ACTION = DropAction
 

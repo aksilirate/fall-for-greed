@@ -11,7 +11,7 @@ var character: Object
 var self_profile_texture = null
 var story: String
 
-signal character_selected(_owner)
+signal character_selected()
 
 func _ready():
 # warning-ignore:return_value_discarded
@@ -35,7 +35,7 @@ func _on_mouse_exited():
 
 func label_clicked():
 	owner.last_selected_character = character
-	emit_signal("character_selected", owner)
+	emit_signal("character_selected")
 
 
 func _on_gui_input(event):

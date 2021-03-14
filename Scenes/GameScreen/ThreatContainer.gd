@@ -2,7 +2,7 @@ extends VBoxContainer
 
 
 
-func _on_character_selected(_owner):
+func _on_character_selected():
 	for _child in get_children():
 		_child.queue_free()
 		

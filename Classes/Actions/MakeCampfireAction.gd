@@ -2,7 +2,7 @@ extends ActionLibrary
 class_name MakeCampfireAction
 
 
-
+const CLASS_NAME = "MakeCampfireAction"
 const TEXTURE = "res://Textures/Actions/Make Campfire.png"
 const TOOLTIP := "make a campfire"
 

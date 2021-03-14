@@ -41,6 +41,9 @@ func _on_character_death(_character):
 # warning-ignore:return_value_discarded
 		get_tree().change_scene("res://Scenes/DeathScreen/DeathScreen.tscn")
 		
+		
+	for _label in $CharacterLabels.get_children():
+		_label.hide()
 	for _character in characters.get_children():
 		characters.update_character_label(_character)
 		

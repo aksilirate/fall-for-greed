@@ -12,4 +12,4 @@ const TOOLTIP := "sticks"
 const WEST_ACTION = HoldAction
 const LEFT_ACTION = MakeCampfireAction
 const RIGHT_ACTION = null
-const EAST_ACTION = null
+const EAST_ACTION = DropAction
