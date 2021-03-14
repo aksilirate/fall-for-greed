@@ -167,7 +167,7 @@ func calculate_mood(_character, _minutes_passed):
 
 func calculate_misfortune(_character):
 	if area.current_event is load("res://Areas/AbandonedForest/AbandonedForest.gd") as Script:
-		if _character.stats.misfortune > rand_range(0,1):
+		if _character.stats.misfortune > rand_range(0,1 * (_character.mistakes.count("step on thorn") + 1)):
 			upcoming_stories.push_back(_character.character_name + " has stepped on a thorn by accident")
 			var _effect = Effect.new()
 			var _bleed = Bleed.new()
@@ -175,7 +175,7 @@ func calculate_misfortune(_character):
 			_bleed.deactivation_minute = round(rand_range(3,6))
 			_effect.active_effect = _bleed
 			_character.add_child(_effect)
-
+			_character.mistakes.append("step on thorn")
 #------------------------------ [ ^ CALCULATIONS ^ ] ---------------------------------
 
 

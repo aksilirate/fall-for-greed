@@ -20,7 +20,9 @@ const FINDINGS = []
 
 const ZONES = []
 
-const ENEMIES = []
+const ENEMIES = [
+	CaveSpider
+]
 
 const NPCS = []
 
