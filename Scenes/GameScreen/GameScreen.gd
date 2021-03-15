@@ -32,9 +32,11 @@ func _ready():
 
 func _on_character_death(_character):
 	if _character:
-		save_file.erase_value("Characters", _character.character_name)
 		emit_signal("story_selected")
+		save_file.erase_value("Characters", _character.character_name)
 		_character.free()
+		
+		
 		
 	if characters.get_child_count() == 0:
 		save_file.delete()

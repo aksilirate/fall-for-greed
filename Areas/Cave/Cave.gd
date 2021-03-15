@@ -30,7 +30,7 @@ const NPCS = []
  
 const WEST_ACTION = WaitAction
 const LEFT_ACTION = WalkAction
-const RIGHT_ACTION = SleepAction
+const RIGHT_ACTION = ChangeDirectionAction
 const EAST_ACTION = SearchAction
 
 func _init():

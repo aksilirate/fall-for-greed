@@ -62,6 +62,7 @@ func emit_story_telling(_main_story):
 	yield(animation_player,"animation_finished")
 	emit_signal("story_telling_started")
 	run_through_upcoming_stories()
+	area.update_actions()
 	yield(self,"story_telling_finished")
 	if not show_screen_disabled:
 		animation_player.play("Show Screen")
@@ -125,8 +126,11 @@ func calculate_character_effects(_character, _minutes_passed):
 
 func calculate_character_turn(_character, _energy_cost, _minutes_passed):
 	calculate_character_effects(_character, _minutes_passed)
+	calculate_loneliness(_character, _minutes_passed)
 	calculate_mood(_character, _minutes_passed)
 	calculate_misfortune(_character)
+	
+	
 	var _hunger_check = _character.get_hunger_status()
 	
 	var _health_gained = _minutes_passed * 0.00006
@@ -163,6 +167,26 @@ func calculate_mood(_character, _minutes_passed):
 		_character.stats["mood"] -= ((1 - _character.stats["health"]) / 430) * _minutes_passed
 	if _character.stats["hunger"] <= 0.5:
 		_character.stats["mood"] -= ((1 - _character.stats["health"]) / 500) * _minutes_passed
+
+
+
+
+func calculate_loneliness(_character, _minutes_passed):
+	if _character.stats["loneliness"] < 0:
+		_character.stats["loneliness"] = 0
+	
+	if _character.stats["loneliness"] <= 0.5:
+		_character.stats["mood"] -= _character.stats["loneliness"] / 18
+		if _character.stats["loneliness"] <= 0.3:
+			if rand_range(0,1) < 0.076:
+				upcoming_stories.push_back(_character.character_name + " is talking to himself")
+	
+	if get_tree().get_nodes_in_group("characters").size() > 1:
+		_character.stats["loneliness"] = 1.0
+	else:
+		_character.stats["loneliness"] -= _minutes_passed / 750
+		
+
 
 
 func calculate_misfortune(_character):
@@ -208,7 +232,7 @@ func reset_location():
 func emit_location_advanced():
 	yield(self,"story_telling_started")
 	emit_signal("location_advanced")
-	var next_location = area.upcoming_locations[area.locations_passed - 1]
+	var next_location = area.upcoming_locations[area.location_index - 1]
 	if next_location is Enemy:
 		if rand_range(0,1) < 0.37:
 			upcoming_stories.push_back("you think you saw something")

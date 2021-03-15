@@ -14,7 +14,6 @@ func _ready():
 	var emit_story_telling = emit_story_telling(_main_story)
 	calculate_turn(_energy_cost, _minutes_passed)
 	emit_location_advanced()
-	
 	yield(emit_story_telling, "completed")
 	queue_free()
 

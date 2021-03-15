@@ -13,6 +13,10 @@ func _ready():
 	var _main_story = "you have talked with " + _character.NAME
 	
 	var emit_story_telling = emit_story_telling(_main_story)
+	
+	game_screen.area.upcoming_locations.remove(game_screen.area.location_index)
+	game_screen.area.location_index -= 1
+	
 	summon_character(_character.CHARACTER_OBJECT)
 	reset_location()
 	

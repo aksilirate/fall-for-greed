@@ -10,7 +10,7 @@ var rand = RandomNumberGenerator.new()
 var save_file = SaveFile.new()
 var upcoming_locations: Array
 var findings_left: int
-var locations_passed: int
+var location_index: int
 var current_area: Object
 var current_event: Object
 
@@ -24,7 +24,7 @@ signal update_east_action(_texture, _action, _executer)
 func generate_locations():
 	# Generates NPCs, enemies and zones
 	upcoming_locations.clear()
-	locations_passed = 0
+	location_index = 0
 	
 	rand.randomize()
 	
@@ -88,10 +88,10 @@ func load_game():
 	else:
 		current_event = save_file.get_saved_value("Game", "current_event")
 	
-	if not save_file.get_saved_value("Game", "locations_passed"):
-		locations_passed = 0
+	if not save_file.get_saved_value("Game", "location_index"):
+		location_index = 0
 	else:
-		locations_passed = save_file.get_saved_value("Game", "locations_passed")
+		location_index = save_file.get_saved_value("Game", "location_index")
 		
 		
 	if not save_file.get_saved_value("Game", "upcoming_locations"):
@@ -110,7 +110,7 @@ func load_game():
 func save_game():
 	save_file.save_value("Game", "current_area",current_area)
 	save_file.save_value("Game", "current_event",current_event)
-	save_file.save_value("Game", "locations_passed",locations_passed)
+	save_file.save_value("Game", "location_index",location_index)
 	save_file.save_value("Game", "upcoming_locations",upcoming_locations)
 	save_file.save_value("Game", "findings_left",findings_left)
 	
@@ -130,15 +130,15 @@ func _on_location_reseted():
 
 
 
-#need to save locations_passed
+#need to save location_index
 func _on_location_advanced():
-	locations_passed += 1
-	if locations_passed == current_area.total_locations:
+	location_index += 1
+	if location_index == current_area.total_locations:
 		current_area = current_area.NEXT_AREA.new()
 		current_event = current_area
 		generate_locations()
 	
-	current_event = upcoming_locations[locations_passed]
+	current_event = upcoming_locations[location_index]
 	save_file.save_value("Game", "current_event",current_event)
 	reset_findings_left()
 	update_story_info()
@@ -201,7 +201,18 @@ func update_actions():
 	
 	if current_event.RIGHT_ACTION != null:
 		var right_action = current_event.RIGHT_ACTION
+		
+		if current_event.RIGHT_ACTION == ChangeDirectionAction:
+			var tired_character = false
+			for _character in owner.characters.get_children():
+				if _character.stats["energy"] < 0.5:
+					tired_character = true
+					
+			if tired_character:
+				right_action = SleepAction
+
 		emit_signal("update_right_action", load(right_action.TEXTURE), right_action, executer)
+		
 	else:
 		emit_signal("update_right_action",null, null, null)
 	
