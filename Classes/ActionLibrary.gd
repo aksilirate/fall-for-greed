@@ -452,3 +452,21 @@ func drop_selected_item():
 	_character.update_inventory()
 	_character.update_actions()
 
+
+func heal():
+	var _selected_item = game_screen.selected.item
+	var _character = game_screen.last_selected_character
+	emit_story_telling(game_screen.last_selected_character.character_name + " has healed himself using " + _selected_item.NAME)
+	yield(self,"story_telling_started")
+	game_screen.last_selected_character.stats["health"] += _selected_item.HEAL_AMOUNT
+	if game_screen.last_selected_character.stats["health"] > 0.1:
+		game_screen.last_selected_character.stats["health"] = 1.0
+		
+	var _item_index = _character.inventory.find(_selected_item)
+	_character.inventory.remove(_item_index)
+	_character.update_inventory()
+	_character.update_actions()
+	
+	yield(self,"story_telling_finished")
+	queue_free()
+	

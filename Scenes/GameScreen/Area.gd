@@ -70,7 +70,7 @@ func _ready():
 	
 func reset_findings_left():
 	rand.randomize()
-	findings_left = rand.randi_range(3,9)
+	findings_left = rand.randi_range(0,9)
 	save_file.save_value("Game", "findings_left",findings_left)
 	
 	

@@ -15,7 +15,8 @@ const TEXTURES = [
 const FINDINGS = [
 	"res://Areas/AbandonedForest/Findings/AngelorisFinding.gd",
 	"res://Areas/AbandonedForest/Findings/FallenBranchFinding.gd",
-	"res://Areas/AbandonedForest/Findings/ShiitakeShroomsFinding.gd"
+	"res://Areas/AbandonedForest/Findings/ShiitakeShroomsFinding.gd",
+	"res://Areas/AbandonedForest/Findings/LageFinding.gd"
 ]
 
 const ZONES = [

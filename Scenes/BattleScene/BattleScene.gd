@@ -112,6 +112,11 @@ func enemy_attack():
 	
 
 func play_death_message(_death_message):
+	# Do this using ActionLibrary
+	var action_library = ActionLibrary.new()
+	add_child(action_library)
+	action_library.queue_free()
+	
 	var story_label = preload("res://Scenes/StoryLabel/StoryLabel.tscn").instance()
 	var story_animation_player = story_label.get_node("AnimationPlayer")
 	story_label.text =  _death_message
