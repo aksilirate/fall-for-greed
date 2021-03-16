@@ -3,6 +3,9 @@ extends Node
 
 
 var save_file = SaveFile.new()
+var current_artifact: Object
+var artifacts_left = []
+
 var minutes_passed = 0
 
 signal time_updated(_minutes_passed)

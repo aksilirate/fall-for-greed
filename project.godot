@@ -29,6 +29,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Classes/Items/AngelorisItem.gd"
 }, {
+"base": "Reference",
+"class": "Artifact",
+"language": "GDScript",
+"path": "res://Classes/Entities/Artifact.gd"
+}, {
 "base": "Enemy",
 "class": "Bear",
 "language": "GDScript",
@@ -138,6 +143,11 @@ _global_script_classes=[ {
 "class": "EnterAction",
 "language": "GDScript",
 "path": "res://Classes/Actions/EnterAction.gd"
+}, {
+"base": "Artifact",
+"class": "FallenKingsChaliceCup",
+"language": "GDScript",
+"path": "res://Classes/Artifacts/FallenKingsChaliceCup.gd"
 }, {
 "base": "ActionLibrary",
 "class": "FightAction",
@@ -339,6 +349,7 @@ _global_script_class_icons={
 "ActionLibrary": "",
 "ActionTextureRect": "",
 "AngelorisItem": "",
+"Artifact": "",
 "Bear": "",
 "BiteTongueAction": "",
 "Bleed": "",
@@ -361,6 +372,7 @@ _global_script_class_icons={
 "Effect": "",
 "Enemy": "",
 "EnterAction": "",
+"FallenKingsChaliceCup": "",
 "FightAction": "",
 "ForgedTextureRect": "",
 "GameLogic": "",
