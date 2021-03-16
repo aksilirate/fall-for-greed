@@ -1,5 +1,2 @@
-extends ForgedLabel
-
-
-
+extends CharacterLabel
 
