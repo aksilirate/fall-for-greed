@@ -8,7 +8,9 @@ const NAME := "Pyry Wright"
 const STORY := "A cursed man that has lost his home, wife and son."
 
 
-
+const STARTING_ITEMS = [
+	RabbitsMeatItem
+	]
 
 
 const DAMAGE = 0.9

@@ -11,7 +11,7 @@ onready var threat_container = owner.get_node("ThreatContainer")
 onready var profile_texture = owner.get_node("ProfileTexture")
 onready var profile_border = owner.get_node("ProfileBorder")
 onready var history_label = owner.get_node("HistoryLabel")
-
+onready var inventory = owner.get_node("Inventory")
 
 func _ready():
 	var west_action = owner.get_node("Actions/WestAction")
@@ -41,8 +41,10 @@ func _on_pressed():
 		owner.selected.deselect()
 		
 	if owner.selected != self:
-		
+		animation_player.play("Hide Information")
+		yield(animation_player,"animation_finished")
 		threat_container.hide()
+		inventory.rect_position.x = -100
 		if story.current_artifact != null:
 			profile_texture.texture = story.current_artifact.SELF_PROFILE_PICTURE
 		else:

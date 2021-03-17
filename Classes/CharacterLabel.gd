@@ -6,6 +6,7 @@ onready var threat_container = owner.get_node("ThreatContainer")
 onready var profile_texture = owner.get_node("ProfileTexture")
 onready var profile_border = owner.get_node("ProfileBorder")
 onready var history_label = owner.get_node("HistoryLabel")
+onready var inventory = owner.get_node("Inventory")
 
 var character: Object
 
@@ -30,6 +31,8 @@ func _on_pressed():
 		if owner.selected != self:
 			threat_container.show()
 			profile_border.show()
+			inventory.rect_position.x = 0
+			
 			profile_texture.texture = self_profile_texture
 			animation_player.play("Show Information")
 			

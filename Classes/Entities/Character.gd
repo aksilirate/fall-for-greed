@@ -69,6 +69,12 @@ func _ready():
 		add_child(_effect)
 	saved_effects = []
 	
+	if current_character.get("STARTING_ITEMS"):
+		for _item in current_character.STARTING_ITEMS:
+			if rand_range(0,1) < 0.1:
+				inventory.append(_item.new())
+	
+	
 	add_to_group("characters")
 	call_deferred("save_character")
 	

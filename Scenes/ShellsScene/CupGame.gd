@@ -111,8 +111,9 @@ func switch_cups(_first_cup , _second_cup):
 
 
 var heart_found:bool
+var fool: bool
 func _on_cup_selected(_cup):
-	var fool = false
+	fool = false
 	$Heart.visible = false
 	heart_found = false
 	
@@ -214,6 +215,7 @@ func load_battle_scene():
 		$Heart.hide()
 		
 	var battle_scene = preload("res://Scenes/BattleScene/BattleScene.tscn").instance()
+	battle_scene.fool = fool
 	battle_scene.enemy = owner.enemy
 	if heart_found:
 		battle_scene.heart_found = true

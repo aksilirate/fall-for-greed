@@ -184,7 +184,7 @@ func calculate_loneliness(_character, _minutes_passed):
 	if get_tree().get_nodes_in_group("characters").size() > 1:
 		_character.stats["loneliness"] = 1.0
 	else:
-		_character.stats["loneliness"] -= _minutes_passed / 750
+		_character.stats["loneliness"] -= _minutes_passed / 790
 		
 
 

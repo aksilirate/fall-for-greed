@@ -13,9 +13,14 @@ const TEXTURES = [
 
 const FINDINGS = []
 
-const ZONES = []
+const ZONES = [
+	Ruins0,
+	Ruins1
+	]
 
-const ENEMIES = []
+const ENEMIES = [
+	GoblinScout
+	]
 
 const NPCS = []
 

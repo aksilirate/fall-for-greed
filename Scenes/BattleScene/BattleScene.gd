@@ -6,6 +6,7 @@ onready var game_screen = get_tree().get_root().get_node("GameScreen")
 
 const ENEMY_ORIGIN = Vector2(168,56)
 
+var fool: bool
 var enemy: Object 
 var heart_found: bool
 
@@ -101,7 +102,10 @@ func enemy_attack():
 	else:
 		yield(get_tree().create_timer(0.19), "timeout")
 		hit(_character)
-		_character.character_reference.stats["health"] -= enemy.DAMAGE
+		if fool:
+			_character.character_reference.stats["health"] -= enemy.DAMAGE / 1.98
+		else:
+			_character.character_reference.stats["health"] -= enemy.DAMAGE
 		tween.interpolate_property($Enemy, "rect_position", $Enemy.rect_position, ENEMY_ORIGIN, 0.3, Tween.TRANS_EXPO)
 		tween.start()
 	
