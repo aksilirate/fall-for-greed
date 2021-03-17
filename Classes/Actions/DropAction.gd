@@ -8,3 +8,4 @@ const TOOLTIP := "drop"
 
 func _ready():
 	drop_selected_item()
+	queue_free()

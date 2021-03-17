@@ -512,7 +512,10 @@ func drop_selected_item():
 	_character.inventory.remove(_item_index)
 	_character.update_inventory()
 	_character.update_actions()
-
+	
+	game_screen.selected.modulate.a = 1.0
+	get_parent().modulate.a = 1.0
+	game_screen.selected = null
 
 func heal():
 	var _selected_item = game_screen.selected.item

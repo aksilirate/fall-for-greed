@@ -52,6 +52,12 @@ func summon_character(_character_type: Object):
 	_character.stats["hunger"] = rand_range(0.5,1)
 	_character.stats["energy"] = rand_range(0.5,1)
 	_character.stats["loneliness"] = rand_range(0.5,1)
+	
+	if _character_type.get("STARTING_ITEMS"):
+		for _item in _character_type.STARTING_ITEMS:
+			if rand_range(0,1) < 0.1:
+				_character.inventory.append(_item.new())
+				
 	add_child(_character)
 	connect_character_signals(_character)
 	update_character_label(_character)
