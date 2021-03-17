@@ -44,6 +44,7 @@ margin_left = 8.0
 margin_top = 184.0
 margin_right = 62.0
 margin_bottom = 197.0
+mouse_filter = 0
 text = "delete save file"
 script = ExtResource( 5 )
 __meta__ = {

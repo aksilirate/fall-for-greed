@@ -41,8 +41,9 @@ func _on_pressed():
 		owner.selected.deselect()
 		
 	if owner.selected != self:
-		animation_player.play("Hide Information")
-		yield(animation_player,"animation_finished")
+		if inventory.visible:
+			animation_player.play("Hide Information")
+			yield(animation_player,"animation_finished")
 		threat_container.hide()
 		inventory.rect_position.x = -100
 		if story.current_artifact != null:
