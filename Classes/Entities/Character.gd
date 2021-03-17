@@ -23,8 +23,7 @@ var unit_texture: Resource
 var character_name: String
 var story: String
 
-var damage: float
-
+var damage := 0.0
 
 var west_action: Object
 var left_action: Object
@@ -46,9 +45,12 @@ var stats = {
 	"hunger": 1,
 	"energy": 1,
 	"loneliness": 1,
-	"misfortune" : 0
+	"misfortune" : 0,
 } setget set_stats
 
+var traits = {
+	"focus": 0.0
+} setget set_traits
 
 
 	
@@ -61,6 +63,9 @@ func _ready():
 	character_name = current_character.NAME
 	story = current_character.STORY
 	damage = current_character.DAMAGE
+	
+	if current_character.get("FOCUS"):
+		traits["focus"] = current_character.FOCUS
 	
 	name = character_name
 
@@ -98,6 +103,10 @@ func get_hunger_status():
 	
 func set_stats(_value):
 	stats = _value
+	call_deferred("save_character")
+	
+func set_traits(_value):
+	traits = _value
 	call_deferred("save_character")
 	
 func set_inventory(_value):

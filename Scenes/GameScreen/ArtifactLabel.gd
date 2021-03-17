@@ -36,6 +36,7 @@ func _on_pressed():
 	var story = get_tree().get_nodes_in_group("story").front()
 
 	emit_Sound_Effect("res://Sounds/Interface/Button.wav")
+
 	
 	if owner.selected:
 		owner.selected.deselect()
@@ -43,6 +44,7 @@ func _on_pressed():
 	if owner.selected != self:
 		if inventory.visible:
 			animation_player.play("Hide Information")
+			owner.selected = self
 			yield(animation_player,"animation_finished")
 		threat_container.hide()
 		inventory.rect_position.x = -100
@@ -59,15 +61,21 @@ func _on_pressed():
 		history_label.text = story.current_artifact.STORY
 	else:
 		history_label.text = "You don't have any artifact."
+
 	owner.selected = self
-	self_modulate.a = 0.3
+	modulate.a = 0.3
+
+func _on_mouse_entered():
+	if owner.selected != self:
+		emit_Sound_Effect("res://Sounds/Interface/Hover.wav")
+		modulate.a = 0.5
 
 func _on_mouse_exited():
 	if owner.selected != self:
-		self_modulate.a = 1
+		modulate.a = 1
 
 func deselect():
-	self_modulate.a = 1
+	modulate.a = 1
 
 
 func update_actions():

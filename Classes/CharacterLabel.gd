@@ -41,7 +41,43 @@ func _on_pressed():
 		modulate.a = 0.3
 		owner.last_selected_character = character
 		emit_signal("character_selected")
+
+
+
+func _on_mouse_entered():
+	var _focus_level: String
+	
+	if character.traits["focus"] == 0.0:
+		_focus_level = "worst focus"
+	elif character.traits["focus"] < 0.1:
+		_focus_level = "terrible focus"
+	elif character.traits["focus"] < 0.2:
+		_focus_level = "awful focus"
+	elif character.traits["focus"] < 0.3:
+		_focus_level = "bad focus"
+	elif character.traits["focus"] < 0.4:
+		_focus_level = "poor focus"
+	elif character.traits["focus"] < 0.5:
+		_focus_level = "moderate focus"
+	elif character.traits["focus"] < 0.6:
+		_focus_level = "fair focus"
+	elif character.traits["focus"] < 0.7:
+		_focus_level = "good focus"
+	elif character.traits["focus"] < 0.8:
+		_focus_level = "great focus"
+	elif character.traits["focus"] < 0.9:
+		_focus_level = "impressive focus"
+	elif character.traits["focus"] < 1.0:
+		_focus_level = "incredible focus"
+	elif character.traits["focus"] == 1.0:
+		_focus_level = "best focus"
 		
+	hint_tooltip = _focus_level
+	
+	if owner.selected != self:
+		emit_Sound_Effect("res://Sounds/Interface/Hover.wav")
+		modulate.a = 0.5
+
 func _on_mouse_exited():
 	if owner.selected != self:
 		modulate.a = 1

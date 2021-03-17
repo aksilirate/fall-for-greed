@@ -340,12 +340,24 @@ func had_nightmare(_character):
 
 
 
-
-
+func improve_focus(_minutes_passed):
+	for _character in get_tree().get_nodes_in_group("characters"):
+		var _old_focus_amount = _character.traits["focus"]
+		_character.traits["focus"] += _minutes_passed * rand_range(0.0001, 0.0003)
+		if floor(_character.traits["focus"]) > floor(_old_focus_amount):
+			upcoming_stories.push_back(_character.character_name + " has improved his focus")
+			
+		_character.traits["focus"] = clamp(_character.traits["focus"], 0.0, 1.0)
+		
 
 func search_for_item(_minutes_passed):
 	var emit_story_telling
 	var finding_name
+	
+
+		
+	
+	
 	if area.current_area.FINDINGS.size() != 0:
 		emit_signal("search_for_item", self)
 		finding_name = area.current_event.NAME
@@ -357,10 +369,18 @@ func search_for_item(_minutes_passed):
 	var _main_story
 	if _minutes_passed == 1:
 		_main_story = "you have searched for 1 minute"
+	elif _minutes_passed == 60:
+		_main_story = "you have searched for 1 hour"
 	else:
 		_main_story = "you have searched for " + str(_minutes_passed) + " minutes"
 		
-	if area.findings_left > 0 and rand_range(0,1) < _minutes_passed*0.0166 and finding_name:
+	
+	var _max_focus: float
+	for _character in get_tree().get_nodes_in_group("characters"):
+		if _max_focus < _character.traits["focus"] / 4:
+			_max_focus = _character.traits["focus"] / 4
+		
+	if area.findings_left > 0 and rand_range(0,1) < ((_minutes_passed*0.0166) - 0.25) + _max_focus and finding_name:
 		upcoming_stories.push_back("you have found " + str(finding_name))
 		emit_story_telling = emit_story_telling(_main_story)
 	else:
@@ -375,7 +395,7 @@ func search_for_item(_minutes_passed):
 	
 	yield(self,"story_telling_started")
 	add_to_minutes_passed(_minutes_passed)
-	
+	improve_focus(_minutes_passed)
 	
 	
 	yield(emit_story_telling, "completed")

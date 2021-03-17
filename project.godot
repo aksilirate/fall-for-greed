@@ -362,7 +362,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "Time",
 "language": "GDScript",
-"path": "res://Classes/GameLogic.gd"
+"path": "res://Classes/Time.gd"
 }, {
 "base": "ActionLibrary",
 "class": "WaitAction",

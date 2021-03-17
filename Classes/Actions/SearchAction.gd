@@ -14,7 +14,7 @@ func _ready():
 				if _action_button != get_parent():
 					_action_button.update_action(null, null, null)
 					
-			time_choice_scroll.max_value = 30
+			time_choice_scroll.max_value = 60
 			time_choice_scroll.visible = true
 			time_choice_scroll.active = true
 			queue_free()
