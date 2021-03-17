@@ -32,7 +32,6 @@ var right_action: Object
 var east_action : Object
 
 
-var game_logic = GameLogic.new()
 var inventory: Array setget set_inventory
 
 var mistakes = []

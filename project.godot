@@ -179,11 +179,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Classes/ForgedTextureRect.gd"
 }, {
-"base": "Reference",
-"class": "GameLogic",
-"language": "GDScript",
-"path": "res://Classes/GameLogic.gd"
-}, {
 "base": "Control",
 "class": "GameScreen",
 "language": "GDScript",
@@ -364,6 +359,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Classes/Actions/TakeEyeAction.gd"
 }, {
+"base": "Reference",
+"class": "Time",
+"language": "GDScript",
+"path": "res://Classes/GameLogic.gd"
+}, {
 "base": "ActionLibrary",
 "class": "WaitAction",
 "language": "GDScript",
@@ -429,7 +429,6 @@ _global_script_class_icons={
 "FallenKingsChaliceCup": "",
 "FightAction": "",
 "ForgedTextureRect": "",
-"GameLogic": "",
 "GameScreen": "",
 "GameTextureRect": "",
 "Gnome": "",
@@ -466,6 +465,7 @@ _global_script_class_icons={
 "Swamp": "",
 "TakeAction": "",
 "TakeEyeAction": "",
+"Time": "",
 "WaitAction": "",
 "WalkAction": "",
 "Wanderer": "",

@@ -60,14 +60,14 @@ func _on_pressed():
 	else:
 		history_label.text = "You don't have any artifact."
 	owner.selected = self
-	modulate.a = 0.3
+	self_modulate.a = 0.3
 
 func _on_mouse_exited():
 	if owner.selected != self:
-		modulate.a = 1
+		self_modulate.a = 1
 
 func deselect():
-	modulate.a = 1
+	self_modulate.a = 1
 
 
 func update_actions():

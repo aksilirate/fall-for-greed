@@ -405,7 +405,8 @@ theme = ExtResource( 1 )
 script = ExtResource( 5 )
 __meta__ = {
 "_edit_lock_": true,
-"_edit_use_anchors_": false
+"_edit_use_anchors_": false,
+"_edit_vertical_guides_": [  ]
 }
 threat_container = NodePath("ThreatContainer")
 animation_player = NodePath("AnimationPlayer")
@@ -542,6 +543,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Line" type="ColorRect" parent="ArtifactLabel"]
+margin_left = 0.281886
+margin_top = 15.554
+margin_right = 25.2819
+margin_bottom = 16.554
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Actions" type="Control" parent="."]
 visible = false
 anchor_right = 1.0
@@ -658,7 +668,6 @@ __meta__ = {
 }
 
 [node name="FirstMemberLabel" type="Label" parent="CharacterLabels"]
-visible = false
 margin_left = 9.0
 margin_top = 37.0
 margin_right = 68.0
