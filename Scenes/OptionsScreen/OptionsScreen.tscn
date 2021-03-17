@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Theme.tres" type="Theme" id=1]
 [ext_resource path="res://Scenes/OptionsScreen/ConfirmLabel.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/OptionsScreen/FullscreenCheckBox.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/OptionsScreen/PrologueCheckBox.gd" type="Script" id=4]
+[ext_resource path="res://Scenes/OptionsScreen/DeleteSaveFileLabel.gd" type="Script" id=5]
 
 [node name="OptionsScreen" type="Control"]
 anchor_right = 1.0
@@ -27,13 +28,24 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -13.0
+margin_left = 147.0
 margin_top = -21.0
-margin_right = 13.0
+margin_right = 173.0
 margin_bottom = -8.0
 mouse_filter = 0
 text = "confirm"
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DeleteSaveFileLabel" type="Label" parent="."]
+margin_left = 8.0
+margin_top = 184.0
+margin_right = 62.0
+margin_bottom = 197.0
+text = "delete save file"
+script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -43,25 +55,25 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -61.0
-margin_top = -54.5
-margin_right = -25.0
-margin_bottom = -41.5
+margin_left = -173.0
+margin_top = -86.5
+margin_right = -137.0
+margin_bottom = -73.5
 mouse_filter = 0
 text = "Fullscreen"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FullscreenCheckBox" type="CheckBox" parent="."]
+[node name="FullscreenCheckBox" type="CheckBox" parent="FullscreenLabel"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 40.0
-margin_top = -58.5
-margin_right = 56.0
-margin_bottom = -37.5
+margin_left = 83.0
+margin_top = -10.5
+margin_right = 99.0
+margin_bottom = 10.5
 theme = ExtResource( 1 )
 script = ExtResource( 3 )
 __meta__ = {
@@ -73,30 +85,31 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -61.0
-margin_top = -30.5
-margin_right = -31.0
-margin_bottom = -17.5
+margin_left = -173.0
+margin_top = -62.5
+margin_right = -143.0
+margin_bottom = -49.5
 mouse_filter = 0
 text = "Prologue"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PrologueCheckBox" type="CheckBox" parent="."]
+[node name="PrologueCheckBox" type="CheckBox" parent="PrologueLabel"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 40.0
-margin_top = -34.5
-margin_right = 48.0
-margin_bottom = -13.5
+margin_left = 86.0
+margin_top = -10.5
+margin_right = 94.0
+margin_bottom = 10.5
 theme = ExtResource( 1 )
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="pressed" from="ConfirmLabel" to="ConfirmLabel" method="_on_ConfirmLabel_pressed"]
-[connection signal="toggled" from="FullscreenCheckBox" to="FullscreenCheckBox" method="_on_FullscreenCheckBox_toggled"]
-[connection signal="toggled" from="PrologueCheckBox" to="PrologueCheckBox" method="_on_PrologueCheckBox_toggled"]
+[connection signal="pressed" from="DeleteSaveFileLabel" to="DeleteSaveFileLabel" method="_on_DeleteSaveFileLabel_pressed"]
+[connection signal="toggled" from="FullscreenLabel/FullscreenCheckBox" to="FullscreenLabel/FullscreenCheckBox" method="_on_FullscreenCheckBox_toggled"]
+[connection signal="toggled" from="PrologueLabel/PrologueCheckBox" to="PrologueLabel/PrologueCheckBox" method="_on_PrologueCheckBox_toggled"]

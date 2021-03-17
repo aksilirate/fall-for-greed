@@ -48,7 +48,14 @@ func character_attack():
 		
 		
 		hit($Enemy)
-		enemy.health -= _character.character_reference.damage
+		
+		var story = get_tree().get_nodes_in_group("story").front()
+		var _current_artifact = story.current_artifact
+		
+		if _current_artifact != null and _current_artifact.get("double_damage"):
+			enemy.health -= _character.character_reference.damage * 2
+		else:
+			enemy.health -= _character.character_reference.damage
 		
 		
 		yield(tween,"tween_completed")
@@ -142,6 +149,13 @@ func hit(_target):
 	_target.get_material().set_shader_param("enabled", false)
 
 func dodged(_character: Character):
+	
+	var story = get_tree().get_nodes_in_group("story").front()
+	var _current_artifact = story.current_artifact
+	if _current_artifact != null:
+		if _current_artifact.get("anti_dodge"):
+			return false
+			
 	if rand_range(0,1) < _character.stats["energy"] / 2:
 		return true
 	else:

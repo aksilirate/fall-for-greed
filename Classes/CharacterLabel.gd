@@ -4,6 +4,7 @@ class_name CharacterLabel
 onready var animation_player = owner.get_node("AnimationPlayer")
 onready var threat_container = owner.get_node("ThreatContainer")
 onready var profile_texture = owner.get_node("ProfileTexture")
+onready var profile_border = owner.get_node("ProfileBorder")
 onready var history_label = owner.get_node("HistoryLabel")
 
 var character: Object
@@ -27,6 +28,8 @@ func _on_pressed():
 		if owner.selected:
 			owner.selected.deselect()
 		if owner.selected != self:
+			threat_container.show()
+			profile_border.show()
 			profile_texture.texture = self_profile_texture
 			animation_player.play("Show Information")
 			
@@ -35,7 +38,10 @@ func _on_pressed():
 		modulate.a = 0.3
 		owner.last_selected_character = character
 		emit_signal("character_selected")
-
+		
+func _on_mouse_exited():
+	if owner.selected != self:
+		modulate.a = 1
 
 func deselect():
 	modulate.a = 1

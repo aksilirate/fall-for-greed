@@ -3,13 +3,20 @@ extends Node
 
 
 var save_file = SaveFile.new()
-var current_artifact: Object
-var artifacts_left = []
+var current_artifact: Object setget set_current_artifact
+var artifacts = [
+	FallenKingsChaliceCup,
+	PrisonersMask
+]
 
 var minutes_passed = 0
 
 signal time_updated(_minutes_passed)
 
+
+func set_current_artifact(_value):
+	current_artifact = _value
+	save_file.save_value("Game", "current_artifact",current_artifact)
 
 func _ready():
 	prepare_story_variants()
@@ -22,6 +29,10 @@ func update_time():
 	
 	
 func prepare_story_variants():
+	if not save_file.get_saved_value("Game", "current_artifact"):
+		current_artifact = null
+	else:
+		current_artifact = save_file.get_saved_value("Game", "current_artifact")
 	prepare_minutes_passed() 
 
 func prepare_minutes_passed():

@@ -7,6 +7,7 @@ export(NodePath) onready var hold_slot = get_node(hold_slot) as Node
 export(NodePath) onready var characters = get_node(characters) as Node
 export(NodePath) onready var area = get_node(area) as Node
 
+
 onready var history_label = get_node("HistoryLabel")
 onready var selected = get_node("StoryFrame")
 

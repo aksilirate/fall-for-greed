@@ -139,6 +139,14 @@ func _on_location_advanced():
 		generate_locations()
 	
 	current_event = upcoming_locations[location_index]
+	
+	
+	if current_event.get_script() == current_area.get_script():
+		if rand_range(0,1) < 0.02:
+			if owner.story.current_arifact == null:
+				current_event = Wanderer
+			
+			
 	save_file.save_value("Game", "current_event",current_event)
 	reset_findings_left()
 	update_story_info()

@@ -228,6 +228,23 @@ func reset_location():
 	emit_signal("location_reseted")
 
 
+func acquire_random_artifact():
+	var _random_artifact = story.artifacts[round(rand_range(0,story.artifacts.size() - 1))]
+	emit_story_telling("you have accepted the offer and acquired" + _random_artifact.NAME)
+	yield(self,"story_telling_started")
+	story.current_artifact = _random_artifact.new()
+	for _character in get_tree().get_nodes_in_group("characters"):
+		_character.stats["health"] = _character.stats["health"] / 2
+	yield(self,"story_telling_finished")
+	queue_free()
+
+func break_artifact():
+	emit_story_telling("you have broken the artifact")
+	yield(self,"story_telling_started")
+	story.current_artifact = null
+	yield(self,"story_telling_finished")
+	queue_free()
+
 
 func emit_location_advanced():
 	yield(self,"story_telling_started")

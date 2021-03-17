@@ -1,5 +1,7 @@
 extends Control
 
+onready var game_screen = get_tree().get_root().get_node("GameScreen")
+
 export(NodePath) onready var animation_player = get_node(animation_player) as AnimationPlayer
 export(NodePath) onready var pick_countdown_label = get_node(pick_countdown_label) as Label
 export(NodePath) onready var input_blocker = get_node(input_blocker) as ColorRect
@@ -25,7 +27,13 @@ func _ready():
 	if owner.enemy == null:
 		owner.enemy = Gnome.new()
 		
-	speed = owner.enemy.SPEED
+	var story = get_tree().get_nodes_in_group("story").front()
+	var _current_artifact = story.current_artifact
+	if _current_artifact != null and _current_artifact.get("double_speed"):
+		speed = owner.enemy.SPEED * 2
+	else:
+		speed = owner.enemy.SPEED
+		
 	power = owner.enemy.POWER
 	if get_parent().auto_lose:
 		heart_found = false
@@ -107,8 +115,15 @@ func _on_cup_selected(_cup):
 	var fool = false
 	$Heart.visible = false
 	heart_found = false
+	
 	if rand_range(0,speed) < owner.enemy.DAMAGE:
-		fool = true
+		var story = get_tree().get_nodes_in_group("story").front()
+		var _current_artifact = story.current_artifact
+		if _current_artifact != null and _current_artifact.get("anti_fool"):
+			fool = false
+		else:
+			fool = true
+			
 	match _cup:
 		"Left":
 			if not fool:
