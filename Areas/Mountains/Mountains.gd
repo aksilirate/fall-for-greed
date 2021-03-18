@@ -15,7 +15,9 @@ const FINDINGS = []
 
 const ZONES = []
 
-const ENEMIES = []
+const ENEMIES = [
+	StoneGolem
+]
 
 const NPCS = []
 

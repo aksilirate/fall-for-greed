@@ -87,7 +87,7 @@ _global_script_classes=[ {
 "base": "Enemy",
 "class": "CaveSpider",
 "language": "GDScript",
-"path": "res://Areas/Cave/CaveSpider/CaveSpider.gd"
+"path": "res://Areas/Cave/Enemies/CaveSpider.gd"
 }, {
 "base": "ActionLibrary",
 "class": "ChangeDirectionAction",
@@ -349,6 +349,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Classes/Items/SticksItem.gd"
 }, {
+"base": "Enemy",
+"class": "StoneGolem",
+"language": "GDScript",
+"path": "res://Areas/Mountains/Enemies/StoneGolem.gd"
+}, {
 "base": "ActionLibrary",
 "class": "SummonTheWitchAction",
 "language": "GDScript",
@@ -473,6 +478,7 @@ _global_script_class_icons={
 "ShitakeShroomsItem": "",
 "SleepAction": "",
 "SticksItem": "",
+"StoneGolem": "",
 "SummonTheWitchAction": "",
 "Swamp": "",
 "TakeAction": "",

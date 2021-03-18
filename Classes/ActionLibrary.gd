@@ -284,7 +284,9 @@ func sleep():
 			execute_sleep = execute_sleep(_character)
 			if execute_sleep is Object:
 				yield(execute_sleep, "completed")
-	
+				
+		if not sleep_story_shown:
+			emit_story_telling("you don't want to sleep yet")
 
 var sleep_story_shown = false
 func execute_sleep(_character):
@@ -301,11 +303,9 @@ func execute_sleep(_character):
 			
 		if not sleep_story_shown:
 			add_to_minutes_passed(round(calculate_sleep_time() * 60))
-	else:
-		if not sleep_story_shown:
-			emit_story_telling = emit_story_telling("you don't want to sleep yet")
+
 			
-	if not sleep_story_shown:
+	if not sleep_story_shown and emit_story_telling:
 		yield(emit_story_telling, "completed")
 		sleep_story_shown = true
 	

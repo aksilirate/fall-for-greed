@@ -143,7 +143,8 @@ func _on_location_advanced():
 	
 	if current_event.get_script() == current_area.get_script():
 		if rand_range(0,1) < 0.02:
-			if owner.story.current_arifact == null:
+			var story = get_tree().get_nodes_in_group("story")
+			if story.current_arifact == null:
 				current_event = Wanderer
 			
 			
