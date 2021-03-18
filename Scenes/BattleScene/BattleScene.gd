@@ -48,19 +48,24 @@ func character_attack():
 		yield(get_tree().create_timer(0.19), "timeout")
 		
 		
-		hit($Enemy)
+		
 		
 		var story = get_tree().get_nodes_in_group("story").front()
 		var _current_artifact = story.current_artifact
 		
 		if _current_artifact != null and _current_artifact.get("double_damage"):
-			enemy.health -= _character.character_reference.damage * 2
+			var _damage = _character.character_reference.damage * 2
+			enemy.health -= _damage
+			hit($Enemy, _damage)
 		else:
-			enemy.health -= _character.character_reference.damage
+			var _damage = _character.character_reference.damage
+			enemy.health -= _damage
+			hit($Enemy, _damage)
 		
 		
 		yield(tween,"tween_completed")
 		tween.interpolate_property(_character, "rect_position", _character.rect_position, _character_origin, 0.3, Tween.TRANS_EXPO)
+		tween.start()
 		yield(tween,"tween_completed")
 		
 		if enemy.health <= 0:
@@ -101,11 +106,16 @@ func enemy_attack():
 		
 	else:
 		yield(get_tree().create_timer(0.19), "timeout")
-		hit(_character)
 		if fool:
-			_character.character_reference.stats["health"] -= enemy.DAMAGE / 1.98
+			var _damage = enemy.DAMAGE / 1.98
+			_character.character_reference.stats["health"] -= _damage
+			hit(_character, _damage)
 		else:
+			var _damage = enemy.DAMAGE
 			_character.character_reference.stats["health"] -= enemy.DAMAGE
+			hit(_character, _damage)
+		
+		
 		tween.interpolate_property($Enemy, "rect_position", $Enemy.rect_position, ENEMY_ORIGIN, 0.3, Tween.TRANS_EXPO)
 		tween.start()
 	
@@ -147,10 +157,13 @@ func pick_random_character():
 	return $CharactersContainer.get_child(rand.randi_range(0, $CharactersContainer.get_child_count()-1))
 		
 		
-func hit(_target):
+func hit(_target, _damage):
 	_target.get_material().set_shader_param("enabled", true)
+	$Camera2D/ScreenShake.max_offset = Vector2(_damage * 30, _damage * 30)
+	$Camera2D/ScreenShake.add_trauma(1.0)
 	yield(get_tree().create_timer(0.19), "timeout")
 	_target.get_material().set_shader_param("enabled", false)
+
 
 func dodged(_character: Character):
 	

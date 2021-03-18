@@ -133,10 +133,18 @@ func update_actions() -> void:
 	else:
 		west_action = PrayAction
 	
-	left_action = null
+	
+	
+	if game_screen.area.current_event is load("res://Areas/AbandonedForest/Zones/AbandonedForestRopeHang.gd") as Script:
+		left_action = HangAction
+	else:
+		left_action = null
+		
 	right_action = null
 	east_action = null
 		
+		
+	
 	if west_action:
 		emit_signal("update_west_action",load(west_action.TEXTURE), west_action, self)
 	else:

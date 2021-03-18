@@ -39,6 +39,11 @@ func _ready():
 # warning-ignore:return_value_discarded
 	
 	
+		
+func emit_Sound_Effect(path: String):
+	var _sound_effect = preload("res://Scenes/SoundEffect/SoundEffect.tscn").instance()
+	_sound_effect.stream = load(path)
+	get_node("/root").add_child(_sound_effect)
 	
 	
 func change_event_to(_event: Object):
@@ -90,9 +95,10 @@ func show_story_label(_story):
 	var story_animation_player = story_label.get_node("AnimationPlayer")
 	story_label.text = _story.to_lower()
 	game_screen.add_child(story_label)
+	emit_Sound_Effect("res://Sounds/Interface/Echo Hit.wav")
 	yield(story_animation_player,"animation_finished")
 	story_label.queue_free()
-	
+
 #----------------------------------- [ ^ STORY ^ ] ---------------------------------
 
 
@@ -200,6 +206,7 @@ func calculate_misfortune(_character):
 			_effect.active_effect = _bleed
 			_character.add_child(_effect)
 			_character.mistakes.append("step on thorn")
+
 #------------------------------ [ ^ CALCULATIONS ^ ] ---------------------------------
 
 
@@ -221,6 +228,11 @@ func hold_selected_item():
 func summon_character(_character):
 	yield(self,"story_telling_started")
 	emit_signal("summon_character", _character.new())
+
+
+func kill_character(_character):
+	yield(self,"story_telling_started")
+	emit_signal("kill_character", _character)
 
 	
 func reset_location():
@@ -377,10 +389,10 @@ func search_for_item(_minutes_passed):
 	
 	var _max_focus: float
 	for _character in get_tree().get_nodes_in_group("characters"):
-		if _max_focus < _character.traits["focus"] / 4:
-			_max_focus = _character.traits["focus"] / 4
+		if _max_focus < _character.traits["focus"] / 3:
+			_max_focus = _character.traits["focus"] / 3
 		
-	if area.findings_left > 0 and rand_range(0,1) < ((_minutes_passed*0.0166) - 0.25) + _max_focus and finding_name:
+	if area.findings_left > 0 and rand_range(0,1) < ((_minutes_passed*0.0166) - 0.33) + _max_focus and finding_name:
 		upcoming_stories.push_back("you have found " + str(finding_name))
 		emit_story_telling = emit_story_telling(_main_story)
 	else:
@@ -533,4 +545,6 @@ func heal():
 	
 	yield(self,"story_telling_finished")
 	queue_free()
+	
+	
 	

@@ -20,7 +20,8 @@ const FINDINGS = [
 ]
 
 const ZONES = [
-	CaveEntrance
+	CaveEntrance,
+	AbandonedForestRopeHang
 ]
 
 const ENEMIES = [

@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://Theme.tres" type="Theme" id=1]
 [ext_resource path="res://Textures/Interface/Profile Border.png" type="Texture" id=2]
@@ -28,6 +28,7 @@
 [ext_resource path="res://Scenes/GameScreen/FirstMemberLabel.gd" type="Script" id=26]
 [ext_resource path="res://Scenes/GameScreen/ThirdMemberLabel.gd" type="Script" id=27]
 [ext_resource path="res://Textures/Character Profiles/Pyry Wright.png" type="Texture" id=28]
+[ext_resource path="res://Sounds/Game/Ambient Loop.wav" type="AudioStream" id=29]
 [ext_resource path="res://Textures/Areas/Abandoned Forest/Abandoned Forest 0.png" type="Texture" id=30]
 [ext_resource path="res://Textures/Interface/Action Frame.png" type="Texture" id=31]
 [ext_resource path="res://Scenes/GameScreen/StoryFrame.gd" type="Script" id=32]
@@ -412,6 +413,7 @@ tracks/1/keys = {
 ]]
 anchor_right = 1.0
 anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 184, 103 )
 mouse_filter = 1
 theme = ExtResource( 1 )
 script = ExtResource( 5 )
@@ -425,6 +427,10 @@ animation_player = NodePath("AnimationPlayer")
 hold_slot = NodePath("HoldSlot")
 characters = NodePath("Logic/Characters")
 area = NodePath("Logic/Area")
+
+[node name="AmbientLoop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 29 )
+autoplay = true
 
 [node name="Logic" type="Node" parent="."]
 
