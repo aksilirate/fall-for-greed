@@ -1,1 +1,1 @@
-<img alt="GitHub" src="https://img.shields.io/github/license/axilirate/Fall-for-Greed?style=flat-square"> <img alt="Discord" src="https://img.shields.io/discord/819191421532897289?color=lightgray&label=%20&logo=Discord&logoColor=white&style=flat-square">
+<img alt="GitHub" src="https://img.shields.io/github/license/axilirate/Fall-for-Greed?style=flat-square"> <img alt="Discord" src="https://img.shields.io/discord/819191421532897289?color=orange&label=%20&logo=Discord&logoColor=white&style=flat-square">
