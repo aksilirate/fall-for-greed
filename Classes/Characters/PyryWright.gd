@@ -13,5 +13,6 @@ const STARTING_ITEMS = [
 	]
 
 
-const DAMAGE = 0.9
+
 const FOCUS = 0.3
+const STRENGTH = 0.9

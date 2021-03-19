@@ -2,7 +2,7 @@ extends ActionLibrary
 class_name PrayAction
 
 const TEXTURE = "res://Textures/Actions/Pray.png"
-
+const TOOLTIP := "pray"
 
 func _ready():
 

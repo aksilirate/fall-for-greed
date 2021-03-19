@@ -7,7 +7,6 @@ onready var story_frame = owner.get_node("StoryFrame")
 
 var rand = RandomNumberGenerator.new()
 
-var save_file = SaveFile.new()
 var upcoming_locations: Array
 var findings_left: int
 var location_index: int
@@ -44,11 +43,9 @@ func generate_locations():
 				enemy_cache.remove(_enemy_index)
 				
 			elif rand.randi_range(0,10) == 3 and npc_cache.size() > 0 and upcoming_locations[_penultimate] == current_area:
-				var _save_file = SaveFile.new()
 				upcoming_locations.insert(_index,npc_cache.pop_front().new())
 				
 			elif rand.randi_range(0,10) == 3 and zone_cache.size() > 0 and upcoming_locations[_penultimate] == current_area:
-				var _save_file = SaveFile.new()
 				upcoming_locations.insert(_index,zone_cache.pop_front().new())
 				
 			else:
@@ -59,7 +56,7 @@ func generate_locations():
 		upcoming_locations[upcoming_locations.size() - 1] = current_area.LAST_EVENT
 				
 				
-				
+	var save_file = SaveFile.new()
 	save_file.save_value("Game", "upcoming_locations",upcoming_locations)
 
 
@@ -69,12 +66,14 @@ func _ready():
 	
 	
 func reset_findings_left():
+	var save_file = SaveFile.new()
 	rand.randomize()
 	findings_left = rand.randi_range(0,9)
 	save_file.save_value("Game", "findings_left",findings_left)
 	
 	
 func load_game():
+	var save_file = SaveFile.new()
 	if not save_file.get_saved_value("Game", "current_area"):
 		current_area = AbandonedForest.new()
 		save_file.save_value("Game", "current_area",current_area)
@@ -108,6 +107,7 @@ func load_game():
 	
 	
 func save_game():
+	var save_file = SaveFile.new()
 	save_file.save_value("Game", "current_area",current_area)
 	save_file.save_value("Game", "current_event",current_event)
 	save_file.save_value("Game", "location_index",location_index)
@@ -144,10 +144,11 @@ func _on_location_advanced():
 	if current_event.get_script() == current_area.get_script():
 		if rand_range(0,1) < 0.02:
 			var story = get_tree().get_nodes_in_group("story").front()
-			if story.current_arifact == null:
+			if story.current_artifact == null:
 				current_event = Wanderer
 			
 			
+	var save_file = SaveFile.new()
 	save_file.save_value("Game", "current_event",current_event)
 	reset_findings_left()
 	update_story_info()

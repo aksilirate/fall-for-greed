@@ -11,7 +11,6 @@ export(NodePath) onready var area = get_node(area) as Node
 onready var history_label = get_node("HistoryLabel")
 onready var selected = get_node("StoryFrame")
 
-var save_file = SaveFile.new()
 var last_selected_character: Object
 var menu_open = false
 
@@ -33,6 +32,7 @@ func _ready():
 
 func _on_character_death(_character):
 	if _character:
+		var save_file = SaveFile.new()
 		emit_signal("story_selected")
 		save_file.erase_value("Characters", _character.character_name)
 		_character.free()
@@ -40,6 +40,7 @@ func _on_character_death(_character):
 		
 		
 	if characters.get_child_count() == 0:
+		var save_file = SaveFile.new()
 		save_file.delete()
 # warning-ignore:return_value_discarded
 		get_tree().change_scene("res://Scenes/DeathScreen/DeathScreen.tscn")
@@ -84,6 +85,7 @@ func _on_AnimationPlayer_animation_finished(_anim_name):
 
 
 func save_game():
+	var save_file = SaveFile.new()
 	save_file.save_value("game", "selected_item", hold_slot.selected_item)
 	
 func save():

@@ -54,11 +54,11 @@ func character_attack():
 		var _current_artifact = story.current_artifact
 		
 		if _current_artifact != null and _current_artifact.get("double_damage"):
-			var _damage = _character.character_reference.damage * 2
+			var _damage = _character.character_reference.traits["strength"] * 2
 			enemy.health -= _damage
 			hit($Enemy, _damage)
 		else:
-			var _damage = _character.character_reference.damage
+			var _damage = _character.character_reference.traits["strength"]
 			enemy.health -= _damage
 			hit($Enemy, _damage)
 		

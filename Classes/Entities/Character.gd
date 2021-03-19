@@ -23,7 +23,6 @@ var unit_texture: Resource
 var character_name: String
 var story: String
 
-var damage := 0.0
 
 var west_action: Object
 var left_action: Object
@@ -49,7 +48,8 @@ var stats = {
 } setget set_stats
 
 var traits = {
-	"focus": 0.0
+	"focus": 0.0,
+	"strength": 0.0
 } setget set_traits
 
 
@@ -62,11 +62,12 @@ func _ready():
 	unit_texture = current_character.UNIT_TEXTURE
 	character_name = current_character.NAME
 	story = current_character.STORY
-	damage = current_character.DAMAGE
 	
 	if current_character.get("FOCUS"):
 		traits["focus"] = current_character.FOCUS
-	
+	if current_character.get("STRENGTH"):
+		traits["strength"] = current_character.STRENGTH
+		
 	name = character_name
 
 	for _effect in saved_effects:

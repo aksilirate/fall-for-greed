@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=51 format=2]
 
 [ext_resource path="res://Theme.tres" type="Theme" id=1]
 [ext_resource path="res://Textures/Interface/Profile Border.png" type="Texture" id=2]
@@ -42,6 +42,7 @@
 [ext_resource path="res://Scenes/GameScreen/EastAction.gd" type="Script" id=40]
 [ext_resource path="res://Scenes/GameScreen/LeftAction.gd" type="Script" id=41]
 [ext_resource path="res://Scenes/GameScreen/WestAction.gd" type="Script" id=42]
+[ext_resource path="res://Scenes/GameScreen/HistoryLabel.gd" type="Script" id=43]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Hide Information"
@@ -347,6 +348,35 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
+[sub_resource type="Animation" id=7]
+resource_name = "Show History"
+length = 0.09
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("HistoryLabel:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.09 ),
+"transitions": PoolRealArray( 3, 1 ),
+"update": 0,
+"values": [ Vector2( 120, 147 ), Vector2( 120, 151 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HistoryLabel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.09 ),
+"transitions": PoolRealArray( 3, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
 [sub_resource type="Animation" id=4]
 length = 0.3
 tracks/0/type = "value"
@@ -485,6 +515,7 @@ __meta__ = {
 "anims/Hide Screen" = SubResource( 2 )
 anims/Load = SubResource( 3 )
 "anims/Show Actions" = SubResource( 6 )
+"anims/Show History" = SubResource( 7 )
 "anims/Show Information" = SubResource( 4 )
 "anims/Show Screen" = SubResource( 5 )
 
@@ -512,12 +543,13 @@ __meta__ = {
 
 [node name="HistoryLabel" type="Label" parent="."]
 margin_left = 120.0
-margin_top = 151.149
+margin_top = 151.0
 margin_right = 249.0
-margin_bottom = 197.149
+margin_bottom = 197.0
 text = "A cursed man that has lost his home, wife and son."
 align = 1
 autowrap = true
+script = ExtResource( 43 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -941,6 +973,7 @@ __meta__ = {
 [connection signal="update_west_action" from="Logic/Area" to="Actions/WestAction" method="_on_update_west_action"]
 [connection signal="time_updated" from="Logic/Story" to="TimeLabel" method="_on_Story_time_updated"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="visibility_changed" from="HistoryLabel" to="HistoryLabel" method="_on_HistoryLabel_visibility_changed"]
 [connection signal="gui_input" from="StoryFrame" to="StoryFrame" method="_on_StoryFrame_gui_input"]
 [connection signal="mouse_entered" from="StoryFrame" to="StoryFrame" method="_on_StoryFrame_mouse_entered"]
 [connection signal="story_selected" from="StoryFrame" to="Logic/Area" method="_on_story_selected"]

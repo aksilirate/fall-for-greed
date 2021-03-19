@@ -12,7 +12,9 @@ const COOKS_INTO = CookedAngelorisItem
 const MAX_COOK_TIME = 3
 const MIN_COOK_TIME = 1
 
-var effect = Nausea.new()
+var effects = [
+	Nausea.new()
+	]
 
 const WEST_ACTION = HoldAction
 const LEFT_ACTION = EatAction
@@ -20,5 +22,5 @@ const RIGHT_ACTION = null
 const EAST_ACTION = DropAction
 
 func _init():
-	effect.activation_minute = round(rand_range(60,90))
-	effect.deactivation_minute = round(rand_range(2880,4320))
+	effects[0].activation_minute = round(rand_range(60,90))
+	effects[0].deactivation_minute = round(rand_range(2880,4320))

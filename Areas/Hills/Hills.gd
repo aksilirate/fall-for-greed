@@ -12,7 +12,8 @@ const TEXTURES = [
 ]
 
 const FINDINGS = [
-	"res://Areas/AbandonedForest/Findings/LageFinding.gd"
+	"res://Areas/Hills/Findings/LageFinding.gd",
+	"res://Areas/Hills/Findings/NilonFinding.gd"
 ]
 
 const ZONES = [

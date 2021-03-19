@@ -32,10 +32,11 @@ func update_characters():
 	for _character_label in character_labels.get_children():
 		_character_label.visible = false
 		
-	var _characters = game_screen.save_file.get_section_values("characters")
+	var save_file = SaveFile.new()
+	var _characters = save_file.get_section_values("characters")
 	if _characters:
 		for _character_name in _characters:
-			var _character = dict2inst(game_screen.save_file.get_saved_value("characters", _character_name))
+			var _character = dict2inst(save_file.get_saved_value("characters", _character_name))
 			add_child(_character)
 			connect_character_signals(_character)
 			update_character_label(_character)

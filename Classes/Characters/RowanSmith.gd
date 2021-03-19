@@ -12,6 +12,6 @@ const NAME := "Rowan Smith"
 const STORY := "A smith and a woodworker possessed by a hatred for demons."
 
 
-const DAMAGE = 1.3
-const FOCUS = 0.2
 
+const FOCUS = 0.2
+const STRENGTH = 1.3

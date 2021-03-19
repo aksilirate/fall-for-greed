@@ -115,7 +115,8 @@ func calculate_turn(_energy_cost, _minutes_passed):
 		calculate_character_turn(executer, _energy_cost, _minutes_passed)
 	else:
 		for _character in executer:
-			calculate_character_turn(_character, _energy_cost, _minutes_passed)
+			if _character:
+				calculate_character_turn(_character, _energy_cost, _minutes_passed)
 			
 
 
@@ -259,17 +260,54 @@ func break_artifact():
 
 
 func emit_location_advanced():
+	randomize()
+	var locations_to_advance = 1
+	var _minutes_passed = floor(rand_range(13,56))
+	
+	if area.location_index + 1 < area.upcoming_locations.size():
+		var next_location = area.upcoming_locations[area.location_index + 1]
+		if next_location is Enemy:
+			if rand_range(0,1) < 0.37:
+				upcoming_stories.push_back("you think you saw something")
+				
+		elif next_location.get_script() == area.current_area.get_script():
+			if rand_range(0,1) < 0.67:
+				locations_to_advance += 1
+				randomize()
+				_minutes_passed += floor(rand_range(13,56))
+		else:
+			if rand_range(0,1) < 0.01:
+				upcoming_stories.push_back("you think you saw something")
+			
+	var _energy_cost = 0.001 * _minutes_passed
+	
+	var _formatted_minutes = Time.get_formatted_time("minute", _minutes_passed)
+	var formatted_hours = Time.get_formatted_time("hour", _minutes_passed)
+	
+	var _main_story: String
+	if _minutes_passed < 60:
+		 _main_story= "you have traveled for " + str(_minutes_passed) + " minutes"
+	elif _minutes_passed == 60:
+		_main_story= "you have traveled for 1 hour"
+	elif not _formatted_minutes and _minutes_passed > 60:
+		_main_story= "you have traveled for " + str(formatted_hours) + " hours"
+	elif _formatted_minutes and _minutes_passed > 60:
+		_main_story= "you have traveled for " + str(formatted_hours) + " hours and " + str(_formatted_minutes) + " minutes"
+	
+	
+	
+	
+	var emit_story_telling = emit_story_telling(_main_story)
+	calculate_turn(_energy_cost, _minutes_passed)
 	yield(self,"story_telling_started")
-	emit_signal("location_advanced")
-	var next_location = area.upcoming_locations[area.location_index - 1]
-	if next_location is Enemy:
-		if rand_range(0,1) < 0.37:
-			upcoming_stories.push_back("you think you saw something")
-	else:
-		if rand_range(0,1) < 0.01:
-			upcoming_stories.push_back("you think you saw something")
-
-
+	
+	while locations_to_advance > 0:
+		emit_signal("location_advanced")
+		locations_to_advance -= 1
+	
+	
+	yield(emit_story_telling, "completed")
+	
 #--------------------------------------- [ v SLEEP v ] ----------------------------------------
 
 func sleep():
@@ -482,8 +520,9 @@ func eat():
 	var _selected_item = game_screen.selected.item
 	_character.stats["hunger"] += _selected_item.CALORIES
 	
-	if _selected_item.get("effect") and _selected_item.effect:
-		_character.add_effect(_selected_item.effect)
+	if _selected_item.get("effects") and _selected_item.effects:
+		for _effect in _selected_item.effects:
+			_character.add_effect(_effect)
 
 func cook():
 	var rand = RandomNumberGenerator.new()

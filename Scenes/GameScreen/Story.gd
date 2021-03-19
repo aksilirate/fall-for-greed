@@ -1,8 +1,6 @@
 extends Node
 
 
-
-var save_file = SaveFile.new()
 var current_artifact: Object setget set_current_artifact
 var artifacts = [
 	FallenKingsChaliceCup,
@@ -15,6 +13,7 @@ signal time_updated(_minutes_passed)
 
 
 func set_current_artifact(_value):
+	var save_file = SaveFile.new()
 	current_artifact = _value
 	save_file.save_value("Game", "current_artifact",current_artifact)
 
@@ -23,12 +22,14 @@ func _ready():
 	
 	
 func update_time():
+	var save_file = SaveFile.new()
 	save_file.save_value("Game", "minutes_passed",minutes_passed)
 	emit_signal("time_updated", minutes_passed)
 
 	
 	
 func prepare_story_variants():
+	var save_file = SaveFile.new()
 	if not save_file.get_saved_value("Game", "current_artifact"):
 		current_artifact = null
 	else:
@@ -36,6 +37,7 @@ func prepare_story_variants():
 	prepare_minutes_passed() 
 
 func prepare_minutes_passed():
+	var save_file = SaveFile.new()
 	if not save_file.get_saved_value("Game", "minutes_passed"):
 		randomize()
 		minutes_passed = int(rand_range(0,121))
