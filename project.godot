@@ -504,7 +504,8 @@ config/icon="res://Icon.png"
 
 [autoload]
 
-ModLoader="*res://Mod Support/ModLoader.gd"
+ModLoader="*res://Singletons/ModLoader.gd"
+GameLoader="*res://Singletons/GameLoader.gd"
 
 [display]
 

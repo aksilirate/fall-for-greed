@@ -98,15 +98,17 @@ func get_hunger_status():
 	
 func set_stats(_value):
 	stats = _value
-	call_deferred("save_character")
+	save_character()
 	
 func set_traits(_value):
 	traits = _value
-	call_deferred("save_character")
+	save_character()
 	
 func set_inventory(_value):
 	inventory = _value
-	call_deferred("save_character")
+	save_character()
+	
+	
 	
 func save_character():
 	var save_file = SaveFile.new()
