@@ -286,7 +286,8 @@ func sleep():
 				yield(execute_sleep, "completed")
 				
 		if not sleep_story_shown:
-			emit_story_telling("you don't want to sleep yet")
+			var emit_story_telling = emit_story_telling("you don't want to sleep yet")
+			yield(emit_story_telling, "completed")
 
 var sleep_story_shown = false
 func execute_sleep(_character):
