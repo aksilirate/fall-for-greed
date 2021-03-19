@@ -11,7 +11,9 @@ const TEXTURES = [
 	"res://Textures/Areas/Hills/Hills 1.png"
 ]
 
-const FINDINGS = []
+const FINDINGS = [
+	"res://Areas/AbandonedForest/Findings/LageFinding.gd"
+]
 
 const ZONES = [
 	Ruins0,

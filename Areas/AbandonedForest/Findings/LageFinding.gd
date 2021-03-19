@@ -5,8 +5,8 @@ const ITEM = LageItem
 
 # Minimum of 2 textures needed
 const TEXTURES = [
-	"res://Textures/Areas/Abandoned Forest/Findings/Lage Finding 0.png",
-	"res://Textures/Areas/Abandoned Forest/Findings/Lage Finding 1.png"
+	"res://Textures/Areas/Hills/Findings/Lage Finding 0.png",
+	"res://Textures/Areas/Hills/Findings/Lage Finding 1.png"
 ]
 
 const HISTORY = "A plant with a strange smell"

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Lage Finding 1.png-522d8464cdc9fbe9964fc3805cc4f664.stex"
+path="res://.import/Lage Finding 0.png-f3ee166f6ff6e2ac2ccaae162ab0dc0b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Areas/Abandoned Forest/Findings/Lage Finding 1.png"
-dest_files=[ "res://.import/Lage Finding 1.png-522d8464cdc9fbe9964fc3805cc4f664.stex" ]
+source_file="res://Textures/Areas/Hills/Findings/Lage Finding 0.png"
+dest_files=[ "res://.import/Lage Finding 0.png-f3ee166f6ff6e2ac2ccaae162ab0dc0b.stex" ]
 
 [params]
 
