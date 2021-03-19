@@ -53,7 +53,7 @@ func character_attack():
 		var story = get_tree().get_nodes_in_group("story").front()
 		var _current_artifact = story.current_artifact
 		
-		if _current_artifact != null and _current_artifact.get("double_damage"):
+		if _current_artifact != null and _current_artifact.get("DOUBLE_DAMAGE"):
 			var _damage = _character.character_reference.traits["strength"] * 2
 			enemy.health -= _damage
 			hit($Enemy, _damage)
@@ -169,9 +169,9 @@ func dodged(_character: Character):
 	
 	var story = get_tree().get_nodes_in_group("story").front()
 	var _current_artifact = story.current_artifact
-	if _current_artifact != null:
-		if _current_artifact.get("anti_dodge"):
-			return false
+	
+	if _current_artifact != null and _current_artifact.get("ANTI_DODGE"):
+		return false
 			
 	if rand_range(0,1) < _character.stats["energy"] / 2:
 		return true

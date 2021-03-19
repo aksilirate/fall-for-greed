@@ -9,5 +9,5 @@ const SELF_PROFILE_PICTURE := preload("res://Textures/Artifact Profiles/Prisoner
 const STORY := "A mask that was put on prisoners before their execution."
 
 
-var anti_fool
-var anti_dodge
+const ANTI_FOOL := true
+const ANTI_DODGE := true

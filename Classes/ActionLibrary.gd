@@ -174,6 +174,10 @@ func calculate_mood(_character, _minutes_passed):
 		_character.stats["mood"] -= ((1 - _character.stats["health"]) / 430) * _minutes_passed
 	if _character.stats["hunger"] <= 0.5:
 		_character.stats["mood"] -= ((1 - _character.stats["health"]) / 500) * _minutes_passed
+	
+	if _character.stats["mood"] < 0.23:
+		if rand_range(0,1) < 0.068:
+			upcoming_stories.push_back(_character.character_name + " is having suicidal thoughts")
 
 
 
@@ -183,7 +187,7 @@ func calculate_loneliness(_character, _minutes_passed):
 		_character.stats["loneliness"] = 0
 	
 	if _character.stats["loneliness"] <= 0.5:
-		_character.stats["mood"] -= _character.stats["loneliness"] / 18
+		_character.stats["mood"] -= _character.stats["loneliness"] / 18.3
 		if _character.stats["loneliness"] <= 0.3:
 			if rand_range(0,1) < 0.076:
 				upcoming_stories.push_back(_character.character_name + " is talking to himself")
@@ -191,7 +195,7 @@ func calculate_loneliness(_character, _minutes_passed):
 	if get_tree().get_nodes_in_group("characters").size() > 1:
 		_character.stats["loneliness"] = 1.0
 	else:
-		_character.stats["loneliness"] -= _minutes_passed / 790
+		_character.stats["loneliness"] -= _minutes_passed / 1056
 		
 
 
@@ -266,11 +270,7 @@ func emit_location_advanced():
 	
 	if area.location_index + 1 < area.upcoming_locations.size():
 		var next_location = area.upcoming_locations[area.location_index + 1]
-		if next_location is Enemy:
-			if rand_range(0,1) < 0.37:
-				upcoming_stories.push_back("you think you saw something")
-				
-		elif next_location.get_script() == area.current_area.get_script():
+		if next_location.get_script() == area.current_area.get_script():
 			if rand_range(0,1) < 0.67:
 				locations_to_advance += 1
 				randomize()
@@ -295,6 +295,12 @@ func emit_location_advanced():
 		_main_story= "you have traveled for " + str(formatted_hours) + " hours and " + str(_formatted_minutes) + " minutes"
 	
 	
+	var new_next_location_index = area.location_index + locations_to_advance + 1
+	if new_next_location_index < area.upcoming_locations.size():
+		var new_next_location = area.upcoming_locations[new_next_location_index]
+		if new_next_location is Enemy:
+			if rand_range(0,1) < 0.37:
+				upcoming_stories.push_back("you think you saw something")
 	
 	
 	var emit_story_telling = emit_story_telling(_main_story)
@@ -395,7 +401,7 @@ func improve_focus(_minutes_passed):
 	for _character in get_tree().get_nodes_in_group("characters"):
 		var _old_focus_amount = _character.traits["focus"]
 		_character.traits["focus"] += _minutes_passed * rand_range(0.0001, 0.0003)
-		if floor(_character.traits["focus"]) > floor(_old_focus_amount):
+		if floor(_character.traits["focus"] * 10) > floor(_old_focus_amount * 10):
 			upcoming_stories.push_back(_character.character_name + " has improved his focus")
 			
 		_character.traits["focus"] = clamp(_character.traits["focus"], 0.0, 1.0)
@@ -518,7 +524,9 @@ func run():
 func eat():
 	var _character = game_screen.last_selected_character
 	var _selected_item = game_screen.selected.item
+	
 	_character.stats["hunger"] += _selected_item.CALORIES
+	_character.stats["mood"] += _selected_item.CALORIES / 2.6
 	
 	if _selected_item.get("effects") and _selected_item.effects:
 		for _effect in _selected_item.effects:

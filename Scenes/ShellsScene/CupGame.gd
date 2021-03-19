@@ -29,7 +29,7 @@ func _ready():
 		
 	var story = get_tree().get_nodes_in_group("story").front()
 	var _current_artifact = story.current_artifact
-	if _current_artifact != null and _current_artifact.get("double_speed"):
+	if _current_artifact != null and _current_artifact.get("DOUBLE_SPEED"):
 		speed = owner.enemy.SPEED * 2
 	else:
 		speed = owner.enemy.SPEED
@@ -120,7 +120,7 @@ func _on_cup_selected(_cup):
 	if rand_range(0,speed) < owner.enemy.DAMAGE:
 		var story = get_tree().get_nodes_in_group("story").front()
 		var _current_artifact = story.current_artifact
-		if _current_artifact != null and _current_artifact.get("anti_fool"):
+		if _current_artifact != null and _current_artifact.get("ANTI_FOOL"):
 			fool = false
 		else:
 			fool = true

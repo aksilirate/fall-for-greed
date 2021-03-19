@@ -8,5 +8,5 @@ const SELF_PROFILE_PICTURE := preload("res://Textures/Artifact Profiles/Fallen K
 
 const STORY := "The chalice cup of a fallen king."
 
-var double_damage
-var double_speed
+const DOUBLE_DAMAGE := true
+const DOUBLE_SPEED := true
