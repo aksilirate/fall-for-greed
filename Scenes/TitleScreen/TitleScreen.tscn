@@ -146,7 +146,9 @@ tracks/5/keys = {
 "values": [ true, false ]
 }
 
-[node name="TitleScreen" type="Control"]
+[node name="TitleScreen" type="Control" groups=[
+"title_screen",
+]]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 6 )

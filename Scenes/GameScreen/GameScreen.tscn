@@ -319,7 +319,7 @@ tracks/14/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=4]
 resource_name = "Show Actions"
 length = 0.17
 step = 0.01
@@ -348,7 +348,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=5]
 resource_name = "Show History"
 length = 0.09
 step = 0.01
@@ -377,7 +377,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=6]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath("ProfileTexture:modulate")
@@ -440,8 +440,7 @@ tracks/4/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "Show Screen"
+[sub_resource type="Animation" id=7]
 length = 0.6
 tracks/0/type = "value"
 tracks/0/path = NodePath("BlackScreen:modulate")
@@ -514,10 +513,10 @@ __meta__ = {
 "anims/Hide Information" = SubResource( 1 )
 "anims/Hide Screen" = SubResource( 2 )
 anims/Load = SubResource( 3 )
-"anims/Show Actions" = SubResource( 6 )
-"anims/Show History" = SubResource( 7 )
-"anims/Show Information" = SubResource( 4 )
-"anims/Show Screen" = SubResource( 5 )
+"anims/Show Actions" = SubResource( 4 )
+"anims/Show History" = SubResource( 5 )
+"anims/Show Information" = SubResource( 6 )
+"anims/Show Screen" = SubResource( 7 )
 
 [node name="ProfileTexture" type="TextureRect" parent="."]
 modulate = Color( 1, 1, 1, 0 )
@@ -562,6 +561,7 @@ margin_right = 347.0
 margin_bottom = 126.0
 script = ExtResource( 20 )
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
