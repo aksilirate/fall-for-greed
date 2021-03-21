@@ -9,7 +9,6 @@ onready var story: Node = game_screen.get_node("Logic/Story")
 onready var area: Node = game_screen.area
 
 signal ready_to_advance(_minutes_passed)
-signal search_for_item(_action_texture_rect)
 signal summon_character(_character)
 signal kill_character(_character)
 signal story_telling_started
@@ -34,8 +33,6 @@ func _ready():
 	connect("location_advanced", area, "_on_location_advanced")
 # warning-ignore:return_value_discarded
 	connect("location_reseted", area , "_on_location_reseted")
-# warning-ignore:return_value_discarded
-	connect("search_for_item", area, "_on_search_for_item")
 # warning-ignore:return_value_discarded
 	connect("story_telling_started", area, "_on_story_selected")
 # warning-ignore:return_value_discarded

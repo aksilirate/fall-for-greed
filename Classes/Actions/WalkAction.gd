@@ -6,6 +6,7 @@ const TOOLTIP := "walk"
 
 var emit_location_advanced
 func _ready():
+# warning-ignore:return_value_discarded
 	connect("ready_to_advance", self, "_on_ready_to_advance")
 
 	emit_location_advanced = emit_location_advanced()
