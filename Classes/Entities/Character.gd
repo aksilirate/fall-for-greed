@@ -90,7 +90,11 @@ func get_hunger_status():
 	elif stats.hunger < 0.6:
 		return "hungry"
 	
-	
+func get_energy_status():
+	if stats.energy < 0.3:
+		return "sleepy"
+	elif stats.energy < 0.5:
+		return "tired"
 	
 	
 func set_stats(_value):

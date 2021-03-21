@@ -19,6 +19,8 @@ func display_threats():
 	
 	
 	var hunger_status = owner.last_selected_character.get_hunger_status()
+	var energy_status = owner.last_selected_character.get_energy_status()
+	
 	if hunger_status:
 		add_threat(hunger_status)
 	
@@ -37,12 +39,9 @@ func display_threats():
 		add_threat("injured")
 	elif owner.last_selected_character.stats["health"] < 0.8:
 		add_threat("wounded")
-	
-	
-	if owner.last_selected_character.stats["energy"] < 0.3:
-		add_threat("sleepy")
-	elif owner.last_selected_character.stats["energy"] < 0.5:
-		add_threat("tired")
+
+	if energy_status:
+		add_threat(energy_status)
 
 
 	for _active_effect in owner.last_selected_character.active_effects:

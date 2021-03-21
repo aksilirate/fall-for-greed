@@ -141,6 +141,7 @@ func calculate_character_turn(_character, _energy_cost, _minutes_passed):
 	
 	
 	var _hunger_check = _character.get_hunger_status()
+	var _energy_check = _character.get_energy_status()
 	
 	var _health_gained = _minutes_passed * 0.00006
 	_character.stats["health"] += _health_gained
@@ -153,6 +154,11 @@ func calculate_character_turn(_character, _energy_cost, _minutes_passed):
 	if _hunger_check != _character.get_hunger_status():
 		var _updated_hunger_check = _character.get_hunger_status()
 		upcoming_stories.push_back(_character.character_name + " is " + _updated_hunger_check)
+
+	if _energy_check != _character.get_energy_status():
+		var _updated_energy_check = _character.get_energy_status()
+		upcoming_stories.push_back(_character.character_name + " is " + _updated_energy_check)
+	
 	
 	
 	if _character.stats["energy"] <= 0:
@@ -173,9 +179,9 @@ func calculate_character_turn(_character, _energy_cost, _minutes_passed):
 	
 func calculate_mood(_character, _minutes_passed):
 	if _character.stats["health"] <= 0.5:
-		_character.stats["mood"] -= ((1 - _character.stats["health"]) / 430) * _minutes_passed
+		_character.stats["mood"] -= ((1 - _character.stats["health"]) / 638) * _minutes_passed
 	if _character.stats["hunger"] <= 0.5:
-		_character.stats["mood"] -= ((1 - _character.stats["health"]) / 500) * _minutes_passed
+		_character.stats["mood"] -= ((1 - _character.stats["health"]) / 741) * _minutes_passed
 	
 	if _character.stats["mood"] < 0.23:
 		if rand_range(0,1) < 0.068:
