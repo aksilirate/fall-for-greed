@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=2]
+[gd_scene load_steps=52 format=2]
 
 [ext_resource path="res://Theme.tres" type="Theme" id=1]
 [ext_resource path="res://Textures/Interface/Profile Border.png" type="Texture" id=2]
@@ -43,6 +43,7 @@
 [ext_resource path="res://Scenes/GameScreen/LeftAction.gd" type="Script" id=41]
 [ext_resource path="res://Scenes/GameScreen/WestAction.gd" type="Script" id=42]
 [ext_resource path="res://Scenes/GameScreen/HistoryLabel.gd" type="Script" id=43]
+[ext_resource path="res://Textures/Tarot Cards/Emperor Tarot Card.png" type="Texture" id=44]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Hide Information"
@@ -520,23 +521,25 @@ anims/Load = SubResource( 3 )
 
 [node name="ProfileTexture" type="TextureRect" parent="."]
 modulate = Color( 1, 1, 1, 0 )
-margin_left = 289.877
+margin_left = 276.877
 margin_top = 17.901
-margin_right = 351.877
+margin_right = 338.877
 margin_bottom = 79.901
 texture = ExtResource( 28 )
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
 [node name="ProfileBorder" type="TextureRect" parent="."]
 modulate = Color( 1, 1, 1, 0 )
-margin_left = 288.407
+margin_left = 275.407
 margin_top = 17.3335
-margin_right = 352.407
+margin_right = 339.407
 margin_bottom = 81.3335
 texture = ExtResource( 2 )
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -555,9 +558,9 @@ __meta__ = {
 
 [node name="ThreatContainer" type="VBoxContainer" parent="."]
 modulate = Color( 1, 1, 1, 0 )
-margin_left = 295.0
+margin_left = 281.0
 margin_top = 86.0
-margin_right = 347.0
+margin_right = 333.0
 margin_bottom = 126.0
 script = ExtResource( 20 )
 __meta__ = {
@@ -593,7 +596,7 @@ __meta__ = {
 [node name="StoryTexture" type="TextureRect" parent="."]
 margin_left = 120.0
 margin_top = 17.743
-margin_right = 248.001
+margin_right = 248.0
 margin_bottom = 145.743
 texture = ExtResource( 30 )
 __meta__ = {
@@ -805,8 +808,6 @@ __meta__ = {
 }
 
 [node name="Inventory" type="Control" parent="."]
-visible = false
-modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -964,6 +965,26 @@ mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
 __meta__ = {
 "_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="TarotCards" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="TarotCardTexture" type="TextureRect" parent="TarotCards"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 281.0
+margin_top = 17.3969
+margin_right = 334.0
+margin_bottom = 90.3969
+texture = ExtResource( 44 )
+__meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="story_selected" from="." to="Logic/Area" method="_on_story_selected"]
