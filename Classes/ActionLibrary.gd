@@ -380,7 +380,7 @@ func had_nightmare(_character):
 	if _character.stats["energy"] < 0.5:
 		if rand_range(0,1) < 0.09:
 			_character.stats["mood"] -= 0.05
-			upcoming_stories.push_back(_character.character_name + "had a nightmare")
+			upcoming_stories.push_back(_character.character_name + " had a nightmare")
 
 #----------------------------------------- [ ^ SLEEP ^ ] -----------------------------------------
 

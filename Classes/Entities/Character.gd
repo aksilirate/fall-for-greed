@@ -95,7 +95,7 @@ func get_energy_status():
 		return "sleepy"
 	elif stats.energy < 0.5:
 		return "tired"
-	
+		
 	
 func set_stats(_value):
 	stats = _value
