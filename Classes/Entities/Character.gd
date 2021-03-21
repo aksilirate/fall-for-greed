@@ -49,7 +49,8 @@ var stats = {
 
 var traits = {
 	"focus": 0.0,
-	"strength": 0.0
+	"combat": 0.0,
+	"fleetness": 0.0
 } setget set_traits
 
 
@@ -62,13 +63,8 @@ func _ready():
 	unit_texture = current_character.UNIT_TEXTURE
 	character_name = current_character.NAME
 	story = current_character.STORY
-	
-	if current_character.get("FOCUS"):
-		traits["focus"] = current_character.FOCUS
-	if current_character.get("STRENGTH"):
-		traits["strength"] = current_character.STRENGTH
-		
 	name = character_name
+
 
 	for _effect in saved_effects:
 		add_child(_effect)

@@ -54,6 +54,11 @@ func summon_character(_character_type: Object):
 	_character.stats["energy"] = rand_range(0.5,1)
 	_character.stats["loneliness"] = rand_range(0.5,1)
 	
+	if _character_type.get("FOCUS"):
+		_character.traits["focus"] = _character_type.FOCUS
+	if _character_type.get("COMBAT"):
+		_character.traits["combat"] = _character_type.COMBAT
+		
 	if _character_type.get("STARTING_ITEMS"):
 		for _item in _character_type.STARTING_ITEMS:
 			if rand_range(0,1) < 0.1:

@@ -6,6 +6,8 @@ onready var game_screen = get_tree().get_root().get_node("GameScreen")
 
 const ENEMY_ORIGIN = Vector2(168,56)
 
+var action_library = ActionLibrary.new()
+
 var fool: bool
 var enemy: Object 
 var heart_found: bool
@@ -22,6 +24,11 @@ func _ready():
 	connect("battle_finished", get_parent(), "_on_battle_finished")
 # warning-ignore:return_value_discarded
 	connect("kill_character", game_screen, "_on_character_death")
+	
+	#Setup ActionLibrary
+	action_library.hide_screen = false
+	action_library.show_screen = false
+	add_child(action_library)
 	
 	if enemy == null:
 		enemy = Wolf.new()
@@ -54,13 +61,14 @@ func character_attack():
 		var _current_artifact = story.current_artifact
 		
 		if _current_artifact != null and _current_artifact.get("DOUBLE_DAMAGE"):
-			var _damage = _character.character_reference.traits["strength"] * 2
+			var _damage = (_character.character_reference.traits["combat"] * 3) * 2
 			enemy.health -= _damage
 			hit($Enemy, _damage)
 		else:
-			var _damage = _character.character_reference.traits["strength"]
+			var _damage = (_character.character_reference.traits["combat"] * 3)
 			enemy.health -= _damage
 			hit($Enemy, _damage)
+		improve_combat(_character.character_reference)
 		
 		
 		yield(tween,"tween_completed")
@@ -136,21 +144,19 @@ func enemy_attack():
 	complete_battle()
 	
 
+
+
+
 func play_death_message(_death_message):
-	# Do this using ActionLibrary
-	var action_library = ActionLibrary.new()
-	add_child(action_library)
+	var emit_story_telling = action_library.emit_story_telling(_death_message)
+	yield(emit_story_telling, "completed")
+	emit_signal("death_message_finished")
 	action_library.queue_free()
 	
-	var story_label = preload("res://Scenes/StoryLabel/StoryLabel.tscn").instance()
-	var story_animation_player = story_label.get_node("AnimationPlayer")
-	story_label.text =  _death_message
-	add_child(story_label)
-	yield(story_animation_player,"animation_finished")
-	story_label.queue_free()
 	
-	emit_signal("death_message_finished")
-
+	
+	
+	
 func pick_random_character():
 	var rand = RandomNumberGenerator.new()
 	rand.randomize()
@@ -177,8 +183,17 @@ func dodged(_character: Character):
 		return true
 	else:
 		return false
-	
-		
+
+
+
+func improve_combat(_character):
+	var _old_combat_level = _character.traits["combat"]
+	_character.traits["combat"] += rand_range(0.001, 0.0083)
+	if floor(_character.traits["combat"] * 10) > floor(_old_combat_level * 10):
+		action_library.upcoming_stories.push_back(_character.character_name + " has improved his combat")
+
+
+
 func complete_battle():
 	if $CharactersContainer.get_child_count() > 0:
 		animation_player.play("Unload")

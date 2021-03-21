@@ -15,4 +15,4 @@ const STARTING_ITEMS = [
 
 
 const FOCUS = 0.3
-const STRENGTH = 0.9
+const COMBAT = 0.3

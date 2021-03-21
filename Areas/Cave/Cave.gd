@@ -21,7 +21,8 @@ const FINDINGS = []
 const ZONES = []
 
 const ENEMIES = [
-	CaveSpider
+	CaveSpider,
+	Rat
 ]
 
 const NPCS = []

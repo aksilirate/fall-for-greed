@@ -123,8 +123,9 @@ func change_event_to(_event: Object):
 
 
 func _on_location_reseted():
-	current_event = current_area
-	update_story_info()
+	if current_area.get_script() != current_event.get_script():
+		current_event = current_area
+		update_story_info()
 	update_actions()
 	save_game()
 
@@ -172,15 +173,6 @@ func filtered_textures():
 	texture_cache.erase(story_texture.texture.resource_path)
 	return texture_cache
 	
-	
-func _on_search_for_item(_action_texture_rect: ActionLibrary) -> void:
-	randomize()
-	var index = round(rand_range(0,current_area.FINDINGS.size()-1))
-	current_event = load(current_area.FINDINGS[index]).new()
-	yield(_action_texture_rect,"story_telling_started")
-	update_story_info()
-	update_actions()
-	save_game()
 	
 func _on_story_selected():
 	owner.selected.deselect()

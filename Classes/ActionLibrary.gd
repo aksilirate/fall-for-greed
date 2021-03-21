@@ -8,6 +8,7 @@ onready var animation_player: AnimationPlayer = game_screen.animation_player
 onready var story: Node = game_screen.get_node("Logic/Story")
 onready var area: Node = game_screen.area
 
+signal ready_to_advance(_minutes_passed)
 signal search_for_item(_action_texture_rect)
 signal summon_character(_character)
 signal kill_character(_character)
@@ -21,6 +22,7 @@ var character_passed_out = false
 var upcoming_stories = []
 var action: Object
 var executer
+
 
 
 func _ready():
@@ -58,18 +60,21 @@ func add_to_minutes_passed(amount):
 	
 #----------------------------------- [ v STORY v ] ---------------------------------
 	
-var show_screen_disabled := false
+var hide_screen := true
+var show_screen := true
 func emit_story_telling(_main_story):
 	upcoming_stories.push_front(_main_story)
 	
-	animation_player.play("Hide Screen")
-	
-	yield(animation_player,"animation_finished")
+	if hide_screen:
+		animation_player.play("Hide Screen")
+		yield(animation_player,"animation_finished")
+		
 	emit_signal("story_telling_started")
 	run_through_upcoming_stories()
 	area.update_actions()
 	yield(self,"story_telling_finished")
-	if not show_screen_disabled:
+	
+	if show_screen:
 		animation_player.play("Show Screen")
 	upcoming_stories.clear()
 
@@ -279,21 +284,6 @@ func emit_location_advanced():
 			if rand_range(0,1) < 0.01:
 				upcoming_stories.push_back("you think you saw something")
 			
-	var _energy_cost = 0.001 * _minutes_passed
-	
-	var _formatted_minutes = Time.get_formatted_time("minute", _minutes_passed)
-	var formatted_hours = Time.get_formatted_time("hour", _minutes_passed)
-	
-	var _main_story: String
-	if _minutes_passed < 60:
-		 _main_story= "you have traveled for " + str(_minutes_passed) + " minutes"
-	elif _minutes_passed == 60:
-		_main_story= "you have traveled for 1 hour"
-	elif not _formatted_minutes and _minutes_passed > 60:
-		_main_story= "you have traveled for " + str(formatted_hours) + " hours"
-	elif _formatted_minutes and _minutes_passed > 60:
-		_main_story= "you have traveled for " + str(formatted_hours) + " hours and " + str(_formatted_minutes) + " minutes"
-	
 	
 	var new_next_location_index = area.location_index + locations_to_advance + 1
 	if new_next_location_index < area.upcoming_locations.size():
@@ -303,16 +293,13 @@ func emit_location_advanced():
 				upcoming_stories.push_back("you think you saw something")
 	
 	
-	var emit_story_telling = emit_story_telling(_main_story)
-	calculate_turn(_energy_cost, _minutes_passed)
+#	Used for the WalkAction.gd
+	emit_signal("ready_to_advance", _minutes_passed)
 	yield(self,"story_telling_started")
-	
 	while locations_to_advance > 0:
 		emit_signal("location_advanced")
 		locations_to_advance -= 1
-	
-	
-	yield(emit_story_telling, "completed")
+		
 	
 #--------------------------------------- [ v SLEEP v ] ----------------------------------------
 
@@ -399,27 +386,19 @@ func had_nightmare(_character):
 
 func improve_focus(_minutes_passed):
 	for _character in get_tree().get_nodes_in_group("characters"):
-		var _old_focus_amount = _character.traits["focus"]
-		_character.traits["focus"] += _minutes_passed * rand_range(0.0001, 0.0003)
-		if floor(_character.traits["focus"] * 10) > floor(_old_focus_amount * 10):
+		var _old_focus_level = _character.traits["focus"]
+		_character.traits["focus"] += _minutes_passed * rand_range(0.00001, 0.000097)
+		if floor(_character.traits["focus"] * 10) > floor(_old_focus_level * 10):
 			upcoming_stories.push_back(_character.character_name + " has improved his focus")
 			
 		_character.traits["focus"] = clamp(_character.traits["focus"], 0.0, 1.0)
 		
 
+
+
 func search_for_item(_minutes_passed):
 	var emit_story_telling
-	var finding_name
-	
-
-		
-	
-	
-	if area.current_area.FINDINGS.size() != 0:
-		emit_signal("search_for_item", self)
-		finding_name = area.current_event.NAME
-	else:
-		finding_name = null
+	var _finding
 		
 	randomize()
 	
@@ -437,20 +416,33 @@ func search_for_item(_minutes_passed):
 		if _max_focus < _character.traits["focus"] / 3:
 			_max_focus = _character.traits["focus"] / 3
 		
-	if area.findings_left > 0 and rand_range(0,1) < ((_minutes_passed*0.0166) - 0.33) + _max_focus and finding_name:
+	if area.findings_left > 0 and rand_range(0,1) < ((_minutes_passed*0.0166) - 0.33) + _max_focus:
+		
+		randomize()
+		var index = round(rand_range(0,area.current_area.FINDINGS.size()-1))
+		_finding = load(area.current_area.FINDINGS[index]).new()
+		var finding_name = _finding.NAME
+		
 		upcoming_stories.push_back("you have found " + str(finding_name))
 		emit_story_telling = emit_story_telling(_main_story)
+		
+		area.current_event = _finding
+
 	else:
 		upcoming_stories.push_back("you have not found anything")
 		reset_location()
 		emit_story_telling = emit_story_telling(_main_story)
-		if rand_range(0,1) < 0.1:
+		if rand_range(0,1) < 0.1 and _minutes_passed >= 13:
 			emit_location_advanced()
 	if area.findings_left > 0:
 		area.findings_left -= 1
 	
 	
 	yield(self,"story_telling_started")
+	if _finding:
+		area.update_story_info()
+		area.update_actions()
+		area.save_game()
 	add_to_minutes_passed(_minutes_passed)
 	improve_focus(_minutes_passed)
 	
@@ -511,7 +503,7 @@ func run():
 		queue_free()
 	else:
 		emit_story_telling("you could not run away")
-		show_screen_disabled = true
+		show_screen = false
 		yield(self,"story_telling_finished")
 		var shell_scene = load("res://Scenes/ShellsScene/ShellsScene.tscn").instance()
 		shell_scene.enemy = area.current_event

@@ -45,34 +45,41 @@ func _on_pressed():
 
 
 func _on_mouse_entered():
-	var _focus_level: String
+	var _trait_levels = []
 	
-	if character.traits["focus"] == 0.0:
-		_focus_level = "worst focus"
-	elif character.traits["focus"] < 0.1:
-		_focus_level = "terrible focus"
-	elif character.traits["focus"] < 0.2:
-		_focus_level = "awful focus"
-	elif character.traits["focus"] < 0.3:
-		_focus_level = "bad focus"
-	elif character.traits["focus"] < 0.4:
-		_focus_level = "poor focus"
-	elif character.traits["focus"] < 0.5:
-		_focus_level = "moderate focus"
-	elif character.traits["focus"] < 0.6:
-		_focus_level = "fair focus"
-	elif character.traits["focus"] < 0.7:
-		_focus_level = "good focus"
-	elif character.traits["focus"] < 0.8:
-		_focus_level = "great focus"
-	elif character.traits["focus"] < 0.9:
-		_focus_level = "impressive focus"
-	elif character.traits["focus"] < 1.0:
-		_focus_level = "incredible focus"
-	elif character.traits["focus"] == 1.0:
-		_focus_level = "best focus"
+	for _trait in character.traits.keys():
+		if character.traits[_trait] == 0.0:
+			_trait_levels.push_back("dreadful " + _trait)
+		elif character.traits[_trait] < 0.1:
+			_trait_levels.push_back("terrible " + _trait)
+		elif character.traits[_trait] < 0.2:
+			_trait_levels.push_back("awful " + _trait)
+		elif character.traits[_trait] < 0.3:
+			_trait_levels.push_back("bad " + _trait)
+		elif character.traits[_trait] < 0.4:
+			_trait_levels.push_back("poor " + _trait)
+		elif character.traits[_trait] < 0.5:
+			_trait_levels.push_back("moderate " + _trait)
+		elif character.traits[_trait] < 0.6:
+			_trait_levels.push_back("fair " + _trait)
+		elif character.traits[_trait] < 0.7:
+			_trait_levels.push_back("good " + _trait)
+		elif character.traits[_trait] < 0.8:
+			_trait_levels.push_back("great " + _trait)
+		elif character.traits[_trait] < 0.9:
+			_trait_levels.push_back("impressive " + _trait)
+		elif character.traits[_trait] < 1.0:
+			_trait_levels.push_back("incredible " + _trait)
+		elif character.traits[_trait] == 1.0:
+			_trait_levels.push_back("brilliant " + _trait)
 		
-	hint_tooltip = _focus_level
+	
+	var _tooltip_text: String
+	for _trait_text in _trait_levels:
+# warning-ignore:unassigned_variable_op_assign
+		_tooltip_text += _trait_text + "\n"
+		
+	hint_tooltip = _tooltip_text
 	
 	if owner.selected != self:
 		emit_Sound_Effect("res://Sounds/Interface/Hover.wav")

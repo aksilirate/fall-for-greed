@@ -11,9 +11,9 @@ func effect(_effect: Effect, _minutes_passed):
 
 
 func activation_effect(_effect: Effect):
-	_effect.get_parent().traits["strength"] += 0.6
+	_effect.get_parent().traits["combat"] += 0.6
 	_effect.get_parent().stats["mood"] -= 0.3
 	
 	
 func deactivation_effect(_effect: Effect):
-	_effect.get_parent().traits["strength"] -= 0.6
+	_effect.get_parent().traits["combat"] -= 0.6
