@@ -71,7 +71,9 @@ func emit_story_telling(_main_story):
 	area.update_actions()
 	yield(self,"story_telling_finished")
 	
-	if show_screen:
+	if story.tarot_prophecy_ready:
+		game_screen.load_card_picking_scene()
+	elif show_screen:
 		animation_player.play("Show Screen")
 	upcoming_stories.clear()
 

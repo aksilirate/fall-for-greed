@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Arrow Up.png-a3613d3cf28049e5245f9bbfa320ca70.stex"
+path="res://.import/Tarot Deck.png-f492e62cf2003260bc139e43bebe1c37.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Interface/Arrow Up.png"
-dest_files=[ "res://.import/Arrow Up.png-a3613d3cf28049e5245f9bbfa320ca70.stex" ]
+source_file="res://Textures/Tarot Cards/Tarot Deck.png"
+dest_files=[ "res://.import/Tarot Deck.png-f492e62cf2003260bc139e43bebe1c37.stex" ]
 
 [params]
 

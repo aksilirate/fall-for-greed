@@ -176,8 +176,7 @@ func filtered_textures():
 	
 func _on_story_selected():
 	owner.selected.deselect()
-	if owner.threat_container.modulate.a > 0:
-		animation_player.queue("Hide Information")
+	owner.hide_information()
 	history_label.text = current_event.HISTORY
 	story_frame.modulate.a = 0.3
 	owner.selected = story_frame

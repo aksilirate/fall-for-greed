@@ -12,6 +12,7 @@ onready var history_label = get_node("HistoryLabel")
 onready var selected = get_node("StoryFrame")
 
 var last_selected_character: Object
+var selected_tarot_card: Object setget set_selected_tarot_card
 var menu_open = false
 
 signal story_selected
@@ -21,14 +22,40 @@ func _init():
 
 
 func _ready():
+	var save_file = SaveFile.new()
+	if  save_file.get_saved_value("Game", "selected_tarot_card"):
+		selected_tarot_card = save_file.get_saved_value("Game", "selected_tarot_card")
+	
+	
 	if OS.is_debug_build():
 		var _debug = Debug.new()
 		add_child(_debug)
-	animation_player.play("Load") 
-	history_label.text = selected.story
-	emit_signal("story_selected")
 
 
+
+	if not selected_tarot_card:
+		load_card_picking_scene()
+	else:
+		$TarotCardTexture.texture = load(selected_tarot_card.TEXTURE)
+		animation_player.play("Load") 
+		history_label.text = selected.story
+		emit_signal("story_selected")
+
+
+func load_card_picking_scene():
+	var card_picking_scene = preload("res://Scenes/CardPickingScene/CardPickingScene.tscn").instance()
+	add_child(card_picking_scene)
+	$BlackScreen.modulate.a = 1.0
+	show()
+
+
+
+
+func set_selected_tarot_card(_value):
+	var save_file = SaveFile.new()
+	save_file.save_value("Game", "selected_tarot_card",_value)
+	selected_tarot_card = _value
+	
 
 func _on_character_death(_character):
 	if _character:
@@ -77,10 +104,30 @@ func _input(event):
 			
 			
 
-func _on_AnimationPlayer_animation_finished(_anim_name):
-	if _anim_name == "load":
+
+func show_information():
+	if $TarotCardTexture.modulate.a > 0:
+		$AnimationPlayer.play("Hide Tarot Card")
+	$AnimationPlayer.queue("Show Information")
+
+
+func hide_information():
+	if $ProfileBorder.modulate.a > 0:
+		$AnimationPlayer.play("Hide Information")
+	if $TarotCardTexture.modulate.a < 1.0:
+		$AnimationPlayer.queue("Show Tarot Card")
+	
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if anim_name == "Load":
 		selected.modulate.a = 0.3
 
+func _on_AnimationPlayer_animation_started(anim_name):
+	if anim_name == "Load":
+		$TarotCardTexture.texture = load(selected_tarot_card.TEXTURE)
+	if anim_name == "Show Screen":
+		$TarotCardTexture.texture = load(selected_tarot_card.TEXTURE)
 
 
 
@@ -92,3 +139,5 @@ func save():
 	call_deferred("save_game")
 	
 	
+
+

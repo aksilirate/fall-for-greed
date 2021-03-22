@@ -7,7 +7,9 @@ var artifacts = [
 	PrisonersMask
 ]
 
-var minutes_passed = 0
+var minutes_passed = 0 setget set_minutes_passed
+
+var tarot_prophecy_ready := false
 
 signal time_updated(_minutes_passed)
 
@@ -16,6 +18,14 @@ func set_current_artifact(_value):
 	var save_file = SaveFile.new()
 	current_artifact = _value
 	save_file.save_value("Game", "current_artifact",current_artifact)
+
+func set_minutes_passed(_value):
+	if Time.get_formatted_time("day", _value) > Time.get_formatted_time("day", minutes_passed):
+		tarot_prophecy_ready = true
+	minutes_passed = _value
+	
+	
+
 
 func _ready():
 	prepare_story_variants()

@@ -34,7 +34,9 @@ func _on_pressed():
 			inventory.rect_position.x = 0
 			
 			profile_texture.texture = self_profile_texture
-			animation_player.play("Show Information")
+			
+			owner.show_information()
+
 			
 		history_label.text = story
 		owner.selected = self

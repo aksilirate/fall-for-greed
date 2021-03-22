@@ -54,7 +54,8 @@ func _on_pressed():
 			profile_border.hide()
 			profile_texture.texture = null
 			
-		animation_player.play("Show Information")
+		get_parent().show_information()
+		
 		update_actions()
 		
 	if story.current_artifact != null:

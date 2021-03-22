@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=2]
+[gd_scene load_steps=54 format=2]
 
 [ext_resource path="res://Theme.tres" type="Theme" id=1]
 [ext_resource path="res://Textures/Interface/Profile Border.png" type="Texture" id=2]
@@ -47,7 +47,8 @@
 
 [sub_resource type="Animation" id=1]
 resource_name = "Hide Information"
-length = 0.3
+length = 0.15
+step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("ProfileTexture:modulate")
 tracks/0/interp = 1
@@ -55,7 +56,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3 ),
+"times": PoolRealArray( 0, 0.15 ),
 "transitions": PoolRealArray( -3, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
@@ -67,7 +68,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.3 ),
+"times": PoolRealArray( 0, 0.15 ),
 "transitions": PoolRealArray( -3, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
@@ -79,7 +80,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.3 ),
+"times": PoolRealArray( 0, 0.15 ),
 "transitions": PoolRealArray( -3, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
@@ -91,7 +92,7 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.3 ),
+"times": PoolRealArray( 0, 0.15 ),
 "transitions": PoolRealArray( -3, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
@@ -103,7 +104,7 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 0.3 ),
+"times": PoolRealArray( 0, 0.15 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
@@ -135,6 +136,23 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "Hide Tarot Card"
+length = 0.15
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("TarotCardTexture:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( -3, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -319,6 +337,30 @@ tracks/14/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
+tracks/15/type = "value"
+tracks/15/path = NodePath("Inventory:modulate")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/16/type = "value"
+tracks/16/path = NodePath("TarotCardTexture:modulate")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 0, 1.5, 2.6 ),
+"transitions": PoolRealArray( 1, 6, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [sub_resource type="Animation" id=4]
 resource_name = "Show Actions"
@@ -379,7 +421,8 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id=6]
-length = 0.3
+length = 0.15
+step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("ProfileTexture:modulate")
 tracks/0/interp = 1
@@ -387,7 +430,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3 ),
+"times": PoolRealArray( 0, 0.15 ),
 "transitions": PoolRealArray( -3, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
@@ -399,7 +442,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.3 ),
+"times": PoolRealArray( 0, 0.15 ),
 "transitions": PoolRealArray( -3, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
@@ -411,7 +454,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.3 ),
+"times": PoolRealArray( 0, 0.15 ),
 "transitions": PoolRealArray( -3, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
@@ -423,7 +466,7 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.3 ),
+"times": PoolRealArray( 0, 0.15 ),
 "transitions": PoolRealArray( -3, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
@@ -466,6 +509,23 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 2 ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "Show Tarot Card"
+length = 0.15
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("TarotCardTexture:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( -0.3, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
 [node name="GameScreen" type="Control" groups=[
@@ -513,11 +573,13 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 "anims/Hide Information" = SubResource( 1 )
 "anims/Hide Screen" = SubResource( 2 )
+"anims/Hide Tarot Card" = SubResource( 8 )
 anims/Load = SubResource( 3 )
 "anims/Show Actions" = SubResource( 4 )
 "anims/Show History" = SubResource( 5 )
 "anims/Show Information" = SubResource( 6 )
 "anims/Show Screen" = SubResource( 7 )
+"anims/Show Tarot Card" = SubResource( 9 )
 
 [node name="ProfileTexture" type="TextureRect" parent="."]
 modulate = Color( 1, 1, 1, 0 )
@@ -808,6 +870,7 @@ __meta__ = {
 }
 
 [node name="Inventory" type="Control" parent="."]
+modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -957,6 +1020,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="TarotCardTexture" type="TextureRect" parent="."]
+margin_left = 281.0
+margin_top = 17.3969
+margin_right = 334.0
+margin_bottom = 90.3969
+texture = ExtResource( 44 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="BlackScreen" type="ColorRect" parent="."]
 modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
@@ -967,26 +1040,6 @@ __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
 }
-
-[node name="TarotCards" type="Control" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="TarotCardTexture" type="TextureRect" parent="TarotCards"]
-modulate = Color( 1, 1, 1, 0 )
-margin_left = 281.0
-margin_top = 17.3969
-margin_right = 334.0
-margin_bottom = 90.3969
-texture = ExtResource( 44 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 [connection signal="story_selected" from="." to="Logic/Area" method="_on_story_selected"]
 [connection signal="update_east_action" from="Logic/Area" to="Actions/EastAction" method="_on_update_east_action"]
 [connection signal="update_left_action" from="Logic/Area" to="Actions/LeftAction" method="_on_update_left_action"]
@@ -994,6 +1047,7 @@ __meta__ = {
 [connection signal="update_west_action" from="Logic/Area" to="Actions/WestAction" method="_on_update_west_action"]
 [connection signal="time_updated" from="Logic/Story" to="TimeLabel" method="_on_Story_time_updated"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]
 [connection signal="visibility_changed" from="HistoryLabel" to="HistoryLabel" method="_on_HistoryLabel_visibility_changed"]
 [connection signal="gui_input" from="StoryFrame" to="StoryFrame" method="_on_StoryFrame_gui_input"]
 [connection signal="mouse_entered" from="StoryFrame" to="StoryFrame" method="_on_StoryFrame_mouse_entered"]
