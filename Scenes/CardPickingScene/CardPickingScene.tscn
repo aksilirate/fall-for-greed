@@ -249,16 +249,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TriesLeftLabel" type="Label" parent="."]
-margin_left = 93.0166
-margin_top = 48.6242
-margin_right = 133.017
-margin_bottom = 61.6242
-text = "tries left: 3"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="PlaceholderTexture" type="TextureRect" parent="."]
 margin_left = 230.251
 margin_top = 70.8884

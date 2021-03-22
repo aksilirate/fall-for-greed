@@ -23,7 +23,6 @@ func _on_DeckTexture_pressed():
 	$AnimationPlayer.play("Draw Card")
 	$DeckTexture.modulate.a = 1.0
 	tries_left -= 1
-	$TriesLeftLabel.text = "tries left: " + str(tries_left)
 
 
 func _on_CardTexture_pressed():
@@ -48,11 +47,12 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 				$AnimationPlayer.play("Unload")
 				
 		"Unload":
+			get_parent().selected_tarot_card = drawn_card.new()
 			if get_parent().get("selected_tarot_card"):
 				get_parent().animation_player.play("Show Screen")
 			else:
 				get_parent().animation_player.play("Load")
-			get_parent().selected_tarot_card = drawn_card.new()
+
 			queue_free()
 
 
