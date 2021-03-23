@@ -26,28 +26,34 @@ func generate_locations():
 	upcoming_locations.clear()
 	location_index = 0
 	
+	randomize()
 	rand.randomize()
 	
 	var enemy_cache = [] + current_area.ENEMIES
 	var npc_cache = [] + current_area.NPCS
 	var zone_cache = [] + current_area.ZONES
+	var findings_cache = [] + current_area.FINDINGS
 	
 	for _index in current_area.total_locations:
-		if _index < 6:
+		if _index < 3:
 			upcoming_locations.insert(_index, current_area)
 		else:
-			var _penultimate = upcoming_locations.size() - 1
-			
-			if rand.randi_range(0,10) == 3 and enemy_cache.size() > 0 and upcoming_locations[_penultimate] == current_area:
+#			var _next_index = upcoming_locations.size() - 1
+#
+#			if upcoming_locations[_next_index] == current_area:
+			if rand.randi_range(0,10) == 3 and enemy_cache.size() > 0:
 				var _enemy_index = rand.randi_range(0, enemy_cache.size() - 1)
 				upcoming_locations.insert(_index,enemy_cache[_enemy_index].new())
 				enemy_cache.remove(_enemy_index)
 				
-			elif rand.randi_range(0,10) == 3 and npc_cache.size() > 0 and upcoming_locations[_penultimate] == current_area:
+			elif rand.randi_range(0,10) == 3 and npc_cache.size() > 0:
 				upcoming_locations.insert(_index,npc_cache.pop_front().new())
 				
-			elif rand.randi_range(0,10) == 3 and zone_cache.size() > 0 and upcoming_locations[_penultimate] == current_area:
+			elif rand.randi_range(0,10) == 3 and zone_cache.size() > 0:
 				upcoming_locations.insert(_index,zone_cache.pop_front().new())
+				
+			elif rand_range(0,1) < 0.0267 and findings_cache.size() > 0 :
+				upcoming_locations.insert(_index,findings_cache.pop_front().new())
 				
 			else:
 				upcoming_locations.insert(_index, current_area)
@@ -135,14 +141,20 @@ func _on_location_reseted():
 
 #need to save location_index
 func advance_location():
-	location_index += 1
+	if upcoming_locations[location_index].get_script() != current_area.get_script() and not upcoming_locations[location_index] is Zone:
+		upcoming_locations.remove(location_index)
+		current_area.total_locations -= 1
+	else:
+		location_index += 1
+		
 	if location_index == current_area.total_locations:
 		current_area = current_area.NEXT_AREA.new()
 		current_event = current_area
 		generate_locations()
 	
 	
-	if upcoming_locations[location_index] is Enemy and game_screen.selected_tarot_card.get("SNEAKING"):
+	
+	if upcoming_locations[location_index] is Enemy and game_screen.selected_tarot_card.get("SNEAKING") and location_index != upcoming_locations.size() - 1:
 		current_event = current_area
 	else:
 		current_event = upcoming_locations[location_index]

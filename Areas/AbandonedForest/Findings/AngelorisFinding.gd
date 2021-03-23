@@ -1,3 +1,4 @@
+class_name AngelorisFinding
 
 const NAME = "an angeloris"
 

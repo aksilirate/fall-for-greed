@@ -88,9 +88,6 @@ func character_attack():
 			yield(self, "death_message_finished")
 			game_screen.animation_player.play("Show Screen")
 			
-			game_screen.area.upcoming_locations.remove(game_screen.area.location_index)
-			game_screen.area.location_index -= 1
-			
 			game_screen.area._on_location_reseted()
 			if enemy.has_method("death_curse"):
 				enemy.death_curse(game_screen)
@@ -127,6 +124,7 @@ func enemy_attack():
 			_damage = _damage * 2
 			
 		_character.character_reference.stats["health"] -= _damage
+		enemy.call("hit_effect", _character)
 		hit(_character, _damage)
 		
 		tween.interpolate_property($Enemy, "rect_position", $Enemy.rect_position, ENEMY_ORIGIN, 0.3, Tween.TRANS_EXPO)

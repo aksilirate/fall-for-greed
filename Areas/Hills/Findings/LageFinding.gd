@@ -1,3 +1,4 @@
+class_name LageFinding
 
 const NAME = "a lage"
 

@@ -1,3 +1,4 @@
+class_name NilonFinding
 
 const NAME = "a nilon"
 

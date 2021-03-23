@@ -1,3 +1,4 @@
+class_name ShiitakeShroomsFinding
 
 const NAME = "shiitake mushrooms"
 

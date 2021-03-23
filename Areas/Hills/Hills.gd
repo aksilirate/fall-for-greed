@@ -12,8 +12,8 @@ const TEXTURES = [
 ]
 
 const FINDINGS = [
-	"res://Areas/Hills/Findings/LageFinding.gd",
-	"res://Areas/Hills/Findings/NilonFinding.gd"
+	LageFinding,
+	NilonFinding
 ]
 
 const ZONES = [
@@ -22,7 +22,8 @@ const ZONES = [
 	]
 
 const ENEMIES = [
-	GoblinScout
+	GoblinScout,
+	Snake
 	]
 
 const NPCS = []

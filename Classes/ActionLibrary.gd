@@ -430,7 +430,7 @@ func search_for_item(_minutes_passed):
 		
 		randomize()
 		var index = round(rand_range(0,area.current_area.FINDINGS.size()-1))
-		_finding = load(area.current_area.FINDINGS[index]).new()
+		_finding = area.current_area.FINDINGS[index].new()
 		var finding_name = _finding.NAME
 		
 		upcoming_stories.push_back("you have found " + str(finding_name))
