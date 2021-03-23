@@ -216,7 +216,8 @@ func calculate_luck(_character):
 		_total_luck = _character.stats["luck"]
 		
 	if area.current_event is load("res://Areas/AbandonedForest/AbandonedForest.gd") as Script:
-		if _total_luck < rand_range(-1 / _character.mistakes.count("step on thorn"),0):
+		
+		if _total_luck < rand_range(-1 / max(_character.mistakes.count("step on thorn"),0.001),0):
 			upcoming_stories.push_back(_character.character_name + " has stepped on a thorn by accident")
 			var _effect = Effect.new()
 			var _bleed = Bleed.new()
