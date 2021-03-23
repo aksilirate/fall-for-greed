@@ -10,6 +10,7 @@ extends Node
 
 
 func _ready():
+# warning-ignore:return_value_discarded
 	get_tree().connect("node_removed", self, "_on_node_removed")
 	
 	var world_environment = WorldEnvironment.new()
@@ -21,5 +22,6 @@ func _ready():
 var new_game_ready := false
 func _on_node_removed(_node):
 	if _node is GameScreen and new_game_ready:
+# warning-ignore:return_value_discarded
 		get_tree().change_scene("res://Scenes/GameScreen/GameScreen.tscn")
 		new_game_ready = false
