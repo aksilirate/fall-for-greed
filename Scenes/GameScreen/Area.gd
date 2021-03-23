@@ -1,5 +1,6 @@
 extends Node
 
+onready var game_screen = get_parent().get_parent()
 onready var animation_player: AnimationPlayer = owner.get_node("AnimationPlayer")
 onready var history_label = owner.get_node("HistoryLabel")
 onready var story_texture = owner.get_node("StoryTexture")
@@ -131,15 +132,20 @@ func _on_location_reseted():
 
 
 
+
 #need to save location_index
-func _on_location_advanced():
+func advance_location():
 	location_index += 1
 	if location_index == current_area.total_locations:
 		current_area = current_area.NEXT_AREA.new()
 		current_event = current_area
 		generate_locations()
 	
-	current_event = upcoming_locations[location_index]
+	
+	if upcoming_locations[location_index] is Enemy and game_screen.selected_tarot_card.get("SNEAKING"):
+		current_event = current_area
+	else:
+		current_event = upcoming_locations[location_index]
 	
 	
 	if current_event.get_script() == current_area.get_script():
@@ -155,7 +161,10 @@ func _on_location_advanced():
 	update_story_info()
 	update_actions()
 	save_game()
-	
+
+
+
+
 	
 func update_story_info():
 	rand.randomize()

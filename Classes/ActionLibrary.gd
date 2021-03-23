@@ -13,7 +13,6 @@ signal summon_character(_character)
 signal kill_character(_character)
 signal story_telling_started
 signal story_telling_finished
-signal location_advanced
 signal location_reseted
 
 
@@ -29,8 +28,6 @@ func _ready():
 	connect("kill_character", game_screen, "_on_character_death")
 # warning-ignore:return_value_discarded
 	connect("summon_character", game_screen, "_on_summon_character")
-# warning-ignore:return_value_discarded
-	connect("location_advanced", area, "_on_location_advanced")
 # warning-ignore:return_value_discarded
 	connect("location_reseted", area , "_on_location_reseted")
 # warning-ignore:return_value_discarded
@@ -73,6 +70,7 @@ func emit_story_telling(_main_story):
 	
 	if story.tarot_prophecy_ready:
 		game_screen.load_card_picking_scene()
+		story.tarot_prophecy_ready = false
 	elif show_screen:
 		animation_player.play("Show Screen")
 	upcoming_stories.clear()
@@ -280,11 +278,12 @@ func emit_location_advanced():
 	
 	if area.location_index + 1 < area.upcoming_locations.size():
 		var next_location = area.upcoming_locations[area.location_index + 1]
-		if next_location.get_script() == area.current_area.get_script():
-			if rand_range(0,1) < 0.67:
-				locations_to_advance += 1
-				randomize()
-				_minutes_passed += floor(rand_range(13,56))
+		if not game_screen.selected_tarot_card.get("SNEAKING"):
+			if next_location.get_script() == area.current_area.get_script():
+				if rand_range(0,1) < 0.67:
+					locations_to_advance += 1
+					randomize()
+					_minutes_passed += floor(rand_range(13,56))
 		else:
 			if rand_range(0,1) < 0.01:
 				upcoming_stories.push_back("you think you saw something")
@@ -302,7 +301,7 @@ func emit_location_advanced():
 	emit_signal("ready_to_advance", _minutes_passed)
 	yield(self,"story_telling_started")
 	while locations_to_advance > 0:
-		emit_signal("location_advanced")
+		area.advance_location()
 		locations_to_advance -= 1
 		
 	

@@ -126,9 +126,11 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 func _on_AnimationPlayer_animation_started(anim_name):
 	if anim_name == "Load":
 		$TarotCardTexture.texture = load(selected_tarot_card.TEXTURE)
+		emit_signal("story_selected")
+		
 	if anim_name == "Show Screen":
 		$TarotCardTexture.texture = load(selected_tarot_card.TEXTURE)
-
+		emit_signal("story_selected")
 
 
 func save_game():
