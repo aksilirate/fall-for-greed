@@ -1,8 +1,10 @@
 extends Control
 
 const TAROT_CARDS = [
+	EmpressCard,
 	EmperorCard,
 	HermitCard,
+	StrengthCard,
 	DeathCard
 ]
 
@@ -14,7 +16,9 @@ func _init():
 	visible = false
 
 func _ready():
-	tarot_cards_cache = TAROT_CARDS
+	tarot_cards_cache = [] + TAROT_CARDS
+	print(TAROT_CARDS)
+	print(tarot_cards_cache)
 	$AnimationPlayer.play("Load")
 	
 

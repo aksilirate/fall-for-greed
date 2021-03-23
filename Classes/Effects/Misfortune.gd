@@ -11,7 +11,7 @@ func effect(_effect: Effect, _minutes_passed):
 
 
 func activation_effect(_effect: Effect):
-	_effect.get_parent().stats["misfortune"] += 0.3
+	_effect.get_parent().stats["luck"] -= 0.3
 	
 func deactivation_effect(_effect: Effect):
-	_effect.get_parent().stats["misfortune"] -= 0.3
+	_effect.get_parent().stats["luck"] += 0.3

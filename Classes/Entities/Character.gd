@@ -44,7 +44,7 @@ var stats = {
 	"hunger": 1,
 	"energy": 1,
 	"loneliness": 1,
-	"misfortune" : 0,
+	"luck" : 0
 } setget set_stats
 
 var traits = {

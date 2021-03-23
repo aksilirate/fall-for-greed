@@ -137,7 +137,7 @@ func calculate_character_turn(_character, _energy_cost, _minutes_passed):
 	calculate_character_effects(_character, _minutes_passed)
 	calculate_loneliness(_character, _minutes_passed)
 	calculate_mood(_character, _minutes_passed)
-	calculate_misfortune(_character)
+	calculate_luck(_character)
 	
 	
 	var _hunger_check = _character.get_hunger_status()
@@ -208,9 +208,15 @@ func calculate_loneliness(_character, _minutes_passed):
 
 
 
-func calculate_misfortune(_character):
+func calculate_luck(_character):
+	var _total_luck: float
+	if game_screen.selected_tarot_card.get("LUCK"):
+		_total_luck = _character.stats["luck"] + 0.37
+	else:
+		_total_luck = _character.stats["luck"]
+		
 	if area.current_event is load("res://Areas/AbandonedForest/AbandonedForest.gd") as Script:
-		if _character.stats.misfortune > rand_range(0,1 * (_character.mistakes.count("step on thorn") + 1)):
+		if _total_luck < rand_range(-1 / (_character.mistakes.count("step on thorn") + 1),0):
 			upcoming_stories.push_back(_character.character_name + " has stepped on a thorn by accident")
 			var _effect = Effect.new()
 			var _bleed = Bleed.new()
