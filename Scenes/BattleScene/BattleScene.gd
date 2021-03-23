@@ -124,7 +124,10 @@ func enemy_attack():
 			_damage = _damage * 2
 			
 		_character.character_reference.stats["health"] -= _damage
-		enemy.call("hit_effect", _character.character_reference)
+		
+		if enemy.has_method("hit_effect"):
+			enemy.call("hit_effect", _character.character_reference)
+			
 		hit(_character, _damage)
 		
 		tween.interpolate_property($Enemy, "rect_position", $Enemy.rect_position, ENEMY_ORIGIN, 0.3, Tween.TRANS_EXPO)

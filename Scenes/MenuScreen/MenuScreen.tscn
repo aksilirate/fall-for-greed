@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Theme.tres" type="Theme" id=1]
 [ext_resource path="res://Scenes/MenuScreen/QuitLabel.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/MenuScreen/OptionsLabel.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/MenuScreen/NewGameLabel.gd" type="Script" id=4]
 
 [node name="MenuScreen" type="Control"]
 anchor_right = 1.0
@@ -33,6 +34,7 @@ margin_bottom = -9.5
 mouse_filter = 0
 text = "New game"
 align = 1
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -70,5 +72,6 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="pressed" from="NewGameLabel" to="NewGameLabel" method="_on_NewGameLabel_pressed"]
 [connection signal="pressed" from="OptionsLabel" to="OptionsLabel" method="_on_OptionsLabel_pressed"]
 [connection signal="pressed" from="QuitLabel" to="QuitLabel" method="_on_QuitLabel_pressed"]
