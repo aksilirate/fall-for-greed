@@ -17,8 +17,6 @@ func _init():
 
 func _ready():
 	tarot_cards_cache = [] + TAROT_CARDS
-	print(TAROT_CARDS)
-	print(tarot_cards_cache)
 	$AnimationPlayer.play("Load")
 	
 
