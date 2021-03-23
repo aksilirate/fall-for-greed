@@ -119,15 +119,15 @@ func enemy_attack():
 		
 	else:
 		yield(get_tree().create_timer(0.19), "timeout")
-		if fool:
-			var _damage = enemy.DAMAGE / 1.98
-			_character.character_reference.stats["health"] -= _damage
-			hit(_character, _damage)
-		else:
-			var _damage = enemy.DAMAGE
-			_character.character_reference.stats["health"] -= enemy.DAMAGE
-			hit(_character, _damage)
+		var _damage = enemy.DAMAGE
 		
+		if fool:
+			 _damage = _damage/ 1.98
+		if game_screen.selected_tarot_card.get("DEATH"):
+			_damage = _damage * 2
+			
+		_character.character_reference.stats["health"] -= _damage
+		hit(_character, _damage)
 		
 		tween.interpolate_property($Enemy, "rect_position", $Enemy.rect_position, ENEMY_ORIGIN, 0.3, Tween.TRANS_EXPO)
 		tween.start()
