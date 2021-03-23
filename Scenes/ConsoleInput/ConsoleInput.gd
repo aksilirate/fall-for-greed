@@ -26,6 +26,9 @@ func _on_ConsoleInput_text_changed(new_text):
 				"Nausea":
 					_character.add_effect(Nausea.new())
 					text = ""
+				"Poison":
+					_character.add_effect(Poison.new())
+					text = ""
 
 
 

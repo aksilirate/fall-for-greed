@@ -190,6 +190,16 @@ _global_script_classes=[ {
 "path": "res://Classes/TarotCards/EmpressCard.gd"
 }, {
 "base": "Reference",
+"class": "EnderaFinding",
+"language": "GDScript",
+"path": "res://Areas/Hills/Findings/EnderaFinding.gd"
+}, {
+"base": "Reference",
+"class": "EnderaItem",
+"language": "GDScript",
+"path": "res://Classes/Items/EnderaItem.gd"
+}, {
+"base": "Reference",
 "class": "Enemy",
 "language": "GDScript",
 "path": "res://Classes/Entities/Enemy.gd"
@@ -541,6 +551,8 @@ _global_script_class_icons={
 "Effect": "",
 "EmperorCard": "",
 "EmpressCard": "",
+"EnderaFinding": "",
+"EnderaItem": "",
 "Enemy": "",
 "EnterAction": "",
 "FallenBranchFinding": "",

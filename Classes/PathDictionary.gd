@@ -11,6 +11,6 @@ const BEAR_ENEMY := "res://Areas/AbandonedForest/Enemies/Bear.gd"
 const ROWAN_SMITH_NPC := "res://Areas/AbandonedForest/NPCs/RowanSmithNPC.gd"
 
 const GOBLIN_SCOUT_ENEMY := "res://Areas/Hills/Enemies/GoblinScout.gd"
-
+const SNAKE_ENEMY := "res://Areas/Hills/Enemies/Snake.gd"
 
 const SAVE_PATH := "user://Save.cfg"

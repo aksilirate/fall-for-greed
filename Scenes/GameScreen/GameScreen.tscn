@@ -138,7 +138,7 @@ tracks/1/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=3]
 resource_name = "Hide Tarot Card"
 length = 0.15
 step = 0.05
@@ -155,7 +155,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 length = 3.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("StoryFrame:modulate")
@@ -362,8 +362,7 @@ tracks/16/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "Show Actions"
+[sub_resource type="Animation" id=5]
 length = 0.17
 step = 0.01
 tracks/0/type = "value"
@@ -391,8 +390,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "Show History"
+[sub_resource type="Animation" id=6]
 length = 0.09
 step = 0.01
 tracks/0/type = "value"
@@ -420,7 +418,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 length = 0.15
 step = 0.05
 tracks/0/type = "value"
@@ -484,7 +482,7 @@ tracks/4/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=8]
 length = 0.6
 tracks/0/type = "value"
 tracks/0/path = NodePath("BlackScreen:modulate")
@@ -573,12 +571,12 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 "anims/Hide Information" = SubResource( 1 )
 "anims/Hide Screen" = SubResource( 2 )
-"anims/Hide Tarot Card" = SubResource( 8 )
-anims/Load = SubResource( 3 )
-"anims/Show Actions" = SubResource( 4 )
-"anims/Show History" = SubResource( 5 )
-"anims/Show Information" = SubResource( 6 )
-"anims/Show Screen" = SubResource( 7 )
+"anims/Hide Tarot Card" = SubResource( 3 )
+anims/Load = SubResource( 4 )
+"anims/Show Actions" = SubResource( 5 )
+"anims/Show History" = SubResource( 6 )
+"anims/Show Information" = SubResource( 7 )
+"anims/Show Screen" = SubResource( 8 )
 "anims/Show Tarot Card" = SubResource( 9 )
 
 [node name="ProfileTexture" type="TextureRect" parent="."]

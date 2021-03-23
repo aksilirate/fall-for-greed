@@ -25,13 +25,15 @@ func _ready():
 func apply_effect(_minutes_passed):
 	
 	if deactivation_minute != 0 and active_minutes >= deactivation_minute:
-		active_effect.deactivation_effect(self)
+		if active_effect.has_method("deactivation_effect"):
+			active_effect.deactivation_effect(self)
 		queue_free()
 	
 	elif active_minutes >= activation_minute:
 		var _result = active_effect.effect(self, _minutes_passed)
 		if not activation_effect_activated:
-			active_effect.activation_effect(self)
+			if active_effect.has_method("activation_effect"):
+				active_effect.activation_effect(self)
 			activation_effect_activated = true
 		if _result:
 			return _result

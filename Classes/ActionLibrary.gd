@@ -530,6 +530,9 @@ func eat():
 	_character.stats["hunger"] += _selected_item.CALORIES
 	_character.stats["mood"] += _selected_item.CALORIES / 2.6
 	
+	if _selected_item.has_method("on_eat"):
+		_selected_item.call("on_eat", _character)
+	
 	if _selected_item.get("effects") and _selected_item.effects:
 		for _effect in _selected_item.effects:
 			_character.add_effect(_effect)

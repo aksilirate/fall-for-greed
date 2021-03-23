@@ -13,7 +13,8 @@ const TEXTURES = [
 
 const FINDINGS = [
 	LageFinding,
-	NilonFinding
+	NilonFinding,
+	EnderaFinding
 ]
 
 const ZONES = [

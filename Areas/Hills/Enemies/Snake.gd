@@ -30,5 +30,4 @@ func hit_effect(_character):
 	var poison = Poison.new()
 	poison.deactivation_minute = 10080
 	effect.active_effect = poison
-
 	_character.add_child(effect)
