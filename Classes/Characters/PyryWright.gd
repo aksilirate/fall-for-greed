@@ -16,3 +16,5 @@ const STARTING_ITEMS = [
 
 const FOCUS = 0.3
 const COMBAT = 0.3
+
+const EAST_ACTION = SummonTheWitchAction

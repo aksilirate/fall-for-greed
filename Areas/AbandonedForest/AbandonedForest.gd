@@ -45,4 +45,4 @@ func _init():
 	
 func randomize_total_locations():
 	randomize()
-	return round(rand_range(60,100))
+	return round(rand_range(30,60))

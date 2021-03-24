@@ -2,8 +2,8 @@ extends ActionLibrary
 class_name SummonTheWitchAction
 
 
-
-
+const TEXTURE = "res://Textures/Actions/Summon Witch.png"
+const TOOLTIP := "summon the witch"
 
 
 func _ready():

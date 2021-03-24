@@ -464,11 +464,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Classes/Actions/TakeAction.gd"
 }, {
-"base": "ActionLibrary",
-"class": "TakeEyeAction",
-"language": "GDScript",
-"path": "res://Classes/Actions/TakeEyeAction.gd"
-}, {
 "base": "Reference",
 "class": "TarotCard",
 "language": "GDScript",
@@ -606,7 +601,6 @@ _global_script_class_icons={
 "SummonTheWitchAction": "",
 "Swamp": "",
 "TakeAction": "",
-"TakeEyeAction": "",
 "TarotCard": "",
 "TextureRectButton": "",
 "Time": "",

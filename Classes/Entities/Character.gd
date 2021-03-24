@@ -67,7 +67,8 @@ func _ready():
 	character_name = current_character.NAME
 	story = current_character.STORY
 	name = character_name
-
+	
+	east_action = current_character.get("EAST_ACTION")
 
 	for _effect in saved_effects:
 		add_child(_effect)
@@ -155,8 +156,6 @@ func update_actions() -> void:
 	else:
 		left_action = null
 		
-	right_action = null
-	east_action = null
 		
 		
 	
