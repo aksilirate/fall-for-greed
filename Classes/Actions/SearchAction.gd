@@ -20,12 +20,19 @@ func _ready():
 			queue_free()
 			
 		else:
-			
+			var action_execution_issues = action_execution_issues()
+			if action_execution_issues is bool and action_execution_issues == true:
+				var _minutes_passed = time_choice_scroll.value
+				var _energy_cost = 0.00096 * _minutes_passed
+				var search_for_item = search_for_item(_minutes_passed)
+				calculate_turn(_energy_cost, _minutes_passed)
+				yield(search_for_item, "completed")
+				time_choice_scroll.active = false
+				queue_free()
+			else:
+				var _main_story = action_execution_issues + " to search"
+				var emit_story_telling = emit_story_telling(_main_story)
+				yield(emit_story_telling, "completed")
+				queue_free()
 			randomize()
-			var _minutes_passed = time_choice_scroll.value
-			var _energy_cost = 0.008 * _minutes_passed
 
-			var search_for_item = search_for_item(_minutes_passed)
-			yield(search_for_item, "completed")
-			time_choice_scroll.active = false
-			queue_free()

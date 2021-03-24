@@ -227,7 +227,7 @@ func update_actions():
 		if current_event.RIGHT_ACTION == ChangeDirectionAction:
 			var tired_character = false
 			for _character in owner.characters.get_children():
-				if _character.stats["energy"] < 0.5:
+				if _character.hormones["melatonin"] > 0.83:
 					tired_character = true
 					
 			if tired_character:

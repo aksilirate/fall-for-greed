@@ -23,7 +23,7 @@ func _ready():
 			var _minutes_passed = time_choice_scroll.value
 			var _energy_cost = 0
 			var _main_story = "you have waited for " + str(_minutes_passed) + " minutes"
-
+			refill_energy(_minutes_passed)
 			var emit_story_telling = emit_story_telling(_main_story)
 			calculate_turn(_energy_cost, _minutes_passed)
 

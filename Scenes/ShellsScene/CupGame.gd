@@ -117,7 +117,7 @@ func _on_cup_selected(_cup):
 	$Heart.visible = false
 	heart_found = false
 	
-	if rand_range(0,speed) < owner.enemy.DAMAGE:
+	if rand_range(0,speed) < min(speed,owner.enemy.DAMAGE) / 3:
 		var story = get_tree().get_nodes_in_group("story").front()
 		var _current_artifact = story.current_artifact
 		if _current_artifact != null and _current_artifact.get("ANTI_FOOL"):

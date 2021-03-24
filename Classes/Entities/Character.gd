@@ -47,10 +47,13 @@ var stats = {
 	"luck" : 0
 } setget set_stats
 
+var hormones = {
+	"melatonin": 0.0
+} setget set_hormones
+
 var traits = {
 	"focus": 0.0,
-	"combat": 0.0,
-	"fleetness": 0.0
+	"combat": 0.0
 } setget set_traits
 
 
@@ -92,17 +95,26 @@ func get_hunger_status():
 	
 func get_energy_status():
 	if stats.energy < 0.3:
-		return "sleepy"
+		return "exhausted"
 	elif stats.energy < 0.5:
 		return "tired"
-		
-	
+
+func get_melatonin_status():
+	if hormones.melatonin > 0.83:
+		return "sleepy"
+
+
+
 func set_stats(_value):
 	stats = _value
 	save_character()
 	
 func set_traits(_value):
 	traits = _value
+	save_character()
+	
+func set_hormones(_value):
+	hormones = _value
 	save_character()
 	
 func set_inventory(_value):

@@ -1,6 +1,7 @@
 extends VBoxContainer
 
 
+onready var game_screen = get_parent()
 
 func _on_character_selected():
 	for _child in get_children():
@@ -18,8 +19,9 @@ func add_threat(_name):
 func display_threats():
 	
 	
-	var hunger_status = owner.last_selected_character.get_hunger_status()
-	var energy_status = owner.last_selected_character.get_energy_status()
+	var hunger_status = game_screen.last_selected_character.get_hunger_status()
+	var energy_status = game_screen.last_selected_character.get_energy_status()
+	var melatonin_status = game_screen.last_selected_character.get_melatonin_status()
 	
 	if hunger_status:
 		add_threat(hunger_status)
@@ -42,7 +44,9 @@ func display_threats():
 
 	if energy_status:
 		add_threat(energy_status)
-
+	
+	if melatonin_status:
+		add_threat(melatonin_status)
 
 	for _active_effect in owner.last_selected_character.active_effects:
 		add_threat(_active_effect)

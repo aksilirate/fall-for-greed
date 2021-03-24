@@ -65,8 +65,8 @@ func emit_story_telling(_main_story):
 		
 	emit_signal("story_telling_started")
 	run_through_upcoming_stories()
-	area.update_actions()
 	yield(self,"story_telling_finished")
+	area.update_actions()
 	
 	if story.tarot_prophecy_ready:
 		game_screen.load_card_picking_scene()
@@ -103,6 +103,14 @@ func show_story_label(_story):
 
 #----------------------------------- [ ^ STORY ^ ] ---------------------------------
 
+func action_execution_issues():
+	for _character in get_tree().get_nodes_in_group("characters"):
+		if _character.hormones["melatonin"] >  0.83:
+			return _character.character_name + " is too sleepy"
+		elif _character.stats["energy"] < 0.3:
+			return _character.character_name + " too exhausted"
+				
+	return true
 
 
 #------------------------------- [ v CALCULATIONS v ] ----------------------------------
@@ -136,6 +144,7 @@ func calculate_character_effects(_character, _minutes_passed):
 func calculate_character_turn(_character, _energy_cost, _minutes_passed):
 	calculate_character_effects(_character, _minutes_passed)
 	calculate_loneliness(_character, _minutes_passed)
+	calculate_melatonin(_character, _minutes_passed)
 	calculate_mood(_character, _minutes_passed)
 	calculate_luck(_character)
 	
@@ -147,7 +156,7 @@ func calculate_character_turn(_character, _energy_cost, _minutes_passed):
 	_character.stats["health"] += _health_gained
 	if _character.stats["health"] > 1.0:
 		_character.stats["health"] = 1.0
-	_character.stats["hunger"] -= (_energy_cost / 3) + _health_gained
+	_character.stats["hunger"] -= (_energy_cost / 3.42) + _health_gained
 	_character.stats["energy"] -= _energy_cost
 	
 	
@@ -161,10 +170,10 @@ func calculate_character_turn(_character, _energy_cost, _minutes_passed):
 	
 	
 	
-	if _character.stats["energy"] <= 0:
-		upcoming_stories.push_back(_character.character_name + " has fallen asleep")
-		pass_out()
-		_character.stats["energy"] = 0.67
+#	if _character.stats["energy"] <= 0:
+#		upcoming_stories.push_back(_character.character_name + " has fallen asleep")
+#		pass_out()
+#		_character.stats["energy"] = 0.67
 		
 	if _character.stats["health"] <= 0 or _character.stats["hunger"] <= 0:
 		upcoming_stories.push_back(_character.character_name + " have died")
@@ -206,6 +215,15 @@ func calculate_loneliness(_character, _minutes_passed):
 		_character.stats["loneliness"] -= _minutes_passed / 1056
 		
 
+
+
+func calculate_melatonin(_character, _minutes_passed):
+	var _melatonin_check = _character.get_melatonin_status()
+	var hour = Time.get_formatted_time("hour", story.minutes_passed)
+	_character.hormones["melatonin"] += (0.00011277497 * _minutes_passed) * hour
+	if _melatonin_check != _character.get_melatonin_status():
+		var _updated_melatonin_check = _character.get_melatonin_status()
+		upcoming_stories.push_back(_character.character_name + " is " + _updated_melatonin_check)
 
 
 func calculate_luck(_character):
@@ -334,14 +352,16 @@ func sleep():
 var sleep_story_shown = false
 func execute_sleep(_character):
 	var emit_story_telling
-	if _character.stats["energy"] < 0.5:
+	if _character.hormones["melatonin"] > 0.83:
 		if not sleep_story_shown:
 			emit_story_telling = emit_story_telling("you have slept for " + str(round(calculate_sleep_time())) + " hours")
 			yield(self,"story_telling_started")
 			
 		if area.current_event.get_class() == "CampfireEvent":
+			_character.hormones["melatonin"] = 0.0
 			_character.stats["energy"] = 1.0
 		else:
+			_character.hormones["melatonin"] = 0.024
 			_character.stats["energy"] = 0.8
 			
 		if not sleep_story_shown:
@@ -351,32 +371,35 @@ func execute_sleep(_character):
 	if not sleep_story_shown and emit_story_telling:
 		yield(emit_story_telling, "completed")
 		sleep_story_shown = true
-	
+
+
+
+
 func calculate_sleep_time():
-	var _character_with_lowest_energy
+	var _character_with_highest_melotonin
 	
 	if executer is Object:
-		_character_with_lowest_energy = executer
+		_character_with_highest_melotonin = executer
 	else:
 		for _character in executer:
-			if not _character_with_lowest_energy:
-				 _character_with_lowest_energy = _character
-			elif _character.stats["energy"] < _character_with_lowest_energy.stats["energy"]:
-				_character_with_lowest_energy = _character
-				
+			if not _character_with_highest_melotonin:
+				 _character_with_highest_melotonin = _character
+			elif _character.hormones["melatonin"] > _character_with_highest_melotonin.hormones["melatonin"]:
+				_character_with_highest_melotonin = _character
 				
 	randomize()
 	
-	var energy_regain: float
-	if _character_with_lowest_energy.stats["energy"] < 0.1:
-		energy_regain = rand_range(0.09,0.1)
+	var melatonin_loss: float
+	if _character_with_highest_melotonin.hormones["melatonin"] > 0.9:
+		melatonin_loss = rand_range(0.09,0.1)
 	else:
-		energy_regain = rand_range(0.1,0.125)
+		melatonin_loss = rand_range(0.0833,0.0793)
 		
-	var _hours_passed = (1.0 - _character_with_lowest_energy.stats["energy"]) / energy_regain
+	var _hours_passed = _character_with_highest_melotonin.hormones["melatonin"] / melatonin_loss
 	
 	return _hours_passed
-	
+
+
 
 func pass_out():
 	if not character_passed_out:
@@ -384,11 +407,14 @@ func pass_out():
 		upcoming_stories.push_back(str(round(calculate_sleep_time())) + " hours have passed")
 		add_to_minutes_passed(round(calculate_sleep_time() * 60))
 
+
+
 func had_nightmare(_character):
 	if _character.stats["energy"] < 0.5:
 		if rand_range(0,1) < 0.09:
 			_character.stats["mood"] -= 0.05
 			upcoming_stories.push_back(_character.character_name + " had a nightmare")
+
 
 #----------------------------------------- [ ^ SLEEP ^ ] -----------------------------------------
 
@@ -582,6 +608,17 @@ func drop_selected_item():
 	game_screen.selected.modulate.a = 1.0
 	get_parent().modulate.a = 1.0
 	game_screen.selected = null
+
+
+func refill_energy(_minutes_passed):
+	yield(self,"story_telling_started")
+	if executer is Object:
+		executer.stats["energy"] += min(1.0,_minutes_passed * 0.1)
+	else:
+		for _character in executer:
+			if _character:
+				_character.stats["energy"] += min(1.0,_minutes_passed * 0.1)
+
 
 func heal():
 	var _selected_item = game_screen.selected.item
