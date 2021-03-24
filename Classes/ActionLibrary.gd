@@ -354,8 +354,10 @@ func execute_sleep(_character):
 	var emit_story_telling
 	if _character.hormones["melatonin"] > 0.83:
 		if not sleep_story_shown:
-			emit_story_telling = emit_story_telling("you have slept for " + str(round(calculate_sleep_time())) + " hours")
+			var calculated_sleep_time = round(calculate_sleep_time())
+			emit_story_telling = emit_story_telling("you have slept for " + str(calculated_sleep_time) + " hours")
 			yield(self,"story_telling_started")
+			add_to_minutes_passed(round(calculated_sleep_time * 60))
 			
 		if area.current_event.get_class() == "CampfireEvent":
 			_character.hormones["melatonin"] = 0.0
@@ -364,8 +366,7 @@ func execute_sleep(_character):
 			_character.hormones["melatonin"] = 0.024
 			_character.stats["energy"] = 0.8
 			
-		if not sleep_story_shown:
-			add_to_minutes_passed(round(calculate_sleep_time() * 60))
+			
 
 			
 	if not sleep_story_shown and emit_story_telling:

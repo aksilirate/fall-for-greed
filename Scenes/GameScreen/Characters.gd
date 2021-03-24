@@ -54,6 +54,8 @@ func summon_character(_character_type: Object):
 	_character.stats["energy"] = rand_range(0.5,1)
 	_character.stats["loneliness"] = rand_range(0.5,1)
 	
+	_character.hormones["melatonin"] = rand_range(0.0,0.024)
+	
 	if _character_type.get("FOCUS"):
 		_character.traits["focus"] = _character_type.FOCUS
 	if _character_type.get("COMBAT"):
