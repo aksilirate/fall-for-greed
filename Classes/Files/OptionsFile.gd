@@ -18,11 +18,15 @@ func get_Option(_key: String):
 
 
 func assign_Default_Options():
+	if get_Option("master_volume") == null:
+		save_Option("master_volume", 0)
 	if get_Option("fullscreen") == null:
 		save_Option("fullscreen", false)
 	if get_Option("prologue") == null:
 		save_Option("prologue", true)
+
 		
 		
 func apply_Options():
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), get_Option("master_volume"))
 	OS.window_fullscreen = get_Option("fullscreen")

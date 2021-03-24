@@ -1,6 +1,6 @@
 extends CheckBox
 
-var OptionsConfigFile = OptionsFile.new()
+
 
 
 
@@ -11,6 +11,7 @@ func _ready():
 
 
 func _on_FullscreenCheckBox_toggled(button_pressed):
+	var OptionsConfigFile = OptionsFile.new()
 	if button_pressed:
 		OS.window_fullscreen = true
 		OptionsConfigFile.save_Option("fullscreen", true)

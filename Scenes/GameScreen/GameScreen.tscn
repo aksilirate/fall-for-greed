@@ -986,8 +986,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TimeChoiceScroll" type="HScrollBar" parent="." groups=[
-"time_choice_scroll",
+[node name="TimeChoiceSlider" type="HSlider" parent="." groups=[
+"time_choice_slider",
 ]]
 visible = false
 anchor_top = 0.00074687
@@ -999,15 +999,11 @@ margin_bottom = 187.845
 theme = ExtResource( 1 )
 min_value = 1.0
 max_value = 10.0
-step = 1.0
 value = 1.0
 rounded = true
 script = ExtResource( 21 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="TimeChoiceLabel" type="Label" parent="TimeChoiceScroll"]
+[node name="TimeChoiceLabel" type="Label" parent="TimeChoiceSlider"]
 margin_left = 0.668182
 margin_top = 6.4364
 margin_right = 130.668
@@ -1071,4 +1067,4 @@ __meta__ = {
 [connection signal="gui_input" from="Actions/EastAction" to="Actions/EastAction" method="_on_EastAction_gui_input"]
 [connection signal="mouse_entered" from="Actions/EastAction" to="Actions/EastAction" method="_on_EastAction_mouse_entered"]
 [connection signal="mouse_exited" from="Actions/EastAction" to="Actions/EastAction" method="_on_EastAction_mouse_exited"]
-[connection signal="value_changed" from="TimeChoiceScroll" to="TimeChoiceScroll" method="_on_TimeChoiceScroll_value_changed"]
+[connection signal="value_changed" from="TimeChoiceSlider" to="TimeChoiceSlider" method="_on_TimeChoiceScroll_value_changed"]

@@ -42,9 +42,9 @@ func emit_action_pressed(event):
 
 
 func update_action(_texture, _action, _executer):
-	var time_choice_scroll = get_tree().get_nodes_in_group("time_choice_scroll").front()
-	time_choice_scroll.active = false
-	time_choice_scroll.hide()
+	var time_choice_slider = get_tree().get_nodes_in_group("time_choice_slider").front()
+	time_choice_slider.active = false
+	time_choice_slider.hide()
 	
 	if _action == null:
 		visible = false

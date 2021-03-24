@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Theme.tres" type="Theme" id=1]
 [ext_resource path="res://Scenes/OptionsScreen/ConfirmLabel.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/OptionsScreen/FullscreenCheckBox.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/OptionsScreen/PrologueCheckBox.gd" type="Script" id=4]
 [ext_resource path="res://Scenes/OptionsScreen/DeleteSaveFileLabel.gd" type="Script" id=5]
+[ext_resource path="res://Scenes/OptionsScreen/MasterVolumeSlider.gd" type="Script" id=6]
 
 [node name="OptionsScreen" type="Control"]
 anchor_right = 1.0
@@ -51,15 +52,36 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="MasterVolumeLabel" type="Label" parent="."]
+margin_left = 10.9866
+margin_top = 9.03067
+margin_right = 62.9866
+margin_bottom = 22.0307
+text = "Master Volume"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MasterVolumeSlider" type="HSlider" parent="MasterVolumeLabel"]
+margin_left = -1.0
+margin_top = 15.0
+margin_right = 109.0
+margin_bottom = 31.0
+value = 100.0
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="FullscreenLabel" type="Label" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -173.0
-margin_top = -86.5
+margin_top = -54.5
 margin_right = -137.0
-margin_bottom = -73.5
+margin_bottom = -41.5
 mouse_filter = 0
 text = "Fullscreen"
 __meta__ = {
@@ -87,9 +109,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -173.0
-margin_top = -62.5
+margin_top = -30.5
 margin_right = -143.0
-margin_bottom = -49.5
+margin_bottom = -17.5
 mouse_filter = 0
 text = "Prologue"
 __meta__ = {
@@ -112,5 +134,6 @@ __meta__ = {
 }
 [connection signal="pressed" from="ConfirmLabel" to="ConfirmLabel" method="_on_ConfirmLabel_pressed"]
 [connection signal="pressed" from="DeleteSaveFileLabel" to="DeleteSaveFileLabel" method="_on_DeleteSaveFileLabel_pressed"]
+[connection signal="value_changed" from="MasterVolumeLabel/MasterVolumeSlider" to="MasterVolumeLabel/MasterVolumeSlider" method="_on_MasterVolumeSlider_value_changed"]
 [connection signal="toggled" from="FullscreenLabel/FullscreenCheckBox" to="FullscreenLabel/FullscreenCheckBox" method="_on_FullscreenCheckBox_toggled"]
 [connection signal="toggled" from="PrologueLabel/PrologueCheckBox" to="PrologueLabel/PrologueCheckBox" method="_on_PrologueCheckBox_toggled"]

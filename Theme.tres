@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=22 format=2]
+[gd_resource type="Theme" load_steps=25 format=2]
 
 [ext_resource path="res://Fonts/munro-narrow.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Textures/Interface/Check Box Checked.png" type="Texture" id=2]
@@ -34,6 +34,14 @@ region_rect = Rect2( 0, 0, 5, 5 )
 [sub_resource type="StyleBoxTexture" id=10]
 texture = ExtResource( 4 )
 region_rect = Rect2( 0, -1, 16, 5 )
+
+[sub_resource type="StyleBoxEmpty" id=20]
+
+[sub_resource type="StyleBoxEmpty" id=19]
+
+[sub_resource type="StyleBoxTexture" id=18]
+texture = ExtResource( 4 )
+region_rect = Rect2( 0, 0, 16, 3 )
 
 [sub_resource type="StyleBoxFlat" id=11]
 bg_color = Color( 0, 0, 0, 1 )
@@ -99,6 +107,13 @@ HScrollBar/styles/grabber_highlight = SubResource( 8 )
 HScrollBar/styles/grabber_pressed = SubResource( 9 )
 HScrollBar/styles/scroll = SubResource( 10 )
 HScrollBar/styles/scroll_focus = null
+HSlider/icons/grabber = ExtResource( 5 )
+HSlider/icons/grabber_disabled = ExtResource( 5 )
+HSlider/icons/grabber_highlight = ExtResource( 6 )
+HSlider/icons/tick = null
+HSlider/styles/grabber_area = SubResource( 20 )
+HSlider/styles/grabber_area_highlight = SubResource( 19 )
+HSlider/styles/slider = SubResource( 18 )
 LineEdit/colors/clear_button_color = Color( 0.88, 0.88, 0.88, 1 )
 LineEdit/colors/clear_button_color_pressed = Color( 1, 1, 1, 1 )
 LineEdit/colors/cursor_color = Color( 0.94, 0.94, 0.94, 1 )
