@@ -103,14 +103,19 @@ func show_story_label(_story):
 
 #----------------------------------- [ ^ STORY ^ ] ---------------------------------
 
-func action_execution_issues():
+
+#----------------------------------- [ v ISSUES v ] ---------------------------------
+
+func stamina_issue():
 	for _character in get_tree().get_nodes_in_group("characters"):
 		if _character.hormones["melatonin"] >  0.83:
 			return _character.character_name + " is too sleepy"
 		elif _character.stats["energy"] < 0.3:
 			return _character.character_name + " too exhausted"
 				
-	return true
+	return false
+
+#----------------------------------- [ ^ ISSUES ^ ] ---------------------------------
 
 
 #------------------------------- [ v CALCULATIONS v ] ----------------------------------
@@ -188,7 +193,7 @@ func calculate_character_turn(_character, _energy_cost, _minutes_passed):
 	
 func calculate_mood(_character, _minutes_passed):
 	if _character.stats["health"] <= 0.5:
-		_character.stats["mood"] -= ((1 - _character.stats["health"]) / 638) * _minutes_passed
+		_character.stats["mood"] -= ((1 - _character.stats["health"]) / 678) * _minutes_passed
 	if _character.stats["hunger"] <= 0.5:
 		_character.stats["mood"] -= ((1 - _character.stats["health"]) / 741) * _minutes_passed
 	
@@ -538,11 +543,11 @@ func start_battle():
 
 
 func run():
-	var _run_chance = clamp(4 - area.current_event.SPEED, 0, 4)
+	var _run_chance = max(0,4 - area.current_event.SPEED)
 	var emit_story_telling
 	
 	randomize()
-	if rand_range(0,10) < _run_chance:
+	if rand_range(0,10) < _run_chance and not area.current_event.get("INESCAPABLE"):
 		emit_story_telling = emit_story_telling("you have ran away")
 		emit_location_advanced()
 		yield(emit_story_telling,"completed")
@@ -564,6 +569,22 @@ func eat():
 	var _selected_item = game_screen.selected.item
 	
 	_character.stats["hunger"] += _selected_item.CALORIES
+
+#	OVEREATING
+	if _character.stats["hunger"] >= 1.5:
+		var _effect = Effect.new()
+		var _nausea = Nausea.new()
+		randomize()
+		_nausea.deactivation_minute = round(rand_range(15,30))
+		_effect.active_effect = _nausea
+		_character.add_child(_effect)
+		if _character.stats["hunger"] >= 2.0:
+			upcoming_stories.push_back(_character.character_name + " have vomited")
+			_character.stats["hunger"] -= 0.3
+			_character.stats["mood"] -= 0.1
+	
+	
+	
 	_character.stats["mood"] += _selected_item.CALORIES / 2.6
 	
 	if _selected_item.has_method("on_eat"):
@@ -572,6 +593,8 @@ func eat():
 	if _selected_item.get("effects") and _selected_item.effects:
 		for _effect in _selected_item.effects:
 			_character.add_effect(_effect)
+
+
 
 func cook():
 	var rand = RandomNumberGenerator.new()

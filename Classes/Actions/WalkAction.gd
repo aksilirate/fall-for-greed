@@ -8,11 +8,11 @@ func _ready():
 # warning-ignore:return_value_discarded
 	connect("ready_to_advance", self, "_on_ready_to_advance")
 	
-	var action_execution_issues = action_execution_issues()
-	if action_execution_issues is bool and action_execution_issues == true:
+	var stamina_issue = stamina_issue()
+	if not stamina_issue:
 		emit_location_advanced()
 	else:
-		var _main_story = action_execution_issues + " to walk"
+		var _main_story = stamina_issue + " to walk"
 		var emit_story_telling = emit_story_telling(_main_story)
 		yield(emit_story_telling, "completed")
 		queue_free()

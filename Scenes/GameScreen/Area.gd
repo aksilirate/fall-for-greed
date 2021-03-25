@@ -208,7 +208,6 @@ func _on_story_selected():
 	
 func update_actions():
 	var executer = owner.get_node("Logic/Characters").get_children()
-	
 	if current_event.WEST_ACTION != null:
 		var west_action = current_event.WEST_ACTION
 		emit_signal("update_west_action",load(west_action.TEXTURE), west_action, executer)

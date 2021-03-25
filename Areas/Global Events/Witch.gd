@@ -21,7 +21,8 @@ const POWER := 30
 
 const WEST_ACTION = null
 const LEFT_ACTION = FightAction
-const RIGHT_ACTION = null
+const RIGHT_ACTION = RunAction
 const EAST_ACTION = null
 
+const INESCAPABLE := true
 

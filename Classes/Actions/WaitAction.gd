@@ -15,10 +15,18 @@ func _ready():
 				if _action_button != get_parent():
 					_action_button.update_action(null, null, null)
 					
+					
+			time_choice_slider.current_action = null
 			time_choice_slider.max_value = 10
+			time_choice_slider.current_action = "WaitAction"
+			if time_choice_slider.slider_value_memory.has("WaitAction"):
+				time_choice_slider.value = time_choice_slider.slider_value_memory["WaitAction"]
+
+
 			time_choice_slider.visible = true
 			time_choice_slider.active = true
 			queue_free()
+			
 		else:
 			randomize()
 			var _minutes_passed = time_choice_slider.value

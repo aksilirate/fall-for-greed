@@ -1053,7 +1053,6 @@ __meta__ = {
 [connection signal="gui_input" from="ActionStoryButton" to="ActionStoryButton" method="_on_ActionStoryButton_gui_input"]
 [connection signal="mouse_entered" from="ActionStoryButton" to="ActionStoryButton" method="_on_ActionStoryButton_mouse_entered"]
 [connection signal="mouse_exited" from="ActionStoryButton" to="ActionStoryButton" method="_on_ActionStoryButton_mouse_exited"]
-[connection signal="pressed" from="ArtifactLabel" to="ArtifactLabel" method="_on_pressed"]
 [connection signal="visibility_changed" from="Actions" to="Actions" method="_on_Actions_visibility_changed"]
 [connection signal="gui_input" from="Actions/WestAction" to="Actions/WestAction" method="_on_WestAction_gui_input"]
 [connection signal="mouse_entered" from="Actions/WestAction" to="Actions/WestAction" method="_on_WestAction_mouse_entered"]

@@ -26,3 +26,5 @@ const EAST_ACTION = null
 
 
 
+func _ready():
+	print(1)
