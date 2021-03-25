@@ -11,7 +11,7 @@ func _ready():
 	
 	var _character = area.current_event
 	
-	if game_screen.selected_tarot_card.get("HERMIT"):
+	if game_screen.selected_tarot_card.get_script() == HermitCard.new().get_script():
 		upcoming_stories.push_back(_character.NAME + " doesn't want to join you")
 	else:
 		upcoming_stories.push_back(_character.NAME + " have decided to join you")

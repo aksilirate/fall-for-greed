@@ -19,7 +19,9 @@ const ENEMIES = [
 	StoneGolem
 ]
 
-const NPCS = []
+const NPCS = [
+	ThomasGrandNPC
+]
 
 
 const WEST_ACTION = WaitAction

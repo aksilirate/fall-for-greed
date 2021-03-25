@@ -120,19 +120,21 @@ func enemy_attack():
 		
 	else:
 		yield(get_tree().create_timer(0.19), "timeout")
+		var _armor = _character.character_reference.stats["armor"]
 		var _damage = enemy.DAMAGE
 		
 		if fool:
 			 _damage = _damage/ 1.98
 		if game_screen.selected_tarot_card.get("DEATH"):
 			_damage = _damage * 2
-			
-		_character.character_reference.stats["health"] -= _damage
 		
-		if enemy.has_method("hit_effect"):
+		var _total_damage = max(0.034, _damage - _armor)
+		_character.character_reference.stats["health"] -= _total_damage
+		
+		if enemy.has_method("hit_effect") and _armor < 0.5:
 			enemy.call("hit_effect", _character.character_reference)
 			
-		hit(_character, _damage)
+		hit(_character, _total_damage)
 		
 		tween.interpolate_property($Enemy, "rect_position", $Enemy.rect_position, ENEMY_ORIGIN, 0.3, Tween.TRANS_EXPO)
 		tween.start()
@@ -183,7 +185,7 @@ func pick_random_character():
 		
 func hit(_target, _damage):
 	_target.get_material().set_shader_param("enabled", true)
-	$Camera2D/ScreenShake.max_offset = Vector2(_damage * 30, _damage * 30)
+	$Camera2D/ScreenShake.max_offset = Vector2(max(0.1,_damage) * 30, max(0.1,_damage) * 30)
 	$Camera2D/ScreenShake.add_trauma(1.0)
 	yield(get_tree().create_timer(0.19), "timeout")
 	_target.get_material().set_shader_param("enabled", false)

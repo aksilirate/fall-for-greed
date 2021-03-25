@@ -25,6 +25,7 @@ func _ready():
 	var save_file = SaveFile.new()
 	if  save_file.get_saved_value("Game", "selected_tarot_card"):
 		selected_tarot_card = save_file.get_saved_value("Game", "selected_tarot_card")
+		
 	
 	
 	if OS.is_debug_build():

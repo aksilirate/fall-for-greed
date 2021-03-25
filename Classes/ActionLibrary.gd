@@ -228,27 +228,24 @@ func calculate_melatonin(_character, _minutes_passed):
 
 func calculate_luck(_character):
 	var _total_luck: float
-	if game_screen.selected_tarot_card.get("LUCK"):
+	if game_screen.selected_tarot_card.get_script() == EmpressCard.new().get_script():
 		_total_luck = _character.stats["luck"] + 0.37
 	else:
 		_total_luck = _character.stats["luck"]
 		
 	if area.current_event is load("res://Areas/AbandonedForest/AbandonedForest.gd") as Script:
-		
-		if _total_luck < rand_range(-1 / max(_character.mistakes.count("step on thorn"),0.001),0):
-			upcoming_stories.push_back(_character.character_name + " has stepped on a thorn by accident")
-			var _effect = Effect.new()
-			var _bleed = Bleed.new()
-			randomize()
-			_bleed.deactivation_minute = round(rand_range(3,6))
-			_effect.active_effect = _bleed
-			_character.add_child(_effect)
-			_character.mistakes.append("step on thorn")
+		if _character.stats["armor"] < 0.3:
+			if _total_luck < rand_range(-1 / max(_character.mistakes.count("step on thorn"),0.001),0):
+				upcoming_stories.push_back(_character.character_name + " has stepped on a thorn by accident")
+				var _effect = Effect.new()
+				var _bleed = Bleed.new()
+				randomize()
+				_bleed.deactivation_minute = round(rand_range(3,6))
+				_effect.active_effect = _bleed
+				_character.add_child(_effect)
+				_character.mistakes.append("step on thorn")
 
 #------------------------------ [ ^ CALCULATIONS ^ ] ---------------------------------
-
-
-
 
 
 
@@ -334,12 +331,10 @@ func emit_location_advanced():
 func sleep():
 	var execute_sleep
 	if executer is Object:
-		had_nightmare(executer)
 		execute_sleep = execute_sleep(executer)
 		yield(execute_sleep, "completed")
 	else:
 		for _character in executer:
-			had_nightmare(_character)
 			execute_sleep = execute_sleep(_character)
 			if execute_sleep is Object:
 				yield(execute_sleep, "completed")
@@ -350,6 +345,7 @@ func sleep():
 
 var sleep_story_shown = false
 func execute_sleep(_character):
+	calculate_sleep_hazzards(_character)
 	var emit_story_telling
 	if _character.hormones["melatonin"] > 0.83:
 		if not sleep_story_shown:
@@ -373,6 +369,19 @@ func execute_sleep(_character):
 		sleep_story_shown = true
 
 
+func calculate_sleep_hazzards(_character):
+	had_nightmare(_character)
+	if not area.current_event.get_class() == "CampfireEvent":
+		if area.current_area.get("MOSQUITOES"):
+			if rand_range(0,1) < 0.678:
+				_character.stats["mood"] -= 0.05
+				upcoming_stories.push_back(_character.character_name + " has been bitten by mosquitoes")
+				var _effect = Effect.new()
+				var _mosquito_bite = MosquitoBite.new()
+				randomize()
+				_mosquito_bite.deactivation_minute = round(rand_range(720,856))
+				_effect.active_effect = _mosquito_bite
+				_character.add_child(_effect)
 
 
 func calculate_sleep_time():

@@ -40,6 +40,8 @@ const LEFT_ACTION = WalkAction
 const RIGHT_ACTION = ChangeDirectionAction
 const EAST_ACTION = SearchAction
 
+const MOSQUITOES := true
+
 func _init():
 	total_locations = randomize_total_locations()
 	

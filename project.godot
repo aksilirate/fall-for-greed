@@ -310,6 +310,11 @@ _global_script_classes=[ {
 "path": "res://Areas/Mist/Mist.gd"
 }, {
 "base": "Reference",
+"class": "MosquitoBite",
+"language": "GDScript",
+"path": "res://Classes/Effects/MosquitoBite.gd"
+}, {
+"base": "Reference",
 "class": "Mountains",
 "language": "GDScript",
 "path": "res://Areas/Mountains/Mountains.gd"
@@ -475,6 +480,16 @@ _global_script_classes=[ {
 "path": "res://Classes/Nodes/TextureRectButton.gd"
 }, {
 "base": "Reference",
+"class": "ThomasGrand",
+"language": "GDScript",
+"path": "res://Classes/Characters/ThomasGrand.gd"
+}, {
+"base": "Reference",
+"class": "ThomasGrandNPC",
+"language": "GDScript",
+"path": "res://Areas/Mountains/NPCs/ThomasGrandNPC.gd"
+}, {
+"base": "Reference",
 "class": "Time",
 "language": "GDScript",
 "path": "res://Classes/Time.gd"
@@ -570,6 +585,7 @@ _global_script_class_icons={
 "MakeCampfireAction": "",
 "Misfortune": "",
 "Mist": "",
+"MosquitoBite": "",
 "Mountains": "",
 "Nausea": "",
 "NilonFinding": "",
@@ -603,6 +619,8 @@ _global_script_class_icons={
 "TakeAction": "",
 "TarotCard": "",
 "TextureRectButton": "",
+"ThomasGrand": "",
+"ThomasGrandNPC": "",
 "Time": "",
 "WaitAction": "",
 "WalkAction": "",

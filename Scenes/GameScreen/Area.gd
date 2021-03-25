@@ -154,7 +154,9 @@ func advance_location():
 	
 	
 	
-	if upcoming_locations[location_index] is Enemy and game_screen.selected_tarot_card.get("HERMIT") and location_index != upcoming_locations.size() - 1:
+	if upcoming_locations[location_index] is Enemy and \
+	game_screen.selected_tarot_card.get_script() == HermitCard.new().get_script() and \
+	location_index != upcoming_locations.size() - 1:
 		current_event = current_area
 	else:
 		current_event = upcoming_locations[location_index]

@@ -56,10 +56,16 @@ func summon_character(_character_type: Object):
 	
 	_character.hormones["melatonin"] = rand_range(0.0,0.024)
 	
+	
+	if _character_type.get("ARMOR"):
+		_character.stats["armor"] = _character_type.ARMOR
+		
 	if _character_type.get("FOCUS"):
 		_character.traits["focus"] = _character_type.FOCUS
 	if _character_type.get("COMBAT"):
 		_character.traits["combat"] = _character_type.COMBAT
+		
+		
 		
 	if _character_type.get("STARTING_ITEMS"):
 		for _item in _character_type.STARTING_ITEMS:
