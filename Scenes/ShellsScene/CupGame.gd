@@ -148,6 +148,7 @@ func _on_cup_selected(_cup):
 		"Left":
 			if not fool:
 				if heart_location[LEFT] == true:
+					$Heart.rect_position = Vector2(110,109.5)
 					heart_found = true
 			else:
 				play_shuffle_sound()
@@ -171,6 +172,7 @@ func _on_cup_selected(_cup):
 		"Center":
 			if not fool:
 				if heart_location[CENTER] == true:
+					$Heart.rect_position = Vector2(174,109.5)
 					heart_found = true
 			else:
 				play_shuffle_sound()
@@ -194,6 +196,7 @@ func _on_cup_selected(_cup):
 		"Right":
 			if not fool:
 				if heart_location[RIGHT] == true:
+					$Heart.rect_position = Vector2(238,109.5)
 					heart_found = true
 			else:
 				play_shuffle_sound()

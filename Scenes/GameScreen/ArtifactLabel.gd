@@ -29,7 +29,9 @@ func _ready():
 	var east_action = owner.get_node("Actions/EastAction")
 # warning-ignore:return_value_discarded
 	connect("update_east_action", east_action, "_on_update_east_action")
-
+	
+# warning-ignore:return_value_discarded
+	connect("pressed", self, "_on_pressed")
 
 
 func _on_pressed():
