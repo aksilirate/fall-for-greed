@@ -197,7 +197,7 @@ func calculate_character_turn(_character, _energy_cost, _minutes_passed):
 	
 func calculate_mood(_character, _minutes_passed):
 	if _character.stats["health"] <= 0.5:
-		_character.stats["mood"] -= ((1 - _character.stats["health"]) / 678) * _minutes_passed
+		_character.stats["mood"] -= ((1 - _character.stats["health"]) / 618) * _minutes_passed
 	if _character.stats["hunger"] <= 0.5:
 		_character.stats["mood"] -= ((1 - _character.stats["health"]) / 741) * _minutes_passed
 	

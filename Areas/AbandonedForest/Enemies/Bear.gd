@@ -13,7 +13,7 @@ const TEXTURES = [
 ]
 
 
-var health := 6.0
+var health := 4.8
 const DAMAGE := 0.6
 const SPEED := 1.5
 const POWER := 8
