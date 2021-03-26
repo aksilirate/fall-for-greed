@@ -27,7 +27,6 @@ func display_threats():
 		add_threat(hunger_status)
 	
 	
-	
 	if owner.last_selected_character.stats["mood"] < 0.1:
 		add_threat("depressed")
 	elif owner.last_selected_character.stats["mood"] < 0.4:

@@ -15,6 +15,7 @@ const STARTING_ITEMS = [
 
 
 const FOCUS = 0.3
+const HUMOR = 0.1
 const COMBAT = 0.3
 
 const EAST_ACTION = SummonTheWitchAction

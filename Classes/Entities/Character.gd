@@ -54,10 +54,11 @@ var hormones = {
 
 var traits = {
 	"focus": 0.0,
+	"humor": 0.0,
 	"combat": 0.0
 } setget set_traits
 
-
+var action_cooldowns = {} setget set_action_cooldowns
 	
 var current_character
 
@@ -123,7 +124,9 @@ func set_inventory(_value):
 	inventory = _value
 	save_character()
 	
-	
+func set_action_cooldowns(_value):
+	action_cooldowns = _value
+	save_character()
 	
 func save_character():
 	var save_file = SaveFile.new()
@@ -154,6 +157,9 @@ func update_actions() -> void:
 	
 	if game_screen.area.current_event is load("res://Areas/AbandonedForest/Zones/AbandonedForestRopeHang.gd") as Script:
 		left_action = HangAction
+	elif not game_screen.area.current_event is Enemy and get_tree().get_nodes_in_group("characters").size() > 1 and stats["mood"] > 0.4\
+	and not action_cooldowns.get("JokeAction"):
+		left_action = JokeAction
 	else:
 		left_action = null
 		

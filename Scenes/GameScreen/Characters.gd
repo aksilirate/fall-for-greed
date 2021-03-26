@@ -62,6 +62,8 @@ func summon_character(_character_type: Object):
 		
 	if _character_type.get("FOCUS"):
 		_character.traits["focus"] = _character_type.FOCUS
+	if _character_type.get("HUMOR"):
+		_character.traits["humor"] = _character_type.HUMOR
 	if _character_type.get("COMBAT"):
 		_character.traits["combat"] = _character_type.COMBAT
 		

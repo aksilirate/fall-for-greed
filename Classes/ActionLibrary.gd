@@ -50,6 +50,10 @@ func change_event_to(_event: Object):
 
 func add_to_minutes_passed(amount):
 	story.minutes_passed += amount
+	for _character in get_tree().get_nodes_in_group("characters"):
+		for _key in _character.action_cooldowns:
+			_character.action_cooldowns[_key] -= amount
+			_character.action_cooldowns[_key] = max(0, _character.action_cooldowns[_key])
 	story.update_time()
 	
 #----------------------------------- [ v STORY v ] ---------------------------------
@@ -461,7 +465,14 @@ func improve_focus(_minutes_passed):
 			upcoming_stories.push_back(_character.character_name + " has improved his focus")
 			
 		_character.traits["focus"] = clamp(_character.traits["focus"], 0.0, 1.0)
+
+func improve_humor(_character):
+	var _old_humor_level = _character.traits["humor"]
+	_character.traits["humor"] += rand_range(0.008, 0.037)
+	if floor(_character.traits["humor"] * 10) > floor(_old_humor_level * 10):
+		upcoming_stories.push_back(_character.character_name + " has improved his humor")
 		
+	_character.traits["humor"] = clamp(_character.traits["humor"], 0.0, 1.0)
 
 
 
@@ -688,4 +699,19 @@ func heal():
 	queue_free()
 	
 	
+func joke():
+	for _character in get_tree().get_nodes_in_group("characters"):
+		if _character != executer:
+			if rand_range(0 - executer.traits["humor"], 1 + _character.stats["mood"]) < 0.5:
+				upcoming_stories.push_back(_character.character_name + " has laughed")
+				_character.stats["mood"] += rand_range(0.06, 0.13)
+			else:
+				upcoming_stories.push_back(_character.character_name + " did not laugh")
+				executer.stats["mood"] -= rand_range(0.06, 0.13)
+				improve_humor(executer)
+				
+	executer.action_cooldowns["JokeAction"] = rand_range(0,60)
+	emit_story_telling(executer.character_name + " has told a joke")
+	yield(self,"story_telling_finished")
+	queue_free()
 	

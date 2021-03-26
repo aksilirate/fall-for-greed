@@ -96,7 +96,7 @@ func character_attack():
 			yield(animation_player,"animation_finished")
 			
 			if enemy.get_script() == Witch.new().get_script():
-				goal_reached()
+				game_ended()
 				
 			play_death_message("you have killed " + enemy.NAME)
 			yield(self, "death_message_finished")
@@ -186,12 +186,18 @@ func play_death_message(_death_message):
 	action_library.queue_free()
 	
 	
-func goal_reached():
+func game_ended():
 	var save_file = SaveFile.new()
 	save_file.delete()
 # warning-ignore:return_value_discarded
 	var death_screen = preload("res://Scenes/DeathScreen/DeathScreen.tscn").instance()
-	death_screen.get_node("DeathLabel").text = "you made it"
+	
+	death_screen.get_node("DeathLabel").text = "you have taken your revenge"
+	
+	for _character in get_tree().get_nodes_in_group("characters"):
+		if _character.current_character.get_script() == PyryWright.new().get_script():
+			death_screen.get_node("DeathLabel").text = "you made it"
+	
 	get_tree().get_root().add_child(death_screen)
 	get_tree().get_root().get_node("GameScreen").queue_free()
 	

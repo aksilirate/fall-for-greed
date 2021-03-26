@@ -14,4 +14,5 @@ const STORY := "A smith and a woodworker possessed by a hatred for demons."
 
 
 const FOCUS = 0.2
+const HUMOR = 0.42
 const COMBAT = 0.43
