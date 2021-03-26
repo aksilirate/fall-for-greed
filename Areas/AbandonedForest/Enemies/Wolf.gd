@@ -24,7 +24,3 @@ const LEFT_ACTION = FightAction
 const RIGHT_ACTION = RunAction
 const EAST_ACTION = null
 
-
-
-func _ready():
-	print(1)

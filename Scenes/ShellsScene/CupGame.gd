@@ -19,6 +19,8 @@ var rand = RandomNumberGenerator.new()
 var speed = 5
 var power := 30
 
+var peak_count := 0
+
 signal pick_phase_started
 signal shell_picked
 
@@ -28,7 +30,12 @@ func _ready():
 		owner.enemy = Gnome.new()
 		
 	var story = get_tree().get_nodes_in_group("story").front()
-	var _current_artifact = story.current_artifact
+	
+	var _current_artifact = null
+	if story:
+		_current_artifact = story.current_artifact
+	
+	
 	if _current_artifact != null and _current_artifact.get("DOUBLE_SPEED"):
 		speed = owner.enemy.SPEED * 2
 	else:
@@ -53,6 +60,7 @@ func play_shuffle_sound():
 	
 func start_cup_game():
 	heart_location = [false,true,false]
+	peak_count = 0
 	rand.randomize()
 	yield(get_tree().create_timer(0.6), "timeout")
 	animation_player.play("ShowCenter")
@@ -99,6 +107,16 @@ func start_cup_game():
 	
 		
 	input_blocker.visible = false
+	
+	$Heart.visible = true
+	match heart_location.find(true):
+		LEFT:
+			$Heart.rect_position = Vector2(110,109.5)
+		CENTER:
+			$Heart.rect_position = Vector2(174,109.5)
+		RIGHT:
+			$Heart.rect_position = Vector2(238,109.5)
+			
 	emit_signal("pick_phase_started")
 
 
@@ -129,7 +147,6 @@ func _on_cup_selected(_cup):
 		"Left":
 			if not fool:
 				if heart_location[LEFT] == true:
-					$Heart.rect_position = Vector2(110,109.5)
 					heart_found = true
 			else:
 				play_shuffle_sound()
@@ -153,7 +170,6 @@ func _on_cup_selected(_cup):
 		"Center":
 			if not fool:
 				if heart_location[CENTER] == true:
-					$Heart.rect_position = Vector2(174,109.5)
 					heart_found = true
 			else:
 				play_shuffle_sound()
@@ -177,7 +193,6 @@ func _on_cup_selected(_cup):
 		"Right":
 			if not fool:
 				if heart_location[RIGHT] == true:
-					$Heart.rect_position = Vector2(238,109.5)
 					heart_found = true
 			else:
 				play_shuffle_sound()
@@ -216,6 +231,7 @@ func load_battle_scene():
 		
 	var battle_scene = preload("res://Scenes/BattleScene/BattleScene.tscn").instance()
 	battle_scene.fool = fool
+	battle_scene.peak_count = peak_count
 	battle_scene.enemy = owner.enemy
 	if heart_found:
 		battle_scene.heart_found = true
@@ -228,3 +244,4 @@ func reset_cup_locations():
 	$CupCenter.rect_position = Vector2(157,76)
 	$CupRight.rect_position = Vector2(221,76)
 	
+

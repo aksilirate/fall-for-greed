@@ -249,6 +249,15 @@ func calculate_luck(_character):
 				_effect.active_effect = _bleed
 				_character.add_child(_effect)
 				_character.mistakes.append("step on thorn")
+				
+		if _total_luck <= 10.0:
+			if rand_range(0,1) < 0.084:
+				upcoming_stories.push_back( "a tree has fallen on " + _character.character_name)
+				upcoming_stories.push_back(_character.character_name + " have died")
+				yield(self,"story_telling_finished")
+				emit_signal("kill_character", _character)
+				
+				
 
 #------------------------------ [ ^ CALCULATIONS ^ ] ---------------------------------
 

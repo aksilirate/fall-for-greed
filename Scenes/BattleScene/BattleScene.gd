@@ -9,6 +9,7 @@ const ENEMY_ORIGIN = Vector2(168,56)
 var action_library = ActionLibrary.new()
 
 var fool: bool
+var peak_count: int
 var enemy: Object 
 var heart_found: bool
 
@@ -50,6 +51,15 @@ func character_attack():
 	for _character in $CharactersContainer.get_children():
 		var _character_origin = _character.rect_position
 		var _enemy_position = Vector2(ENEMY_ORIGIN.x, ENEMY_ORIGIN.y + 36) - $CharactersContainer.rect_position
+		
+		
+		if peak_count == 2:
+			_character.character_reference.stats["luck"] -= rand_range(0,1.67) * 3
+		else:
+			_character.character_reference.stats["luck"] -= rand_range(0,1.67) * peak_count
+		
+		
+		
 		tween.interpolate_property(_character, "rect_position", _character.rect_position, _enemy_position, 0.3, Tween.TRANS_EXPO)
 		tween.start()
 		yield(get_tree().create_timer(0.19), "timeout")
@@ -98,11 +108,21 @@ func character_attack():
 			get_parent().queue_free()
 			
 	complete_battle()
-	
+
+
+
+
+
 func enemy_attack():
 	var _character = pick_random_character()
 	var _character_position = _character.get_global_transform_with_canvas().get_origin()
 	var _edited_character_position = Vector2(_character_position.x, _character_position.y - 36)
+	
+	if peak_count == 2:
+		_character.character_reference.stats["luck"] -= rand_range(0,1.67) * 3
+	else:
+		_character.character_reference.stats["luck"] -= rand_range(0,1.67) * peak_count
+	
 	tween.interpolate_property($Enemy, "rect_position", $Enemy.rect_position, _edited_character_position, 0.3, Tween.TRANS_EXPO)
 	tween.start()
 
