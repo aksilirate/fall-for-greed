@@ -257,7 +257,13 @@ func calculate_luck(_character):
 				yield(self,"story_telling_finished")
 				emit_signal("kill_character", _character)
 				
-				
+	elif area.current_event is load("res://Areas/Mountains/Mountains.gd") as Script:
+		if _total_luck <= 10.0:
+			if rand_range(0,1) < 0.084:
+				upcoming_stories.push_back( "a boulder has fallen on " + _character.character_name)
+				upcoming_stories.push_back(_character.character_name + " have died")
+				yield(self,"story_telling_finished")
+				emit_signal("kill_character", _character)
 
 #------------------------------ [ ^ CALCULATIONS ^ ] ---------------------------------
 
