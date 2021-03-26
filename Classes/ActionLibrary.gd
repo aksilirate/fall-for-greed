@@ -250,20 +250,18 @@ func calculate_luck(_character):
 				_character.add_child(_effect)
 				_character.mistakes.append("step on thorn")
 				
-		if _total_luck <= 10.0:
+		if _total_luck <= -10.0:
 			if rand_range(0,1) < 0.084:
 				upcoming_stories.push_back( "a tree has fallen on " + _character.character_name)
 				upcoming_stories.push_back(_character.character_name + " have died")
-				yield(self,"story_telling_finished")
-				emit_signal("kill_character", _character)
+				kill_character(_character)
 				
 	elif area.current_event is load("res://Areas/Mountains/Mountains.gd") as Script:
-		if _total_luck <= 10.0:
+		if _total_luck <= -10.0:
 			if rand_range(0,1) < 0.084:
 				upcoming_stories.push_back( "a boulder has fallen on " + _character.character_name)
 				upcoming_stories.push_back(_character.character_name + " have died")
-				yield(self,"story_telling_finished")
-				emit_signal("kill_character", _character)
+				kill_character(_character)
 
 #------------------------------ [ ^ CALCULATIONS ^ ] ---------------------------------
 
@@ -286,7 +284,12 @@ func summon_character(_character):
 
 
 func kill_character(_character):
-	yield(self,"story_telling_started")
+	yield(self,"story_telling_finished")
+	upcoming_stories.push_back(_character.character_name + " have died")
+	var _death_index = upcoming_stories.find(_character.character_name + " have died")
+	for _story in upcoming_stories:
+		if upcoming_stories.find(_story) > _death_index:
+			upcoming_stories.erase(_story)
 	emit_signal("kill_character", _character)
 
 	

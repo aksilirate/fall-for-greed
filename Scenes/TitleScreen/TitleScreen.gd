@@ -2,8 +2,6 @@ extends Control
 
 export(NodePath) onready var animation_player = get_node(animation_player) as AnimationPlayer
 
-
-
 func _init():
 	visible = false
 
@@ -13,7 +11,7 @@ func _ready():
 	options_file.assign_Default_Options()
 	options_file.apply_Options()
 	animation_player.play("Load")
-
+	
 	
 # warning-ignore:unused_argument
 func _input(event):
