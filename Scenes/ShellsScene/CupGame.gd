@@ -108,14 +108,15 @@ func start_cup_game():
 		
 	input_blocker.visible = false
 	
-	$Heart.visible = true
-	match heart_location.find(true):
-		LEFT:
-			$Heart.rect_position = Vector2(110,109.5)
-		CENTER:
-			$Heart.rect_position = Vector2(174,109.5)
-		RIGHT:
-			$Heart.rect_position = Vector2(238,109.5)
+	if not owner.enemy.get("UNPEEKABLE"):
+		$Heart.visible = true
+		match heart_location.find(true):
+			LEFT:
+				$Heart.rect_position = Vector2(110,109.5)
+			CENTER:
+				$Heart.rect_position = Vector2(174,109.5)
+			RIGHT:
+				$Heart.rect_position = Vector2(238,109.5)
 			
 	emit_signal("pick_phase_started")
 
