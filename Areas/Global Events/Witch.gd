@@ -25,4 +25,4 @@ const RIGHT_ACTION = RunAction
 const EAST_ACTION = null
 
 const INESCAPABLE := true
-
+const UNPEEKABLE := true

@@ -19,7 +19,7 @@ var rand = RandomNumberGenerator.new()
 var speed = 5
 var power := 30
 
-var peak_count := 0
+var peek_count := 0
 
 signal pick_phase_started
 signal shell_picked
@@ -60,7 +60,7 @@ func play_shuffle_sound():
 	
 func start_cup_game():
 	heart_location = [false,true,false]
-	peak_count = 0
+	peek_count = 0
 	rand.randomize()
 	yield(get_tree().create_timer(0.6), "timeout")
 	animation_player.play("ShowCenter")
@@ -231,7 +231,7 @@ func load_battle_scene():
 		
 	var battle_scene = preload("res://Scenes/BattleScene/BattleScene.tscn").instance()
 	battle_scene.fool = fool
-	battle_scene.peak_count = peak_count
+	battle_scene.peek_count = peek_count
 	battle_scene.enemy = owner.enemy
 	if heart_found:
 		battle_scene.heart_found = true

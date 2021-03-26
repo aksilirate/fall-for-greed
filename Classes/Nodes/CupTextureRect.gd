@@ -7,7 +7,7 @@ export(NodePath) onready var tween = get_node(tween) as Tween
 
 var hover_time = 0 setget set_hover_time
 var hovering := false
-var peaked := false
+var peeked := false
 
 func _ready():
 # warning-ignore:return_value_discarded
@@ -25,7 +25,7 @@ func _physics_process(delta):
 
 func _on_animation_finished(anim_name):
 	if anim_name == "Load":
-		peaked = false
+		peeked = false
 	
 func _on_mouse_exited():
 	tween.stop_all()
@@ -49,20 +49,20 @@ func _on_mouse_entered():
 func set_hover_time(_value):
 	hover_time = _value
 	if hover_time >= 0.666:
-		if not peaked:
-			get_parent().peak_count += 1
-			peaked = true
+		if not peeked:
+			get_parent().peek_count += 1
+			peeked = true
 			
-			var peak_tween = Tween.new()
-			add_child(peak_tween)
+			var peek_tween = Tween.new()
+			add_child(peek_tween)
 			
-			peak_tween.interpolate_property(self, "rect_position", rect_position, rect_position - Vector2(0,6.66), 0.3, Tween.TRANS_SINE)
-			peak_tween.start()
-			yield(peak_tween,"tween_completed")
-			peak_tween.interpolate_property(self, "rect_position", rect_position, rect_position + Vector2(0,6.66), 0.3, Tween.TRANS_SINE)
-			peak_tween.start()
-			yield(peak_tween,"tween_completed")
-			peak_tween.queue_free()
+			peek_tween.interpolate_property(self, "rect_position", rect_position, rect_position - Vector2(0,6.66), 0.3, Tween.TRANS_SINE)
+			peek_tween.start()
+			yield(peek_tween,"tween_completed")
+			peek_tween.interpolate_property(self, "rect_position", rect_position, rect_position + Vector2(0,6.66), 0.3, Tween.TRANS_SINE)
+			peek_tween.start()
+			yield(peek_tween,"tween_completed")
+			peek_tween.queue_free()
 
 
 
