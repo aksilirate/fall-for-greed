@@ -34,10 +34,7 @@ func generate_locations():
 	
 	var _last_location: Object
 	for _index in current_area.total_locations:
-		if rand_range(0,3) <= Math.range_with_peak(current_area.total_locations, _index)\
-		and _last_location.get_script() == AbandonedForest.new().get_script():
-			
-			
+		if _index > 3 and _last_location.get_script() == AbandonedForest.new().get_script():
 			var _enemy = Rand.weighted_random_object(current_area.ENEMIES)
 			if spawned_enemies.size() <= current_area.ENEMIES.size() and spawned_enemies.find(_enemy) == -1:
 				_last_location = _enemy.new()

@@ -520,9 +520,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="timeout" from="PickCountdownLabel/PickCountdownTimer" to="PickCountdownLabel" method="_on_PickCountdownTimer_timeout"]
-[connection signal="gui_input" from="ShellGame/CupLeft" to="ShellGame/CupLeft" method="_on_CupLeft_gui_input"]
 [connection signal="left_cup_selected" from="ShellGame/CupLeft" to="ShellGame" method="_on_cup_selected"]
+[connection signal="pressed" from="ShellGame/CupLeft" to="ShellGame/CupLeft" method="_on_CupLeft_pressed"]
 [connection signal="center_cup_selected" from="ShellGame/CupCenter" to="ShellGame" method="_on_cup_selected"]
-[connection signal="gui_input" from="ShellGame/CupCenter" to="ShellGame/CupCenter" method="_on_CupCenter_gui_input"]
-[connection signal="gui_input" from="ShellGame/CupRight" to="ShellGame/CupRight" method="_on_CupRight_gui_input"]
+[connection signal="pressed" from="ShellGame/CupCenter" to="ShellGame/CupCenter" method="_on_CupCenter_pressed"]
+[connection signal="pressed" from="ShellGame/CupRight" to="ShellGame/CupRight" method="_on_CupRight_pressed"]
 [connection signal="right_cup_selected" from="ShellGame/CupRight" to="ShellGame" method="_on_cup_selected"]

@@ -183,7 +183,8 @@ func update_actions() -> void:
 	else:
 		emit_signal("update_right_action", null, null, null)
 
-	if east_action == SummonTheWitchAction and game_screen.selected_tarot_card.get_script() == EmpressCard.new().get_script():
+	if east_action == SummonTheWitchAction and game_screen.selected_tarot_card.get_script() == EmpressCard.new().get_script()\
+	or game_screen.area.current_event is Enemy:
 		emit_signal("update_east_action", null, null, null)
 	elif east_action:
 		emit_signal("update_east_action",load(east_action.TEXTURE), east_action, self)

@@ -6,8 +6,12 @@ export(NodePath) onready var cup_hover_sound = get_node(cup_hover_sound) as Audi
 export(NodePath) onready var tween = get_node(tween) as Tween
 
 var hover_time = 0 setget set_hover_time
+var hold_time = 0 setget set_hold_time
 var hovering := false
 var peeked := false
+var holding := false
+
+signal pressed
 
 func _ready():
 # warning-ignore:return_value_discarded
@@ -15,17 +19,26 @@ func _ready():
 # warning-ignore:return_value_discarded
 	connect("mouse_exited", self, "_on_mouse_exited")
 # warning-ignore:return_value_discarded
+	connect("gui_input", self, "_on_gui_input")
+# warning-ignore:return_value_discarded
 	animation_player.connect("animation_finished", self, "_on_animation_finished")
 
+
 func _physics_process(delta):
-	if hovering:
+	if hovering and not Input.is_mouse_button_pressed(BUTTON_LEFT):
 		self.hover_time += delta
 	elif hover_time:
 		self.hover_time = 0
+	
+	if holding:
+		self.hold_time += delta
+	
 
 func _on_animation_finished(anim_name):
 	if anim_name == "Load":
 		peeked = false
+	
+	
 	
 func _on_mouse_exited():
 	tween.stop_all()
@@ -36,6 +49,8 @@ func _on_mouse_exited():
 	get_material().set_shader_param("enabled", false)
 	hovering = false
 
+
+
 func _on_mouse_entered():
 	tween.stop_all()
 	var current_volume = cup_hover_sound.volume_db
@@ -44,6 +59,8 @@ func _on_mouse_entered():
 	
 	get_material().set_shader_param("enabled", true)
 	hovering = true
+
+
 
 
 func set_hover_time(_value):
@@ -65,8 +82,28 @@ func set_hover_time(_value):
 			peek_tween.queue_free()
 
 
+func set_hold_time(_value):
+	hold_time = _value
+	if hold_time >= 0.666:
+		get_parent().avoided_fool = true
+		cup_pressed()
 
 
+func _on_gui_input(event):
+	if event is InputEventMouseButton:
+		if not event.pressed and not animation_player.is_playing():
+			cup_pressed()
+		elif event.pressed and not animation_player.is_playing():
+			holding = true
+
+
+func cup_pressed():
+	get_material().set_shader_param("enabled", false)
+	animation_player.playback_speed = 1.0
+	holding = false
+	hold_time = 0
+	emit_signal("pressed")
+	
 
 
 

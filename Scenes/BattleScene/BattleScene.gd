@@ -9,6 +9,7 @@ const ENEMY_ORIGIN = Vector2(168,56)
 var action_library = ActionLibrary.new()
 
 var fool: bool
+var avoided_fool: bool
 var peek_count: int
 var enemy: Object 
 var heart_found: bool
@@ -58,7 +59,8 @@ func character_attack():
 		else:
 			_character.character_reference.stats["luck"] -= rand_range(0,1.67) * peek_count
 		
-		
+		if avoided_fool:
+			_character.character_reference.stats["luck"] -= rand_range(0,1.67)
 		
 		tween.interpolate_property(_character, "rect_position", _character.rect_position, _enemy_position, 0.3, Tween.TRANS_EXPO)
 		tween.start()
@@ -122,6 +124,10 @@ func enemy_attack():
 		_character.character_reference.stats["luck"] -= rand_range(0,1.67) * 3
 	else:
 		_character.character_reference.stats["luck"] -= rand_range(0,1.67) * peek_count
+	
+	if avoided_fool:
+			_character.character_reference.stats["luck"] -= rand_range(0,1.67)
+	
 	
 	tween.interpolate_property($Enemy, "rect_position", $Enemy.rect_position, _edited_character_position, 0.3, Tween.TRANS_EXPO)
 	tween.start()

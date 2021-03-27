@@ -130,6 +130,7 @@ func switch_cups(_first_cup , _second_cup):
 
 
 var heart_found:bool
+var avoided_fool := false
 var fool: bool
 func _on_cup_selected(_cup):
 	fool = false
@@ -140,6 +141,9 @@ func _on_cup_selected(_cup):
 		var story = get_tree().get_nodes_in_group("story").front()
 		var _current_artifact = story.current_artifact
 		if _current_artifact != null and _current_artifact.get("ANTI_FOOL"):
+			fool = false
+		elif not owner.enemy.get("FOOL_UNAVOIDABLE") and avoided_fool:
+			avoided_fool = false
 			fool = false
 		else:
 			fool = true
@@ -235,6 +239,7 @@ func load_battle_scene():
 		
 	var battle_scene = preload("res://Scenes/BattleScene/BattleScene.tscn").instance()
 	battle_scene.fool = fool
+	battle_scene.avoided_fool = avoided_fool
 	battle_scene.peek_count = peek_count
 	battle_scene.enemy = owner.enemy
 	if heart_found:
@@ -248,4 +253,5 @@ func reset_cup_locations():
 	$CupCenter.rect_position = Vector2(157,76)
 	$CupRight.rect_position = Vector2(221,76)
 	
+
 

@@ -13,7 +13,7 @@ const TEXTURES = [
 ]
 
 
-var health := 12.0
+var health := 6.0
 const DAMAGE := 6.0
 const SPEED := 6
 const POWER := 30
@@ -26,3 +26,4 @@ const EAST_ACTION = null
 
 const INESCAPABLE := true
 const UNPEEKABLE := true
+const FOOL_UNAVOIDABLE := true
