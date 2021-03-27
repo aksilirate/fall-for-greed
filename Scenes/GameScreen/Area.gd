@@ -28,27 +28,34 @@ func generate_locations():
 	randomize()
 	
 	var spawned_enemies = []
+	var spawned_zones = []
 	var npc_cache = [] + current_area.NPCS
-	var zone_cache = [] + current_area.ZONES
 	var findings_cache = [] + current_area.FINDINGS
 	
 	var _last_location: Object
 	for _index in current_area.total_locations:
 		if _index > 3 and _last_location.get_script() == AbandonedForest.new().get_script():
+			
 			var _enemy = Rand.weighted_random_object(current_area.ENEMIES)
+			var _zone = Rand.weighted_random_object(current_area.ZONES)
+			
 			if spawned_enemies.size() <= current_area.ENEMIES.size() and spawned_enemies.find(_enemy) == -1:
 				_last_location = _enemy.new()
 				upcoming_locations.push_front(_enemy.new())
 				spawned_enemies.push_front(_enemy)
+				
+			
+			elif spawned_zones.size() <= current_area.ZONES.size() and spawned_zones.find(_zone) == -1:
+				_last_location = _zone.new()
+				upcoming_locations.push_front(_zone.new())
+				spawned_zones.push_front(_zone)
 				
 				
 			elif rand_range(0,1) < 0.3 and npc_cache.size() > 0:
 				_last_location = npc_cache.front()
 				upcoming_locations.push_front(npc_cache.pop_front().new())
 				
-			elif rand_range(0,1) < 0.3 and zone_cache.size() > 0:
-				_last_location = zone_cache.front()
-				upcoming_locations.push_front(zone_cache.pop_front().new())
+
 				
 			elif rand_range(0,1) < 0.0267 and findings_cache.size() > 0 :
 				_last_location = findings_cache.front()

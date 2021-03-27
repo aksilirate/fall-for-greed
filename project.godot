@@ -19,6 +19,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Areas/AbandonedForest/Zones/AbandonedForestRopeHang.gd"
 }, {
+"base": "Zone",
+"class": "AbandonedShovel",
+"language": "GDScript",
+"path": "res://Areas/AbandonedForest/Zones/AbandonedShovel.gd"
+}, {
 "base": "ActionLibrary",
 "class": "AcceptOfferAction",
 "language": "GDScript",
@@ -449,6 +454,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Classes/Items/ShitakeShroomsItem.gd"
 }, {
+"base": "Reference",
+"class": "ShovelItem",
+"language": "GDScript",
+"path": "res://Classes/Items/ShovelItem.gd"
+}, {
 "base": "ActionLibrary",
 "class": "SleepAction",
 "language": "GDScript",
@@ -547,6 +557,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "AbandonedForest": "",
 "AbandonedForestRopeHang": "",
+"AbandonedShovel": "",
 "AcceptOfferAction": "",
 "ActionLibrary": "",
 "ActionTextureRect": "",
@@ -633,6 +644,7 @@ _global_script_class_icons={
 "SearchAction": "",
 "ShiitakeShroomsFinding": "",
 "ShitakeShroomsItem": "",
+"ShovelItem": "",
 "SleepAction": "",
 "Snake": "",
 "SticksItem": "",

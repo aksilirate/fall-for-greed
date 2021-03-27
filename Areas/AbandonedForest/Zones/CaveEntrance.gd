@@ -16,3 +16,6 @@ const WEST_ACTION = EnterAction
 const LEFT_ACTION = WalkAction
 const RIGHT_ACTION = SleepAction
 const EAST_ACTION = SearchAction
+
+
+var RAND_WEIGHT := 0.5
