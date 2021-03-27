@@ -7,23 +7,28 @@ class_name Rand
 static func weighted_random_object(objects: Array):
 	randomize()
 	var total_weight = 0.0
-	objects.shuffle()
 	
 	for object in objects:
-		if object.get("RAND_WEIGHT"):
-			total_weight += total_weight
+		var object_instance = object.new()
+		if "RAND_WEIGHT" in object_instance:
+			total_weight += object_instance.RAND_WEIGHT
 		else:
 			total_weight += 0.5
-
-
+			print("RAND_WEIGHT not found")
+			
 	for object in objects:
-		if object.get("RAND_WEIGHT"):
-			if rand_range(0, total_weight) < object.RAND_WEIGHT:
+		var object_instance = object.new()
+		if "RAND_WEIGHT" in object_instance:
+			if rand_range(0, total_weight) < object_instance.RAND_WEIGHT:
 				return object
+			else:
+				total_weight -= object_instance.RAND_WEIGHT
 			
 		else:
 			if rand_range(0, total_weight) < 0.5:
 				return object
+			else:
+				total_weight -= 0.5
 				
 				
 				

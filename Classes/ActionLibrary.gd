@@ -330,10 +330,15 @@ func emit_location_advanced():
 	if area.location_index + 1 < area.upcoming_locations.size():
 		var next_location = area.upcoming_locations[area.location_index + 1]
 		if next_location.get_script() == area.current_area.get_script():
-			if rand_range(0,1) < 0.67:
-				locations_to_advance += 1
-				randomize()
-				_minutes_passed += floor(rand_range(13,56))
+			
+			for _advance_tries in range(3):
+				if rand_range(0,1) < 0.43:
+					break
+				else:
+					locations_to_advance += 1
+					randomize()
+					_minutes_passed += floor(rand_range(13,56))
+					
 		else:
 			if rand_range(0,1) < 0.01:
 				upcoming_stories.push_back("you think you saw something")

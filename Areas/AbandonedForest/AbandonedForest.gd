@@ -27,7 +27,8 @@ const ZONES = [
 const ENEMIES = [
 	Wolf,
 	Gnome,
-	Bear
+	Bear,
+	Leshy
 ]
 
 const NPCS = [
