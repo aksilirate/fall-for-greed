@@ -210,6 +210,10 @@ func pick_random_character():
 		
 		
 func hit(_target, _damage):
+	var _sound_effect = preload("res://Scenes/SoundEffect/SoundEffect.tscn").instance()
+	_sound_effect.stream = load("res://Sounds/Battle/Hit.wav")
+	get_node("/root").add_child(_sound_effect)
+	
 	_target.get_material().set_shader_param("enabled", true)
 	$Camera2D/ScreenShake.max_offset = Vector2(max(0.1,_damage) * 30, max(0.1,_damage) * 30)
 	$Camera2D/ScreenShake.add_trauma(1.0)
