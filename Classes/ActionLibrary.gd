@@ -239,6 +239,8 @@ func calculate_luck(_character):
 	var _total_luck: float
 	if game_screen.selected_tarot_card.get_script() == EmpressCard.new().get_script():
 		_total_luck = _character.stats["luck"] + 0.37
+	elif game_screen.selected_tarot_card.get_script() == DeathCard.new().get_script():
+		_total_luck = _character.stats["luck"] - 0.392
 	else:
 		_total_luck = _character.stats["luck"]
 		
@@ -253,7 +255,7 @@ func calculate_luck(_character):
 				_effect.active_effect = _bleed
 				_character.add_child(_effect)
 				_character.mistakes.append("step on thorn")
-				
+
 		if _total_luck <= -10.0:
 			if rand_range(0,1) < 0.084:
 				upcoming_stories.push_back( "a tree has fallen on " + _character.character_name)

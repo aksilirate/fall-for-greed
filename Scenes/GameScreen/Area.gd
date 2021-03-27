@@ -6,7 +6,6 @@ onready var history_label = owner.get_node("HistoryLabel")
 onready var story_texture = owner.get_node("StoryTexture")
 onready var story_frame = owner.get_node("StoryFrame")
 
-var rand = RandomNumberGenerator.new()
 
 var upcoming_locations: Array
 var findings_left: int
@@ -27,38 +26,41 @@ func generate_locations():
 	location_index = 0
 	
 	randomize()
-	rand.randomize()
 	
 	var enemy_cache = [] + current_area.ENEMIES
 	var npc_cache = [] + current_area.NPCS
 	var zone_cache = [] + current_area.ZONES
 	var findings_cache = [] + current_area.FINDINGS
 	
+	var _last_location: Object
 	for _index in current_area.total_locations:
-		if _index < 3:
-			upcoming_locations.insert(_index, current_area)
-		else:
-#			var _next_index = upcoming_locations.size() - 1
-#
-#			if upcoming_locations[_next_index] == current_area:
-			if rand.randi_range(0,10) == 3 and enemy_cache.size() > 0:
-				var _enemy_index = rand.randi_range(0, enemy_cache.size() - 1)
-				upcoming_locations.insert(_index,enemy_cache[_enemy_index].new())
+		if rand_range(0,1.6) <= Math.range_with_peak(current_area.total_locations, _index)\
+		and _last_location.get_script() == AbandonedForest.new().get_script():
+			if rand_range(0,1) < 0.4 and enemy_cache.size() > 0:
+				var _enemy_index = randi() % enemy_cache.size()
+				_last_location = enemy_cache[_enemy_index]
+				upcoming_locations.push_front(enemy_cache[_enemy_index].new())
 				enemy_cache.remove(_enemy_index)
 				
-			elif rand.randi_range(0,10) == 3 and npc_cache.size() > 0:
-				upcoming_locations.insert(_index,npc_cache.pop_front().new())
+			elif rand_range(0,1) < 0.3 and npc_cache.size() > 0:
+				_last_location = npc_cache.front()
+				upcoming_locations.push_front(npc_cache.pop_front().new())
 				
-			elif rand.randi_range(0,10) == 3 and zone_cache.size() > 0:
-				upcoming_locations.insert(_index,zone_cache.pop_front().new())
+			elif rand_range(0,1) < 0.3 and zone_cache.size() > 0:
+				_last_location = zone_cache.front()
+				upcoming_locations.push_front(zone_cache.pop_front().new())
 				
 			elif rand_range(0,1) < 0.0267 and findings_cache.size() > 0 :
-				upcoming_locations.insert(_index,findings_cache.pop_front().new())
+				_last_location = findings_cache.front()
+				upcoming_locations.push_front(findings_cache.pop_front().new())
 				
 			else:
-				upcoming_locations.insert(_index, current_area)
-				
-				
+				upcoming_locations.push_front(current_area)
+				_last_location = current_area
+		else:
+			upcoming_locations.push_front(current_area)
+			_last_location = current_area
+			
 	if current_area.get("LAST_EVENT"):
 		upcoming_locations[upcoming_locations.size() - 1] = current_area.LAST_EVENT
 				
@@ -74,8 +76,8 @@ func _ready():
 	
 func reset_findings_left():
 	var save_file = SaveFile.new()
-	rand.randomize()
-	findings_left = rand.randi_range(0,9)
+	randomize()
+	findings_left = randi() % 10
 	save_file.save_value("Game", "findings_left",findings_left)
 	
 	
@@ -181,9 +183,9 @@ func advance_location():
 
 	
 func update_story_info():
-	rand.randomize()
+	randomize()
 	var textures = filtered_textures()
-	var texture_index = rand.randi_range(0,textures.size() - 1)
+	var texture_index = randi() % textures.size()
 	if textures.size() > 0:
 		story_texture.texture = load(textures[texture_index])
 	else:

@@ -12,7 +12,6 @@ func _ready():
 	options_file.apply_Options()
 	animation_player.play("Load")
 	
-	
 # warning-ignore:unused_argument
 func _input(event):
 	if Input.is_action_just_pressed("ui_esc"):

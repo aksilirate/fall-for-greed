@@ -305,6 +305,11 @@ _global_script_classes=[ {
 "path": "res://Classes/Actions/MakeCampfireAction.gd"
 }, {
 "base": "Reference",
+"class": "Math",
+"language": "GDScript",
+"path": "res://Classes/Utilities/Math.gd"
+}, {
+"base": "Reference",
 "class": "Misfortune",
 "language": "GDScript",
 "path": "res://Classes/Effects/Misfortune.gd"
@@ -378,6 +383,11 @@ _global_script_classes=[ {
 "class": "Rage",
 "language": "GDScript",
 "path": "res://Classes/Effects/Rage.gd"
+}, {
+"base": "Reference",
+"class": "Rand",
+"language": "GDScript",
+"path": "res://Classes/Utilities/Rand.gd"
 }, {
 "base": "Enemy",
 "class": "Rat",
@@ -497,7 +507,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "Time",
 "language": "GDScript",
-"path": "res://Classes/Time.gd"
+"path": "res://Classes/Utilities/Time.gd"
 }, {
 "base": "ActionLibrary",
 "class": "WaitAction",
@@ -589,6 +599,7 @@ _global_script_class_icons={
 "LageFinding": "",
 "LageItem": "",
 "MakeCampfireAction": "",
+"Math": "",
 "Misfortune": "",
 "Mist": "",
 "MosquitoBite": "",
@@ -604,6 +615,7 @@ _global_script_class_icons={
 "PyryWright": "",
 "RabbitsMeatItem": "",
 "Rage": "",
+"Rand": "",
 "Rat": "",
 "RemoveToothAction": "",
 "RowanSmith": "",
