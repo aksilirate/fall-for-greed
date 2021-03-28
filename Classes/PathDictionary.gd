@@ -14,4 +14,6 @@ const THOMAS_GRAND_NPC := "res://Areas/Mountains/NPCs/ThomasGrandNPC.gd"
 const GOBLIN_SCOUT_ENEMY := "res://Areas/Hills/Enemies/GoblinScout.gd"
 const SNAKE_ENEMY := "res://Areas/Hills/Enemies/Snake.gd"
 
+const QUEENS_GRAVE := "res://Areas/DeadForest/Zones/QueensGrave.gd"
+
 const SAVE_PATH := "user://Save.cfg"

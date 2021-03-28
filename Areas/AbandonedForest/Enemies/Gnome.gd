@@ -25,7 +25,7 @@ const RIGHT_ACTION = RunAction
 const EAST_ACTION = null
 
 
-var RAND_WEIGHT := 0.1
+const RAND_WEIGHT := 0.1
 
 
 func death_curse(game_screen: GameScreen):

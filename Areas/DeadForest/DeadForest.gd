@@ -13,7 +13,7 @@ const TEXTURES = [
 
 const FINDINGS = []
 
-const ZONES = []
+const ZONES = [QueensGrave]
 
 const ENEMIES = []
 

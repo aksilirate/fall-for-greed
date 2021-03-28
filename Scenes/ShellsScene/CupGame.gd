@@ -131,26 +131,59 @@ func switch_cups(_first_cup , _second_cup):
 
 var heart_found:bool
 var avoided_fool := false
+var anti_lose := false
 var fool: bool
 func _on_cup_selected(_cup):
 	fool = false
 	$Heart.visible = false
 	heart_found = false
 	
-	if rand_range(0,speed) < min(speed,owner.enemy.DAMAGE) / 3:
-		var story = get_tree().get_nodes_in_group("story").front()
-		var _current_artifact = story.current_artifact
-		if _current_artifact != null and _current_artifact.get("ANTI_FOOL"):
-			fool = false
-		elif not owner.enemy.get("FOOL_UNAVOIDABLE") and avoided_fool:
-			avoided_fool = false
-			fool = false
-		else:
-			fool = true
+	if not anti_lose:
+		if rand_range(0,speed) < min(speed,owner.enemy.DAMAGE) / 3:
+			var story = get_tree().get_nodes_in_group("story").front()
+			var _current_artifact = story.current_artifact
+			if _current_artifact != null and _current_artifact.get("ANTI_FOOL"):
+				fool = false
+			elif not owner.enemy.get("FOOL_UNAVOIDABLE") and avoided_fool:
+				avoided_fool = false
+				fool = false
+			else:
+				fool = true
 			
 	match _cup:
 		"Left":
-			if not fool:
+			
+			
+			
+			
+			if anti_lose:
+				if heart_location[LEFT] == false:
+					if heart_location[CENTER]:
+						play_shuffle_sound()
+						if rand.randi_range(0,1) == OK:
+							animation_player.play("CenterLeft")
+						else:
+							animation_player.play_backwards("CenterLeft")
+						switch_cups(CENTER, LEFT)
+						yield(animation_player, "animation_finished")
+						
+					elif heart_location[RIGHT]:
+						play_shuffle_sound()
+						if rand.randi_range(0,1) == OK:
+							animation_player.play("LeftRight")
+						else:
+							animation_player.play_backwards("LeftRight")
+						switch_cups(LEFT, RIGHT)
+						yield(animation_player, "animation_finished")
+						
+				reset_cup_locations()
+				$Heart.rect_position = Vector2(110,109.5)
+				heart_found = true
+			
+			
+			
+			
+			elif not fool:
 				if heart_location[LEFT] == true:
 					$Heart.rect_position = Vector2(110,109.5)
 					heart_found = true
@@ -173,8 +206,49 @@ func _on_cup_selected(_cup):
 				
 			$Heart.visible = heart_found
 			animation_player.play("ShowLeft")
+			
+			
+			
+			
+			
+			
+			
+			
+			
 		"Center":
-			if not fool:
+			
+			
+			if anti_lose:
+				if heart_location[CENTER] == false:
+					if heart_location[RIGHT]:
+						play_shuffle_sound()
+						if rand.randi_range(0,1) == OK:
+							animation_player.play("CenterRight")
+						else:
+							animation_player.play_backwards("CenterRight")
+						switch_cups(CENTER, RIGHT)
+						yield(animation_player, "animation_finished")
+						
+					elif heart_location[LEFT]:
+						play_shuffle_sound()
+						if rand.randi_range(0,1) == OK:
+							animation_player.play("CenterLeft")
+						else:
+							animation_player.play_backwards("CenterLeft")
+						switch_cups(CENTER, LEFT)
+						yield(animation_player, "animation_finished")
+						
+				reset_cup_locations()
+				$Heart.rect_position = Vector2(174,109.5)
+				heart_found = true
+			
+			
+			
+			
+			
+
+			
+			elif not fool:
 				if heart_location[CENTER] == true:
 					$Heart.rect_position = Vector2(174,109.5)
 					heart_found = true
@@ -197,8 +271,44 @@ func _on_cup_selected(_cup):
 				
 			$Heart.visible = heart_found
 			animation_player.play("ShowCenter")
+			
+			
 		"Right":
-			if not fool:
+			
+			if anti_lose:
+				if heart_location[RIGHT] == false:
+					if heart_location[LEFT]:
+						play_shuffle_sound()
+						if rand.randi_range(0,1) == OK:
+							animation_player.play("LeftRight")
+						else:
+							animation_player.play_backwards("LeftRight")
+						switch_cups(LEFT, RIGHT)
+						yield(animation_player, "animation_finished")
+						
+					elif heart_location[CENTER]:
+						play_shuffle_sound()
+						if rand.randi_range(0,1) == OK:
+							animation_player.play("CenterRight")
+						else:
+							animation_player.play_backwards("CenterRight")
+						switch_cups(CENTER, RIGHT)
+						yield(animation_player, "animation_finished")
+						
+				reset_cup_locations()
+				$Heart.rect_position = Vector2(238,109.5)
+				heart_found = true
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			elif not fool:
 				if heart_location[RIGHT] == true:
 					$Heart.rect_position = Vector2(238,109.5)
 					heart_found = true

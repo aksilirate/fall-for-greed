@@ -174,8 +174,11 @@ func calculate_character_turn(_character, _energy_cost, _minutes_passed):
 		upcoming_stories.push_back(_character.character_name + " is " + _updated_hunger_check)
 
 	if _energy_check != _character.get_energy_status():
-		var _updated_energy_check = _character.get_energy_status()
-		upcoming_stories.push_back(_character.character_name + " is " + _updated_energy_check)
+		if _character.stats["energy"] < 0.5 and rand_range(0,1) < 0.5:
+			rest(_character, round(rand_range(3,5)))
+		else:
+			var _updated_energy_check = _character.get_energy_status()
+			upcoming_stories.push_back(_character.character_name + " is " + _updated_energy_check)
 	
 	
 	
@@ -486,7 +489,6 @@ func improve_humor(_character):
 func search_for_item(_minutes_passed):
 	var emit_story_telling
 	var _finding
-		
 	randomize()
 	
 	var _main_story
@@ -506,8 +508,7 @@ func search_for_item(_minutes_passed):
 	if area.findings_left > 0 and rand_range(0,1) < ((_minutes_passed*0.0166) - 0.33) + _max_focus:
 		
 		randomize()
-		var index = round(rand_range(0,area.current_area.FINDINGS.size()-1))
-		_finding = area.current_area.FINDINGS[index].new()
+		_finding = Rand.weighted_random_object(area.current_area.FINDINGS).new()
 		var finding_name = _finding.NAME
 		
 		upcoming_stories.push_back("you have found " + str(finding_name))
@@ -573,6 +574,15 @@ func start_battle():
 	animation_player.play("Hide Screen")
 	yield(animation_player,"animation_finished")
 	var shell_scene = load("res://Scenes/ShellsScene/ShellsScene.tscn").instance()
+	
+
+	if game_screen.hold_slot.selected_item and game_screen.hold_slot.selected_item.get("ANTI_LOSE"):
+		shell_scene.get_node(shell_scene.shell_game).anti_lose = true
+		game_screen.hold_slot.selected_item = null
+		for _child in game_screen.hold_slot.get_children():
+			_child.queue_free()
+		game_screen.save()
+		
 	shell_scene.enemy = area.current_event
 	game_screen.add_child(shell_scene)
 
@@ -687,6 +697,11 @@ func refill_energy(_minutes_passed):
 			if _character:
 				_character.stats["energy"] += min(1.0,_minutes_passed * 0.1)
 
+
+func rest(_character, _minutes_passed):
+	_character.stats["energy"] += min(1.0,_minutes_passed * 0.1)
+	upcoming_stories.push_back(_character.character_name + " have rested for " + str(_minutes_passed) + " minutes")
+	add_to_minutes_passed(_minutes_passed)
 
 func heal():
 	var _selected_item = game_screen.selected.item

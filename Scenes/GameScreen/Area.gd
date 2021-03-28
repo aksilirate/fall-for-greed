@@ -30,7 +30,6 @@ func generate_locations():
 	var spawned_enemies = []
 	var spawned_zones = []
 	var npc_cache = [] + current_area.NPCS
-	var findings_cache = [] + current_area.FINDINGS
 	
 	var _last_location: Object
 	for _index in current_area.total_locations:
@@ -55,11 +54,8 @@ func generate_locations():
 				_last_location = npc_cache.front()
 				upcoming_locations.push_front(npc_cache.pop_front().new())
 				
-
 				
-			elif rand_range(0,1) < 0.0267 and findings_cache.size() > 0 :
-				_last_location = findings_cache.front()
-				upcoming_locations.push_front(findings_cache.pop_front().new())
+				
 				
 			else:
 				upcoming_locations.push_front(current_area)
@@ -192,8 +188,8 @@ func advance_location():
 func update_story_info():
 	randomize()
 	var textures = filtered_textures()
-	var texture_index = randi() % textures.size()
 	if textures.size() > 0:
+		var texture_index = randi() % textures.size()
 		story_texture.texture = load(textures[texture_index])
 	else:
 		print("Error: texture.size() < 0")

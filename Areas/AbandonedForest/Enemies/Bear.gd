@@ -25,4 +25,4 @@ const RIGHT_ACTION = RunAction
 const EAST_ACTION = null
 
 
-var RAND_WEIGHT := 0.4
+const RAND_WEIGHT := 0.4

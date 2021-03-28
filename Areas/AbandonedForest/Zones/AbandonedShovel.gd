@@ -20,4 +20,4 @@ const EAST_ACTION = SearchAction
 
 
 
-var RAND_WEIGHT := 0.1
+const RAND_WEIGHT := 0.1

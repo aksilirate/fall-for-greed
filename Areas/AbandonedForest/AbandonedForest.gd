@@ -16,7 +16,9 @@ const FINDINGS = [
 	AngelorisFinding,
 	FallenBranchFinding,
 	ShiitakeShroomsFinding,
-	BerriesFinding
+	BerriesFinding,
+	WildCucumbersFinding,
+	SemeryFinding
 ]
 
 const ZONES = [

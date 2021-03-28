@@ -116,6 +116,10 @@ func update_actions():
 		if item.LEFT_ACTION:
 			if item.LEFT_ACTION.get("CLASS_NAME") == "MakeCampfireAction" and game_screen.area.current_event is Enemy:
 				emit_signal("update_left_action", null, null, owner.last_selected_character)
+				
+			elif item.LEFT_ACTION.get("CLASS_NAME") == "DigAction" and not game_screen.area.current_event is QueensGrave:
+				emit_signal("update_left_action", null, null, owner.last_selected_character)
+			
 			else:
 				var left_action = item.LEFT_ACTION
 				emit_signal("update_left_action", load(left_action.TEXTURE), left_action, owner.last_selected_character)

@@ -170,6 +170,11 @@ _global_script_classes=[ {
 "path": "res://Classes/Actions/DeclineOfferAction.gd"
 }, {
 "base": "ActionLibrary",
+"class": "DigAction",
+"language": "GDScript",
+"path": "res://Classes/Actions/DigAction.gd"
+}, {
+"base": "ActionLibrary",
 "class": "DropAction",
 "language": "GDScript",
 "path": "res://Classes/Actions/DropAction.gd"
@@ -228,6 +233,11 @@ _global_script_classes=[ {
 "class": "FightAction",
 "language": "GDScript",
 "path": "res://Classes/Actions/FightAction.gd"
+}, {
+"base": "Reference",
+"class": "FocusBoost",
+"language": "GDScript",
+"path": "res://Classes/Effects/FocusBoost.gd"
 }, {
 "base": "TextureRect",
 "class": "ForgedTextureRect",
@@ -385,6 +395,11 @@ _global_script_classes=[ {
 "path": "res://Classes/Characters/PyryWright.gd"
 }, {
 "base": "Reference",
+"class": "QueensGrave",
+"language": "GDScript",
+"path": "res://Areas/DeadForest/Zones/QueensGrave.gd"
+}, {
+"base": "Reference",
 "class": "RabbitsMeatItem",
 "language": "GDScript",
 "path": "res://Classes/Items/RabbitsMeatItem.gd"
@@ -443,6 +458,16 @@ _global_script_classes=[ {
 "class": "SearchAction",
 "language": "GDScript",
 "path": "res://Classes/Actions/SearchAction.gd"
+}, {
+"base": "Reference",
+"class": "SemeryFinding",
+"language": "GDScript",
+"path": "res://Areas/AbandonedForest/Findings/SemeryFinding.gd"
+}, {
+"base": "Reference",
+"class": "SemeryItem",
+"language": "GDScript",
+"path": "res://Classes/Items/SemeryItem.gd"
 }, {
 "base": "Reference",
 "class": "ShiitakeShroomsFinding",
@@ -524,6 +549,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Classes/Utilities/Time.gd"
 }, {
+"base": "Reference",
+"class": "VoodooDollEvent",
+"language": "GDScript",
+"path": "res://Areas/Global Events/VoodooDollEvent.gd"
+}, {
+"base": "Reference",
+"class": "VoodooDollItem",
+"language": "GDScript",
+"path": "res://Classes/Items/VoodooDollItem.gd"
+}, {
 "base": "ActionLibrary",
 "class": "WaitAction",
 "language": "GDScript",
@@ -538,6 +573,16 @@ _global_script_classes=[ {
 "class": "Wanderer",
 "language": "GDScript",
 "path": "res://Areas/Global Events/Wanderer.gd"
+}, {
+"base": "Reference",
+"class": "WildCucumbersFinding",
+"language": "GDScript",
+"path": "res://Areas/AbandonedForest/Findings/WildCucumbersFinding.gd"
+}, {
+"base": "Reference",
+"class": "WildCucumbersItem",
+"language": "GDScript",
+"path": "res://Classes/Items/WildCucumber.gd"
 }, {
 "base": "Enemy",
 "class": "Witch",
@@ -587,6 +632,7 @@ _global_script_class_icons={
 "DeathCard": "",
 "Debug": "",
 "DeclineOfferAction": "",
+"DigAction": "",
 "DropAction": "",
 "EatAction": "",
 "Effect": "",
@@ -599,6 +645,7 @@ _global_script_class_icons={
 "FallenBranchFinding": "",
 "FallenKingsChaliceCup": "",
 "FightAction": "",
+"FocusBoost": "",
 "ForgedTextureRect": "",
 "GameScreen": "",
 "GameTextureRect": "",
@@ -630,6 +677,7 @@ _global_script_class_icons={
 "PrayAction": "",
 "PrisonersMask": "",
 "PyryWright": "",
+"QueensGrave": "",
 "RabbitsMeatItem": "",
 "Rage": "",
 "Rand": "",
@@ -642,6 +690,8 @@ _global_script_class_icons={
 "RunAction": "",
 "SaveFile": "",
 "SearchAction": "",
+"SemeryFinding": "",
+"SemeryItem": "",
 "ShiitakeShroomsFinding": "",
 "ShitakeShroomsItem": "",
 "ShovelItem": "",
@@ -658,9 +708,13 @@ _global_script_class_icons={
 "ThomasGrand": "",
 "ThomasGrandNPC": "",
 "Time": "",
+"VoodooDollEvent": "",
+"VoodooDollItem": "",
 "WaitAction": "",
 "WalkAction": "",
 "Wanderer": "",
+"WildCucumbersFinding": "",
+"WildCucumbersItem": "",
 "Witch": "",
 "Wolf": "",
 "Zone": ""

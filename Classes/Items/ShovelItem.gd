@@ -10,6 +10,6 @@ const TEXTURE := "res://Textures/Items/Shovel Item.png"
 const TOOLTIP := "shovel"
 
 const WEST_ACTION = HoldAction
-const LEFT_ACTION = null
+const LEFT_ACTION = DigAction
 const RIGHT_ACTION = null
 const EAST_ACTION = DropAction
