@@ -498,11 +498,48 @@ func improve_humor(_character):
 
 
 
-func search_for_item(_minutes_passed):
+func search_for_item():
 	var emit_story_telling
 	var _finding
 	randomize()
+
+	var _max_focus: float
+	for _character in get_tree().get_nodes_in_group("characters"):
+		if _max_focus < _character.traits["focus"] / 3:
+			_max_focus = _character.traits["focus"] / 3
+		
+	var _found := false
+	var _minutes_passed := 60
 	
+	var _finding_chance = rand_range(0,1)
+	for _minute in range(1,60):
+		if area.findings_left > 0 and _finding_chance < (_minute * 0.01666) + _max_focus:
+			randomize()
+			_finding = Rand.weighted_random_object(area.current_area.FINDINGS).new()
+			var finding_name = _finding.NAME
+			
+			upcoming_stories.push_back("you have found " + str(finding_name))
+			
+			
+			area.current_event = _finding
+			
+			
+			_minutes_passed = _minute
+			
+			if area.findings_left > 0:
+				area.findings_left -= 1
+				
+			_found = true
+			break
+		
+		
+	if not _found:
+		upcoming_stories.push_back("you have not found anything")
+		reset_location()
+		if rand_range(0,1) < 0.1 and _minutes_passed >= 13:
+			emit_location_advanced()
+			
+			
 	var _main_story
 	if _minutes_passed == 1:
 		_main_story = "you have searched for 1 minute"
@@ -510,33 +547,7 @@ func search_for_item(_minutes_passed):
 		_main_story = "you have searched for 1 hour"
 	else:
 		_main_story = "you have searched for " + str(_minutes_passed) + " minutes"
-		
-	
-	var _max_focus: float
-	for _character in get_tree().get_nodes_in_group("characters"):
-		if _max_focus < _character.traits["focus"] / 3:
-			_max_focus = _character.traits["focus"] / 3
-		
-	if area.findings_left > 0 and rand_range(0,1) < 0.6 + _max_focus:
-		
-		randomize()
-		_finding = Rand.weighted_random_object(area.current_area.FINDINGS).new()
-		var finding_name = _finding.NAME
-		
-		upcoming_stories.push_back("you have found " + str(finding_name))
-		emit_story_telling = emit_story_telling(_main_story)
-		
-		area.current_event = _finding
-		
-		if area.findings_left > 0:
-			area.findings_left -= 1
-		
-	else:
-		upcoming_stories.push_back("you have not found anything")
-		reset_location()
-		emit_story_telling = emit_story_telling(_main_story)
-		if rand_range(0,1) < 0.1 and _minutes_passed >= 13:
-			emit_location_advanced()
+	emit_story_telling = emit_story_telling(_main_story)
 	
 	
 	yield(self,"story_telling_started")
@@ -544,6 +555,10 @@ func search_for_item(_minutes_passed):
 		area.update_story_info()
 		area.update_actions()
 		area.save_game()
+				
+				
+	var _energy_cost = 0.00096 * _minutes_passed
+	calculate_turn(_energy_cost, _minutes_passed)
 	add_to_minutes_passed(_minutes_passed)
 	improve_focus(_minutes_passed)
 	

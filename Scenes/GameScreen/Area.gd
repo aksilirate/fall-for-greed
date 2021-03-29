@@ -206,7 +206,8 @@ func filtered_textures():
 	
 	
 func _on_story_selected():
-	owner.selected.deselect()
+	if owner.selected:
+		owner.selected.deselect()
 	owner.hide_information()
 	history_label.text = current_event.HISTORY
 	story_frame.modulate.a = 0.3

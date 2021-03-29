@@ -59,6 +59,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Classes/Entities/Artifact.gd"
 }, {
+"base": "Reference",
+"class": "BalanceData",
+"language": "GDScript",
+"path": "res://Classes/Utilities/BalanceData.gd"
+}, {
 "base": "Enemy",
 "class": "Bear",
 "language": "GDScript",
@@ -625,6 +630,7 @@ _global_script_class_icons={
 "AngelorisFinding": "",
 "AngelorisItem": "",
 "Artifact": "",
+"BalanceData": "",
 "Bear": "",
 "BerriesFinding": "",
 "BerriesItem": "",

@@ -15,8 +15,10 @@ func emit_action_pressed(event):
 			
 			
 			
-			if story.minutes_passed >= 144000 or area.current_event is load("res://Areas/Mist/Mist.gd") as Script\
+			if story.minutes_passed >= BalanceData.WITCH_SPAWN_MINUTE or area.current_event is load("res://Areas/Mist/Mist.gd") as Script\
 			and area.location_index == area.current_area.total_locations - 1:
+				story.minutes_passed = BalanceData.WITCH_SPAWN_MINUTE
+				story.update_time()
 				if area.current_event.get("NAME"):
 					if  area.current_event.NAME != "the witch":
 						action = SummonTheWitchAction
