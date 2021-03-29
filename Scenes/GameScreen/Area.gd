@@ -152,6 +152,9 @@ func advance_location():
 	else:
 		location_index += 1
 		
+	if current_area.get("LAST_EVENT"):
+		current_event = current_area.LAST_EVENT.new()
+		
 	if location_index == current_area.total_locations:
 		current_area = current_area.NEXT_AREA.new()
 		current_event = current_area
@@ -213,6 +216,7 @@ func _on_story_selected():
 	
 func update_actions():
 	var executer = owner.get_node("Logic/Characters").get_children()
+	
 	if current_event.WEST_ACTION != null:
 		var west_action = current_event.WEST_ACTION
 		emit_signal("update_west_action",load(west_action.TEXTURE), west_action, executer)

@@ -4,7 +4,8 @@ extends Node
 var current_artifact: Object setget set_current_artifact
 var artifacts = [
 	FallenKingsChaliceCup,
-	PrisonersMask
+	PrisonersMask,
+	LastAngelsRing
 ]
 
 var minutes_passed = 0 setget set_minutes_passed

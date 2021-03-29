@@ -38,7 +38,7 @@ func _ready():
 		load_card_picking_scene()
 	else:
 		$TarotCardTexture.texture = load(selected_tarot_card.TEXTURE)
-		animation_player.play("Load") 
+		animation_player.play("Load")
 		history_label.text = selected.story
 		emit_signal("story_selected")
 

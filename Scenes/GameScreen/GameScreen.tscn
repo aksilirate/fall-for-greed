@@ -604,6 +604,7 @@ __meta__ = {
 }
 
 [node name="HistoryLabel" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
 margin_left = 120.0
 margin_top = 151.0
 margin_right = 249.0
@@ -629,6 +630,7 @@ __meta__ = {
 }
 
 [node name="TimeLabel" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
 margin_left = 119.0
 margin_top = 2.0
 margin_right = 249.0
@@ -642,7 +644,7 @@ __meta__ = {
 }
 
 [node name="StoryFrame" type="TextureRect" parent="."]
-modulate = Color( 1, 1, 1, 0.482353 )
+modulate = Color( 1, 1, 1, 0 )
 margin_left = 119.0
 margin_top = 16.743
 margin_right = 249.001
@@ -654,6 +656,7 @@ __meta__ = {
 }
 
 [node name="StoryTexture" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
 margin_left = 120.0
 margin_top = 17.743
 margin_right = 248.0
@@ -664,6 +667,7 @@ __meta__ = {
 }
 
 [node name="ActionStoryButton" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
 margin_left = 178.58
 margin_top = 138.297
 margin_right = 188.58
@@ -676,6 +680,7 @@ __meta__ = {
 }
 
 [node name="ArtifactLabel" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
 margin_left = 8.61526
 margin_top = 16.4814
 margin_right = 48.6153
@@ -688,6 +693,7 @@ __meta__ = {
 }
 
 [node name="Line" type="ColorRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
 margin_left = 8.89715
 margin_top = 32.0354
 margin_right = 33.8971
@@ -804,6 +810,7 @@ __meta__ = {
 }
 
 [node name="CharacterLabels" type="Control" parent="."]
+modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -868,6 +875,7 @@ __meta__ = {
 }
 
 [node name="Inventory" type="Control" parent="."]
+visible = false
 modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -974,6 +982,7 @@ __meta__ = {
 }
 
 [node name="HoldSlot" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
 margin_left = 9.0
 margin_top = 180.0
 margin_right = -67.576
@@ -1015,6 +1024,7 @@ __meta__ = {
 }
 
 [node name="TarotCardTexture" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
 margin_left = 281.0
 margin_top = 17.3969
 margin_right = 334.0

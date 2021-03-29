@@ -17,7 +17,7 @@ func _ready():
 					
 					
 			time_choice_slider.current_action = null
-			time_choice_slider.max_value = 10
+			time_choice_slider.max_value = 60
 			time_choice_slider.current_action = "WaitAction"
 			if time_choice_slider.slider_value_memory.has("WaitAction"):
 				time_choice_slider.value = time_choice_slider.slider_value_memory["WaitAction"]
@@ -31,11 +31,18 @@ func _ready():
 			randomize()
 			var _minutes_passed = time_choice_slider.value
 			var _energy_cost = 0
-			var _main_story = "you have waited for " + str(_minutes_passed) + " minutes"
+			
+			var _main_story
+			if _minutes_passed == 1:
+				_main_story = "you have waited for 1 minute"
+			elif _minutes_passed == 60:
+				_main_story = "you have waited for 1 hour"
+			else:
+				_main_story = "you have waited for " + str(_minutes_passed) + " minutes"
+				
 			refill_energy(_minutes_passed)
 			var emit_story_telling = emit_story_telling(_main_story)
 			calculate_turn(_energy_cost, _minutes_passed)
-
 			yield(emit_story_telling, "completed")
 			time_choice_slider.active = false
 			time_choice_slider.hide()

@@ -50,7 +50,7 @@ func _on_mouse_entered():
 	var _trait_levels = []
 	
 	for _trait in character.traits.keys():
-		if character.traits[_trait] == 0.0:
+		if character.traits[_trait] <= 0.0:
 			_trait_levels.push_back("dreadful " + _trait)
 		elif character.traits[_trait] < 0.1:
 			_trait_levels.push_back("terrible " + _trait)
@@ -72,7 +72,7 @@ func _on_mouse_entered():
 			_trait_levels.push_back("impressive " + _trait)
 		elif character.traits[_trait] < 1.0:
 			_trait_levels.push_back("incredible " + _trait)
-		elif character.traits[_trait] == 1.0:
+		elif character.traits[_trait] >= 1.0:
 			_trait_levels.push_back("brilliant " + _trait)
 		
 	

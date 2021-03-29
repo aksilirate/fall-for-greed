@@ -314,6 +314,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Classes/Items/LageItem.gd"
 }, {
+"base": "Artifact",
+"class": "LastAngelsRing",
+"language": "GDScript",
+"path": "res://Classes/Artifacts/LastAngelsRing.gd"
+}, {
 "base": "Enemy",
 "class": "Leshy",
 "language": "GDScript",
@@ -661,6 +666,7 @@ _global_script_class_icons={
 "LabelButton": "",
 "LageFinding": "",
 "LageItem": "",
+"LastAngelsRing": "",
 "Leshy": "",
 "MakeCampfireAction": "",
 "Math": "",

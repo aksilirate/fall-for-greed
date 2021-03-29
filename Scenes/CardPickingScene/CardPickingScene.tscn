@@ -96,7 +96,7 @@ tracks/6/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 resource_name = "Load"
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -123,8 +123,7 @@ tracks/1/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "Reveal Card"
+[sub_resource type="Animation" id=3]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("CardTexture:rect_position")
@@ -294,8 +293,8 @@ __meta__ = {
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 "anims/Draw Card" = SubResource( 1 )
-anims/Load = SubResource( 3 )
-"anims/Reveal Card" = SubResource( 2 )
+anims/Load = SubResource( 2 )
+"anims/Reveal Card" = SubResource( 3 )
 anims/Unload = SubResource( 4 )
 [connection signal="pressed" from="DeckTexture" to="." method="_on_DeckTexture_pressed"]
 [connection signal="pressed" from="CardTexture" to="." method="_on_CardTexture_pressed"]

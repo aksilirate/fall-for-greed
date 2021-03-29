@@ -157,6 +157,7 @@ func calculate_character_turn(_character, _energy_cost, _minutes_passed):
 	calculate_mood(_character, _minutes_passed)
 	calculate_luck(_character)
 	
+	var _current_artifact = story.current_artifact
 	
 	var _hunger_check = _character.get_hunger_status()
 	var _energy_check = _character.get_energy_status()
@@ -165,7 +166,13 @@ func calculate_character_turn(_character, _energy_cost, _minutes_passed):
 	_character.stats["health"] += _health_gained
 	if _character.stats["health"] > 1.0:
 		_character.stats["health"] = 1.0
-	_character.stats["hunger"] -= (_energy_cost / 3.42) + _health_gained
+		
+
+	if _current_artifact != null and _current_artifact.get("ANTI_HUNGER"):
+		_character.stats["hunger"] = 1
+	else:
+		_character.stats["hunger"] -= (_energy_cost / 3.42) + _health_gained
+		
 	_character.stats["energy"] -= _energy_cost
 	
 	
@@ -308,7 +315,7 @@ func reset_location():
 
 
 func acquire_random_artifact():
-	var _random_artifact = story.artifacts[round(rand_range(0,story.artifacts.size() - 1))]
+	var _random_artifact = story.artifacts[randi() % story.artifacts.size()]
 	emit_story_telling("you have accepted the offer and acquired" + _random_artifact.NAME)
 	yield(self,"story_telling_started")
 	story.current_artifact = _random_artifact.new()
@@ -328,7 +335,7 @@ func break_artifact():
 func emit_location_advanced():
 	randomize()
 	var locations_to_advance = 1
-	var _minutes_passed = floor(rand_range(13,56))
+	var _minutes_passed = floor(rand_range(13,37))
 	
 	if area.location_index + 1 < area.upcoming_locations.size():
 		var next_location = area.upcoming_locations[area.location_index + 1]
@@ -340,7 +347,7 @@ func emit_location_advanced():
 				else:
 					locations_to_advance += 1
 					randomize()
-					_minutes_passed += floor(rand_range(13,56))
+					_minutes_passed += floor(rand_range(13,37))
 					
 		else:
 			if rand_range(0,1) < 0.01:
@@ -505,7 +512,7 @@ func search_for_item(_minutes_passed):
 		if _max_focus < _character.traits["focus"] / 3:
 			_max_focus = _character.traits["focus"] / 3
 		
-	if area.findings_left > 0 and rand_range(0,1) < ((_minutes_passed*0.0166) - 0.33) + _max_focus:
+	if area.findings_left > 0 and rand_range(0,1) < 0.6 + _max_focus:
 		
 		randomize()
 		_finding = Rand.weighted_random_object(area.current_area.FINDINGS).new()
@@ -573,6 +580,7 @@ func emit_take_item():
 func start_battle():
 	animation_player.play("Hide Screen")
 	yield(animation_player,"animation_finished")
+	var _current_artifact = story.current_artifact
 	var shell_scene = load("res://Scenes/ShellsScene/ShellsScene.tscn").instance()
 	
 
@@ -582,6 +590,9 @@ func start_battle():
 		for _child in game_screen.hold_slot.get_children():
 			_child.queue_free()
 		game_screen.save()
+		
+	if _current_artifact != null and _current_artifact.get("LOSE_FIRST_ROUND"):
+		shell_scene.auto_lose = true
 		
 	shell_scene.enemy = area.current_event
 	game_screen.add_child(shell_scene)
