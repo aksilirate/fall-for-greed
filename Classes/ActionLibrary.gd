@@ -338,15 +338,23 @@ func emit_location_advanced():
 	var locations_to_advance = 1
 	var _minutes_passed = floor(rand_range(13,37))
 	
-	if area.location_index + 1 < area.upcoming_locations.size():
-		var next_location = area.upcoming_locations[area.location_index + 1]
-		if next_location.get_script() == area.current_area.get_script():
+	
+	for _i in range(6):
+		if area.location_index + locations_to_advance < area.upcoming_locations.size():
+			var next_location = area.upcoming_locations[area.location_index + locations_to_advance]
+			if next_location.get_script() == area.current_area.get_script():
 				if rand_range(0,1) < 0.43:
 					locations_to_advance += 1
 					randomize()
 					_minutes_passed += floor(rand_range(13,37))
+
 					
-		else:
+		
+	var skipped_next_location_index = area.location_index + locations_to_advance
+	if skipped_next_location_index < area.upcoming_locations.size():
+		var skipped_next_location = area.upcoming_locations[skipped_next_location_index]
+
+		if skipped_next_location.get_script() != area.current_area.get_script():
 			if rand_range(0,1) < 0.01:
 				upcoming_stories.push_back("you think you saw something")
 			
@@ -519,15 +527,16 @@ func search_for_item(_minutes_passed):
 		emit_story_telling = emit_story_telling(_main_story)
 		
 		area.current_event = _finding
-
+		
+		if area.findings_left > 0:
+			area.findings_left -= 1
+		
 	else:
 		upcoming_stories.push_back("you have not found anything")
 		reset_location()
 		emit_story_telling = emit_story_telling(_main_story)
 		if rand_range(0,1) < 0.1 and _minutes_passed >= 13:
 			emit_location_advanced()
-	if area.findings_left > 0:
-		area.findings_left -= 1
 	
 	
 	yield(self,"story_telling_started")

@@ -15,6 +15,7 @@ const GOBLIN_SCOUT_ENEMY := "res://Areas/Hills/Enemies/GoblinScout.gd"
 const SNAKE_ENEMY := "res://Areas/Hills/Enemies/Snake.gd"
 
 const ABANDONED_SHOVEL := "res://Areas/AbandonedForest/Zones/AbandonedShovel.gd"
+const ABANDONED_FOREST_PATH := "res://Areas/AbandonedForest/Zones/AbandonedForestPath.gd"
 const QUEENS_GRAVE := "res://Areas/DeadForest/Zones/QueensGrave.gd"
 
 

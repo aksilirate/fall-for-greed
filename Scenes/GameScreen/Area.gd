@@ -24,7 +24,6 @@ func generate_locations():
 	# Generates NPCs, enemies and zones
 	upcoming_locations.clear()
 	location_index = 0
-	
 	randomize()
 	
 	var spawned_enemies = []
@@ -33,18 +32,18 @@ func generate_locations():
 	
 	var _last_location: Object
 	for _index in current_area.total_locations:
-		if _index > 3 and _last_location.get_script() == AbandonedForest.new().get_script():
+		if _index > 3 and _last_location == current_area:
 			
 			var _enemy = Rand.weighted_random_object(current_area.ENEMIES)
 			var _zone = Rand.weighted_random_object(current_area.ZONES)
 			
-			if spawned_enemies.size() <= current_area.ENEMIES.size() and spawned_enemies.find(_enemy) == -1:
+			if current_area.ENEMIES.size() > 0 and spawned_enemies.size() <= current_area.ENEMIES.size() and spawned_enemies.find(_enemy) == -1:
 				_last_location = _enemy.new()
 				upcoming_locations.push_front(_enemy.new())
 				spawned_enemies.push_front(_enemy)
 				
 			
-			elif spawned_zones.size() <= current_area.ZONES.size() and spawned_zones.find(_zone) == -1:
+			elif current_area.ZONES.size() > 0 and spawned_zones.size() <= current_area.ZONES.size() and spawned_zones.find(_zone) == -1:
 				_last_location = _zone.new()
 				upcoming_locations.push_front(_zone.new())
 				spawned_zones.push_front(_zone)
@@ -154,6 +153,7 @@ func advance_location():
 		
 	if current_area.get("LAST_EVENT"):
 		current_event = current_area.LAST_EVENT.new()
+		generate_locations()
 		
 	if location_index == current_area.total_locations:
 		current_area = current_area.NEXT_AREA.new()
