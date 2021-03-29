@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Theme.tres" type="Theme" id=1]
 [ext_resource path="res://Textures/Interface/Title.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Scenes/TitleScreen/PlayLabel.gd" type="Script" id=4]
 [ext_resource path="res://Scenes/TitleScreen/OptionsLabel.gd" type="Script" id=5]
 [ext_resource path="res://Scenes/TitleScreen/TitleScreen.gd" type="Script" id=6]
+[ext_resource path="res://Fonts/munro-small.ttf" type="DynamicFontData" id=7]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Fade Out"
@@ -69,6 +70,18 @@ tracks/4/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("VersionLabel:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 2.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -145,6 +158,22 @@ tracks/5/keys = {
 "update": 1,
 "values": [ true, false ]
 }
+tracks/6/type = "value"
+tracks/6/path = NodePath("VersionLabel:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 3.4, 4.5 ),
+"transitions": PoolRealArray( 6, 6, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="DynamicFont" id=3]
+size = 10
+font_data = ExtResource( 7 )
 
 [node name="TitleScreen" type="Control" groups=[
 "title_screen",
@@ -212,7 +241,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="VersionLabel" type="Label" parent="."]
+margin_left = 3.0
+margin_top = 194.0
+margin_right = 131.0
+margin_bottom = 207.0
+custom_fonts/font = SubResource( 3 )
+text = "1.0.2"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="InputBlocker" type="ColorRect" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 1, 1, 1, 0 )

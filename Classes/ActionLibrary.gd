@@ -169,7 +169,7 @@ func calculate_character_turn(_character, _energy_cost, _minutes_passed):
 		
 
 	if _current_artifact != null and _current_artifact.get("ANTI_HUNGER"):
-		_character.stats["hunger"] = 1
+		_character.stats["hunger"] = max(1.0, _character.stats["hunger"])
 	else:
 		_character.stats["hunger"] -= (_energy_cost / 3.42) + _health_gained
 		
