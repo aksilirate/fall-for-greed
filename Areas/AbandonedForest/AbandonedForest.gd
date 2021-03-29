@@ -24,7 +24,8 @@ const FINDINGS = [
 const ZONES = [
 	CaveEntrance,
 	AbandonedForestRopeHang,
-	AbandonedShovel
+	AbandonedShovel,
+	AbandonedForestPath
 ]
 
 const ENEMIES = [

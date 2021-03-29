@@ -15,6 +15,11 @@ _global_script_classes=[ {
 "path": "res://Areas/AbandonedForest/AbandonedForest.gd"
 }, {
 "base": "Zone",
+"class": "AbandonedForestPath",
+"language": "GDScript",
+"path": "res://Areas/AbandonedForest/Zones/AbandonedForestPath.gd"
+}, {
+"base": "Zone",
 "class": "AbandonedForestRopeHang",
 "language": "GDScript",
 "path": "res://Areas/AbandonedForest/Zones/AbandonedForestRopeHang.gd"
@@ -238,6 +243,11 @@ _global_script_classes=[ {
 "class": "FocusBoost",
 "language": "GDScript",
 "path": "res://Classes/Effects/FocusBoost.gd"
+}, {
+"base": "ActionLibrary",
+"class": "FollowPathAction",
+"language": "GDScript",
+"path": "res://Classes/Actions/FollowPathAction.gd"
 }, {
 "base": "TextureRect",
 "class": "ForgedTextureRect",
@@ -606,6 +616,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "AbandonedForest": "",
+"AbandonedForestPath": "",
 "AbandonedForestRopeHang": "",
 "AbandonedShovel": "",
 "AcceptOfferAction": "",
@@ -651,6 +662,7 @@ _global_script_class_icons={
 "FallenKingsChaliceCup": "",
 "FightAction": "",
 "FocusBoost": "",
+"FollowPathAction": "",
 "ForgedTextureRect": "",
 "GameScreen": "",
 "GameTextureRect": "",

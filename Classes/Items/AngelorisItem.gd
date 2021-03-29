@@ -7,7 +7,7 @@ const HISTORY := "A white mushroom."
 const TEXTURE := "res://Textures/Items/Angeloris Item.png"
 const TOOLTIP := "angeloris"
 
-const CALORIES = 0.1
+const CALORIES = 0.09
 const COOKS_INTO = CookedAngelorisItem
 const MAX_COOK_TIME = 3
 const MIN_COOK_TIME = 1

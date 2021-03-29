@@ -256,15 +256,16 @@ func calculate_luck(_character):
 		
 	if area.current_event is load("res://Areas/AbandonedForest/AbandonedForest.gd") as Script:
 		if _character.stats["armor"] < 0.3:
-			if _total_luck < rand_range(-1 / max(_character.mistakes.count("step on thorn"),0.001),0):
-				upcoming_stories.push_back(_character.character_name + " has stepped on a thorn by accident")
-				var _effect = Effect.new()
-				var _bleed = Bleed.new()
-				randomize()
-				_bleed.deactivation_minute = round(rand_range(3,6))
-				_effect.active_effect = _bleed
-				_character.add_child(_effect)
-				_character.mistakes.append("step on thorn")
+			if _total_luck <= -0.3:
+				if rand_range(0,5) < min( 1.0 / (_character.mistakes.count("step on thorn") + 1), 1.0):
+					upcoming_stories.push_back(_character.character_name + " has stepped on a thorn by accident")
+					var _effect = Effect.new()
+					var _bleed = Bleed.new()
+					randomize()
+					_bleed.deactivation_minute = round(rand_range(3,6))
+					_effect.active_effect = _bleed
+					_character.add_child(_effect)
+					_character.mistakes.append("step on thorn")
 
 		if _total_luck <= -10.0:
 			if rand_range(0,1) < 0.084:
@@ -340,11 +341,7 @@ func emit_location_advanced():
 	if area.location_index + 1 < area.upcoming_locations.size():
 		var next_location = area.upcoming_locations[area.location_index + 1]
 		if next_location.get_script() == area.current_area.get_script():
-			
-			for _advance_tries in range(3):
 				if rand_range(0,1) < 0.43:
-					break
-				else:
 					locations_to_advance += 1
 					randomize()
 					_minutes_passed += floor(rand_range(13,37))
@@ -684,8 +681,17 @@ func change_area():
 	area.update_actions()
 	yield(self,"story_telling_finished")
 
-
-
+func follow_path():
+	emit_story_telling("you have followed the path")
+	yield(self,"story_telling_started")
+	area.current_area = area.current_event.NEXT_AREA.new()
+	area.current_event = area.current_area
+	area.generate_locations()
+	area.update_story_info()
+	area.update_actions()
+	yield(self,"story_telling_finished")
+	
+	
 func drop_selected_item():
 	var _character = game_screen.last_selected_character
 	var _selected_item = game_screen.selected.item
