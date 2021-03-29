@@ -343,11 +343,11 @@ func emit_location_advanced():
 		if area.location_index + locations_to_advance < area.upcoming_locations.size():
 			var next_location = area.upcoming_locations[area.location_index + locations_to_advance]
 			if next_location.get_script() == area.current_area.get_script():
-				if rand_range(0,1) < 0.43:
-					locations_to_advance += 1
-					randomize()
-					_minutes_passed += floor(rand_range(13,37))
-
+				locations_to_advance += 1
+				randomize()
+				_minutes_passed += floor(rand_range(13,37))
+				if rand_range(0,1) < 0.132:
+					break
 					
 		
 	var skipped_next_location_index = area.location_index + locations_to_advance
@@ -576,6 +576,8 @@ func emit_take_item():
 		_main_story = "you have acquired " + str(item.NAME)
 		emit_story_telling = emit_story_telling(_main_story)
 		executer.inventory.append(item)
+		if area.current_event is Zone:
+			area.upcoming_locations.remove(area.location_index)
 	else: # <------- if holding an Item
 		item = game_screen.hold_slot.selected_item
 		game_screen.hold_slot.selected_item = null

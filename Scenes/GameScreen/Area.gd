@@ -141,8 +141,8 @@ func _on_location_reseted():
 	save_game()
 
 
-
-
+	
+	
 #need to save location_index
 func advance_location():
 	if upcoming_locations[location_index].get_script() != current_area.get_script() and not upcoming_locations[location_index] is Zone:
@@ -150,10 +150,6 @@ func advance_location():
 		current_area.total_locations -= 1
 	else:
 		location_index += 1
-		
-	if current_area.get("LAST_EVENT"):
-		current_event = current_area.LAST_EVENT.new()
-		generate_locations()
 		
 	if location_index == current_area.total_locations:
 		current_area = current_area.NEXT_AREA.new()

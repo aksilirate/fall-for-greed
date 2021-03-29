@@ -91,7 +91,7 @@ func set_hold_time(_value):
 
 func _on_gui_input(event):
 	if event is InputEventMouseButton:
-		if not event.pressed and event.button_index == BUTTON_LEFT and not holding and not animation_player.is_playing():
+		if not event.pressed and event.button_index == BUTTON_LEFT and not hold_time >= 0.666 and not animation_player.is_playing():
 			cup_pressed()
 		elif event.pressed and not animation_player.is_playing():
 			holding = true
