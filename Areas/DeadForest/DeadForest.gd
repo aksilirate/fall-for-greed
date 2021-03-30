@@ -15,7 +15,7 @@ const FINDINGS = []
 
 const ZONES = [QueensGrave]
 
-const ENEMIES = []
+const ENEMIES = [FallenKing]
 
 const NPCS = []
 

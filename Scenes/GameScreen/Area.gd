@@ -173,8 +173,6 @@ func advance_location():
 				current_event = Wanderer
 			
 			
-	var save_file = SaveFile.new()
-	save_file.save_value("Game", "current_event",current_event)
 	reset_findings_left()
 	update_story_info()
 	update_actions()

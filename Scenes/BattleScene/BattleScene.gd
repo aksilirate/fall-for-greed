@@ -244,7 +244,7 @@ func dodged(_character: Character):
 
 func improve_combat(_character):
 	var _old_combat_level = _character.traits["combat"]
-	_character.traits["combat"] += rand_range(0.001, 0.0083)
+	_character.traits["combat"] += rand_range(0.01, 0.083)
 	if floor(_character.traits["combat"] * 10) > floor(_old_combat_level * 10):
 		action_library.upcoming_stories.push_back(_character.character_name + " has improved his combat")
 

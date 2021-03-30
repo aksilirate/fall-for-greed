@@ -403,12 +403,12 @@ func execute_sleep(_character):
 			yield(self,"story_telling_started")
 			add_to_minutes_passed(round(calculated_sleep_time * 60))
 			
-		if area.current_event.get_class() == "CampfireEvent":
-			_character.hormones["melatonin"] = 0.0
-			_character.stats["energy"] = 1.0
-		else:
-			_character.hormones["melatonin"] = 0.024
-			_character.stats["energy"] = 0.8
+	if area.current_event.get_class() == "CampfireEvent":
+		_character.hormones["melatonin"] = 0.0
+		_character.stats["energy"] = 1.0
+	else:
+		_character.hormones["melatonin"] = 0.024
+		_character.stats["energy"] = 0.8
 			
 			
 
@@ -482,7 +482,7 @@ func had_nightmare(_character):
 func improve_focus(_minutes_passed):
 	for _character in get_tree().get_nodes_in_group("characters"):
 		var _old_focus_level = _character.traits["focus"]
-		_character.traits["focus"] += _minutes_passed * rand_range(0.00001, 0.000097)
+		_character.traits["focus"] += _minutes_passed * rand_range(0.0001, 0.00097)
 		if floor(_character.traits["focus"] * 10) > floor(_old_focus_level * 10):
 			upcoming_stories.push_back(_character.character_name + " has improved his focus")
 			
@@ -490,7 +490,7 @@ func improve_focus(_minutes_passed):
 
 func improve_humor(_character):
 	var _old_humor_level = _character.traits["humor"]
-	_character.traits["humor"] += rand_range(0.008, 0.037)
+	_character.traits["humor"] += rand_range(0.08, 0.17)
 	if floor(_character.traits["humor"] * 10) > floor(_old_humor_level * 10):
 		upcoming_stories.push_back(_character.character_name + " has improved his humor")
 		
@@ -623,11 +623,9 @@ func start_battle():
 
 
 func run():
-	var _run_chance = max(0,4 - area.current_event.SPEED)
 	var emit_story_telling
-	
 	randomize()
-	if rand_range(0,10) < _run_chance and not area.current_event.get("INESCAPABLE"):
+	if rand_range(0, area.current_event.SPEED) < lowest_energy() and not area.current_event.get("INESCAPABLE"):
 		emit_story_telling = emit_story_telling("you have ran away")
 		emit_location_advanced()
 		yield(emit_story_telling,"completed")
@@ -780,3 +778,10 @@ func joke():
 	yield(self,"story_telling_finished")
 	queue_free()
 	
+	
+func lowest_energy():
+	var lowest_energy := 1.0
+	for _character in get_tree().get_nodes_in_group("characters"):
+		if lowest_energy > _character.stats["energy"]:
+			lowest_energy = _character.stats["energy"]
+	return lowest_energy
