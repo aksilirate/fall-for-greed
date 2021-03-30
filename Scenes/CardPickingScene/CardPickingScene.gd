@@ -1,10 +1,12 @@
 extends Control
 
+
 const TAROT_CARDS = [
 	EmpressCard,
 	EmperorCard,
 	HermitCard,
 	StrengthCard,
+	FoolCard,
 	DeathCard
 ]
 
@@ -16,7 +18,12 @@ func _init():
 	visible = false
 
 func _ready():
+	randomize()
 	tarot_cards_cache = [] + TAROT_CARDS
+	tarot_cards_cache.shuffle()
+	if tarot_cards_cache[0].get("DEATH"):
+		tarot_cards_cache.invert()
+	
 	$AnimationPlayer.play("Load")
 	
 
@@ -35,10 +42,7 @@ var drawn_card: GDScript
 func _on_AnimationPlayer_animation_finished(anim_name):
 	match anim_name:
 		"Draw Card":
-			randomize()
-			var _tarot_card_index = round(rand_range(0,tarot_cards_cache.size() - 1))
-			drawn_card = tarot_cards_cache[_tarot_card_index]
-			tarot_cards_cache.remove(_tarot_card_index)
+			drawn_card = tarot_cards_cache.pop_front()
 			$CardTexture.texture = load(drawn_card.TEXTURE)
 			$AnimationPlayer.play("Reveal Card")
 			

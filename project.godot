@@ -259,6 +259,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Classes/Actions/FollowPathAction.gd"
 }, {
+"base": "TarotCard",
+"class": "FoolCard",
+"language": "GDScript",
+"path": "res://Classes/TarotCards/FoolCard.gd"
+}, {
 "base": "TextureRect",
 "class": "ForgedTextureRect",
 "language": "GDScript",
@@ -675,6 +680,7 @@ _global_script_class_icons={
 "FightAction": "",
 "FocusBoost": "",
 "FollowPathAction": "",
+"FoolCard": "",
 "ForgedTextureRect": "",
 "GameScreen": "",
 "GameTextureRect": "",

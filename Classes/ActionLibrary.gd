@@ -206,10 +206,16 @@ func calculate_character_turn(_character, _energy_cost, _minutes_passed):
 	
 	
 func calculate_mood(_character, _minutes_passed):
+	var _tarot_mood = game_screen.selected_tarot_card.get("MOOD")
+	if _tarot_mood:
+		_character.stats["mood"] += _tarot_mood
+		_character.stats["mood"] = min(_character.stats["mood"], 1.5)
+		
 	if _character.stats["health"] <= 0.5:
 		_character.stats["mood"] -= ((1 - _character.stats["health"]) / 618) * _minutes_passed
 	if _character.stats["hunger"] <= 0.5:
-		_character.stats["mood"] -= ((1 - _character.stats["health"]) / 741) * _minutes_passed
+		_character.stats["mood"] -= ((1 - _character.stats["health"]) / 721) * _minutes_passed
+	
 	
 	if _character.stats["mood"] < 0.23:
 		if rand_range(0,1) < 0.068:
@@ -247,10 +253,9 @@ func calculate_melatonin(_character, _minutes_passed):
 
 func calculate_luck(_character, _minutes_passed):
 	var _total_luck: float
-	if game_screen.selected_tarot_card.get_script() == EmpressCard.new().get_script():
-		_total_luck = _character.stats["luck"] + 0.37
-	elif game_screen.selected_tarot_card.get_script() == DeathCard.new().get_script():
-		_total_luck = _character.stats["luck"] - 0.392
+	var _tarot_luck = game_screen.selected_tarot_card.get("LUCK")
+	if _tarot_luck:
+		_total_luck = _character.stats["luck"] + _tarot_luck
 	else:
 		_total_luck = _character.stats["luck"]
 		
@@ -288,7 +293,7 @@ func calculate_luck(_character, _minutes_passed):
 		for _item in _character.inventory:
 			randomize()
 			for _minute in range(1, _minutes_passed):
-				if rand_range(-1300, 0) > _total_luck:
+				if rand_range(-1462, 0) > _total_luck:
 					_character.inventory.erase(_item)
 					var _missing_message: String
 					if _item.get("MISSING_MESSAGE"):
@@ -539,7 +544,7 @@ func search_for_item():
 	
 	var _finding_chance = rand_range(0,1)
 	for _minute in range(1,60):
-		if area.findings_left > 0 and _finding_chance < (_minute * 0.01666) + _max_focus:
+		if area.findings_left > 0 and _finding_chance < (_minute * 0.01666) + _max_focus and area.current_area.FINDINGS:
 			randomize()
 			_finding = Rand.weighted_random_object(area.current_area.FINDINGS).new()
 			var finding_name = _finding.NAME
