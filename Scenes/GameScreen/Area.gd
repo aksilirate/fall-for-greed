@@ -145,32 +145,31 @@ func _on_location_reseted():
 	
 #need to save location_index
 func advance_location():
+	
 	if upcoming_locations[location_index].get_script() != current_area.get_script() and not upcoming_locations[location_index] is Zone:
 		upcoming_locations.remove(location_index)
 		current_area.total_locations -= 1
 	else:
 		location_index += 1
 		
+
 	if location_index == current_area.total_locations:
 		current_area = current_area.NEXT_AREA.new()
 		current_event = current_area
 		generate_locations()
-	
-	
-	
-	if upcoming_locations[location_index] is Enemy and \
-	game_screen.selected_tarot_card.get_script() == HermitCard.new().get_script() and \
-	location_index != upcoming_locations.size() - 1:
-		current_event = current_area
 	else:
-		current_event = upcoming_locations[location_index]
+		if upcoming_locations[location_index] is Enemy and game_screen.selected_tarot_card.get("HERMIT") and \
+		location_index != upcoming_locations.size() - 1:
+			current_event = current_area
+		else:
+			current_event = upcoming_locations[location_index]
 	
 	
-	if current_event.get_script() == current_area.get_script():
-		if rand_range(0,1) < 0.02:
-			var story = get_tree().get_nodes_in_group("story").front()
-			if story.current_artifact == null:
-				current_event = Wanderer
+		if current_event.get_script() == current_area.get_script():
+			if rand_range(0,1) < 0.02:
+				var story = get_tree().get_nodes_in_group("story").front()
+				if story.current_artifact == null:
+					current_event = Wanderer
 			
 			
 	reset_findings_left()

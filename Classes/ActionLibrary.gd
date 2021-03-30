@@ -578,6 +578,7 @@ func emit_take_item():
 		executer.inventory.append(item)
 		if area.current_event is Zone:
 			area.upcoming_locations.remove(area.location_index)
+			area.current_area.total_locations -= 1
 	else: # <------- if holding an Item
 		item = game_screen.hold_slot.selected_item
 		game_screen.hold_slot.selected_item = null
