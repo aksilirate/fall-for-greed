@@ -155,7 +155,7 @@ func calculate_character_turn(_character, _energy_cost, _minutes_passed):
 	calculate_loneliness(_character, _minutes_passed)
 	calculate_melatonin(_character, _minutes_passed)
 	calculate_mood(_character, _minutes_passed)
-	calculate_luck(_character)
+	calculate_luck(_character, _minutes_passed)
 	
 	var _current_artifact = story.current_artifact
 	
@@ -245,7 +245,7 @@ func calculate_melatonin(_character, _minutes_passed):
 		upcoming_stories.push_back(_character.character_name + " is " + _updated_melatonin_check)
 
 
-func calculate_luck(_character):
+func calculate_luck(_character, _minutes_passed):
 	var _total_luck: float
 	if game_screen.selected_tarot_card.get_script() == EmpressCard.new().get_script():
 		_total_luck = _character.stats["luck"] + 0.37
@@ -280,6 +280,31 @@ func calculate_luck(_character):
 				upcoming_stories.push_back(_character.character_name + " have died")
 				kill_character(_character)
 
+
+
+	var _missing_items_messages = []
+	if _character.inventory:
+		
+		for _item in _character.inventory:
+			randomize()
+			for _minute in range(1, _minutes_passed):
+				if rand_range(-1300, 0) > _total_luck:
+					_character.inventory.erase(_item)
+					var _missing_message: String
+					if _item.get("MISSING_MESSAGE"):
+						_missing_message = "his " + _item.MISSING_MESSAGE
+					else:
+						_missing_message = "his " + _item.TOOLTIP + " is missing"
+						
+					if not _missing_items_messages.has(_missing_message):
+						_missing_items_messages.append(_missing_message)
+	
+	if _missing_items_messages:
+		upcoming_stories.push_back(_character.character_name + " has noticed something")
+		for _message in _missing_items_messages:
+			upcoming_stories.push_back(_message)
+				
+	
 #------------------------------ [ ^ CALCULATIONS ^ ] ---------------------------------
 
 
@@ -707,15 +732,47 @@ func change_area():
 	area.update_actions()
 	yield(self,"story_telling_finished")
 
+
+
+
+
+
 func follow_path():
+	randomize()
+	var _hours_passed =  (randi() % 5) +1
+	var _minutes_passed = randi() % 60
+	var _hours_passed_message: String
+	var _mintes_passed_message: String
+	
+	if _hours_passed == 1:
+		_hours_passed_message = str(_hours_passed) + " hour"
+	else:
+		_hours_passed_message = str(_hours_passed) + " hours"
+	
+	if not _minutes_passed:
+		_mintes_passed_message = ""
+	elif _minutes_passed == 1:
+		_mintes_passed_message = " and minute"
+	else:
+		_mintes_passed_message = " and " + str(_minutes_passed) + " minutes"
+		
+	upcoming_stories.push_back(_hours_passed_message + _mintes_passed_message + " have passed")
+	
 	emit_story_telling("you have followed the path")
+	
 	yield(self,"story_telling_started")
+	var _total_minutes_passed = (_hours_passed*60) + _minutes_passed
 	area.current_area = area.current_event.NEXT_AREA.new()
 	area.current_event = area.current_area
+	calculate_turn(0.00028, _total_minutes_passed)
+	
 	area.generate_locations()
 	area.update_story_info()
 	area.update_actions()
 	yield(self,"story_telling_finished")
+	
+	
+	
 	
 	
 func drop_selected_item():

@@ -8,6 +8,8 @@ const HISTORY := "A small amount of shitake mushrooms."
 const TEXTURE := "res://Textures/Items/Shiitake Shrooms Item.png"
 const TOOLTIP := "shitake mushrooms"
 
+const MISSING_MESSAGE := "shitake mushrooms are missing"
+
 const CALORIES = 0.26
 
 const WEST_ACTION = HoldAction

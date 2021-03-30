@@ -607,7 +607,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "WildCucumbersItem",
 "language": "GDScript",
-"path": "res://Classes/Items/WildCucumber.gd"
+"path": "res://Classes/Items/WildCucumbers.gd"
 }, {
 "base": "Enemy",
 "class": "Witch",

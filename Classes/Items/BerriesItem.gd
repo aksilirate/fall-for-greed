@@ -8,6 +8,8 @@ const HISTORY := "A small amount of berries."
 const TEXTURE := "res://Textures/Items/Berries Item.png"
 const TOOLTIP := "berries"
 
+const MISSING_MESSAGE := "berries are missing"
+
 const CALORIES = 0.189
 
 const WEST_ACTION = HoldAction
