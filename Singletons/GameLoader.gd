@@ -4,15 +4,9 @@ extends Node
 
 
 
-
-
-
-
-
 func _ready():
 # warning-ignore:return_value_discarded
 	get_tree().connect("node_removed", self, "_on_node_removed")
-	
 	var world_environment = WorldEnvironment.new()
 	world_environment.environment = preload("res://default_env.tres")
 	add_child(world_environment)
