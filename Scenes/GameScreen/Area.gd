@@ -171,11 +171,9 @@ func advance_location():
 				if story.current_artifact == null:
 					current_event = Wanderer
 			
-			
 	reset_findings_left()
 	update_story_info()
 	update_actions()
-	save_game()
 
 
 

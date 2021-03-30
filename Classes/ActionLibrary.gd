@@ -370,10 +370,11 @@ func emit_location_advanced():
 #	Used for the WalkAction.gd
 	emit_signal("ready_to_advance", _minutes_passed)
 	yield(self,"story_telling_started")
+	
 	while locations_to_advance > 0:
 		area.advance_location()
 		locations_to_advance -= 1
-		
+	area.save_game()
 	
 #--------------------------------------- [ v SLEEP v ] ----------------------------------------
 
