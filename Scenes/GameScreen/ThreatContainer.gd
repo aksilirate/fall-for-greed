@@ -18,21 +18,18 @@ func add_threat(_name):
 
 func display_threats():
 	
-	
+	var mood_status = game_screen.last_selected_character.get_mood_status()
 	var hunger_status = game_screen.last_selected_character.get_hunger_status()
 	var energy_status = game_screen.last_selected_character.get_energy_status()
 	var melatonin_status = game_screen.last_selected_character.get_melatonin_status()
 	
+	
+	if mood_status:
+		add_threat(mood_status)
+	
 	if hunger_status:
 		add_threat(hunger_status)
 	
-	
-	if owner.last_selected_character.stats["mood"] < 0.1:
-		add_threat("depressed")
-	elif owner.last_selected_character.stats["mood"] < 0.4:
-		add_threat("angry")
-	elif owner.last_selected_character.stats["mood"] < 0.6:
-		add_threat("irritated")
 
 	if owner.last_selected_character.stats["health"] < 0.1:
 		add_threat("dying")

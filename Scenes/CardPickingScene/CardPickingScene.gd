@@ -49,9 +49,10 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		"Reveal Card":
 			$PlaceholderTexture.texture = load(drawn_card.TEXTURE)
 			$PlaceholderTexture.hide()
-			if not tries_left:
+			if not tries_left and get_parent().selected_tarot_card:
 				$AnimationPlayer.play("Unload")
-				
+			if tarot_cards_cache.size() == 0:
+				$AnimationPlayer.play("Unload")
 		"Unload":
 
 			if get_parent().get("selected_tarot_card"):

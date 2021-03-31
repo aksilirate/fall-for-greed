@@ -16,7 +16,6 @@ signal story_telling_finished
 signal location_reseted
 
 
-var character_passed_out = false
 var upcoming_stories = []
 var action: Object
 var executer
@@ -112,9 +111,7 @@ func show_story_label(_story):
 
 func stamina_issue():
 	for _character in get_tree().get_nodes_in_group("characters"):
-		if _character.hormones["melatonin"] >  0.83:
-			return _character.character_name + " is too sleepy"
-		elif _character.stats["energy"] < 0.3:
+		if _character.stats["energy"] < 0.3:
 			return _character.character_name + " too exhausted"
 				
 	return false
@@ -159,6 +156,7 @@ func calculate_character_turn(_character, _energy_cost, _minutes_passed):
 	
 	var _current_artifact = story.current_artifact
 	
+	var _mood_check = _character.get_mood_status()
 	var _hunger_check = _character.get_hunger_status()
 	var _energy_check = _character.get_energy_status()
 	
@@ -176,6 +174,10 @@ func calculate_character_turn(_character, _energy_cost, _minutes_passed):
 	_character.stats["energy"] -= _energy_cost
 	
 	
+	if _mood_check != _character.get_mood_status():
+		var _updated_mood_check = _character.get_mood_status()
+		upcoming_stories.push_back(_character.character_name + " is " + _updated_mood_check)
+	
 	if _hunger_check != _character.get_hunger_status():
 		var _updated_hunger_check = _character.get_hunger_status()
 		upcoming_stories.push_back(_character.character_name + " is " + _updated_hunger_check)
@@ -189,10 +191,11 @@ func calculate_character_turn(_character, _energy_cost, _minutes_passed):
 	
 	
 	
-#	if _character.stats["energy"] <= 0:
-#		upcoming_stories.push_back(_character.character_name + " has fallen asleep")
-#		pass_out()
-#		_character.stats["energy"] = 0.67
+	if _character.hormones["melatonin"] >= 1.5:
+		upcoming_stories.push_back(_character.character_name + " has passed out")
+		pass_out(_character)
+		_character.hormones["melatonin"] = 0.0
+		_character.stats["mood"] -= 0.173
 		
 	if _character.stats["health"] <= 0 or _character.stats["hunger"] <= 0:
 		upcoming_stories.push_back(_character.character_name + " have died")
@@ -212,10 +215,11 @@ func calculate_mood(_character, _minutes_passed):
 		_character.stats["mood"] = min(_character.stats["mood"], 1.5)
 		
 	if _character.stats["health"] <= 0.5:
-		_character.stats["mood"] -= ((1 - _character.stats["health"]) / 618) * _minutes_passed
+		_character.stats["mood"] -= ((1 - _character.stats["health"]) / 718) * _minutes_passed
 	if _character.stats["hunger"] <= 0.5:
-		_character.stats["mood"] -= ((1 - _character.stats["health"]) / 721) * _minutes_passed
-	
+		_character.stats["mood"] -= ((1 - _character.stats["health"]) / 821) * _minutes_passed
+	if _character.hormones["melatonin"] > 0.83:
+		_character.stats["mood"] -= (_character.hormones["melatonin"] * _minutes_passed) * 0.001666
 	
 	if _character.stats["mood"] < 0.23:
 		if rand_range(0,1) < 0.068:
@@ -293,7 +297,7 @@ func calculate_luck(_character, _minutes_passed):
 		for _item in _character.inventory:
 			randomize()
 			for _minute in range(1, _minutes_passed):
-				if rand_range(-1462, 0) > _total_luck:
+				if rand_range(-3000, 0) > _total_luck:
 					_character.inventory.erase(_item)
 					var _missing_message: String
 					if _item.get("MISSING_MESSAGE"):
@@ -376,7 +380,7 @@ func emit_location_advanced():
 				locations_to_advance += 1
 				randomize()
 				_minutes_passed += floor(rand_range(13,37))
-				if rand_range(0,1) < 0.132:
+				if rand_range(0,1) < 0.192:
 					break
 					
 		
@@ -490,9 +494,7 @@ func calculate_sleep_time():
 
 
 
-func pass_out():
-	if not character_passed_out:
-		character_passed_out = true
+func pass_out(_character):
 		upcoming_stories.push_back(str(round(calculate_sleep_time())) + " hours have passed")
 		add_to_minutes_passed(round(calculate_sleep_time() * 60))
 

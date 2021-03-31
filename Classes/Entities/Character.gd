@@ -60,6 +60,7 @@ var traits = {
 
 var action_cooldowns = {} setget set_action_cooldowns
 	
+
 var current_character
 
 func _ready():
@@ -86,8 +87,15 @@ func add_effect(_effect_type: Object):
 	_effect.active_effect = _effect_type
 	add_child(_effect)
 	
+func get_mood_status():
+	if stats.mood < 0.1:
+		return "depressed"
+	elif stats.mood < 0.4:
+		return "angry"
+	elif stats.mood < 0.6:
+		return "irritated"
+		
 
-	
 func get_hunger_status():
 	if stats.hunger < 0.2:
 		return "starving"
