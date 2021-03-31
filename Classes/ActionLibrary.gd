@@ -218,8 +218,8 @@ func calculate_mood(_character, _minutes_passed):
 		_character.stats["mood"] -= ((1 - _character.stats["health"]) / 718) * _minutes_passed
 	if _character.stats["hunger"] <= 0.5:
 		_character.stats["mood"] -= ((1 - _character.stats["health"]) / 821) * _minutes_passed
-	if _character.hormones["melatonin"] > 0.83:
-		_character.stats["mood"] -= (_character.hormones["melatonin"] * _minutes_passed) * 0.001666
+	if _character.hormones["melatonin"] > 0.9:
+		_character.stats["mood"] -= (_character.hormones["melatonin"] * _minutes_passed) * 0.0003666
 	
 	if _character.stats["mood"] < 0.23:
 		if rand_range(0,1) < 0.068:
@@ -759,7 +759,7 @@ func follow_path():
 	if not _minutes_passed:
 		_mintes_passed_message = ""
 	elif _minutes_passed == 1:
-		_mintes_passed_message = " and minute"
+		_mintes_passed_message = " and a minute"
 	else:
 		_mintes_passed_message = " and " + str(_minutes_passed) + " minutes"
 		
