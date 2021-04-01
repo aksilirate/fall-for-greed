@@ -247,7 +247,7 @@ margin_top = 194.0
 margin_right = 131.0
 margin_bottom = 207.0
 custom_fonts/font = SubResource( 3 )
-text = "1.0.4"
+text = "1.0.5"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -260,6 +260,7 @@ color = Color( 1, 1, 1, 0 )
 __meta__ = {
 "_edit_lock_": true
 }
+
 [connection signal="animation_finished" from="AnimationPlayer" to="PlayLabel" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="pressed" from="PlayLabel" to="PlayLabel" method="_on_PlayLabel_pressed"]
 [connection signal="pressed" from="OptionsLabel" to="OptionsLabel" method="_on_OptionsLabel_pressed"]

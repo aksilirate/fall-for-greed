@@ -17,7 +17,7 @@ func _ready():
 	if _selected_item.CALORIES < 0.1:
 		upcoming_stories.push_back(_character.character_name + " did not like the taste")
 
-	eat()
+	eat(_character, _selected_item)
 	destroy_item_after_story()
 	
 	var emit_story_telling = emit_story_telling(_main_story)

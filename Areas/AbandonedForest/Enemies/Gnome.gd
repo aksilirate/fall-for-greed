@@ -28,7 +28,7 @@ const EAST_ACTION = null
 const RAND_WEIGHT := 0.1
 
 
-func death_curse(game_screen: GameScreen):
+func death_curse(game_screen):
 	var _characters = game_screen.characters.get_children()
 	var rand_index:int = randi() % _characters.size()
 	var effect = Effect.new()

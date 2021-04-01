@@ -2,7 +2,7 @@ extends Node
 class_name ActionLibrary
 
 
-onready var game_screen: GameScreen = get_tree().get_root().get_node("GameScreen") as GameScreen
+onready var game_screen = get_tree().get_root().get_node("GameScreen")
 
 onready var animation_player: AnimationPlayer = game_screen.animation_player
 onready var story: Node = game_screen.get_node("Logic/Story")
@@ -188,24 +188,54 @@ func calculate_character_turn(_character, _energy_cost, _minutes_passed):
 		else:
 			var _updated_energy_check = _character.get_energy_status()
 			upcoming_stories.push_back(_character.character_name + " is " + _updated_energy_check)
-	
-	
-	
+			
 	if _character.hormones["melatonin"] >= 1.5:
 		upcoming_stories.push_back(_character.character_name + " has passed out")
 		pass_out(_character)
 		_character.hormones["melatonin"] = 0.0
 		_character.stats["mood"] -= 0.173
-		
+	
+	
+	
+	if ate_food(_character):
+		print("character have eaten on it's own")
+	
+	if died(_character):
+		emit_signal("kill_character", _character)
+		print("character have died")
+	
+
+	
+func died(_character):
 	if _character.stats["health"] <= 0 or _character.stats["hunger"] <= 0:
 		upcoming_stories.push_back(_character.character_name + " have died")
 		yield(self,"story_telling_finished")
-		emit_signal("kill_character", _character)
+		return true
 		
 	elif _character.stats["mood"] <= 0:
 		upcoming_stories.push_back(_character.character_name + " have killed himself")
 		yield(self,"story_telling_finished")
-		emit_signal("kill_character", _character)
+		return true
+		
+	else:
+		return false
+	
+	
+func ate_food(_character):
+	if _character.get_hunger_status():
+		for _item in _character.inventory:
+			var calories = _item.get("CALORIES")
+			if calories and calories >= 0.1:
+				if rand_range(0,1) < 0.08:
+					eat(_character, _item)
+					upcoming_stories.push_back(_character.character_name + " have eaten " + _item.NAME)
+					if _item.CALORIES < 0.1:
+						upcoming_stories.push_back(_character.character_name + " did not like the taste")
+					
+					_character.inventory.erase(_item)
+					return true
+	
+	return false
 	
 	
 func calculate_mood(_character, _minutes_passed):
@@ -429,9 +459,9 @@ func sleep():
 
 var sleep_story_shown = false
 func execute_sleep(_character):
-	calculate_sleep_hazzards(_character)
 	var emit_story_telling
 	if _character.hormones["melatonin"] > 0.83:
+		calculate_sleep_hazzards(_character)
 		if not sleep_story_shown:
 			var calculated_sleep_time = round(calculate_sleep_time())
 			emit_story_telling = emit_story_telling("you have slept for " + str(calculated_sleep_time) + " hours")
@@ -676,10 +706,7 @@ func run():
 
 
 
-func eat():
-	var _character = game_screen.last_selected_character
-	var _selected_item = game_screen.selected.item
-	
+func eat(_character, _selected_item):
 	_character.stats["hunger"] += _selected_item.CALORIES
 
 #	OVEREATING

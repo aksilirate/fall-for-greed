@@ -1,5 +1,4 @@
 extends Control
-class_name GameScreen
 
 export(NodePath) onready var threat_container = get_node(threat_container) as VBoxContainer
 export(NodePath) onready var animation_player = get_node(animation_player) as AnimationPlayer
@@ -22,6 +21,16 @@ func _init():
 
 
 func _ready():
+	var west_action = $Actions/WestAction
+	area.connect("update_west_action", west_action, "_on_update_west_action")
+	var left_action = $Actions/LeftAction
+	area.connect("update_left_action", left_action, "_on_update_left_action")
+	var right_action = $Actions/RightAction
+	area.connect("update_right_action", right_action, "_on_update_right_action")
+	var east_action = $Actions/EastAction
+	area.connect("update_east_action", east_action, "_on_update_east_action")
+	
+	
 	var save_file = SaveFile.new()
 	if  save_file.get_saved_value("Game", "selected_tarot_card"):
 		selected_tarot_card = save_file.get_saved_value("Game", "selected_tarot_card")

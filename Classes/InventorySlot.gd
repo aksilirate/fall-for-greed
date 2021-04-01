@@ -1,7 +1,7 @@
 extends GameTextureRect
 class_name InventorySlot
 
-onready var game_screen: GameScreen = owner
+onready var game_screen = owner
 
 var item: Object
 

@@ -1,6 +1,6 @@
 extends Node
 
-onready var game_screen: GameScreen = get_tree().get_root().get_node("GameScreen") as GameScreen
+onready var game_screen = get_tree().get_root().get_node("GameScreen")
 onready var character_labels = game_screen.get_node("CharacterLabels")
 
 var path_dictionary = PathDictionary.new()

@@ -9,6 +9,12 @@ const TOOLTIP := "change direction"
 
 func _ready():
 	randomize()
+	
+	if area.used_location_removed():
+		print("last location removed (ChangeDirectionAction.gd)")
+	else:
+		print("last location was not removed (ChangeDirectionAction.gd)")
+		
 	area.upcoming_locations.shuffle()
 	area.update_actions()
 	area.save_game()

@@ -1035,11 +1035,8 @@ __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
 }
+
 [connection signal="story_selected" from="." to="Logic/Area" method="_on_story_selected"]
-[connection signal="update_east_action" from="Logic/Area" to="Actions/EastAction" method="_on_update_east_action"]
-[connection signal="update_left_action" from="Logic/Area" to="Actions/LeftAction" method="_on_update_left_action"]
-[connection signal="update_right_action" from="Logic/Area" to="Actions/RightAction" method="_on_update_right_action"]
-[connection signal="update_west_action" from="Logic/Area" to="Actions/WestAction" method="_on_update_west_action"]
 [connection signal="time_updated" from="Logic/Story" to="TimeLabel" method="_on_Story_time_updated"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]

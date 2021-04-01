@@ -4,7 +4,7 @@ class_name CommunicateAction
 
 
 const TEXTURE = "res://Textures/Actions/Communicate.png"
-
+const TOOLTIP := "communicate"
 
 
 func _ready():

@@ -20,6 +20,8 @@ signal update_east_action(_texture, _action, _executer)
 
 # total_locations are generated inside the current_location
 
+
+
 func generate_locations():
 	# Generates NPCs, enemies and zones
 	upcoming_locations.clear()
@@ -142,15 +144,22 @@ func _on_location_reseted():
 
 
 	
-	
-#need to save location_index
-func advance_location():
-	
+func used_location_removed():
 	if upcoming_locations[location_index].get_script() != current_area.get_script() and not upcoming_locations[location_index] is Zone:
 		upcoming_locations.remove(location_index)
 		current_area.total_locations -= 1
+		return true
 	else:
 		location_index += 1
+		return false
+		
+#need to save location_index
+func advance_location():
+	
+	if used_location_removed():
+		print("last location removed (area.gd)")
+	else:
+		print("last location was not removed (area.gd)")
 		
 
 	if location_index == current_area.total_locations:
