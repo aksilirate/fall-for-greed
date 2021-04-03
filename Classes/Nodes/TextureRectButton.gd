@@ -1,6 +1,8 @@
 extends TextureRect
 class_name TextureRectButton
 
+export(bool) var enable_press_sound = true
+export(bool) var enable_hover_sound = true
 signal pressed
 
 
@@ -20,7 +22,8 @@ func emit_Sound_Effect(path: String):
 
 
 func _on_mouse_entered():
-	emit_Sound_Effect("res://Sounds/Interface/Hover.wav")
+	if enable_hover_sound:
+		emit_Sound_Effect("res://Sounds/Interface/Hover.wav")
 	modulate.a = 0.5
 
 func _on_mouse_exited():
@@ -30,6 +33,8 @@ func _on_mouse_exited():
 func _on_gui_input(event):
 	if event is InputEventMouseButton:
 		if not event.pressed:
-			emit_Sound_Effect("res://Sounds/Interface/Button.wav")
+			if enable_press_sound:
+				emit_Sound_Effect("res://Sounds/Interface/Button.wav")
 			emit_signal("pressed")
+	
 

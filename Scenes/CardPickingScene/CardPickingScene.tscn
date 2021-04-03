@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Textures/Tarot Cards/Tarot Card Back.png" type="Texture" id=1]
 [ext_resource path="res://Textures/Tarot Cards/Tarot Deck.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Scenes/CardPickingScene/CardPickingScene.gd" type="Script" id=5]
 [ext_resource path="res://Textures/Tarot Cards/Tarot Card Placeholder.png" type="Texture" id=6]
 [ext_resource path="res://Theme.tres" type="Theme" id=7]
+[ext_resource path="res://Sounds/Game/Hover Ambient Loop.wav" type="AudioStream" id=8]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Draw Card"
@@ -273,16 +274,25 @@ script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+enable_press_sound = false
+enable_hover_sound = false
+
+[node name="HoverSound" type="AudioStreamPlayer" parent="DeckTexture"]
+stream = ExtResource( 8 )
+volume_db = -80.0
+autoplay = true
+
+[node name="Tween" type="Tween" parent="DeckTexture"]
 
 [node name="CardTexture" type="TextureRect" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 73.0
-margin_top = -32.5
-margin_right = 73.0
-margin_bottom = 40.5
+margin_left = -98.0
+margin_top = -40.5
+margin_right = -45.0
+margin_bottom = 32.5
 mouse_filter = 2
 texture = ExtResource( 1 )
 expand = true
@@ -296,6 +306,11 @@ __meta__ = {
 anims/Load = SubResource( 2 )
 "anims/Reveal Card" = SubResource( 3 )
 anims/Unload = SubResource( 4 )
+
+[connection signal="mouse_entered" from="DeckTexture" to="DeckTexture" method="_on_DeckTexture_mouse_entered"]
+[connection signal="mouse_exited" from="DeckTexture" to="DeckTexture" method="_on_DeckTexture_mouse_exited"]
+[connection signal="pressed" from="DeckTexture" to="DeckTexture" method="_on_DeckTexture_pressed"]
 [connection signal="pressed" from="DeckTexture" to="." method="_on_DeckTexture_pressed"]
 [connection signal="pressed" from="CardTexture" to="." method="_on_CardTexture_pressed"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_started" from="AnimationPlayer" to="DeckTexture" method="_on_AnimationPlayer_animation_started"]

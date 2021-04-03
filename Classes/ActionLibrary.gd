@@ -169,7 +169,7 @@ func calculate_character_turn(_character, _energy_cost, _minutes_passed):
 	if _current_artifact != null and _current_artifact.get("ANTI_HUNGER"):
 		_character.stats["hunger"] = max(1.0, _character.stats["hunger"])
 	else:
-		_character.stats["hunger"] -= (_energy_cost / 3.42) + _health_gained
+		_character.stats["hunger"] -= (_energy_cost / 3.5) + _health_gained
 		
 	_character.stats["energy"] -= _energy_cost
 	
@@ -252,8 +252,11 @@ func calculate_mood(_character, _minutes_passed):
 		_character.stats["mood"] -= (_character.hormones["melatonin"] * _minutes_passed) * 0.0003666
 	
 	if _character.stats["mood"] < 0.23:
-		if rand_range(0,1) < 0.068:
-			upcoming_stories.push_back(_character.character_name + " is having suicidal thoughts")
+		if rand_range(0,1) < 0.074:
+			if rand_range(0,1) < 0.5:
+				upcoming_stories.push_back(_character.character_name + " is having suicidal thoughts")
+			else:
+				upcoming_stories.push_back(_character.character_name + " wants to end it all")
 
 
 
@@ -400,7 +403,8 @@ func break_artifact():
 func emit_location_advanced():
 	randomize()
 	var locations_to_advance = 1
-	var _minutes_passed = floor(rand_range(13,37))
+	
+	var _minutes_passed = floor(rand_range(13,34 - calculate_speed()))
 	
 	
 	for _i in range(6):
@@ -409,7 +413,7 @@ func emit_location_advanced():
 			if next_location.get_script() == area.current_area.get_script():
 				locations_to_advance += 1
 				randomize()
-				_minutes_passed += floor(rand_range(13,37))
+				_minutes_passed += floor(rand_range(13,34 - calculate_speed()))
 				if rand_range(0,1) < 0.192:
 					break
 					
@@ -440,6 +444,14 @@ func emit_location_advanced():
 		locations_to_advance -= 1
 	area.save_game()
 	
+	
+func calculate_speed():
+	var _total_speed := 0.0
+	for _character in get_tree().get_nodes_in_group("characters"):
+		_total_speed -= 3 - (min(1.0, _character.stats["hunger"])*3)
+		_total_speed -= 3 - (min(1.0, _character.stats["health"])*3)
+			
+	return _total_speed
 #--------------------------------------- [ v SLEEP v ] ----------------------------------------
 
 func sleep():
@@ -602,7 +614,7 @@ func search_for_item():
 		if rand_range(0,1) < 0.1 and _minutes_passed >= 13:
 			emit_location_advanced()
 			
-			
+	
 	var _main_story
 	if _minutes_passed == 1:
 		_main_story = "you have searched for 1 minute"
@@ -613,15 +625,16 @@ func search_for_item():
 	emit_story_telling = emit_story_telling(_main_story)
 	
 	
+	
+	var _energy_cost = 0.00096 * _minutes_passed
+	calculate_turn(_energy_cost, _minutes_passed)
+	
 	yield(self,"story_telling_started")
 	if _finding:
 		area.update_story_info()
 		area.update_actions()
 		area.save_game()
 				
-				
-	var _energy_cost = 0.00096 * _minutes_passed
-	calculate_turn(_energy_cost, _minutes_passed)
 	add_to_minutes_passed(_minutes_passed)
 	improve_focus(_minutes_passed)
 	

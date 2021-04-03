@@ -535,6 +535,11 @@ _global_script_classes=[ {
 "path": "res://Classes/TarotCards/StrengthCard.gd"
 }, {
 "base": "ActionLibrary",
+"class": "SuicideAction",
+"language": "GDScript",
+"path": "res://Classes/Actions/SuicideAction.gd"
+}, {
+"base": "ActionLibrary",
 "class": "SummonTheWitchAction",
 "language": "GDScript",
 "path": "res://Classes/Actions/SummonTheWitchAction.gd"
@@ -730,6 +735,7 @@ _global_script_class_icons={
 "SticksItem": "",
 "StoneGolem": "",
 "StrengthCard": "",
+"SuicideAction": "",
 "SummonTheWitchAction": "",
 "Swamp": "",
 "TakeAction": "",
@@ -771,6 +777,7 @@ window/size/width=368
 window/size/height=207
 window/size/test_width=912
 window/size/test_height=513
+mouse_cursor/custom_image="res://Textures/24x24 Cursor.png"
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 

@@ -71,7 +71,6 @@ func _ready():
 	story = current_character.STORY
 	name = character_name
 	
-	east_action = current_character.get("EAST_ACTION")
 
 	for _effect in saved_effects:
 		add_child(_effect)
@@ -161,6 +160,8 @@ func update_actions() -> void:
 	else:
 		west_action = PrayAction
 	
+	east_action = SuicideAction
+		
 	
 	
 	if game_screen.area.current_event is load("res://Areas/AbandonedForest/Zones/AbandonedForestRopeHang.gd") as Script:
@@ -191,13 +192,24 @@ func update_actions() -> void:
 	else:
 		emit_signal("update_right_action", null, null, null)
 
-	if east_action == SummonTheWitchAction and game_screen.selected_tarot_card.get_script() == EmpressCard.new().get_script()\
-	or game_screen.area.current_event is Enemy:
-		emit_signal("update_east_action", null, null, null)
+
+
+
+
+	if current_character.get("EAST_ACTION"):
+		east_action = current_character.get("EAST_ACTION")
+		if east_action == SummonTheWitchAction and game_screen.selected_tarot_card.get_script() == EmpressCard.new().get_script()\
+		or game_screen.area.current_event is Enemy:
+			east_action = SuicideAction
+			emit_signal("update_east_action",load(east_action.TEXTURE), east_action, self)
+		else:
+			emit_signal("update_east_action",load(east_action.TEXTURE), east_action, self)
+
 	elif east_action:
 		emit_signal("update_east_action",load(east_action.TEXTURE), east_action, self)
 	else:
-		emit_signal("update_east_action", null, null, null)
+		emit_signal("update_right_action", null, null, null)
+
 
 func update_inventory():
 	if inventory.size() - 1 >= 0:

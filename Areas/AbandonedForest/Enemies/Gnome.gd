@@ -33,7 +33,7 @@ func death_curse(game_screen):
 	var rand_index:int = randi() % _characters.size()
 	var effect = Effect.new()
 	var misfortune = Misfortune.new()
-	misfortune.deactivation_minute = 10080
+	misfortune.deactivation_minute = 5760
 	effect.active_effect = misfortune
 
 	_characters[rand_index].add_child(effect)

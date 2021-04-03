@@ -3,7 +3,7 @@ class_name SemeryItem
 
 
 const NAME := "semery"
-const HISTORY := "A plant known to boost focus."
+const HISTORY := "A plant known to boost focus for the day."
 const TEXTURE := "res://Textures/Items/Semery Item.png"
 const TOOLTIP := "semery"
 
