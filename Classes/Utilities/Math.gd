@@ -24,7 +24,7 @@ static func range_with_peak(max_index: float, index: float):
 static func create_map(width, height):
 	var map = []
 
-	for x in range(width):
+	for _x in range(width):
 		var col = []
 		col.resize(height)
 		map.append(col)
