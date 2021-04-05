@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/F3.wav-e71fc94e61d772c234bfed0c184c3518.sample"
+
+[deps]
+
+source_file="res://Sounds/Ambient Notes/F3.wav"
+dest_files=[ "res://.import/F3.wav-e71fc94e61d772c234bfed0c184c3518.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

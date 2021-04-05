@@ -28,7 +28,6 @@
 [ext_resource path="res://Scenes/GameScreen/FirstMemberLabel.gd" type="Script" id=26]
 [ext_resource path="res://Scenes/GameScreen/ThirdMemberLabel.gd" type="Script" id=27]
 [ext_resource path="res://Textures/Character Profiles/Pyry Wright.png" type="Texture" id=28]
-[ext_resource path="res://Sounds/Game/Ambient Loop.wav" type="AudioStream" id=29]
 [ext_resource path="res://Textures/Areas/Abandoned Forest/Abandoned Forest 0.png" type="Texture" id=30]
 [ext_resource path="res://Textures/Interface/Action Frame.png" type="Texture" id=31]
 [ext_resource path="res://Scenes/GameScreen/StoryFrame.gd" type="Script" id=32]
@@ -44,6 +43,7 @@
 [ext_resource path="res://Scenes/GameScreen/WestAction.gd" type="Script" id=42]
 [ext_resource path="res://Scenes/GameScreen/HistoryLabel.gd" type="Script" id=43]
 [ext_resource path="res://Textures/Tarot Cards/Emperor Tarot Card.png" type="Texture" id=44]
+[ext_resource path="res://Scenes/GameScreen/Sound.gd" type="Script" id=45]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Hide Information"
@@ -546,10 +546,6 @@ hold_slot = NodePath("HoldSlot")
 characters = NodePath("Logic/Characters")
 area = NodePath("Logic/Area")
 
-[node name="AmbientLoop" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 29 )
-autoplay = true
-
 [node name="Logic" type="Node" parent="."]
 
 [node name="Characters" type="Node" parent="Logic"]
@@ -567,6 +563,13 @@ script = ExtResource( 10 )
 __meta__ = {
 "_editor_description_": ""
 }
+
+[node name="Sound" type="Node" parent="Logic"]
+script = ExtResource( 45 )
+
+[node name="NoteTimer" type="Timer" parent="Logic/Sound"]
+wait_time = 6.66
+autostart = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 "anims/Hide Information" = SubResource( 1 )
@@ -1038,6 +1041,7 @@ __meta__ = {
 
 [connection signal="story_selected" from="." to="Logic/Area" method="_on_story_selected"]
 [connection signal="time_updated" from="Logic/Story" to="TimeLabel" method="_on_Story_time_updated"]
+[connection signal="timeout" from="Logic/Sound/NoteTimer" to="Logic/Sound" method="_on_NoteTimer_timeout"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]
 [connection signal="visibility_changed" from="HistoryLabel" to="HistoryLabel" method="_on_HistoryLabel_visibility_changed"]

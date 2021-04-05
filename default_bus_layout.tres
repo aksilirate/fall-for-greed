@@ -1,3 +1,27 @@
-[gd_resource type="AudioBusLayout" format=2]
+[gd_resource type="AudioBusLayout" load_steps=3 format=2]
+
+[sub_resource type="AudioEffectReverb" id=1]
+resource_name = "Reverb"
+room_size = 1.0
+damping = 0.6
+hipass = 0.31
+dry = 0.67
+
+[sub_resource type="AudioEffectEQ" id=2]
+resource_name = "EQ"
+band_db/320_hz = -11.3
+band_db/1000_hz = -19.9
+band_db/3200_hz = -23.5
+band_db/10000_hz = -60.0
 
 [resource]
+bus/1/name = "Ambient"
+bus/1/solo = false
+bus/1/mute = false
+bus/1/bypass_fx = false
+bus/1/volume_db = 0.0
+bus/1/send = "Master"
+bus/1/effect/0/effect = SubResource( 1 )
+bus/1/effect/0/enabled = true
+bus/1/effect/1/effect = SubResource( 2 )
+bus/1/effect/1/enabled = true

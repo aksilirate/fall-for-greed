@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/G#3.wav-c583ae1cea759d3dbace271164824ffa.sample"
+
+[deps]
+
+source_file="res://Sounds/Ambient Notes/G#3.wav"
+dest_files=[ "res://.import/G#3.wav-c583ae1cea759d3dbace271164824ffa.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

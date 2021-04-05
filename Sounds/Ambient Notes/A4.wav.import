@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/A4.wav-a490cfc887ee50b09b50267699af1250.sample"
+
+[deps]
+
+source_file="res://Sounds/Ambient Notes/A4.wav"
+dest_files=[ "res://.import/A4.wav-a490cfc887ee50b09b50267699af1250.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

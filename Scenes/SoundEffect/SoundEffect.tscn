@@ -4,5 +4,7 @@
 
 [node name="SoundEffect" type="AudioStreamPlayer"]
 autoplay = true
+mix_target = 1
 script = ExtResource( 1 )
+
 [connection signal="finished" from="." to="." method="_on_SoundEffect_finished"]
