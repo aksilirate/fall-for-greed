@@ -31,5 +31,6 @@ func _on_NoteTimer_timeout():
 func emit_Sound_Effect(sound):
 	var _sound_effect = preload("res://Scenes/SoundEffect/SoundEffect.tscn").instance()
 	_sound_effect.stream = sound
+	_sound_effect.volume_db = 19.666
 	_sound_effect.bus = "Ambient"
 	get_node("/root").call_deferred("add_child", _sound_effect)
