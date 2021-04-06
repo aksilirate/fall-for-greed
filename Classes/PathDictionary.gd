@@ -19,6 +19,7 @@ const THOMAS_GRAND_NPC := "res://Areas/Mountains/NPCs/ThomasGrandNPC.gd"
 
 
 const ABANDONED_SHOVEL := "res://Areas/AbandonedForest/Zones/AbandonedShovel.gd"
+const ABANDONED_FOREST_ROPE_HANG := "res://Areas/AbandonedForest/Zones/AbandonedForestRopeHang.gd"
 const ABANDONED_FOREST_PATH := "res://Areas/AbandonedForest/Zones/AbandonedForestPath.gd"
 const QUEENS_GRAVE := "res://Areas/DeadForest/Zones/QueensGrave.gd"
 

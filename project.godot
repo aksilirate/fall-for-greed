@@ -450,6 +450,11 @@ _global_script_classes=[ {
 "path": "res://Classes/Actions/RemoveToothAction.gd"
 }, {
 "base": "Reference",
+"class": "RopeItem",
+"language": "GDScript",
+"path": "res://Classes/Items/RopeItem.gd"
+}, {
+"base": "Reference",
 "class": "RowanSmith",
 "language": "GDScript",
 "path": "res://Classes/Characters/RowanSmith.gd"
@@ -718,6 +723,7 @@ _global_script_class_icons={
 "Rand": "",
 "Rat": "",
 "RemoveToothAction": "",
+"RopeItem": "",
 "RowanSmith": "",
 "RowanSmithNPC": "",
 "Ruins0": "",

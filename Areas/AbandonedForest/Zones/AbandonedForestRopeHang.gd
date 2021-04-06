@@ -1,7 +1,8 @@
 extends Zone
 class_name AbandonedForestRopeHang
 
-
+const NAME = "a rope"
+const ITEM = RopeItem
 const HISTORY = "A hanging rope but the body is not found."
 
 

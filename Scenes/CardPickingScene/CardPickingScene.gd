@@ -11,7 +11,7 @@ const TAROT_CARDS = [
 ]
 
 var tarot_cards_cache: Array
-var tries_left = 3
+var tries_left = 1
 
 
 func _init():
@@ -21,9 +21,9 @@ func _ready():
 	randomize()
 	tarot_cards_cache = [] + TAROT_CARDS
 	tarot_cards_cache.shuffle()
-	if tarot_cards_cache[0].get("DEATH"):
-		tarot_cards_cache.invert()
-	
+#	if tarot_cards_cache[0].get("DEATH"):
+#		tarot_cards_cache.invert()
+#
 	$AnimationPlayer.play("Load")
 	
 
