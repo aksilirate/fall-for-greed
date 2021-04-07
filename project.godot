@@ -584,6 +584,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Classes/Utilities/Time.gd"
 }, {
+"base": "Zone",
+"class": "ToMountains",
+"language": "GDScript",
+"path": "res://Areas/Hills/Zones/ToMountains.gd"
+}, {
 "base": "Reference",
 "class": "VoodooDollEvent",
 "language": "GDScript",
@@ -750,6 +755,7 @@ _global_script_class_icons={
 "ThomasGrand": "",
 "ThomasGrandNPC": "",
 "Time": "",
+"ToMountains": "",
 "VoodooDollEvent": "",
 "VoodooDollItem": "",
 "WaitAction": "",
