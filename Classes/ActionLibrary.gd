@@ -324,13 +324,14 @@ func calculate_luck(_character, _minutes_passed):
 
 
 
+
 	var _missing_items_messages = []
 	if _character.inventory:
 		
 		for _item in _character.inventory:
 			randomize()
 			for _minute in range(1, _minutes_passed):
-				if rand_range(-3000, 0) > _total_luck:
+				if rand_range(-3000, 0) > max(_total_luck, -0.666):
 					_character.inventory.erase(_item)
 					var _missing_message: String
 					if _item.get("MISSING_MESSAGE"):
