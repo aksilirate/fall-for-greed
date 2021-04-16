@@ -34,11 +34,6 @@ func _ready():
 # warning-ignore:return_value_discarded
 	
 	
-		
-func emit_Sound_Effect(path: String):
-	var _sound_effect = preload("res://Scenes/SoundEffect/SoundEffect.tscn").instance()
-	_sound_effect.stream = load(path)
-	get_node("/root").add_child(_sound_effect)
 	
 	
 func change_event_to(_event: Object):
@@ -100,7 +95,7 @@ func show_story_label(_story):
 	var story_animation_player = story_label.get_node("AnimationPlayer")
 	story_label.text = _story.to_lower()
 	game_screen.add_child(story_label)
-	emit_Sound_Effect("res://Sounds/Interface/Echo Hit.wav")
+	Sound.emit_sound_effect("res://Sounds/Interface/Echo Hit.wav")
 	yield(story_animation_player,"animation_finished")
 	story_label.queue_free()
 

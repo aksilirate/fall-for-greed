@@ -14,13 +14,13 @@ var story: String
 
 func emit_Mouse_Entered_Effect():
 	if owner.selected != self and not animation_player.is_playing():
-		emit_Sound_Effect("res://Sounds/Interface/Hover.wav")
+		Sound.emit_sound_effect("res://Sounds/Interface/Hover.wav")
 		modulate.a = 0.5
 
 func emit_Pressed_Effect(event):
 	if event is InputEventMouseButton:
 		if not event.pressed and owner.selected != self and not animation_player.is_playing():
-			emit_Sound_Effect("res://Sounds/Interface/Button.wav")
+			Sound.emit_sound_effect("res://Sounds/Interface/Button.wav")
 			if owner.selected:
 				owner.selected.deselect()
 			owner.selected = self

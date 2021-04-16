@@ -2,11 +2,11 @@ extends Node
 
 
 var AMBIENT_NOTES = [
-	preload("res://Sounds/Ambient Notes/C3.wav"),
-	preload("res://Sounds/Ambient Notes/D4.wav"),
-	preload("res://Sounds/Ambient Notes/Eb3.wav"),
-	preload("res://Sounds/Ambient Notes/F3.wav"),
-	preload("res://Sounds/Ambient Notes/G#3.wav")
+	"res://Sounds/Ambient Notes/C3.wav",
+	"res://Sounds/Ambient Notes/D4.wav",
+	"res://Sounds/Ambient Notes/Eb3.wav",
+	"res://Sounds/Ambient Notes/F3.wav",
+	"res://Sounds/Ambient Notes/G#3.wav"
 ]
 
 var current_note_index: int
@@ -14,7 +14,7 @@ var ambient_notes_cache = []
 
 func _ready():
 	current_note_index = randi() % AMBIENT_NOTES.size()
-	emit_Sound_Effect(AMBIENT_NOTES[current_note_index])
+	Sound.emit_ambient_sound_effect(AMBIENT_NOTES[current_note_index])
 
 func _on_NoteTimer_timeout():
 	ambient_notes_cache = [] + AMBIENT_NOTES
@@ -25,12 +25,4 @@ func _on_NoteTimer_timeout():
 		else:
 			new_index += 1
 	current_note_index = new_index
-	emit_Sound_Effect(ambient_notes_cache[current_note_index])
-
-
-func emit_Sound_Effect(sound):
-	var _sound_effect = preload("res://Scenes/SoundEffect/SoundEffect.tscn").instance()
-	_sound_effect.stream = sound
-	_sound_effect.volume_db = 21.666
-	_sound_effect.bus = "Ambient"
-	get_node("/root").call_deferred("add_child", _sound_effect)
+	Sound.emit_ambient_sound_effect(ambient_notes_cache[current_note_index])

@@ -9,7 +9,7 @@ var current_mode = "story"
 
 func _on_ActionStoryButton_mouse_entered():
 	if not animation_player.is_playing():
-		emit_Sound_Effect("res://Sounds/Interface/Hover.wav")
+		Sound.emit_sound_effect("res://Sounds/Interface/Hover.wav")
 		modulate = Color(0.5,0.5,0.5,1)
 
 
@@ -21,7 +21,7 @@ func _on_ActionStoryButton_gui_input(event):
 	if event is InputEventMouseButton:
 		if not event.pressed and not animation_player.is_playing():
 			var time_choice_slider = get_tree().get_nodes_in_group("time_choice_slider").front()
-			emit_Sound_Effect("res://Sounds/Interface/Button.wav")
+			Sound.emit_sound_effect("res://Sounds/Interface/Button.wav")
 			var _button_texture: Resource
 			if current_mode == "action":
 				_button_texture = preload("res://Textures/Interface/Story Button.png")

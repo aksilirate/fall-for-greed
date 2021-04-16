@@ -6,7 +6,7 @@ func _ready():
 
 
 func _on_DeckTexture_pressed():
-	emit_Sound_Effect("res://Sounds/Game/Card Draw.wav")
+	Sound.emit_sound_effect("res://Sounds/Game/Card Draw.wav")
 
 
 

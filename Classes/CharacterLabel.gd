@@ -25,7 +25,7 @@ func _ready():
 
 func _on_pressed():
 	if owner.selected != self and not animation_player.is_playing():
-		emit_Sound_Effect("res://Sounds/Interface/Button.wav")
+		Sound.emit_sound_effect("res://Sounds/Interface/Button.wav")
 		if owner.selected:
 			owner.selected.deselect()
 		if owner.selected != self:
@@ -84,7 +84,7 @@ func _on_mouse_entered():
 	hint_tooltip = _tooltip_text
 	
 	if owner.selected != self:
-		emit_Sound_Effect("res://Sounds/Interface/Hover.wav")
+		Sound.emit_sound_effect("res://Sounds/Interface/Hover.wav")
 		modulate.a = 0.5
 
 func _on_mouse_exited():

@@ -24,5 +24,5 @@ func _on_DeleteSaveFileLabel_pressed():
 func _on_mouse_entered():
 	var directory = Directory.new();
 	if directory.file_exists(PathDictionary.SAVE_PATH):
-		emit_Sound_Effect("res://Sounds/Interface/Hover.wav")
+		Sound.emit_sound_effect("res://Sounds/Interface/Hover.wav")
 		modulate.a = 0.5
