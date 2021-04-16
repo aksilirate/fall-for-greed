@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Theme.tres" type="Theme" id=1]
 [ext_resource path="res://Textures/Interface/Title.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Scenes/TitleScreen/OptionsLabel.gd" type="Script" id=5]
 [ext_resource path="res://Scenes/TitleScreen/TitleScreen.gd" type="Script" id=6]
 [ext_resource path="res://Fonts/munro-small.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://Sounds/Music/Title.wav" type="AudioStream" id=8]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Fade Out"
@@ -82,6 +83,18 @@ tracks/5/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("TitleMusic:volume_db")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 2.5 ),
+"transitions": PoolRealArray( 1.6, 1 ),
+"update": 0,
+"values": [ 9.0, -80.0 ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -170,6 +183,18 @@ tracks/6/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
+tracks/7/type = "value"
+tracks/7/path = NodePath("TitleMusic:volume_db")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 4.5 ),
+"transitions": PoolRealArray( 1.6, 1 ),
+"update": 0,
+"values": [ -80.0, 9.0 ]
+}
 
 [sub_resource type="DynamicFont" id=3]
 size = 10
@@ -187,11 +212,17 @@ __meta__ = {
 }
 animation_player = NodePath("AnimationPlayer")
 
+[node name="TitleMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = -80.0
+autoplay = true
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 "anims/Fade Out" = SubResource( 1 )
 anims/Load = SubResource( 2 )
 
 [node name="TitleTexture" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
 margin_left = 87.7399
 margin_top = 38.7296
 margin_right = 288.74
@@ -202,6 +233,7 @@ __meta__ = {
 }
 
 [node name="PlayLabel" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
 margin_left = 167.0
 margin_top = 123.0
 margin_right = 203.0
@@ -216,6 +248,7 @@ __meta__ = {
 }
 
 [node name="OptionsLabel" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
 margin_left = 171.555
 margin_top = 138.0
 margin_right = 196.555
@@ -229,6 +262,7 @@ __meta__ = {
 }
 
 [node name="QuitLabel" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
 margin_left = 176.0
 margin_top = 153.0
 margin_right = 191.0
@@ -242,6 +276,7 @@ __meta__ = {
 }
 
 [node name="VersionLabel" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
 margin_left = 3.0
 margin_top = 194.0
 margin_right = 131.0
@@ -253,7 +288,6 @@ __meta__ = {
 }
 
 [node name="InputBlocker" type="ColorRect" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 1, 1, 1, 0 )
