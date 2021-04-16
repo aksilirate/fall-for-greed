@@ -220,8 +220,8 @@ func hit(_target, _damage):
 	Audio.emit_sound_effect("res://Sounds/Battle/Hit.wav")
 	
 	_target.get_material().set_shader_param("enabled", true)
-	$Camera2D/ScreenShake.max_offset = Vector2(max(0.1,_damage) * 30, max(0.1,_damage) * 30)
-	$Camera2D/ScreenShake.add_trauma(1.0)
+	$Camera2D.max_offset = Vector2(max(0.1,_damage) * 30, max(0.1,_damage) * 30)
+	$Camera2D.add_trauma(1.0)
 	yield(get_tree().create_timer(0.19), "timeout")
 	_target.get_material().set_shader_param("enabled", false)
 

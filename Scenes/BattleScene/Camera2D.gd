@@ -1,6 +1,5 @@
 extends Node
 
-onready var camera = get_parent()
 onready var noise = OpenSimplexNoise.new()
 
 var decay = 3.0
@@ -31,9 +30,9 @@ var noise_y = 0
 func shake():
 	var amount = pow(trauma, trauma_power)
 	noise_y += 1
-	camera.rotation = max_rotation * amount * noise.get_noise_2d(noise.seed, noise_y)
-	camera.offset.x = max_offset.x * amount * noise.get_noise_2d(noise.seed*2, noise_y)
-	camera.offset.y = max_offset.y * amount * noise.get_noise_2d(noise.seed*3, noise_y)
+	self.rotation = max_rotation * amount * noise.get_noise_2d(noise.seed, noise_y)
+	self.offset.x = max_offset.x * amount * noise.get_noise_2d(noise.seed*2, noise_y)
+	self.offset.y = max_offset.y * amount * noise.get_noise_2d(noise.seed*3, noise_y)
 
 
 
