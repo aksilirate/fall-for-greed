@@ -95,7 +95,7 @@ func show_story_label(_story):
 	var story_animation_player = story_label.get_node("AnimationPlayer")
 	story_label.text = _story.to_lower()
 	game_screen.add_child(story_label)
-	Sound.emit_sound_effect("res://Sounds/Interface/Echo Hit.wav")
+	Audio.emit_sound_effect("res://Sounds/Interface/Echo Hit.wav")
 	yield(story_animation_player,"animation_finished")
 	story_label.queue_free()
 

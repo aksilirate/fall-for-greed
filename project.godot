@@ -782,7 +782,7 @@ config/icon="res://Icon.png"
 
 GameLoader="*res://Singletons/GameLoader.gd"
 ModLoader="*res://Singletons/ModLoader.gd"
-Sound="*res://Singletons/Sound.gd"
+Audio="*res://Singletons/Audio.gd"
 
 [display]
 

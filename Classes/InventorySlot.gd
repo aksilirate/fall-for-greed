@@ -84,7 +84,7 @@ func _on_gui_input(event):
 func _on_mouse_entered():
 	if get_parent().visible:
 		if owner.selected != self and not animation_player.is_playing():
-			Sound.emit_sound_effect("res://Sounds/Interface/Hover.wav")
+			Audio.emit_sound_effect("res://Sounds/Interface/Hover.wav")
 			modulate.a = 0.5
 			
 func _on_mouse_exited():

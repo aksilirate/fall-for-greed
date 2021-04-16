@@ -3,10 +3,6 @@ extends LabelButton
 
 
 
-
-
-
-
 func _ready():
 	var directory = Directory.new();
 	if not directory.file_exists(PathDictionary.SAVE_PATH):
@@ -24,5 +20,5 @@ func _on_DeleteSaveFileLabel_pressed():
 func _on_mouse_entered():
 	var directory = Directory.new();
 	if directory.file_exists(PathDictionary.SAVE_PATH):
-		Sound.emit_sound_effect("res://Sounds/Interface/Hover.wav")
+		Audio.emit_sound_effect("res://Sounds/Interface/Hover.wav")
 		modulate.a = 0.5

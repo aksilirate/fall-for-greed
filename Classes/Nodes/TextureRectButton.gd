@@ -19,7 +19,7 @@ func _ready():
 
 func _on_mouse_entered():
 	if enable_hover_sound:
-		Sound.emit_sound_effect("res://Sounds/Interface/Hover.wav")
+		Audio.emit_sound_effect("res://Sounds/Interface/Hover.wav")
 	modulate.a = 0.5
 
 func _on_mouse_exited():
@@ -30,7 +30,7 @@ func _on_gui_input(event):
 	if event is InputEventMouseButton:
 		if not event.pressed:
 			if enable_press_sound:
-				Sound.emit_sound_effect("res://Sounds/Interface/Button.wav")
+				Audio.emit_sound_effect("res://Sounds/Interface/Button.wav")
 			emit_signal("pressed")
 	
 

@@ -37,7 +37,7 @@ func _ready():
 func _on_pressed():
 	var story = get_tree().get_nodes_in_group("story").front()
 
-	Sound.emit_sound_effect("res://Sounds/Interface/Button.wav")
+	Audio.emit_sound_effect("res://Sounds/Interface/Button.wav")
 
 	
 	if owner.selected:
@@ -70,7 +70,7 @@ func _on_pressed():
 
 func _on_mouse_entered():
 	if owner.selected != self:
-		Sound.emit_sound_effect("res://Sounds/Interface/Hover.wav")
+		Audio.emit_sound_effect("res://Sounds/Interface/Hover.wav")
 		modulate.a = 0.5
 
 func _on_mouse_exited():

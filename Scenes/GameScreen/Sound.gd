@@ -14,7 +14,7 @@ var ambient_notes_cache = []
 
 func _ready():
 	current_note_index = randi() % AMBIENT_NOTES.size()
-	Sound.emit_ambient_sound_effect(AMBIENT_NOTES[current_note_index])
+	Audio.emit_ambient_sound_effect(AMBIENT_NOTES[current_note_index])
 
 func _on_NoteTimer_timeout():
 	ambient_notes_cache = [] + AMBIENT_NOTES
@@ -25,4 +25,4 @@ func _on_NoteTimer_timeout():
 		else:
 			new_index += 1
 	current_note_index = new_index
-	Sound.emit_ambient_sound_effect(ambient_notes_cache[current_note_index])
+	Audio.emit_ambient_sound_effect(ambient_notes_cache[current_note_index])
