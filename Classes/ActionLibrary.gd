@@ -296,7 +296,7 @@ func calculate_luck(_character, _minutes_passed):
 	else:
 		_total_luck = _character.stats["luck"]
 		
-	if area.current_event is load("res://Areas/AbandonedForest/AbandonedForest.gd") as Script:
+	if Game.current_event is load("res://Areas/AbandonedForest/AbandonedForest.gd") as Script:
 		if _character.stats["armor"] < 0.3:
 			if _total_luck <= -0.3:
 				if rand_range(0,5) < min( 1.0 / (_character.mistakes.count("step on thorn") + 1), 1.0):
@@ -315,7 +315,7 @@ func calculate_luck(_character, _minutes_passed):
 				upcoming_stories.push_back(_character.character_name + " have died")
 				kill_character(_character)
 				
-	elif area.current_event is load("res://Areas/Mountains/Mountains.gd") as Script:
+	elif Game.current_event is load("res://Areas/Mountains/Mountains.gd") as Script:
 		if _total_luck <= -10.0:
 			if rand_range(0,1) < 0.084:
 				upcoming_stories.push_back( "a boulder has fallen on " + _character.character_name)
@@ -481,7 +481,7 @@ func execute_sleep(_character):
 			yield(self,"story_telling_started")
 			add_to_minutes_passed(round(calculated_sleep_time * 60))
 			
-	if area.current_event.get_class() == "CampfireEvent":
+	if Game.current_event.get_class() == "CampfireEvent":
 		_character.hormones["melatonin"] = 0.0
 		_character.stats["energy"] = 1.0
 	else:
@@ -498,7 +498,7 @@ func execute_sleep(_character):
 
 func calculate_sleep_hazzards(_character):
 	had_nightmare(_character)
-	if not area.current_event.get_class() == "CampfireEvent":
+	if not Game.current_event.get_class() == "CampfireEvent":
 		if area.current_area.get("MOSQUITOES"):
 			if rand_range(0,1) < 0.678:
 				_character.stats["mood"] -= 0.05
@@ -597,7 +597,7 @@ func search_for_item():
 			upcoming_stories.push_back("you have found " + str(finding_name))
 			
 			
-			area.current_event = _finding
+			Game.current_event = _finding
 			
 			
 			_minutes_passed = _minute
@@ -648,12 +648,12 @@ func emit_take_item():
 	var _main_story: String
 	var item: Object
 	
-	if area.current_event != null and area.current_event.get("ITEM"):
-		item = area.current_event.ITEM.new()
+	if Game.current_event != null and Game.current_event.get("ITEM"):
+		item = Game.current_event.ITEM.new()
 		_main_story = "you have acquired " + str(item.NAME)
 		emit_story_telling = emit_story_telling(_main_story)
 		executer.inventory.append(item)
-		if area.current_event is Zone:
+		if Game.current_event is Zone:
 			area.upcoming_locations.remove(area.location_index)
 			area.current_area.total_locations -= 1
 	else: # <------- if holding an Item
@@ -693,7 +693,7 @@ func start_battle():
 	if Game.equipped_artifact != null and Game.equipped_artifact.get("LOSE_FIRST_ROUND"):
 		shell_scene.auto_lose = true
 		
-	shell_scene.enemy = area.current_event
+	shell_scene.enemy = Game.current_event
 	game_screen.add_child(shell_scene)
 
 
@@ -701,7 +701,7 @@ func start_battle():
 func run():
 	var emit_story_telling
 	randomize()
-	if rand_range(0, area.current_event.SPEED) < lowest_energy() and not area.current_event.get("INESCAPABLE"):
+	if rand_range(0, Game.current_event.SPEED) < lowest_energy() and not Game.current_event.get("INESCAPABLE"):
 		emit_story_telling = emit_story_telling("you have ran away")
 		emit_location_advanced()
 		yield(emit_story_telling,"completed")
@@ -711,7 +711,7 @@ func run():
 		show_screen = false
 		yield(self,"story_telling_finished")
 		var shell_scene = load("res://Scenes/ShellsScene/ShellsScene.tscn").instance()
-		shell_scene.enemy = area.current_event
+		shell_scene.enemy = Game.current_event
 		shell_scene.auto_lose = true
 		game_screen.add_child(shell_scene)
 		queue_free()
@@ -764,15 +764,15 @@ func cook():
 
 func change_area():
 	var _main_story
-	if area.current_event.NEXT_AREA.get("NAME"):
-		_main_story = "you have entered " + area.current_event.NEXT_AREA.NAME
+	if Game.current_event.NEXT_AREA.get("NAME"):
+		_main_story = "you have entered " + Game.current_event.NEXT_AREA.NAME
 	else:
-		_main_story = "you have exited " + area.current_event.NAME
+		_main_story = "you have exited " + Game.current_event.NAME
 		
 	emit_story_telling(_main_story)
 	yield(self,"story_telling_started")
-	area.current_area = area.current_event.NEXT_AREA.new()
-	area.current_event = area.current_area
+	area.current_area = Game.current_event.NEXT_AREA.new()
+	Game.current_event = area.current_area
 	area.generate_locations()
 	area.update_story_info()
 	area.update_actions()
@@ -808,8 +808,8 @@ func follow_path():
 	
 	yield(self,"story_telling_started")
 	var _total_minutes_passed = (_hours_passed*60) + _minutes_passed
-	area.current_area = area.current_event.NEXT_AREA.new()
-	area.current_event = area.current_area
+	area.current_area = Game.current_event.NEXT_AREA.new()
+	Game.current_event = area.current_area
 	calculate_turn(0.00028, _total_minutes_passed)
 	
 	area.generate_locations()

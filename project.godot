@@ -778,6 +778,7 @@ Game="*res://Singletons/Game.gd"
 ModLoader="*res://Singletons/ModLoader.gd"
 Audio="*res://Singletons/Audio.gd"
 Save="*res://Singletons/Save.gd"
+Events="*res://Singletons/Events.gd"
 
 [display]
 

@@ -58,7 +58,7 @@ func _on_ConsoleInput_text_changed(new_text):
 		_event_name = _event_name.replace(" ", "_")
 		var _event = path_dictionary.get(_event_name)
 		if _event != null:
-			game_screen.get_node("Logic/Area").current_event = load(_event).new()
+			Game.current_event = load(_event).new()
 			game_screen.get_node("Logic/Area").update_story_info()
 			game_screen.get_node("Logic/Area").update_actions()
 			text = ""

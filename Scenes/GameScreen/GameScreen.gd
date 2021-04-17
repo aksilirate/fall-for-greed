@@ -3,7 +3,6 @@ extends Control
 export(NodePath) onready var threat_container = get_node(threat_container) as VBoxContainer
 export(NodePath) onready var animation_player = get_node(animation_player) as AnimationPlayer
 export(NodePath) onready var hold_slot = get_node(hold_slot) as Node
-export(NodePath) onready var characters = get_node(characters) as Node
 export(NodePath) onready var area = get_node(area) as Node
 
 
@@ -21,6 +20,9 @@ func _init():
 
 
 func _ready():
+# warning-ignore:return_value_discarded
+	Events.connect("slept", self, "save_game")
+	
 	var west_action = $Actions/WestAction
 	area.connect("update_west_action", west_action, "_on_update_west_action")
 	var left_action = $Actions/LeftAction
@@ -30,8 +32,7 @@ func _ready():
 	var east_action = $Actions/EastAction
 	area.connect("update_east_action", east_action, "_on_update_east_action")
 	
-	for action in $Actions.get_children():
-		action.connect("action_pressed", self, "_on_action_pressed")
+	load_game()
 	
 	
 	if  Save.get_saved_value("Game", "selected_tarot_card"):
@@ -53,9 +54,8 @@ func _ready():
 		history_label.text = selected.story
 		emit_signal("story_selected")
 		
-		
-	load_game()
 	call_deferred("save_game")
+
 
 
 
@@ -77,12 +77,11 @@ func set_selected_tarot_card(_value):
 func _on_character_death(_character):
 	if _character:
 		emit_signal("story_selected")
-		Save.erase_value("Characters", _character.character_name)
 		_character.free()
 		
 		
 		
-	if characters.get_child_count() == 0:
+	if $Logic/Characters.get_child_count() == 0:
 		Save.delete()
 # warning-ignore:return_value_discarded
 		get_tree().change_scene("res://Scenes/DeathScreen/DeathScreen.tscn")
@@ -90,13 +89,13 @@ func _on_character_death(_character):
 		
 	for _label in $CharacterLabels.get_children():
 		_label.hide()
-	for _character in characters.get_children():
-		characters.update_character_label(_character)
+	for _character in $Logic/Characters.get_children():
+		$Logic/Characters.update_character_label(_character)
 		
 		
 		
 func _on_summon_character(_character):
-	characters.summon_character(_character)
+	$Logic/Characters.summon_character(_character)
 
 
 # warning-ignore:unused_argument
@@ -149,32 +148,44 @@ func _on_AnimationPlayer_animation_started(anim_name):
 
 
 
-func _on_action_pressed():
-	call_deferred("save_game")
-	
-	
-
 
 func save_game():
+	var characters = Save.get_section_values("characters")
+	if characters:
+		for character_name in characters:
+			if not $Logic/Characters.get_node_or_null(character_name):
+				Save.erase_value("characters", character_name)
+			
 	for character in get_tree().get_nodes_in_group("characters"):
 		Save.save_value("characters", character.character_name, inst2dict(character))
 		
 	Save.save_value("Game", "minutes_passed", Game.minutes_passed)
+	Save.save_value("Game", "current_event",Game.current_event)
 	Save.save_value("Game", "equipped_artifact", Game.equipped_artifact)
 	Save.save_value("game", "selected_item", hold_slot.selected_item)
 	
 	
 func load_game():
-	var saved_artifact = Save.get_saved_value("Game", "equipped_artifact")
-	if saved_artifact:
-		Game.equipped_artifact = saved_artifact
-	else:
-		Game.equipped_artifact = null
-		
 	var saved_minutes_passed  = Save.get_saved_value("Game", "minutes_passed")
 	if saved_minutes_passed:
 		Game.minutes_passed = saved_minutes_passed
 	else:
 		randomize()
 		Game.minutes_passed = int(rand_range(0,121))
+		
+	var saved_current_event = Save.get_saved_value("Game", "current_event")
+	if saved_current_event:
+		Game.current_event = saved_current_event
+	else:
+		Game.current_event = $Logic/Area.current_area
+		
+		
+	var saved_artifact = Save.get_saved_value("Game", "equipped_artifact")
+	if saved_artifact:
+		Game.equipped_artifact = saved_artifact
+	else:
+		Game.equipped_artifact = null
+	
+	$Logic/Area.update_story_info()
+
 

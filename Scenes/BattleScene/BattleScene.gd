@@ -192,7 +192,6 @@ func play_death_message(_death_message):
 	
 	
 func game_ended():
-	Save.delete()
 # warning-ignore:return_value_discarded
 	var death_screen = preload("res://Scenes/DeathScreen/DeathScreen.tscn").instance()
 	

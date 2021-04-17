@@ -11,7 +11,6 @@ var upcoming_locations: Array
 var findings_left: int
 var location_index: int
 var current_area: Object
-var current_event: Object
 
 signal update_west_action(_texture, _action, _executer)
 signal update_left_action(_texture, _action, _executer)
@@ -74,7 +73,6 @@ func generate_locations():
 
 func _ready():
 	load_game()
-	update_story_info()
 	
 	
 func reset_findings_left():
@@ -87,15 +85,9 @@ func load_game():
 	if not Save.get_saved_value("Game", "current_area"):
 		current_area = AbandonedForest.new()
 		Save.save_value("Game", "current_area",current_area)
-		current_event = current_area
+		Game.current_event = current_area
 	else:
 		current_area = Save.get_saved_value("Game", "current_area")
-		
-
-	if not Save.get_saved_value("Game", "current_event"):
-		current_event = current_area
-	else:
-		current_event = Save.get_saved_value("Game", "current_event")
 	
 	if not Save.get_saved_value("Game", "location_index"):
 		location_index = 0
@@ -118,13 +110,12 @@ func load_game():
 	
 func save_game():
 	Save.save_value("Game", "current_area",current_area)
-	Save.save_value("Game", "current_event",current_event)
 	Save.save_value("Game", "location_index",location_index)
 	Save.save_value("Game", "upcoming_locations",upcoming_locations)
 	Save.save_value("Game", "findings_left",findings_left)
 	
 func change_event_to(_event: Object):
-	current_event = _event
+	Game.current_event = _event
 	update_story_info()
 	update_actions()
 	save_game()
@@ -132,8 +123,8 @@ func change_event_to(_event: Object):
 
 
 func _on_location_reseted():
-	if current_area.get_script() != current_event.get_script():
-		current_event = current_area
+	if current_area.get_script() != Game.current_event.get_script():
+		Game.current_event = current_area
 		update_story_info()
 	update_actions()
 	save_game()
@@ -160,20 +151,20 @@ func advance_location():
 
 	if location_index == current_area.total_locations:
 		current_area = current_area.NEXT_AREA.new()
-		current_event = current_area
+		Game.current_event = current_area
 		generate_locations()
 	else:
 		if upcoming_locations[location_index] is Enemy and game_screen.selected_tarot_card.get("HERMIT") and \
 		location_index != upcoming_locations.size() - 1:
-			current_event = current_area
+			Game.current_event = current_area
 		else:
-			current_event = upcoming_locations[location_index]
+			Game.current_event = upcoming_locations[location_index]
 	
 	
-		if current_event.get_script() == current_area.get_script():
+		if Game.current_event.get_script() == current_area.get_script():
 			if rand_range(0,1) < 0.02:
 				if Game.equipped_artifact == null:
-					current_event = Wanderer
+					Game.current_event = Wanderer
 			
 	reset_findings_left()
 	update_story_info()
@@ -191,11 +182,11 @@ func update_story_info():
 		story_texture.texture = load(textures[texture_index])
 	else:
 		print("Error: texture.size() < 0")
-	history_label.text = current_event.HISTORY
+	history_label.text = Game.current_event.HISTORY
 	
 
 func filtered_textures():
-	var texture_cache = [] + current_event.TEXTURES
+	var texture_cache = [] + Game.current_event.TEXTURES
 	texture_cache.erase(story_texture.texture.resource_path)
 	return texture_cache
 	
@@ -204,7 +195,7 @@ func _on_story_selected():
 	if owner.selected:
 		owner.selected.deselect()
 	owner.hide_information()
-	history_label.text = current_event.HISTORY
+	history_label.text = Game.current_event.HISTORY
 	story_frame.modulate.a = 0.3
 	owner.selected = story_frame
 	update_actions()
@@ -213,26 +204,26 @@ func _on_story_selected():
 func update_actions():
 	var executer = owner.get_node("Logic/Characters").get_children()
 	
-	if current_event.WEST_ACTION != null:
-		var west_action = current_event.WEST_ACTION
+	if Game.current_event.WEST_ACTION != null:
+		var west_action = Game.current_event.WEST_ACTION
 		emit_signal("update_west_action",load(west_action.TEXTURE), west_action, executer)
 	else:
 		emit_signal("update_west_action",null, null, null)
 		
 		
-	if current_event.LEFT_ACTION != null:
-		var left_action = current_event.LEFT_ACTION
+	if Game.current_event.LEFT_ACTION != null:
+		var left_action = Game.current_event.LEFT_ACTION
 		emit_signal("update_left_action", load(left_action.TEXTURE), left_action, executer)
 	else:
 		emit_signal("update_left_action",null, null, null)
 	
 	
-	if current_event.RIGHT_ACTION != null:
-		var right_action = current_event.RIGHT_ACTION
+	if Game.current_event.RIGHT_ACTION != null:
+		var right_action = Game.current_event.RIGHT_ACTION
 		
-		if current_event.RIGHT_ACTION == ChangeDirectionAction:
+		if Game.current_event.RIGHT_ACTION == ChangeDirectionAction:
 			var tired_character = false
-			for _character in owner.characters.get_children():
+			for _character in get_tree().get_nodes_in_group("characters"):
 				if _character.hormones["melatonin"] > 0.83:
 					tired_character = true
 					
@@ -246,8 +237,8 @@ func update_actions():
 	
 
 
-	if current_event.EAST_ACTION != null:
-		var east_action = current_event.EAST_ACTION
+	if Game.current_event.EAST_ACTION != null:
+		var east_action = Game.current_event.EAST_ACTION
 		emit_signal("update_east_action", load(east_action.TEXTURE), east_action, executer)
 	else:
 		emit_signal("update_east_action", null, null, null)

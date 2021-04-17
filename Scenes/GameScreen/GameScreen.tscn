@@ -542,7 +542,6 @@ __meta__ = {
 threat_container = NodePath("ThreatContainer")
 animation_player = NodePath("AnimationPlayer")
 hold_slot = NodePath("HoldSlot")
-characters = NodePath("Logic/Characters")
 area = NodePath("Logic/Area")
 
 [node name="Logic" type="Node" parent="."]

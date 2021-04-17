@@ -113,10 +113,10 @@ func update_actions():
 			
 			
 		if item.LEFT_ACTION:
-			if item.LEFT_ACTION.get("CLASS_NAME") == "MakeCampfireAction" and game_screen.area.current_event is Enemy:
+			if item.LEFT_ACTION.get("CLASS_NAME") == "MakeCampfireAction" and Game.current_event is Enemy:
 				emit_signal("update_left_action", null, null, owner.last_selected_character)
 				
-			elif item.LEFT_ACTION.get("CLASS_NAME") == "DigAction" and not game_screen.area.current_event is QueensGrave:
+			elif item.LEFT_ACTION.get("CLASS_NAME") == "DigAction" and not Game.current_event is QueensGrave:
 				emit_signal("update_left_action", null, null, owner.last_selected_character)
 			
 			else:
@@ -128,7 +128,7 @@ func update_actions():
 			
 
 		# COOK CHECK
-		if item.get("COOKS_INTO") and game_screen.area.current_event is CampfireEvent and item.COOKS_INTO != null:
+		if item.get("COOKS_INTO") and Game.current_event is CampfireEvent and item.COOKS_INTO != null:
 			var right_action = CookAction
 			emit_signal("update_right_action", load(right_action.TEXTURE), right_action, owner.last_selected_character)
 		elif item.RIGHT_ACTION:

@@ -29,11 +29,11 @@ const RAND_WEIGHT := 0.1
 
 
 func death_curse(game_screen):
-	var _characters = game_screen.characters.get_children()
-	var rand_index:int = randi() % _characters.size()
+	var characters = game_screen.get_node("Logic/Characters").get_children()
+	var rand_index:int = randi() % characters.size()
 	var effect = Effect.new()
 	var misfortune = Misfortune.new()
 	misfortune.deactivation_minute = 5760
 	effect.active_effect = misfortune
 
-	_characters[rand_index].add_child(effect)
+	characters[rand_index].add_child(effect)

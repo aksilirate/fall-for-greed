@@ -12,7 +12,7 @@ func _ready():
 	
 	var emit_story_telling
 	
-	if area.current_event.get_class() != "CampfireEvent":
+	if Game.current_event.get_class() != "CampfireEvent":
 		emit_story_telling = emit_story_telling("you have started a campfire")
 		change_event_to(CampfireEvent)
 	else:

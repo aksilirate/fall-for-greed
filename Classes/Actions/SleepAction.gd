@@ -10,6 +10,7 @@ func _ready():
 	var sleep = sleep()
 	if sleep is Object:
 		yield(sleep, "completed")
+		Events.emit_signal("slept")
 		queue_free()
 	else:
 		queue_free()

@@ -9,7 +9,7 @@ const TOOLTIP := "communicate"
 
 func _ready():
 	
-	var _character = area.current_event
+	var _character = Game.current_event
 	
 	if game_screen.selected_tarot_card.get_script() == HermitCard.new().get_script():
 		upcoming_stories.push_back(_character.NAME + " doesn't want to join you")

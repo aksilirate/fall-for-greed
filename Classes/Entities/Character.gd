@@ -124,7 +124,7 @@ func _on_character_selected() -> void:
 	
 func update_actions() -> void:
 	var game_screen = get_tree().get_nodes_in_group("game_screen").front()
-	if game_screen.area.current_event.get("ITEM") or game_screen.hold_slot.selected_item != null:
+	if Game.current_event.get("ITEM") or game_screen.hold_slot.selected_item != null:
 		if inventory.size() < 8:
 			west_action = TakeAction
 		else:
@@ -136,9 +136,9 @@ func update_actions() -> void:
 		
 	
 	
-	if game_screen.area.current_event is load("res://Areas/AbandonedForest/Zones/AbandonedForestRopeHang.gd") as Script:
+	if Game.current_event is load("res://Areas/AbandonedForest/Zones/AbandonedForestRopeHang.gd") as Script:
 		left_action = HangAction
-	elif not game_screen.area.current_event is Enemy and get_tree().get_nodes_in_group("characters").size() > 1 and stats["mood"] > 0.4\
+	elif not Game.current_event is Enemy and get_tree().get_nodes_in_group("characters").size() > 1 and stats["mood"] > 0.4\
 	and not action_cooldowns.get("JokeAction"):
 		left_action = JokeAction
 	else:
@@ -171,7 +171,7 @@ func update_actions() -> void:
 	if current_character.get("EAST_ACTION"):
 		east_action = current_character.get("EAST_ACTION")
 		if east_action == SummonTheWitchAction and game_screen.selected_tarot_card.get_script() == EmpressCard.new().get_script()\
-		or game_screen.area.current_event is Enemy:
+		or Game.current_event is Enemy:
 			east_action = SuicideAction
 			emit_signal("update_east_action",load(east_action.TEXTURE), east_action, self)
 		else:
