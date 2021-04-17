@@ -170,7 +170,7 @@ func update_actions() -> void:
 
 	if current_character.get("EAST_ACTION"):
 		east_action = current_character.get("EAST_ACTION")
-		if east_action == SummonTheWitchAction and game_screen.selected_tarot_card.get_script() == EmpressCard.new().get_script()\
+		if east_action == SummonTheWitchAction and Game.selected_tarot_card.get_script() == EmpressCard.new().get_script()\
 		or Game.current_event is Enemy:
 			east_action = SuicideAction
 			emit_signal("update_east_action",load(east_action.TEXTURE), east_action, self)

@@ -238,7 +238,7 @@ func ate_food(_character):
 	
 	
 func calculate_mood(_character, _minutes_passed):
-	var _tarot_mood = game_screen.selected_tarot_card.get("MOOD")
+	var _tarot_mood = Game.selected_tarot_card.get("MOOD")
 	if _tarot_mood:
 		_character.stats["mood"] += _tarot_mood
 		_character.stats["mood"] = min(_character.stats["mood"], 1.5)
@@ -289,7 +289,7 @@ func calculate_melatonin(_character, _minutes_passed):
 
 func calculate_luck(_character, _minutes_passed):
 	var _total_luck: float
-	var _tarot_luck = game_screen.selected_tarot_card.get("LUCK")
+	var _tarot_luck = Game.selected_tarot_card.get("LUCK")
 	if _tarot_luck:
 		_total_luck = _character.stats["luck"] + _tarot_luck
 	else:
@@ -442,7 +442,6 @@ func emit_location_advanced():
 	while locations_to_advance > 0:
 		area.advance_location()
 		locations_to_advance -= 1
-	area.save_game()
 	
 	
 func calculate_speed():
@@ -588,7 +587,7 @@ func search_for_item():
 	
 	var _finding_chance = rand_range(0,1)
 	for _minute in range(1,60):
-		if area.findings_left > 0 and _finding_chance < (_minute * 0.01666) + _max_focus and Game.current_area.FINDINGS:
+		if Game.findings_left > 0 and _finding_chance < (_minute * 0.01666) + _max_focus and Game.current_area.FINDINGS:
 			randomize()
 			_finding = Rand.weighted_random_object(Game.current_area.FINDINGS).new()
 			var finding_name = _finding.NAME
@@ -601,8 +600,8 @@ func search_for_item():
 			
 			_minutes_passed = _minute
 			
-			if area.findings_left > 0:
-				area.findings_left -= 1
+			if Game.findings_left > 0:
+				Game.findings_left -= 1
 				
 			_found = true
 			break
@@ -633,7 +632,6 @@ func search_for_item():
 	if _finding:
 		area.update_story_info()
 		area.update_actions()
-		area.save_game()
 				
 	add_to_minutes_passed(_minutes_passed)
 	improve_focus(_minutes_passed)
@@ -772,7 +770,7 @@ func change_area():
 	yield(self,"story_telling_started")
 	Game.current_area = Game.current_event.NEXT_AREA.new()
 	Game.current_event = Game.current_area
-	area.generate_locations()
+	Game.generate_locations()
 	area.update_story_info()
 	area.update_actions()
 	yield(self,"story_telling_finished")
@@ -811,7 +809,7 @@ func follow_path():
 	Game.current_event = Game.current_area
 	calculate_turn(0.00028, _total_minutes_passed)
 	
-	area.generate_locations()
+	Game.generate_locations()
 	area.update_story_info()
 	area.update_actions()
 	yield(self,"story_telling_finished")

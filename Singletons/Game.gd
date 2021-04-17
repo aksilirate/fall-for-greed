@@ -7,7 +7,9 @@ var current_area: Object
 var current_event: Object
 var upcoming_locations: Array
 var location_index: int
+var findings_left: int
 
+var selected_tarot_card: Object
 var equipped_artifact: Object
 
 
@@ -38,3 +40,51 @@ func _on_node_removed(_node):
 		new_game_ready = false
 
 
+
+
+# total_locations are generated inside the current_location
+func generate_locations():
+	# Generates NPCs, enemies and zones
+	upcoming_locations.clear()
+	location_index = 0
+	randomize()
+	
+	var spawned_enemies = []
+	var spawned_zones = []
+	var npc_cache = [] + current_area.NPCS
+	
+	var _last_location: Object
+	for _index in current_area.total_locations:
+		if _index > 3 and _last_location == current_area:
+			
+			var _enemy = Rand.weighted_random_object(current_area.ENEMIES)
+			var _zone = Rand.weighted_random_object(current_area.ZONES)
+			
+			if current_area.ENEMIES.size() > 0 and spawned_enemies.size() <= current_area.ENEMIES.size() and spawned_enemies.find(_enemy) == -1:
+				_last_location = _enemy.new()
+				upcoming_locations.push_front(_enemy.new())
+				spawned_enemies.push_front(_enemy)
+				
+			
+			elif current_area.ZONES.size() > 0 and spawned_zones.size() <= current_area.ZONES.size() and spawned_zones.find(_zone) == -1:
+				_last_location = _zone.new()
+				upcoming_locations.push_front(_zone.new())
+				spawned_zones.push_front(_zone)
+				
+				
+			elif rand_range(0,1) < 0.3 and npc_cache.size() > 0:
+				_last_location = npc_cache.front()
+				upcoming_locations.push_front(npc_cache.pop_front().new())
+				
+				
+			else:
+				upcoming_locations.push_front(current_area)
+				_last_location = current_area
+		else:
+			upcoming_locations.push_front(current_area)
+			_last_location = current_area
+			
+	if current_area.get("LAST_EVENT"):
+		upcoming_locations[upcoming_locations.size() - 1] = current_area.LAST_EVENT
+				
+				

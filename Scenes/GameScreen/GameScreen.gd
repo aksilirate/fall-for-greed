@@ -10,7 +10,6 @@ onready var history_label = get_node("HistoryLabel")
 onready var selected = get_node("StoryFrame")
 
 var last_selected_character: Object
-var selected_tarot_card: Object setget set_selected_tarot_card
 var menu_open = false
 
 signal story_selected
@@ -37,26 +36,19 @@ func _ready():
 	load_game()
 	
 	
-	if  Save.get_saved_value("Game", "selected_tarot_card"):
-		selected_tarot_card = Save.get_saved_value("Game", "selected_tarot_card")
-		
-	
-	
 	if OS.is_debug_build():
 		var _debug = Debug.new()
 		add_child(_debug)
 
 
 
-	if not selected_tarot_card:
+	if not Game.selected_tarot_card:
 		load_card_picking_scene()
 	else:
-		$TarotCardTexture.texture = load(selected_tarot_card.TEXTURE)
+		$TarotCardTexture.texture = load(Game.selected_tarot_card.TEXTURE)
 		animation_player.play("Load")
 		history_label.text = selected.story
 		emit_signal("story_selected")
-		
-	call_deferred("save_game")
 
 
 
@@ -69,12 +61,6 @@ func load_card_picking_scene():
 	show()
 
 
-
-
-func set_selected_tarot_card(_value):
-	Save.save_value("Game", "selected_tarot_card",_value)
-	selected_tarot_card = _value
-	
 
 func _on_character_death(_character):
 	if _character:
@@ -141,11 +127,11 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 
 func _on_AnimationPlayer_animation_started(anim_name):
 	if anim_name == "Load":
-		$TarotCardTexture.texture = load(selected_tarot_card.TEXTURE)
+		$TarotCardTexture.texture = load(Game.selected_tarot_card.TEXTURE)
 		emit_signal("story_selected")
 		
 	if anim_name == "Show Screen":
-		$TarotCardTexture.texture = load(selected_tarot_card.TEXTURE)
+		$TarotCardTexture.texture = load(Game.selected_tarot_card.TEXTURE)
 		emit_signal("story_selected")
 
 
@@ -169,12 +155,16 @@ func save_game():
 	Save.save_value("Game", "current_event", Game.current_event)
 	Save.save_value("Game", "upcoming_locations", Game.upcoming_locations)
 	Save.save_value("Game", "location_index", Game.location_index)
+	Save.save_value("Game", "findings_left", Game.findings_left)
+	Save.save_value("Game", "selected_tarot_card", Game.selected_tarot_card)
 	Save.save_value("Game", "equipped_artifact", Game.equipped_artifact)
 	Save.save_value("game", "selected_item", hold_slot.selected_item)
 
 
 
-	
+
+
+
 func load_game():
 	var saved_minutes_passed  = Save.get_saved_value("Game", "minutes_passed")
 	if saved_minutes_passed:
@@ -189,7 +179,6 @@ func load_game():
 		Game.current_area = saved_current_area
 	else:
 		Game.current_area = AbandonedForest.new()
-		Save.save_value("Game", "current_area",Game.current_area)
 		Game.current_event = Game.current_area
 
 		
@@ -199,12 +188,30 @@ func load_game():
 	else:
 		Game.current_event = Game.current_area
 		
+		
+	var saved_location_index = Save.get_saved_value("Game", "location_index")
+	if saved_location_index:
+		Game.location_index = saved_location_index
+	else:
+		Game.location_index = 0
+		
+		
+	var saved_findings_left = Save.get_saved_value("Game", "findings_left")
+	if saved_findings_left:
+		Game.findings_left = saved_findings_left
+	else: 
+		$Logic/Area.reset_findings_left()
+
+	
 	var saved_upcoming_locations = Save.get_saved_value("Game", "upcoming_locations")
 	if saved_upcoming_locations:
 		Game.upcoming_locations = saved_upcoming_locations
 	else:
-		$Logic/Area.generate_locations()
+		Game.generate_locations()
 
+	var saved_selected_tarot_card =  Save.get_saved_value("Game", "selected_tarot_card")
+	if saved_selected_tarot_card:
+		Game.selected_tarot_card = saved_selected_tarot_card
 
 	var saved_artifact = Save.get_saved_value("Game", "equipped_artifact")
 	if saved_artifact:

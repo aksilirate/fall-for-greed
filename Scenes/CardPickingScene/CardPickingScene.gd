@@ -49,17 +49,17 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		"Reveal Card":
 			$PlaceholderTexture.texture = load(drawn_card.TEXTURE)
 			$PlaceholderTexture.hide()
-			if not tries_left and get_parent().selected_tarot_card:
+			if not tries_left and Game.selected_tarot_card:
 				$AnimationPlayer.play("Unload")
 			if tarot_cards_cache.size() == 0:
 				$AnimationPlayer.play("Unload")
 		"Unload":
 
-			if get_parent().get("selected_tarot_card"):
-				get_parent().selected_tarot_card = drawn_card.new()
+			if Game.selected_tarot_card:
+				Game.selected_tarot_card = drawn_card.new()
 				get_parent().animation_player.play("Show Screen")
 			else:
-				get_parent().selected_tarot_card = drawn_card.new()
+				Game.selected_tarot_card = drawn_card.new()
 				get_parent().animation_player.play("Load")
 				
 			

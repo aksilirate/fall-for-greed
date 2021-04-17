@@ -70,7 +70,7 @@ func character_attack():
 		var _damage = (_character.character_reference.traits["combat"] * 3)
 		
 		
-		if game_screen.selected_tarot_card.get("STRENGTH"):
+		if Game.selected_tarot_card.get("STRENGTH"):
 			_damage += 0.37
 		
 		if Game.equipped_artifact != null and Game.equipped_artifact.get("DOUBLE_DAMAGE"):
@@ -150,7 +150,7 @@ func enemy_attack():
 		
 		if fool:
 			 _damage = _damage/ 1.98
-		if game_screen.selected_tarot_card.get("DEATH"):
+		if Game.selected_tarot_card.get("DEATH"):
 			_damage = _damage * 2
 		
 		var _total_damage = max(0.034, _damage - _armor)
@@ -225,7 +225,7 @@ func hit(_target, _damage):
 
 func dodged(_character: Character):
 	
-	if Game.equipped_artifact != null and Game.equipped_artifact.get("ANTI_DODGE") or game_screen.selected_tarot_card.get("ANTI_DODGE"):
+	if Game.equipped_artifact != null and Game.equipped_artifact.get("ANTI_DODGE") or Game.selected_tarot_card.get("ANTI_DODGE"):
 		return false
 			
 	if rand_range(0,1) < _character.stats["energy"] / 2:

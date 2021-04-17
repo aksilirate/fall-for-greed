@@ -7,98 +7,24 @@ onready var story_texture = owner.get_node("StoryTexture")
 onready var story_frame = owner.get_node("StoryFrame")
 
 
-var findings_left: int
-
 signal update_west_action(_texture, _action, _executer)
 signal update_left_action(_texture, _action, _executer)
 signal update_right_action(_texture, _action, _executer)
 signal update_east_action(_texture, _action, _executer)
 
-# total_locations are generated inside the current_location
 
-
-
-func generate_locations():
-	# Generates NPCs, enemies and zones
-	Game.upcoming_locations.clear()
-	Game.location_index = 0
-	randomize()
-	
-	var spawned_enemies = []
-	var spawned_zones = []
-	var npc_cache = [] + Game.current_area.NPCS
-	
-	var _last_location: Object
-	for _index in Game.current_area.total_locations:
-		if _index > 3 and _last_location == Game.current_area:
-			
-			var _enemy = Rand.weighted_random_object(Game.current_area.ENEMIES)
-			var _zone = Rand.weighted_random_object(Game.current_area.ZONES)
-			
-			if Game.current_area.ENEMIES.size() > 0 and spawned_enemies.size() <= Game.current_area.ENEMIES.size() and spawned_enemies.find(_enemy) == -1:
-				_last_location = _enemy.new()
-				Game.upcoming_locations.push_front(_enemy.new())
-				spawned_enemies.push_front(_enemy)
-				
-			
-			elif Game.current_area.ZONES.size() > 0 and spawned_zones.size() <= Game.current_area.ZONES.size() and spawned_zones.find(_zone) == -1:
-				_last_location = _zone.new()
-				Game.upcoming_locations.push_front(_zone.new())
-				spawned_zones.push_front(_zone)
-				
-				
-			elif rand_range(0,1) < 0.3 and npc_cache.size() > 0:
-				_last_location = npc_cache.front()
-				Game.upcoming_locations.push_front(npc_cache.pop_front().new())
-				
-				
-				
-				
-			else:
-				Game.upcoming_locations.push_front(Game.current_area)
-				_last_location = Game.current_area
-		else:
-			Game.upcoming_locations.push_front(Game.current_area)
-			_last_location = Game.current_area
-			
-	if Game.current_area.get("LAST_EVENT"):
-		Game.upcoming_locations[Game.upcoming_locations.size() - 1] = Game.current_area.LAST_EVENT
-				
-				
-
-
-func _ready():
-	load_game()
-	
 	
 func reset_findings_left():
 	randomize()
-	findings_left = randi() % 10
-	Save.save_value("Game", "findings_left",findings_left)
+	Game.findings_left = randi() % 10
 	
 	
-func load_game():
-	if not Save.get_saved_value("Game", "location_index"):
-		Game.location_index = 0
-	else:
-		Game.location_index = Save.get_saved_value("Game", "location_index")
-		
 	
-	if not Save.get_saved_value("Game", "findings_left"):
-		reset_findings_left()
-	else:
-		findings_left = Save.get_saved_value("Game", "findings_left")
-		
-	
-	
-func save_game():
-	Save.save_value("Game", "findings_left",findings_left)
 	
 func change_event_to(_event: Object):
 	Game.current_event = _event
 	update_story_info()
 	update_actions()
-	save_game()
 
 
 
@@ -107,7 +33,6 @@ func _on_location_reseted():
 		Game.current_event = Game.current_area
 		update_story_info()
 	update_actions()
-	save_game()
 
 
 	
@@ -132,9 +57,9 @@ func advance_location():
 	if Game.location_index == Game.current_area.total_locations:
 		Game.current_area = Game.current_area.NEXT_AREA.new()
 		Game.current_event = Game.current_area
-		generate_locations()
+		Game.generate_locations()
 	else:
-		if Game.upcoming_locations[Game.location_index] is Enemy and game_screen.selected_tarot_card.get("HERMIT") and \
+		if Game.upcoming_locations[Game.location_index] is Enemy and Game.selected_tarot_card.get("HERMIT") and \
 		Game.location_index != Game.upcoming_locations.size() - 1:
 			Game.current_event = Game.current_area
 		else:
