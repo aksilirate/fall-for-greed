@@ -779,6 +779,7 @@ ModLoader="*res://Singletons/ModLoader.gd"
 Audio="*res://Singletons/Audio.gd"
 Save="*res://Singletons/Save.gd"
 Events="*res://Singletons/Events.gd"
+Characters="*res://Singletons/Characters.gd"
 
 [display]
 

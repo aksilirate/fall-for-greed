@@ -2,6 +2,9 @@ extends ActionTextureRect
 
 
 
+
+
+
 func _on_WestAction_mouse_entered():
 	if not owner.animation_player.is_playing():
 		emit_Mouse_Entered_Effect()
