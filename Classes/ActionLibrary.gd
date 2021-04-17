@@ -409,8 +409,8 @@ func emit_location_advanced():
 	
 	
 	for _i in range(6):
-		if area.location_index + locations_to_advance < area.upcoming_locations.size():
-			var next_location = area.upcoming_locations[area.location_index + locations_to_advance]
+		if area.location_index + locations_to_advance < Game.upcoming_locations.size():
+			var next_location = Game.upcoming_locations[area.location_index + locations_to_advance]
 			if next_location.get_script() == Game.current_area.get_script():
 				locations_to_advance += 1
 				randomize()
@@ -420,8 +420,8 @@ func emit_location_advanced():
 					
 		
 	var skipped_next_location_index = area.location_index + locations_to_advance
-	if skipped_next_location_index < area.upcoming_locations.size():
-		var skipped_next_location = area.upcoming_locations[skipped_next_location_index]
+	if skipped_next_location_index < Game.upcoming_locations.size():
+		var skipped_next_location = Game.upcoming_locations[skipped_next_location_index]
 
 		if skipped_next_location.get_script() != Game.current_area.get_script():
 			if rand_range(0,1) < 0.01:
@@ -429,8 +429,8 @@ func emit_location_advanced():
 			
 	
 	var new_next_location_index = area.location_index + locations_to_advance + 1
-	if new_next_location_index < area.upcoming_locations.size():
-		var new_next_location = area.upcoming_locations[new_next_location_index]
+	if new_next_location_index < Game.upcoming_locations.size():
+		var new_next_location = Game.upcoming_locations[new_next_location_index]
 		if new_next_location is Enemy:
 			if rand_range(0,1) < 0.37:
 				upcoming_stories.push_back("you think you saw something")
@@ -654,7 +654,7 @@ func emit_take_item():
 		emit_story_telling = emit_story_telling(_main_story)
 		executer.inventory.append(item)
 		if Game.current_event is Zone:
-			area.upcoming_locations.remove(area.location_index)
+			Game.upcoming_locations.remove(Game.location_index)
 			Game.current_area.total_locations -= 1
 	else: # <------- if holding an Item
 		item = game_screen.hold_slot.selected_item

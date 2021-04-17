@@ -15,7 +15,7 @@ func _ready():
 	else:
 		print("last location was not removed (ChangeDirectionAction.gd)")
 		
-	area.upcoming_locations.shuffle()
+	Game.upcoming_locations.shuffle()
 	area.update_actions()
 	area.save_game()
 	var emit_story_telling = emit_story_telling("you will travel to a different direction from now on")

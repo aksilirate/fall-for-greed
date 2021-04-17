@@ -5,6 +5,7 @@ var minutes_passed = 0 setget set_minutes_passed
 
 var current_area: Object
 var current_event: Object
+var upcoming_locations: Array
 
 var equipped_artifact: Object
 

@@ -7,7 +7,6 @@ onready var story_texture = owner.get_node("StoryTexture")
 onready var story_frame = owner.get_node("StoryFrame")
 
 
-var upcoming_locations: Array
 var findings_left: int
 var location_index: int
 
@@ -22,7 +21,7 @@ signal update_east_action(_texture, _action, _executer)
 
 func generate_locations():
 	# Generates NPCs, enemies and zones
-	upcoming_locations.clear()
+	Game.upcoming_locations.clear()
 	location_index = 0
 	randomize()
 	
@@ -39,35 +38,34 @@ func generate_locations():
 			
 			if Game.current_area.ENEMIES.size() > 0 and spawned_enemies.size() <= Game.current_area.ENEMIES.size() and spawned_enemies.find(_enemy) == -1:
 				_last_location = _enemy.new()
-				upcoming_locations.push_front(_enemy.new())
+				Game.upcoming_locations.push_front(_enemy.new())
 				spawned_enemies.push_front(_enemy)
 				
 			
 			elif Game.current_area.ZONES.size() > 0 and spawned_zones.size() <= Game.current_area.ZONES.size() and spawned_zones.find(_zone) == -1:
 				_last_location = _zone.new()
-				upcoming_locations.push_front(_zone.new())
+				Game.upcoming_locations.push_front(_zone.new())
 				spawned_zones.push_front(_zone)
 				
 				
 			elif rand_range(0,1) < 0.3 and npc_cache.size() > 0:
 				_last_location = npc_cache.front()
-				upcoming_locations.push_front(npc_cache.pop_front().new())
+				Game.upcoming_locations.push_front(npc_cache.pop_front().new())
 				
 				
 				
 				
 			else:
-				upcoming_locations.push_front(Game.current_area)
+				Game.upcoming_locations.push_front(Game.current_area)
 				_last_location = Game.current_area
 		else:
-			upcoming_locations.push_front(Game.current_area)
+			Game.upcoming_locations.push_front(Game.current_area)
 			_last_location = Game.current_area
 			
 	if Game.current_area.get("LAST_EVENT"):
-		upcoming_locations[upcoming_locations.size() - 1] = Game.current_area.LAST_EVENT
+		Game.upcoming_locations[Game.upcoming_locations.size() - 1] = Game.current_area.LAST_EVENT
 				
 				
-	Save.save_value("Game", "upcoming_locations",upcoming_locations)
 
 
 func _ready():
@@ -90,7 +88,7 @@ func load_game():
 	if not Save.get_saved_value("Game", "upcoming_locations"):
 		generate_locations()
 	else:
-		upcoming_locations = Save.get_saved_value("Game", "upcoming_locations")
+		Game.upcoming_locations = Save.get_saved_value("Game", "upcoming_locations")
 	
 	
 	if not Save.get_saved_value("Game", "findings_left"):
@@ -102,7 +100,6 @@ func load_game():
 	
 func save_game():
 	Save.save_value("Game", "location_index",location_index)
-	Save.save_value("Game", "upcoming_locations",upcoming_locations)
 	Save.save_value("Game", "findings_left",findings_left)
 	
 func change_event_to(_event: Object):
@@ -123,8 +120,8 @@ func _on_location_reseted():
 
 	
 func used_location_removed():
-	if upcoming_locations[location_index].get_script() != Game.current_area.get_script() and not upcoming_locations[location_index] is Zone:
-		upcoming_locations.remove(location_index)
+	if Game.upcoming_locations[location_index].get_script() != Game.current_area.get_script() and not Game.upcoming_locations[location_index] is Zone:
+		Game.upcoming_locations.remove(location_index)
 		Game.current_area.total_locations -= 1
 		return true
 	else:
@@ -145,11 +142,11 @@ func advance_location():
 		Game.current_event = Game.current_area
 		generate_locations()
 	else:
-		if upcoming_locations[location_index] is Enemy and game_screen.selected_tarot_card.get("HERMIT") and \
-		location_index != upcoming_locations.size() - 1:
+		if Game.upcoming_locations[location_index] is Enemy and game_screen.selected_tarot_card.get("HERMIT") and \
+		location_index != Game.upcoming_locations.size() - 1:
 			Game.current_event = Game.current_area
 		else:
-			Game.current_event = upcoming_locations[location_index]
+			Game.current_event = Game.upcoming_locations[location_index]
 	
 	
 		if Game.current_event.get_script() == Game.current_area.get_script():
