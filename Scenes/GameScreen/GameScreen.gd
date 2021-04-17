@@ -22,6 +22,8 @@ func _init():
 func _ready():
 # warning-ignore:return_value_discarded
 	Events.connect("slept", self, "save_game")
+# warning-ignore:return_value_discarded
+	Events.connect("console_command_save", self, "save_game")
 	
 	var west_action = $Actions/WestAction
 	area.connect("update_west_action", west_action, "_on_update_west_action")
@@ -149,6 +151,9 @@ func _on_AnimationPlayer_animation_started(anim_name):
 
 
 
+
+
+
 func save_game():
 	var characters = Save.get_section_values("characters")
 	if characters:
@@ -160,10 +165,13 @@ func save_game():
 		Save.save_value("characters", character.character_name, inst2dict(character))
 		
 	Save.save_value("Game", "minutes_passed", Game.minutes_passed)
-	Save.save_value("Game", "current_event",Game.current_event)
+	Save.save_value("Game", "current_area", Game.current_area)
+	Save.save_value("Game", "current_event", Game.current_event)
 	Save.save_value("Game", "equipped_artifact", Game.equipped_artifact)
 	Save.save_value("game", "selected_item", hold_slot.selected_item)
-	
+
+
+
 	
 func load_game():
 	var saved_minutes_passed  = Save.get_saved_value("Game", "minutes_passed")
@@ -173,11 +181,21 @@ func load_game():
 		randomize()
 		Game.minutes_passed = int(rand_range(0,121))
 		
+		
+	var saved_current_area = Save.get_saved_value("Game", "current_area")
+	if saved_current_area:
+		Game.current_area = saved_current_area
+	else:
+		Game.current_area = AbandonedForest.new()
+		Save.save_value("Game", "current_area",Game.current_area)
+		Game.current_event = Game.current_area
+
+		
 	var saved_current_event = Save.get_saved_value("Game", "current_event")
 	if saved_current_event:
 		Game.current_event = saved_current_event
 	else:
-		Game.current_event = $Logic/Area.current_area
+		Game.current_event = Game.current_area
 		
 		
 	var saved_artifact = Save.get_saved_value("Game", "equipped_artifact")

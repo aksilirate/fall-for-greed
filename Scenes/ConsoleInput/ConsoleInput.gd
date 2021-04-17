@@ -62,3 +62,7 @@ func _on_ConsoleInput_text_changed(new_text):
 			game_screen.get_node("Logic/Area").update_story_info()
 			game_screen.get_node("Logic/Area").update_actions()
 			text = ""
+
+	elif new_text.left(4) == "save":
+		Events.emit_signal("console_command_save")
+		text = ""

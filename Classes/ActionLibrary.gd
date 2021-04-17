@@ -411,7 +411,7 @@ func emit_location_advanced():
 	for _i in range(6):
 		if area.location_index + locations_to_advance < area.upcoming_locations.size():
 			var next_location = area.upcoming_locations[area.location_index + locations_to_advance]
-			if next_location.get_script() == area.current_area.get_script():
+			if next_location.get_script() == Game.current_area.get_script():
 				locations_to_advance += 1
 				randomize()
 				_minutes_passed += floor(rand_range(13,34 - calculate_speed()))
@@ -423,7 +423,7 @@ func emit_location_advanced():
 	if skipped_next_location_index < area.upcoming_locations.size():
 		var skipped_next_location = area.upcoming_locations[skipped_next_location_index]
 
-		if skipped_next_location.get_script() != area.current_area.get_script():
+		if skipped_next_location.get_script() != Game.current_area.get_script():
 			if rand_range(0,1) < 0.01:
 				upcoming_stories.push_back("you think you saw something")
 			
@@ -499,7 +499,7 @@ func execute_sleep(_character):
 func calculate_sleep_hazzards(_character):
 	had_nightmare(_character)
 	if not Game.current_event.get_class() == "CampfireEvent":
-		if area.current_area.get("MOSQUITOES"):
+		if Game.current_area.get("MOSQUITOES"):
 			if rand_range(0,1) < 0.678:
 				_character.stats["mood"] -= 0.05
 				upcoming_stories.push_back(_character.character_name + " has been bitten by mosquitoes")
@@ -589,9 +589,9 @@ func search_for_item():
 	
 	var _finding_chance = rand_range(0,1)
 	for _minute in range(1,60):
-		if area.findings_left > 0 and _finding_chance < (_minute * 0.01666) + _max_focus and area.current_area.FINDINGS:
+		if area.findings_left > 0 and _finding_chance < (_minute * 0.01666) + _max_focus and Game.current_area.FINDINGS:
 			randomize()
-			_finding = Rand.weighted_random_object(area.current_area.FINDINGS).new()
+			_finding = Rand.weighted_random_object(Game.current_area.FINDINGS).new()
 			var finding_name = _finding.NAME
 			
 			upcoming_stories.push_back("you have found " + str(finding_name))
@@ -655,7 +655,7 @@ func emit_take_item():
 		executer.inventory.append(item)
 		if Game.current_event is Zone:
 			area.upcoming_locations.remove(area.location_index)
-			area.current_area.total_locations -= 1
+			Game.current_area.total_locations -= 1
 	else: # <------- if holding an Item
 		item = game_screen.hold_slot.selected_item
 		game_screen.hold_slot.selected_item = null
@@ -771,8 +771,8 @@ func change_area():
 		
 	emit_story_telling(_main_story)
 	yield(self,"story_telling_started")
-	area.current_area = Game.current_event.NEXT_AREA.new()
-	Game.current_event = area.current_area
+	Game.current_area = Game.current_event.NEXT_AREA.new()
+	Game.current_event = Game.current_area
 	area.generate_locations()
 	area.update_story_info()
 	area.update_actions()
@@ -808,8 +808,8 @@ func follow_path():
 	
 	yield(self,"story_telling_started")
 	var _total_minutes_passed = (_hours_passed*60) + _minutes_passed
-	area.current_area = Game.current_event.NEXT_AREA.new()
-	Game.current_event = area.current_area
+	Game.current_area = Game.current_event.NEXT_AREA.new()
+	Game.current_event = Game.current_area
 	calculate_turn(0.00028, _total_minutes_passed)
 	
 	area.generate_locations()

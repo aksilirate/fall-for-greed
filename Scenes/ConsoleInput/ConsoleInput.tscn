@@ -18,4 +18,5 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
 [connection signal="text_changed" from="." to="." method="_on_ConsoleInput_text_changed"]
