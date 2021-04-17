@@ -168,6 +168,7 @@ func save_game():
 	Save.save_value("Game", "current_area", Game.current_area)
 	Save.save_value("Game", "current_event", Game.current_event)
 	Save.save_value("Game", "upcoming_locations", Game.upcoming_locations)
+	Save.save_value("Game", "location_index", Game.location_index)
 	Save.save_value("Game", "equipped_artifact", Game.equipped_artifact)
 	Save.save_value("game", "selected_item", hold_slot.selected_item)
 

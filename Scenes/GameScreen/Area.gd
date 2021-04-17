@@ -8,7 +8,6 @@ onready var story_frame = owner.get_node("StoryFrame")
 
 
 var findings_left: int
-var location_index: int
 
 signal update_west_action(_texture, _action, _executer)
 signal update_left_action(_texture, _action, _executer)
@@ -22,7 +21,7 @@ signal update_east_action(_texture, _action, _executer)
 func generate_locations():
 	# Generates NPCs, enemies and zones
 	Game.upcoming_locations.clear()
-	location_index = 0
+	Game.location_index = 0
 	randomize()
 	
 	var spawned_enemies = []
@@ -80,9 +79,9 @@ func reset_findings_left():
 	
 func load_game():
 	if not Save.get_saved_value("Game", "location_index"):
-		location_index = 0
+		Game.location_index = 0
 	else:
-		location_index = Save.get_saved_value("Game", "location_index")
+		Game.location_index = Save.get_saved_value("Game", "location_index")
 		
 	
 	if not Save.get_saved_value("Game", "findings_left"):
@@ -93,7 +92,6 @@ func load_game():
 	
 	
 func save_game():
-	Save.save_value("Game", "location_index",location_index)
 	Save.save_value("Game", "findings_left",findings_left)
 	
 func change_event_to(_event: Object):
@@ -114,12 +112,12 @@ func _on_location_reseted():
 
 	
 func used_location_removed():
-	if Game.upcoming_locations[location_index].get_script() != Game.current_area.get_script() and not Game.upcoming_locations[location_index] is Zone:
-		Game.upcoming_locations.remove(location_index)
+	if Game.upcoming_locations[Game.location_index].get_script() != Game.current_area.get_script() and not Game.upcoming_locations[Game.location_index] is Zone:
+		Game.upcoming_locations.remove(Game.location_index)
 		Game.current_area.total_locations -= 1
 		return true
 	else:
-		location_index += 1
+		Game.location_index += 1
 		return false
 		
 #need to save location_index
@@ -131,16 +129,16 @@ func advance_location():
 		print("last location was not removed (area.gd)")
 		
 
-	if location_index == Game.current_area.total_locations:
+	if Game.location_index == Game.current_area.total_locations:
 		Game.current_area = Game.current_area.NEXT_AREA.new()
 		Game.current_event = Game.current_area
 		generate_locations()
 	else:
-		if Game.upcoming_locations[location_index] is Enemy and game_screen.selected_tarot_card.get("HERMIT") and \
-		location_index != Game.upcoming_locations.size() - 1:
+		if Game.upcoming_locations[Game.location_index] is Enemy and game_screen.selected_tarot_card.get("HERMIT") and \
+		Game.location_index != Game.upcoming_locations.size() - 1:
 			Game.current_event = Game.current_area
 		else:
-			Game.current_event = Game.upcoming_locations[location_index]
+			Game.current_event = Game.upcoming_locations[Game.location_index]
 	
 	
 		if Game.current_event.get_script() == Game.current_area.get_script():

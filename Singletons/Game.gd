@@ -6,10 +6,9 @@ var minutes_passed = 0 setget set_minutes_passed
 var current_area: Object
 var current_event: Object
 var upcoming_locations: Array
+var location_index: int
 
 var equipped_artifact: Object
-
-
 
 
 
@@ -37,3 +36,5 @@ func _on_node_removed(_node):
 # warning-ignore:return_value_discarded
 		get_tree().change_scene("res://Scenes/GameScreen/GameScreen.tscn")
 		new_game_ready = false
+
+

@@ -408,8 +408,8 @@ func emit_location_advanced():
 	
 	
 	for _i in range(6):
-		if area.location_index + locations_to_advance < Game.upcoming_locations.size():
-			var next_location = Game.upcoming_locations[area.location_index + locations_to_advance]
+		if Game.location_index + locations_to_advance < Game.upcoming_locations.size():
+			var next_location = Game.upcoming_locations[Game.location_index + locations_to_advance]
 			if next_location.get_script() == Game.current_area.get_script():
 				locations_to_advance += 1
 				randomize()
@@ -418,7 +418,7 @@ func emit_location_advanced():
 					break
 					
 		
-	var skipped_next_location_index = area.location_index + locations_to_advance
+	var skipped_next_location_index = Game.location_index + locations_to_advance
 	if skipped_next_location_index < Game.upcoming_locations.size():
 		var skipped_next_location = Game.upcoming_locations[skipped_next_location_index]
 
@@ -427,7 +427,7 @@ func emit_location_advanced():
 				upcoming_stories.push_back("you think you saw something")
 			
 	
-	var new_next_location_index = area.location_index + locations_to_advance + 1
+	var new_next_location_index = Game.location_index + locations_to_advance + 1
 	if new_next_location_index < Game.upcoming_locations.size():
 		var new_next_location = Game.upcoming_locations[new_next_location_index]
 		if new_next_location is Enemy:
