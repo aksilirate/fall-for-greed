@@ -1,8 +1,14 @@
 extends Node
 
 
+var minutes_passed = 0 setget set_minutes_passed
+func set_minutes_passed(value):
+	minutes_passed = value
+	emit_signal("minutes_passed_updated")
+	
 var equipped_artifact: Object
 
+signal minutes_passed_updated
 
 
 

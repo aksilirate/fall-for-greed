@@ -5,7 +5,6 @@ class_name ActionLibrary
 onready var game_screen = get_tree().get_root().get_node("GameScreen")
 
 onready var animation_player: AnimationPlayer = game_screen.animation_player
-onready var story: Node = game_screen.get_node("Logic/Story")
 onready var area: Node = game_screen.area
 
 signal ready_to_advance(_minutes_passed)
@@ -15,7 +14,7 @@ signal story_telling_started
 signal story_telling_finished
 signal location_reseted
 
-
+var tarot_prophecy_ready := false
 var upcoming_stories = []
 var action: Object
 var executer
@@ -43,12 +42,15 @@ func change_event_to(_event: Object):
 
 
 func add_to_minutes_passed(amount):
-	story.minutes_passed += amount
+	
+	if Time.get_formatted_time("day", Game.minutes_passed) > Time.get_formatted_time("day", Game.minutes_passed + amount):
+		tarot_prophecy_ready = true
+		
+	Game.minutes_passed += amount
 	for _character in get_tree().get_nodes_in_group("characters"):
 		for _key in _character.action_cooldowns:
 			_character.action_cooldowns[_key] -= amount
 			_character.action_cooldowns[_key] = max(0, _character.action_cooldowns[_key])
-	story.update_time()
 	
 #----------------------------------- [ v STORY v ] ---------------------------------
 	
@@ -66,11 +68,15 @@ func emit_story_telling(_main_story):
 	yield(self,"story_telling_finished")
 	area.update_actions()
 	
-	if story.tarot_prophecy_ready:
+	if tarot_prophecy_ready:
 		game_screen.load_card_picking_scene()
-		story.tarot_prophecy_ready = false
+		tarot_prophecy_ready = false
 	elif show_screen:
 		animation_player.play("Show Screen")
+		
+		
+		
+		
 	upcoming_stories.clear()
 
 
@@ -275,7 +281,7 @@ func calculate_loneliness(_character, _minutes_passed):
 
 func calculate_melatonin(_character, _minutes_passed):
 	var _melatonin_check = _character.get_melatonin_status()
-	var hour = Time.get_formatted_time("hour", story.minutes_passed)
+	var hour = Time.get_formatted_time("hour", Game.minutes_passed)
 	_character.hormones["melatonin"] += (0.00011277497 * _minutes_passed) * hour
 	if _melatonin_check != _character.get_melatonin_status():
 		var _updated_melatonin_check = _character.get_melatonin_status()

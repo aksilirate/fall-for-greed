@@ -12,15 +12,13 @@ func emit_action_pressed(event):
 	if event is InputEventMouseButton:
 		if not event.pressed:
 			
-			var story = get_tree().get_nodes_in_group("story").front()
 			var area = get_tree().get_nodes_in_group("area").front()
 			
 			
 			
-			if story.minutes_passed >= BalanceData.WITCH_SPAWN_MINUTE or area.current_event is load("res://Areas/Mist/Mist.gd") as Script\
+			if Game.minutes_passed >= BalanceData.WITCH_SPAWN_MINUTE or area.current_event is load("res://Areas/Mist/Mist.gd") as Script\
 			and area.location_index == area.current_area.total_locations - 1:
-				story.minutes_passed = BalanceData.WITCH_SPAWN_MINUTE
-				story.update_time()
+				Game.minutes_passed = BalanceData.WITCH_SPAWN_MINUTE
 				if area.current_event.get("NAME"):
 					if  area.current_event.NAME != "the witch":
 						action = SummonTheWitchAction

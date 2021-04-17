@@ -54,6 +54,7 @@ func _ready():
 		emit_signal("story_selected")
 		
 		
+	load_game()
 	call_deferred("save_game")
 
 
@@ -151,13 +152,29 @@ func _on_AnimationPlayer_animation_started(anim_name):
 func _on_action_pressed():
 	call_deferred("save_game")
 	
+	
+
+
 func save_game():
 	for character in get_tree().get_nodes_in_group("characters"):
 		Save.save_value("characters", character.character_name, inst2dict(character))
-	
+		
+	Save.save_value("Game", "minutes_passed", Game.minutes_passed)
 	Save.save_value("Game", "equipped_artifact", Game.equipped_artifact)
 	Save.save_value("game", "selected_item", hold_slot.selected_item)
 	
 	
-
+func load_game():
+	var saved_artifact = Save.get_saved_value("Game", "equipped_artifact")
+	if saved_artifact:
+		Game.equipped_artifact = saved_artifact
+	else:
+		Game.equipped_artifact = null
+		
+	var saved_minutes_passed  = Save.get_saved_value("Game", "minutes_passed")
+	if saved_minutes_passed:
+		Game.minutes_passed = saved_minutes_passed
+	else:
+		randomize()
+		Game.minutes_passed = int(rand_range(0,121))
 

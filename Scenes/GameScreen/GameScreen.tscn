@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=2]
+[gd_scene load_steps=53 format=2]
 
 [ext_resource path="res://Theme.tres" type="Theme" id=1]
 [ext_resource path="res://Textures/Interface/Profile Border.png" type="Texture" id=2]
@@ -9,7 +9,6 @@
 [ext_resource path="res://Textures/Interface/Selected Slot.png" type="Texture" id=7]
 [ext_resource path="res://Scenes/GameScreen/Area.gd" type="Script" id=8]
 [ext_resource path="res://Scenes/GameScreen/Characters.gd" type="Script" id=9]
-[ext_resource path="res://Scenes/GameScreen/Story.gd" type="Script" id=10]
 [ext_resource path="res://Scenes/GameScreen/EastSlot.gd" type="Script" id=11]
 [ext_resource path="res://Scenes/GameScreen/NorthEastSlot.gd" type="Script" id=12]
 [ext_resource path="res://Scenes/GameScreen/SelectedSlot.gd" type="Script" id=13]
@@ -556,14 +555,6 @@ script = ExtResource( 9 )
 ]]
 script = ExtResource( 8 )
 
-[node name="Story" type="Node" parent="Logic" groups=[
-"story",
-]]
-script = ExtResource( 10 )
-__meta__ = {
-"_editor_description_": ""
-}
-
 [node name="Sound" type="Node" parent="Logic"]
 script = ExtResource( 45 )
 
@@ -1040,7 +1031,6 @@ __meta__ = {
 }
 
 [connection signal="story_selected" from="." to="Logic/Area" method="_on_story_selected"]
-[connection signal="time_updated" from="Logic/Story" to="TimeLabel" method="_on_Story_time_updated"]
 [connection signal="timeout" from="Logic/Sound/NoteTimer" to="Logic/Sound" method="_on_NoteTimer_timeout"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]
