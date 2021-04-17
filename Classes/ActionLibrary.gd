@@ -654,8 +654,8 @@ func emit_take_item():
 			Game.upcoming_locations.remove(Game.location_index)
 			Game.current_area.total_locations -= 1
 	else: # <------- if holding an Item
-		item = game_screen.hold_slot.selected_item
-		game_screen.hold_slot.selected_item = null
+		item = Game.held_item
+		Game.held_item = null
 		game_screen.hold_slot._on_item_hold(null)
 		game_screen.last_selected_character.update_actions()
 		
@@ -681,9 +681,9 @@ func start_battle():
 	var shell_scene = load("res://Scenes/ShellsScene/ShellsScene.tscn").instance()
 	
 
-	if game_screen.hold_slot.selected_item and game_screen.hold_slot.selected_item.get("ANTI_LOSE"):
+	if Game.held_item and Game.held_item.get("ANTI_LOSE"):
 		shell_scene.get_node(shell_scene.shell_game).anti_lose = true
-		game_screen.hold_slot.selected_item = null
+		Game.held_item = null
 		for _child in game_screen.hold_slot.get_children():
 			_child.queue_free()
 		
@@ -748,15 +748,14 @@ func cook():
 	var rand = RandomNumberGenerator.new()
 	rand.randomize()
 	var _character = game_screen.last_selected_character
-	var _selected_item = game_screen.selected.item
 	randomize()
-	var cook_time = rand.randi_range(_selected_item.MIN_COOK_TIME, _selected_item.MAX_COOK_TIME)
+	var cook_time = rand.randi_range(Game.held_item.MIN_COOK_TIME, Game.held_item.MAX_COOK_TIME)
 	add_to_minutes_passed(cook_time)
-	emit_story_telling("you have cooked " + _selected_item.NAME + " for " + str(cook_time) + " minutes")
+	emit_story_telling("you have cooked " + Game.held_item.NAME + " for " + str(cook_time) + " minutes")
 	yield(self,"story_telling_finished")
-	var _inventory_item_index = _character.inventory.find(_selected_item)
+	var _inventory_item_index = _character.inventory.find(Game.held_item)
 	if _inventory_item_index != -1:
-		_character.inventory[_inventory_item_index] = _selected_item.COOKS_INTO
+		_character.inventory[_inventory_item_index] = Game.held_item.COOKS_INTO
 
 
 func change_area():

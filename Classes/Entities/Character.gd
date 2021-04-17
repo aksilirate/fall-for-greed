@@ -123,8 +123,7 @@ func _on_character_selected() -> void:
 	
 	
 func update_actions() -> void:
-	var game_screen = get_tree().get_nodes_in_group("game_screen").front()
-	if Game.current_event.get("ITEM") or game_screen.hold_slot.selected_item != null:
+	if Game.current_event.get("ITEM") or Game.held_item != null:
 		if inventory.size() < 8:
 			west_action = TakeAction
 		else:

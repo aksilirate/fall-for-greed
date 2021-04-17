@@ -1,26 +1,19 @@
 extends TextureRect
 
-var selected_item: Object
 
-
-func _ready():
-	var saved_selected_item = Save.get_saved_value("game", "selected_item")
-	if saved_selected_item:
-		selected_item = saved_selected_item
-		load_selected_item_texture(selected_item)
 
 
 func _on_item_hold(_item):
 	
-	if selected_item != null:
-		owner.last_selected_character.inventory.append(selected_item)
-	selected_item = _item
+	if Game.held_item != null:
+		owner.last_selected_character.inventory.append(Game.held_item)
+	Game.held_item = _item
 	
 	for _child in get_children():
 		_child.queue_free()
 		
 	if _item != null:
-		load_selected_item_texture(selected_item)
+		load_selected_item_texture(Game.held_item)
 
 func load_selected_item_texture(_selected_item):
 		var _item_rect = TextureRect.new()

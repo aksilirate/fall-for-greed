@@ -12,7 +12,7 @@ var findings_left: int
 var selected_tarot_card: Object
 var equipped_artifact: Object
 
-
+var held_item: Object
 
 
 signal minutes_passed_updated

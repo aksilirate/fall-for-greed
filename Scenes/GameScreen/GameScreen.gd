@@ -157,7 +157,7 @@ func save_game():
 	Save.save_value("Game", "findings_left", Game.findings_left)
 	Save.save_value("Game", "selected_tarot_card", Game.selected_tarot_card)
 	Save.save_value("Game", "equipped_artifact", Game.equipped_artifact)
-	Save.save_value("game", "selected_item", hold_slot.selected_item)
+	Save.save_value("game", "held_item", Game.held_item)
 
 
 
@@ -217,6 +217,12 @@ func load_game():
 		Game.equipped_artifact = saved_artifact
 	else:
 		Game.equipped_artifact = null
+	
+	var saved_held_item = Save.get_saved_value("game", "held_item")
+	if saved_held_item:
+		Game.held_item = saved_held_item
+		$HoldSlot.load_selected_item_texture(Game.held_item)
+	
 	
 	$Logic/Area.update_story_info()
 
