@@ -70,7 +70,6 @@ func _on_character_death(_character):
 		
 		
 	if $Logic/Characters.get_child_count() == 0:
-		Save.delete()
 # warning-ignore:return_value_discarded
 		get_tree().change_scene("res://Scenes/DeathScreen/DeathScreen.tscn")
 		
