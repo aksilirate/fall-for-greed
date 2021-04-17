@@ -2,9 +2,11 @@ extends ForgedTextureRect
 class_name ActionTextureRect
 
 
+
 var action
 var executer
 
+signal action_pressed
 
 func emit_action_pressed(event):
 	if event is InputEventMouseButton:
@@ -28,9 +30,6 @@ func emit_action_pressed(event):
 
 
 
-
-
-
 			if action and executer:
 				var action_object = action.new()
 				action_object.executer = executer
@@ -40,7 +39,8 @@ func emit_action_pressed(event):
 				print("No action or executer found.")
 				print("Action:" + str(action))
 				print("Executer:" + str(executer))
-
+				
+			emit_signal("action_pressed")
 
 
 func update_action(_texture, _action, _executer):

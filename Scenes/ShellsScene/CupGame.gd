@@ -29,14 +29,8 @@ func _ready():
 	if owner.enemy == null:
 		owner.enemy = Gnome.new()
 		
-	var story = get_tree().get_nodes_in_group("story").front()
 	
-	var _current_artifact = null
-	if story:
-		_current_artifact = story.current_artifact
-	
-	
-	if _current_artifact != null and _current_artifact.get("DOUBLE_SPEED"):
+	if Game.equipped_artifact != null and Game.equipped_artifact.get("DOUBLE_SPEED"):
 		speed = owner.enemy.SPEED * 2
 	else:
 		speed = owner.enemy.SPEED
@@ -140,9 +134,7 @@ func _on_cup_selected(_cup):
 	
 	if not anti_lose:
 		if rand_range(0,speed) < min(speed,owner.enemy.DAMAGE) / 3:
-			var story = get_tree().get_nodes_in_group("story").front()
-			var _current_artifact = story.current_artifact
-			if _current_artifact != null and _current_artifact.get("ANTI_FOOL"):
+			if Game.equipped_artifact != null and Game.equipped_artifact.get("ANTI_FOOL"):
 				fool = false
 			elif not owner.enemy.get("FOOL_UNAVOIDABLE") and avoided_fool:
 				avoided_fool = false

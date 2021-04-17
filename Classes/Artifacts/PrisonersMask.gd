@@ -1,4 +1,3 @@
-extends Artifact
 class_name PrisonersMask
 
 

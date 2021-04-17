@@ -55,9 +55,9 @@ _global_script_classes=[ {
 "path": "res://Classes/Items/AngelorisItem.gd"
 }, {
 "base": "Reference",
-"class": "Artifact",
+"class": "Artifacts",
 "language": "GDScript",
-"path": "res://Classes/Entities/Artifact.gd"
+"path": "res://Classes/Utilities/Artifacts.gd"
 }, {
 "base": "Reference",
 "class": "BalanceData",
@@ -239,7 +239,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Areas/DeadForest/Enemies/FallenKing.gd"
 }, {
-"base": "Artifact",
+"base": "Reference",
 "class": "FallenKingsChaliceCup",
 "language": "GDScript",
 "path": "res://Classes/Artifacts/FallenKingsChaliceCup.gd"
@@ -334,7 +334,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Classes/Items/LageItem.gd"
 }, {
-"base": "Artifact",
+"base": "Reference",
 "class": "LastAngelsRing",
 "language": "GDScript",
 "path": "res://Classes/Artifacts/LastAngelsRing.gd"
@@ -409,7 +409,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Classes/Actions/PrayAction.gd"
 }, {
-"base": "Artifact",
+"base": "Reference",
 "class": "PrisonersMask",
 "language": "GDScript",
 "path": "res://Classes/Artifacts/PrisonersMask.gd"
@@ -478,11 +478,6 @@ _global_script_classes=[ {
 "class": "RunAction",
 "language": "GDScript",
 "path": "res://Classes/Actions/RunAction.gd"
-}, {
-"base": "Node",
-"class": "SaveFile",
-"language": "GDScript",
-"path": "res://Classes/Files/SaveFile.gd"
 }, {
 "base": "ActionLibrary",
 "class": "SearchAction",
@@ -649,7 +644,7 @@ _global_script_class_icons={
 "ActionTextureRect": "",
 "AngelorisFinding": "",
 "AngelorisItem": "",
-"Artifact": "",
+"Artifacts": "",
 "BalanceData": "",
 "Bear": "",
 "BerriesFinding": "",
@@ -734,7 +729,6 @@ _global_script_class_icons={
 "Ruins0": "",
 "Ruins1": "",
 "RunAction": "",
-"SaveFile": "",
 "SearchAction": "",
 "SemeryFinding": "",
 "SemeryItem": "",

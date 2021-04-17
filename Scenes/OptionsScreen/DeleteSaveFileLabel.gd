@@ -11,8 +11,7 @@ func _ready():
 		
 func _on_DeleteSaveFileLabel_pressed():
 	var title_screen = get_tree().get_nodes_in_group("title_screen").front()
-	var save_file = SaveFile.new()
-	save_file.delete()
+	Save.delete()
 	title_screen.get_node("PlayLabel").text = "New Game"
 	text = "no save file found"
 

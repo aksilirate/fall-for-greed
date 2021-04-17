@@ -69,8 +69,7 @@ func generate_locations():
 		upcoming_locations[upcoming_locations.size() - 1] = current_area.LAST_EVENT
 				
 				
-	var save_file = SaveFile.new()
-	save_file.save_value("Game", "upcoming_locations",upcoming_locations)
+	Save.save_value("Game", "upcoming_locations",upcoming_locations)
 
 
 func _ready():
@@ -79,53 +78,50 @@ func _ready():
 	
 	
 func reset_findings_left():
-	var save_file = SaveFile.new()
 	randomize()
 	findings_left = randi() % 10
-	save_file.save_value("Game", "findings_left",findings_left)
+	Save.save_value("Game", "findings_left",findings_left)
 	
 	
 func load_game():
-	var save_file = SaveFile.new()
-	if not save_file.get_saved_value("Game", "current_area"):
+	if not Save.get_saved_value("Game", "current_area"):
 		current_area = AbandonedForest.new()
-		save_file.save_value("Game", "current_area",current_area)
+		Save.save_value("Game", "current_area",current_area)
 		current_event = current_area
 	else:
-		current_area = save_file.get_saved_value("Game", "current_area")
+		current_area = Save.get_saved_value("Game", "current_area")
 		
 
-	if not save_file.get_saved_value("Game", "current_event"):
+	if not Save.get_saved_value("Game", "current_event"):
 		current_event = current_area
 	else:
-		current_event = save_file.get_saved_value("Game", "current_event")
+		current_event = Save.get_saved_value("Game", "current_event")
 	
-	if not save_file.get_saved_value("Game", "location_index"):
+	if not Save.get_saved_value("Game", "location_index"):
 		location_index = 0
 	else:
-		location_index = save_file.get_saved_value("Game", "location_index")
+		location_index = Save.get_saved_value("Game", "location_index")
 		
 		
-	if not save_file.get_saved_value("Game", "upcoming_locations"):
+	if not Save.get_saved_value("Game", "upcoming_locations"):
 		generate_locations()
 	else:
-		upcoming_locations = save_file.get_saved_value("Game", "upcoming_locations")
+		upcoming_locations = Save.get_saved_value("Game", "upcoming_locations")
 	
 	
-	if not save_file.get_saved_value("Game", "findings_left"):
+	if not Save.get_saved_value("Game", "findings_left"):
 		reset_findings_left()
 	else:
-		findings_left = save_file.get_saved_value("Game", "findings_left")
+		findings_left = Save.get_saved_value("Game", "findings_left")
 		
 	
 	
 func save_game():
-	var save_file = SaveFile.new()
-	save_file.save_value("Game", "current_area",current_area)
-	save_file.save_value("Game", "current_event",current_event)
-	save_file.save_value("Game", "location_index",location_index)
-	save_file.save_value("Game", "upcoming_locations",upcoming_locations)
-	save_file.save_value("Game", "findings_left",findings_left)
+	Save.save_value("Game", "current_area",current_area)
+	Save.save_value("Game", "current_event",current_event)
+	Save.save_value("Game", "location_index",location_index)
+	Save.save_value("Game", "upcoming_locations",upcoming_locations)
+	Save.save_value("Game", "findings_left",findings_left)
 	
 func change_event_to(_event: Object):
 	current_event = _event
@@ -176,8 +172,7 @@ func advance_location():
 	
 		if current_event.get_script() == current_area.get_script():
 			if rand_range(0,1) < 0.02:
-				var story = get_tree().get_nodes_in_group("story").front()
-				if story.current_artifact == null:
+				if Game.equipped_artifact == null:
 					current_event = Wanderer
 			
 	reset_findings_left()

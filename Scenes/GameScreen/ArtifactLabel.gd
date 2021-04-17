@@ -35,8 +35,6 @@ func _ready():
 
 
 func _on_pressed():
-	var story = get_tree().get_nodes_in_group("story").front()
-
 	Audio.emit_sound_effect("res://Sounds/Interface/Button.wav")
 
 	
@@ -50,8 +48,8 @@ func _on_pressed():
 			yield(animation_player,"animation_finished")
 		threat_container.hide()
 		inventory.rect_position.x = -100
-		if story.current_artifact != null:
-			profile_texture.texture = story.current_artifact.SELF_PROFILE_PICTURE
+		if Game.equipped_artifact != null:
+			profile_texture.texture = Game.equipped_artifact.SELF_PROFILE_PICTURE
 		else:
 			profile_border.hide()
 			profile_texture.texture = null
@@ -60,8 +58,8 @@ func _on_pressed():
 		
 		update_actions()
 		
-	if story.current_artifact != null:
-		history_label.text = story.current_artifact.STORY
+	if Game.equipped_artifact != null:
+		history_label.text = Game.equipped_artifact.STORY
 	else:
 		history_label.text = "You don't have any artifact."
 
@@ -82,10 +80,9 @@ func deselect():
 
 
 func update_actions():
-	var story = get_tree().get_nodes_in_group("story").front()
 	var executer = owner.get_node("Logic/Characters").get_children()
 	
-	if story.current_artifact != null:
+	if Game.equipped_artifact != null:
 		emit_signal("update_west_action", load(BreakArtifact.TEXTURE), BreakArtifact, executer)
 	else:
 		emit_signal("update_west_action", null, null, null)

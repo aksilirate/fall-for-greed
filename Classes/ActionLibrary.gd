@@ -149,7 +149,6 @@ func calculate_character_turn(_character, _energy_cost, _minutes_passed):
 	calculate_mood(_character, _minutes_passed)
 	calculate_luck(_character, _minutes_passed)
 	
-	var _current_artifact = story.current_artifact
 	
 	var _mood_check = _character.get_mood_status()
 	var _hunger_check = _character.get_hunger_status()
@@ -161,7 +160,7 @@ func calculate_character_turn(_character, _energy_cost, _minutes_passed):
 		_character.stats["health"] = 1.0
 		
 
-	if _current_artifact != null and _current_artifact.get("ANTI_HUNGER"):
+	if Game.equipped_artifact != null and Game.equipped_artifact.get("ANTI_HUNGER"):
 		_character.stats["hunger"] = max(1.0, _character.stats["hunger"])
 	else:
 		_character.stats["hunger"] -= (_energy_cost / 3.5) + _health_gained
@@ -379,10 +378,10 @@ func reset_location():
 
 
 func acquire_random_artifact():
-	var _random_artifact = story.artifacts[randi() % story.artifacts.size()]
-	emit_story_telling("you have accepted the offer and acquired" + _random_artifact.NAME)
+	var random_artifact = Artifacts.get_random_artifact()
+	emit_story_telling("you have accepted the offer and acquired" + random_artifact.NAME)
 	yield(self,"story_telling_started")
-	story.current_artifact = _random_artifact.new()
+	Game.equipped_artifact = random_artifact.new()
 	for _character in get_tree().get_nodes_in_group("characters"):
 		_character.stats["health"] = _character.stats["health"] / 2
 	yield(self,"story_telling_finished")
@@ -391,7 +390,7 @@ func acquire_random_artifact():
 func break_artifact():
 	emit_story_telling("you have broken the artifact")
 	yield(self,"story_telling_started")
-	story.current_artifact = null
+	Game.equipped_artifact = null
 	yield(self,"story_telling_finished")
 	queue_free()
 
@@ -676,7 +675,6 @@ func emit_take_item():
 func start_battle():
 	animation_player.play("Hide Screen")
 	yield(animation_player,"animation_finished")
-	var _current_artifact = story.current_artifact
 	var shell_scene = load("res://Scenes/ShellsScene/ShellsScene.tscn").instance()
 	
 
@@ -685,9 +683,8 @@ func start_battle():
 		game_screen.hold_slot.selected_item = null
 		for _child in game_screen.hold_slot.get_children():
 			_child.queue_free()
-		game_screen.save()
 		
-	if _current_artifact != null and _current_artifact.get("LOSE_FIRST_ROUND"):
+	if Game.equipped_artifact != null and Game.equipped_artifact.get("LOSE_FIRST_ROUND"):
 		shell_scene.auto_lose = true
 		
 	shell_scene.enemy = area.current_event

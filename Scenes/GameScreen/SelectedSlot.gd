@@ -4,8 +4,7 @@ var selected_item: Object
 
 
 func _ready():
-	var save_file = SaveFile.new()
-	var saved_selected_item = save_file.get_saved_value("game", "selected_item")
+	var saved_selected_item = Save.get_saved_value("game", "selected_item")
 	if saved_selected_item:
 		selected_item = saved_selected_item
 		load_selected_item_texture(selected_item)
@@ -22,8 +21,6 @@ func _on_item_hold(_item):
 		
 	if _item != null:
 		load_selected_item_texture(selected_item)
-
-	owner.save()
 
 func load_selected_item_texture(_selected_item):
 		var _item_rect = TextureRect.new()

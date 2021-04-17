@@ -30,7 +30,7 @@ var right_action: Object
 var east_action : Object
 
 
-var inventory: Array setget set_inventory
+var inventory: Array
 
 var mistakes = []
 var active_effects = []
@@ -46,19 +46,19 @@ var stats = {
 	"energy": 1,
 	"loneliness": 1,
 	"luck" : 0
-} setget set_stats
+}
 
 var hormones = {
 	"melatonin": 0.0
-} setget set_hormones
+}
 
 var traits = {
 	"focus": 0.0,
 	"humor": 0.0,
 	"combat": 0.0
-} setget set_traits
+}
 
-var action_cooldowns = {} setget set_action_cooldowns
+var action_cooldowns = {}
 	
 
 var current_character
@@ -76,9 +76,7 @@ func _ready():
 		add_child(_effect)
 	saved_effects = []
 	
-	
 	add_to_group("characters")
-	call_deferred("save_character")
 	
 	
 func add_effect(_effect_type: Object):
@@ -115,32 +113,6 @@ func get_melatonin_status():
 
 
 
-func set_stats(_value):
-	stats = _value
-	save_character()
-	
-func set_traits(_value):
-	traits = _value
-	save_character()
-	
-func set_hormones(_value):
-	hormones = _value
-	save_character()
-	
-func set_inventory(_value):
-	inventory = _value
-	save_character()
-	
-func set_action_cooldowns(_value):
-	action_cooldowns = _value
-	save_character()
-	
-func save_character():
-	var save_file = SaveFile.new()
-	save_file.save_value("characters", character_name, inst2dict(self))
-	
-	
-	
 	
 #	gets connected by Character: Node 
 func _on_character_selected() -> void:

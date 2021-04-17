@@ -132,6 +132,7 @@ script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
 [connection signal="pressed" from="ConfirmLabel" to="ConfirmLabel" method="_on_ConfirmLabel_pressed"]
 [connection signal="pressed" from="DeleteSaveFileLabel" to="DeleteSaveFileLabel" method="_on_DeleteSaveFileLabel_pressed"]
 [connection signal="value_changed" from="MasterVolumeLabel/MasterVolumeSlider" to="MasterVolumeLabel/MasterVolumeSlider" method="_on_MasterVolumeSlider_value_changed"]

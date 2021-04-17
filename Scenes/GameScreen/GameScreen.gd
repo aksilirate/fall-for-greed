@@ -30,10 +30,12 @@ func _ready():
 	var east_action = $Actions/EastAction
 	area.connect("update_east_action", east_action, "_on_update_east_action")
 	
+	for action in $Actions.get_children():
+		action.connect("action_pressed", self, "_on_action_pressed")
 	
-	var save_file = SaveFile.new()
-	if  save_file.get_saved_value("Game", "selected_tarot_card"):
-		selected_tarot_card = save_file.get_saved_value("Game", "selected_tarot_card")
+	
+	if  Save.get_saved_value("Game", "selected_tarot_card"):
+		selected_tarot_card = Save.get_saved_value("Game", "selected_tarot_card")
 		
 	
 	
@@ -50,6 +52,11 @@ func _ready():
 		animation_player.play("Load")
 		history_label.text = selected.story
 		emit_signal("story_selected")
+		
+		
+	call_deferred("save_game")
+
+
 
 
 func load_card_picking_scene():
@@ -62,23 +69,20 @@ func load_card_picking_scene():
 
 
 func set_selected_tarot_card(_value):
-	var save_file = SaveFile.new()
-	save_file.save_value("Game", "selected_tarot_card",_value)
+	Save.save_value("Game", "selected_tarot_card",_value)
 	selected_tarot_card = _value
 	
 
 func _on_character_death(_character):
 	if _character:
-		var save_file = SaveFile.new()
 		emit_signal("story_selected")
-		save_file.erase_value("Characters", _character.character_name)
+		Save.erase_value("Characters", _character.character_name)
 		_character.free()
 		
 		
 		
 	if characters.get_child_count() == 0:
-		var save_file = SaveFile.new()
-		save_file.delete()
+		Save.delete()
 # warning-ignore:return_value_discarded
 		get_tree().change_scene("res://Scenes/DeathScreen/DeathScreen.tscn")
 		
@@ -143,12 +147,16 @@ func _on_AnimationPlayer_animation_started(anim_name):
 		emit_signal("story_selected")
 
 
-func save_game():
-	var save_file = SaveFile.new()
-	save_file.save_value("game", "selected_item", hold_slot.selected_item)
-	
-func save():
+
+func _on_action_pressed():
 	call_deferred("save_game")
+	
+func save_game():
+	for character in get_tree().get_nodes_in_group("characters"):
+		Save.save_value("characters", character.character_name, inst2dict(character))
+	
+	Save.save_value("Game", "equipped_artifact", Game.equipped_artifact)
+	Save.save_value("game", "selected_item", hold_slot.selected_item)
 	
 	
 

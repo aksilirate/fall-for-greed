@@ -67,17 +67,13 @@ func character_attack():
 		yield(get_tree().create_timer(0.19), "timeout")
 		
 		
-		
-		
-		var story = get_tree().get_nodes_in_group("story").front()
-		var _current_artifact = story.current_artifact
 		var _damage = (_character.character_reference.traits["combat"] * 3)
 		
 		
 		if game_screen.selected_tarot_card.get("STRENGTH"):
 			_damage += 0.37
 		
-		if _current_artifact != null and _current_artifact.get("DOUBLE_DAMAGE"):
+		if Game.equipped_artifact != null and Game.equipped_artifact.get("DOUBLE_DAMAGE"):
 			_damage = _damage * 2
 			
 
@@ -196,8 +192,7 @@ func play_death_message(_death_message):
 	
 	
 func game_ended():
-	var save_file = SaveFile.new()
-	save_file.delete()
+	Save.delete()
 # warning-ignore:return_value_discarded
 	var death_screen = preload("res://Scenes/DeathScreen/DeathScreen.tscn").instance()
 	
@@ -231,10 +226,7 @@ func hit(_target, _damage):
 
 func dodged(_character: Character):
 	
-	var story = get_tree().get_nodes_in_group("story").front()
-	var _current_artifact = story.current_artifact
-	
-	if _current_artifact != null and _current_artifact.get("ANTI_DODGE") or game_screen.selected_tarot_card.get("ANTI_DODGE"):
+	if Game.equipped_artifact != null and Game.equipped_artifact.get("ANTI_DODGE") or game_screen.selected_tarot_card.get("ANTI_DODGE"):
 		return false
 			
 	if rand_range(0,1) < _character.stats["energy"] / 2:

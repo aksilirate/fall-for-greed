@@ -1,6 +1,9 @@
 extends Node
 
 
+var equipped_artifact: Object
+
+
 
 
 
@@ -17,5 +20,6 @@ var new_game_ready := false
 func _on_node_removed(_node):
 	if _node.name == "GameScreen" and new_game_ready:
 # warning-ignore:return_value_discarded
+		equipped_artifact = null
 		get_tree().change_scene("res://Scenes/GameScreen/GameScreen.tscn")
 		new_game_ready = false

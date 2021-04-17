@@ -72,6 +72,7 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
 [connection signal="pressed" from="NewGameLabel" to="NewGameLabel" method="_on_NewGameLabel_pressed"]
 [connection signal="pressed" from="OptionsLabel" to="OptionsLabel" method="_on_OptionsLabel_pressed"]
 [connection signal="pressed" from="QuitLabel" to="QuitLabel" method="_on_QuitLabel_pressed"]
