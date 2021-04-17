@@ -198,7 +198,13 @@ func load_game():
 	else:
 		Game.current_event = Game.current_area
 		
-		
+	var saved_upcoming_locations = Save.get_saved_value("Game", "upcoming_locations")
+	if saved_upcoming_locations:
+		Game.upcoming_locations = saved_upcoming_locations
+	else:
+		$Logic/Area.generate_locations()
+
+
 	var saved_artifact = Save.get_saved_value("Game", "equipped_artifact")
 	if saved_artifact:
 		Game.equipped_artifact = saved_artifact

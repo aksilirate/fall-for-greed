@@ -84,12 +84,6 @@ func load_game():
 	else:
 		location_index = Save.get_saved_value("Game", "location_index")
 		
-		
-	if not Save.get_saved_value("Game", "upcoming_locations"):
-		generate_locations()
-	else:
-		Game.upcoming_locations = Save.get_saved_value("Game", "upcoming_locations")
-	
 	
 	if not Save.get_saved_value("Game", "findings_left"):
 		reset_findings_left()

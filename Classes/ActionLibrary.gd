@@ -42,8 +42,7 @@ func change_event_to(_event: Object):
 
 
 func add_to_minutes_passed(amount):
-	
-	if Time.get_formatted_time("day", Game.minutes_passed) > Time.get_formatted_time("day", Game.minutes_passed + amount):
+	if Time.get_formatted_time("day", Game.minutes_passed + amount) > Time.get_formatted_time("day", Game.minutes_passed):
 		tarot_prophecy_ready = true
 		
 	Game.minutes_passed += amount
