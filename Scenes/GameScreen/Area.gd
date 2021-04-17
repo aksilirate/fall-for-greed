@@ -27,14 +27,6 @@ func change_event_to(_event: Object):
 	update_actions()
 
 
-
-func _on_location_reseted():
-	if Game.current_area.get_script() != Game.current_event.get_script():
-		Game.current_event = Game.current_area
-		update_story_info()
-	update_actions()
-
-
 	
 func used_location_removed():
 	if Game.upcoming_locations[Game.location_index].get_script() != Game.current_area.get_script() and not Game.upcoming_locations[Game.location_index] is Zone:

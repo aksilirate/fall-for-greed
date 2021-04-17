@@ -24,6 +24,9 @@ func _ready():
 # warning-ignore:return_value_discarded
 	Events.connect("console_command_save", self, "save_game")
 	
+# warning-ignore:return_value_discarded
+	Events.connect("location_reset", self, "_on_location_reset")
+	
 	var west_action = $Actions/WestAction
 	area.connect("update_west_action", west_action, "_on_update_west_action")
 	var left_action = $Actions/LeftAction
@@ -135,7 +138,9 @@ func _on_AnimationPlayer_animation_started(anim_name):
 
 
 
-
+func _on_location_reset():
+	$Logic/Area.update_story_info()
+	$Logic/Area.update_actions()
 
 
 

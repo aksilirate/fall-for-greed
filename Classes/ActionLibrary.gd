@@ -12,7 +12,6 @@ signal summon_character(_character)
 signal kill_character(_character)
 signal story_telling_started
 signal story_telling_finished
-signal location_reseted
 
 var tarot_prophecy_ready := false
 var upcoming_stories = []
@@ -26,8 +25,6 @@ func _ready():
 	connect("kill_character", game_screen, "_on_character_death")
 # warning-ignore:return_value_discarded
 	connect("summon_character", game_screen, "_on_summon_character")
-# warning-ignore:return_value_discarded
-	connect("location_reseted", area , "_on_location_reseted")
 # warning-ignore:return_value_discarded
 	connect("story_telling_started", area, "_on_story_selected")
 # warning-ignore:return_value_discarded
@@ -379,7 +376,7 @@ func kill_character(_character):
 	
 func reset_location():
 	yield(self,"story_telling_started")
-	emit_signal("location_reseted")
+	Game.reset_location()
 
 
 func acquire_random_artifact():

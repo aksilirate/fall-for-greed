@@ -88,3 +88,8 @@ func generate_locations():
 		upcoming_locations[upcoming_locations.size() - 1] = current_area.LAST_EVENT
 				
 				
+				
+func reset_location():
+	if Game.current_area.get_script() != Game.current_event.get_script():
+		Game.current_event = Game.current_area
+	Events.emit_signal("location_reset")
