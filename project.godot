@@ -780,9 +780,10 @@ config/icon="res://Icon.png"
 
 [autoload]
 
-GameLoader="*res://Singletons/GameLoader.gd"
+Game="*res://Singletons/Game.gd"
 ModLoader="*res://Singletons/ModLoader.gd"
 Audio="*res://Singletons/Audio.gd"
+Save="*res://Singletons/Save.gd"
 
 [display]
 

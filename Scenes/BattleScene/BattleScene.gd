@@ -99,7 +99,10 @@ func character_attack():
 			
 			if enemy.get_script() == Witch.new().get_script():
 				game_ended()
-				
+		
+			
+			
+			
 			play_death_message("you have killed " + enemy.NAME)
 			yield(self, "death_message_finished")
 			game_screen.animation_player.play("Show Screen")
