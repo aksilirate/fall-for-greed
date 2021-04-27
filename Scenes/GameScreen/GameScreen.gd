@@ -68,8 +68,9 @@ func load_card_picking_scene():
 
 func _on_character_death(_character):
 	if _character:
-		emit_signal("story_selected")
 		_character.free()
+		emit_signal("story_selected")
+
 		
 		
 		

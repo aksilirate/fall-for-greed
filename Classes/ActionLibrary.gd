@@ -133,7 +133,6 @@ func calculate_turn(_energy_cost, _minutes_passed):
 			
 
 
-
 func calculate_character_effects(_character, _minutes_passed):
 	for _child in _character.get_children():
 		if _child.is_in_group("Effect"):
