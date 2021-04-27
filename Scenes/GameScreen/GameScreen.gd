@@ -36,6 +36,7 @@ func _ready():
 	var east_action = $Actions/EastAction
 	area.connect("update_east_action", east_action, "_on_update_east_action")
 	
+	
 	load_game()
 	
 	

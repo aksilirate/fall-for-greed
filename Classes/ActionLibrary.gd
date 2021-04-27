@@ -743,16 +743,17 @@ func eat(_character, _selected_item):
 
 func cook():
 	var rand = RandomNumberGenerator.new()
+	var _selected_item = game_screen.selected.item
 	rand.randomize()
 	var _character = game_screen.last_selected_character
 	randomize()
-	var cook_time = rand.randi_range(Game.held_item.MIN_COOK_TIME, Game.held_item.MAX_COOK_TIME)
+	var cook_time = rand.randi_range(_selected_item.MIN_COOK_TIME, _selected_item.MAX_COOK_TIME)
 	add_to_minutes_passed(cook_time)
-	emit_story_telling("you have cooked " + Game.held_item.NAME + " for " + str(cook_time) + " minutes")
+	emit_story_telling("you have cooked " + _selected_item.NAME + " for " + str(cook_time) + " minutes")
 	yield(self,"story_telling_finished")
-	var _inventory_item_index = _character.inventory.find(Game.held_item)
+	var _inventory_item_index = _character.inventory.find(_selected_item)
 	if _inventory_item_index != -1:
-		_character.inventory[_inventory_item_index] = Game.held_item.COOKS_INTO
+		_character.inventory[_inventory_item_index] = _selected_item.COOKS_INTO
 
 
 func change_area():

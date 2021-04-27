@@ -103,7 +103,7 @@ func character_attack():
 			yield(self, "death_message_finished")
 			game_screen.animation_player.play("Show Screen")
 			
-			game_screen.area._on_location_reseted()
+			Game.reset_location()
 			if enemy.has_method("death_curse"):
 				enemy.death_curse(game_screen)
 			get_parent().queue_free()

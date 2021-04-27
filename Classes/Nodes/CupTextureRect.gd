@@ -62,7 +62,7 @@ func _on_mouse_entered():
 
 
 
-
+var peek_tweem_playing := false
 func set_hover_time(_value):
 	hover_time = _value
 	if hover_time >= 0.666:
@@ -75,12 +75,13 @@ func set_hover_time(_value):
 			
 			peek_tween.interpolate_property(self, "rect_position", rect_position, rect_position - Vector2(0,6.66), 0.3, Tween.TRANS_SINE)
 			peek_tween.start()
+			peek_tweem_playing = true
 			yield(peek_tween,"tween_completed")
 			peek_tween.interpolate_property(self, "rect_position", rect_position, rect_position + Vector2(0,6.66), 0.3, Tween.TRANS_SINE)
 			peek_tween.start()
 			yield(peek_tween,"tween_completed")
 			peek_tween.queue_free()
-
+			peek_tweem_playing = false
 
 func set_hold_time(_value):
 	hold_time = _value
@@ -91,7 +92,7 @@ func set_hold_time(_value):
 
 func _on_gui_input(event):
 	if event is InputEventMouseButton:
-		if not event.pressed and event.button_index == BUTTON_LEFT and not hold_time >= 0.666 and not animation_player.is_playing():
+		if not event.pressed and event.button_index == BUTTON_LEFT and not hold_time >= 0.666 and not animation_player.is_playing() and not peek_tweem_playing:
 			cup_pressed()
 		elif event.pressed and not animation_player.is_playing():
 			holding = true

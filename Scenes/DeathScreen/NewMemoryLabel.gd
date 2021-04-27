@@ -6,5 +6,6 @@ extends LabelButton
 
 func _on_NewMemoryLabel_pressed():
 	Save.delete()
-	Game.new_game_ready = true
-	get_parent().get_parent().queue_free()
+	Game.selected_tarot_card = null
+# warning-ignore:return_value_discarded
+	get_tree().change_scene("res://Scenes/GameScreen/GameScreen.tscn")

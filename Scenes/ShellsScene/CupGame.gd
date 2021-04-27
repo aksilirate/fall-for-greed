@@ -131,22 +131,22 @@ func _on_cup_selected(_cup):
 	fool = false
 	$Heart.visible = false
 	heart_found = false
-	
+
+
 	if not anti_lose:
-		if rand_range(0,speed) < min(speed,owner.enemy.DAMAGE) / 3:
-			if Game.equipped_artifact != null and Game.equipped_artifact.get("ANTI_FOOL"):
-				fool = false
-			elif not owner.enemy.get("FOOL_UNAVOIDABLE") and avoided_fool:
-				avoided_fool = false
-				fool = false
-			else:
-				fool = true
+		if Game.equipped_artifact != null and Game.equipped_artifact.get("ANTI_FOOL"):
+			fool = false
+		elif Game.selected_tarot_card.get("FOOL"):
+			fool = true
+		elif not owner.enemy.get("FOOL_UNAVOIDABLE") and avoided_fool:
+			avoided_fool = false
+			fool = false
+		else:
+			fool = false
+
 			
 	match _cup:
 		"Left":
-			
-			
-			
 			
 			if anti_lose:
 				if heart_location[LEFT] == false:
